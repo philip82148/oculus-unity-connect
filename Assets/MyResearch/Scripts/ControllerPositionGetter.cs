@@ -8,6 +8,9 @@ using UnityEngine.UI;
 using System.Text;
 using TMPro;
 using System;
+// using Mathd;
+
+
 public class ControllerPositionGetter : MonoBehaviour
 {
 
@@ -20,47 +23,52 @@ public class ControllerPositionGetter : MonoBehaviour
     [SerializeField] float spatialBlend = 1.0f;
 
 
-    [Header("UI Setting")]
-    [SerializeField] private Text text;
-    [SerializeField] private Slider amplitudeSlider;
-    [SerializeField] private Slider pitchSlider;
-    [SerializeField] private Slider panSlider;
+    // [Header("UI Setting")]
+    // [SerializeField] private Text text;
+    // [SerializeField] private Slider amplitudeSlider;
+    // [SerializeField] private Slider pitchSlider;
+    // [SerializeField] private Slider panSlider;
 
     private StreamWriter writer;
     private string filePath;
     private bool isMeasuring = false;
 
 
-
+    [SerializeField]
     private Vector3
-     rightControllerPosition;
+         rightControllerPosition;
 
     private Vector3
     previousRightControllerPosition;
     private float movementSpeed;
-    private Vector3 acceleration;
+    // private Vector3 acceleration;
 
-    [SerializeField] private float amplitudeCoefficient;
+    [SerializeField] private float amplitudeCoefficient = 10.0f;
     private float amplitude;
-    [SerializeField] private float frequencyCoefficient;
+    [SerializeField] private float frequencyCoefficient = 10.0f;
     private float frequency;
-    [SerializeField] private float panCoefficient;
+    [SerializeField] private float panCoefficient = 10.0f;
     private float pan;
 
     [Header("Debug")]
     [SerializeField] private bool isDebug = false;
+    [SerializeField] private bool isSound = true;
 
-    [Header("Debug UI Setting")]
+    [SerializeField] private bool isMeasuringEveryInformation = false;
 
-    [SerializeField] private Text debugText;
-    [SerializeField] private Slider debugAmplitudeSlider;
-    [SerializeField] private Slider debugPitchSlider;
-    [SerializeField] private Slider debugPanSlider;
+    // [Header("Debug UI Setting")]
+
+    // [SerializeField] private Text debugText;
+    // [SerializeField] private Slider debugAmplitudeSlider;
+    // [SerializeField] private Slider debugPitchSlider;
+    // [SerializeField] private Slider debugPanSlider;
 
 
     void Start()
     {
         Initialize();
+
+
         audioSource.loop = true;
         audioSource.Play();
         ChangeSpatialBlend();
@@ -70,32 +78,57 @@ public class ControllerPositionGetter : MonoBehaviour
     void Initialize()
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
-        filePath = Path.Combine(Application.persistentDataPath, $"OpenBrushData_{dateTime}.txt");
-
+        // string date = DateTime.Now.ToString("yyyyMMdd");
+        if (isSound)
+        {
+            filePath = Path.Combine($"C:\\Users\\takaharayota\\Research\\data\\0424\\2exp_withsound", $"OpenBrushData_{dateTime}.txt");
+        }
+        else
+        {
+            filePath = Path.Combine($"C:\\Users\\takaharayota\\Research\\data\\0424\\2exp_withoutsound", $"OpenBrushData_{dateTime}.txt");
+        }
         FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
         writer = new StreamWriter(fileStream, Encoding.UTF8);
-        isMeasuring = true;
-        previousRightControllerPosition = GetRightControllerPosition();
-        acceleration = OVRInput.GetLocalControllerAcceleration(OVRInput.Controller.RTouch);
-        Debug.Log("acceleration" + acceleration);
 
+
+        previousRightControllerPosition = GetRightControllerPosition();
+        // acceleration = OVRInput.GetLocalControllerAcceleration(OVRInput.Controller.RTouch);
+        // Debug.Log("acceleration" + acceleration);
+
+    }
+
+
+    public void StartMeasurement(int count)
+    {
+        writer.WriteLine("count:" + count);
+
+        isMeasuring = true;
+    }
+    public void EndMeasurement()
+    {
+        isMeasuring = false;
     }
 
     void Update()
     {
+
         DebugSetting();
 
         previousRightControllerPosition = rightControllerPosition;
-        acceleration = OVRInput.GetLocalControllerAcceleration(OVRInput.Controller.RTouch);
+        // acceleration = OVRInput.GetLocalControllerAcceleration(OVRInput.Controller.RTouch);
         // Oculus Touchの右コントローラーのスティック入力を取得
         Vector2 stickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
 
         // スティックのY軸入力（上下）を使ってスライダーの値を調整
-        float newValue = amplitudeSlider.value + (stickInput.y * 0.2f);
-        amplitudeSlider.value = Mathf.Clamp(newValue, amplitudeSlider.minValue, amplitudeSlider.maxValue);
+        // float newValue = amplitudeSlider.value + (stickInput.y * 0.2f);
+        // amplitudeSlider.value = Mathf.Clamp(newValue, amplitudeSlider.minValue, amplitudeSlider.maxValue);
 
 
-        WriteInformation();
+        if (isMeasuring)
+        {
+            Debug.Log("start data measurement");
+            WriteInformation();
+        }
         DisplayOnUI();
     }
 
@@ -125,35 +158,41 @@ public class ControllerPositionGetter : MonoBehaviour
 
     private void WriteInformation()
     {
-        writer.WriteLine("right hand position: " + rightControllerPosition);
-        writer.WriteLine("amplitude: " + audioSource.volume);
-        writer.WriteLine("pitch: " + audioSource.pitch);
-        writer.WriteLine("pan: " + audioSource.panStereo);
-        writer.WriteLine("acceleration: " + acceleration);
+        // writer.WriteLine("" + rightControllerPosition);
+        writer.WriteLine($"{rightControllerPosition.x},{rightControllerPosition.y},{rightControllerPosition.z}");
+        if (isMeasuringEveryInformation)
+        {
+            writer.WriteLine("amplitude: " + audioSource.volume);
+            writer.WriteLine("pitch: " + audioSource.pitch);
+            writer.WriteLine("pan: " + audioSource.panStereo);
+        }
+        // writer.WriteLine("acceleration: " + acceleration);
     }
 
     private Vector3 GetRightControllerPosition()
     {
-        Vector3 controllerPosition = InputTracking.GetLocalPosition(XRNode.RightHand);
+        Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+        Debug.Log("controller position" + controllerPosition);
         return controllerPosition;
 
     }
     private Vector3 GetPointerPosition()
     {
         return Input.mousePosition;
+
     }
 
     private void AudioSetting()
     {
-        amplitude = Mathf.Abs(rightControllerPosition.z);
-        frequency = rightControllerPosition.y;
+        amplitude = 0.5f - rightControllerPosition.z;
+        frequency = 0.5f + rightControllerPosition.y;
         pan = rightControllerPosition.x;
 
 
         audioSource.volume = amplitude * amplitudeCoefficient;
         audioSource.pitch = frequency * frequencyCoefficient;
         audioSource.panStereo = pan * panCoefficient;
-
+        // Debug.Log("ans" + amplitude * amplitudeCoefficient);
         soundController.gainCoefficient = amplitude * amplitudeCoefficient;
         soundController.frequencyCoefficient = frequency * frequencyCoefficient;
         soundController.panCoefficient = pan * panCoefficient;
@@ -162,9 +201,9 @@ public class ControllerPositionGetter : MonoBehaviour
 
     private void DebugAudioSettingFromUI()
     {
-        amplitudeCoefficient = debugAmplitudeSlider.value;
-        frequencyCoefficient = debugPitchSlider.value;
-        panCoefficient = debugPanSlider.value;
+        // amplitudeCoefficient = debugAmplitudeSlider.value;
+        // frequencyCoefficient = debugPitchSlider.value;
+        // panCoefficient = debugPanSlider.value;
 
 
 
@@ -174,9 +213,9 @@ public class ControllerPositionGetter : MonoBehaviour
 
     private void AudioSettingFromUI()
     {
-        amplitudeCoefficient = amplitudeSlider.value;
-        frequencyCoefficient = pitchSlider.value;
-        panCoefficient = panSlider.value;
+        // amplitudeCoefficient = amplitudeSlider.value;
+        // frequencyCoefficient = pitchSlider.value;
+        // panCoefficient = panSlider.value;
 
 
     }
@@ -209,11 +248,11 @@ public class ControllerPositionGetter : MonoBehaviour
     {
         if (isDebug)
         {
-            debugText.text = acceleration.ToString();
+            // debugText.text = acceleration.ToString();
         }
         else
         {
-            text.text = acceleration.ToString();
+            // text.text = acceleration.ToString();
 
         }
     }

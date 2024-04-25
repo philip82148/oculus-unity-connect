@@ -19,21 +19,17 @@ public class GetHandInformation : MonoBehaviour
 
     private StreamWriter writer;
     private string filePath;
-    private bool isMeasuring = false;
+    private bool isMeasuring = true;
     private void Start()
     {
         filePath = Path.Combine(Application.persistentDataPath, "HandInformation.txt");
         Debug.Log(filePath);
-        // startButton.onClick.AddListener(StartMeasurement);
-        // endButton.onClick.AddListener(EndMeasurement);
-
-
-        writer = null;
+        displayText.text = filePath;
     }
 
     private void Update()
     {
-        displayText.text = filePath;
+
         if (isMeasuring)
         {
 
@@ -64,13 +60,18 @@ public class GetHandInformation : MonoBehaviour
             // データをテキストファイルに書き込む
             writer.WriteLine("Right Hand Position: " + rpos);
             writer.WriteLine("Right Hand Rotation: " + rrot.eulerAngles);
-            writer.WriteLine("Left Hand Position: " + lpos);
-            writer.WriteLine("Left Hand Rotation: " + lrot.eulerAngles);
+            // writer.WriteLine("Left Hand Position: " + lpos);
+            // writer.WriteLine("Left Hand Rotation: " + lrot.eulerAngles);
         }
     }
 
+    private void LogHandData(OVRInput.Controller controller, string handName)
+    {
 
-    private void StartMeasurement()
+    }
+
+
+    public void StartMeasurement()
     {
         if (!isMeasuring)
         {
@@ -82,7 +83,7 @@ public class GetHandInformation : MonoBehaviour
 
     }
 
-    private void EndMeasurement()
+    public void EndMeasurement()
     {
         if (isMeasuring)
         {
@@ -102,5 +103,11 @@ public class GetHandInformation : MonoBehaviour
         {
             writer.Close();
         }
+    }
+
+
+    public bool IsMeasuring()
+    {
+        return isMeasuring;
     }
 }

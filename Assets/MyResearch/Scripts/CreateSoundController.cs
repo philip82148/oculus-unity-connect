@@ -18,6 +18,8 @@ public class CreateSoundController : MonoBehaviour
     [SerializeField] private double gain = 0.05;
 
     [SerializeField] private double pan = 0;
+    [SerializeField] private bool isSound = true;
+
 
     public double increment;
     public double phase;
@@ -31,6 +33,10 @@ public class CreateSoundController : MonoBehaviour
     {
         frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
         gain = DEFAULT_GAIN * gainCoefficient;
+        if (!isSound)
+        {
+            gain = 0;
+        }
         pan = 1.5 * panCoefficient;
     }
     private void OnAudioFilterRead(float[] data, int channels)
