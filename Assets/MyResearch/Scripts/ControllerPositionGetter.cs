@@ -81,11 +81,11 @@ public class ControllerPositionGetter : MonoBehaviour
         // string date = DateTime.Now.ToString("yyyyMMdd");
         if (isSound)
         {
-            filePath = Path.Combine($"C:\\Users\\takaharayota\\Research\\data\\0424\\2exp_withsound", $"OpenBrushData_{dateTime}.txt");
+            filePath = Path.Combine($"C:\\Users\\takaharayota\\Research\\data\\0426\\1exp_withsound", $"OpenBrushData_{dateTime}.txt");
         }
         else
         {
-            filePath = Path.Combine($"C:\\Users\\takaharayota\\Research\\data\\0424\\2exp_withoutsound", $"OpenBrushData_{dateTime}.txt");
+            filePath = Path.Combine($"C:\\Users\\takaharayota\\Research\\data\\0426\\1exp_withoutsound", $"OpenBrushData_{dateTime}.txt");
         }
         FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
         writer = new StreamWriter(fileStream, Encoding.UTF8);
@@ -184,9 +184,11 @@ public class ControllerPositionGetter : MonoBehaviour
 
     private void AudioSetting()
     {
-        amplitude = 0.5f - rightControllerPosition.z;
-        frequency = 0.5f + rightControllerPosition.y;
-        pan = rightControllerPosition.x;
+        float scalingFactor = 2.0f; // この値を増減させて、影響度を調整
+
+        amplitude = 0.5f - scalingFactor * rightControllerPosition.z;
+        frequency = 0.5f + scalingFactor * rightControllerPosition.y;
+        pan = scalingFactor * rightControllerPosition.x;
 
 
         audioSource.volume = amplitude * amplitudeCoefficient;
