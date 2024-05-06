@@ -10,7 +10,7 @@ public class MeasurementController : MonoBehaviour
 
     // [SerializeField] private GetHandInformation handInformation;
     [SerializeField]
-    private ControllerPositionGetter controllerPositionGetter;
+    private ExperienceController experienceController;
 
 
     [SerializeField] private bool isMeasuring;
@@ -27,7 +27,7 @@ public class MeasurementController : MonoBehaviour
 
                 Debug.Log("Measurement and drawing started");
                 count++;
-                controllerPositionGetter.StartMeasurement(count);
+                experienceController.StartMeasurement(count);
                 fingerPaint.StartDrawing(); // Start drawing
                 // handInformation.StartMeasurement(); // Start hand information recording
                 isMeasuring = true;
@@ -38,7 +38,7 @@ public class MeasurementController : MonoBehaviour
             isMeasuring = false;
 
             Debug.Log("Measurement and drawing stopped");
-            controllerPositionGetter.EndMeasurement();
+            experienceController.EndMeasurement();
             fingerPaint.StopDrawing(); // Stop drawing
             // handInformation.EndMeasurement(); // Stop hand information recording
 

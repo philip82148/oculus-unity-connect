@@ -7,15 +7,16 @@ using UnityEditor;
 
 public class CreateSoundController : MonoBehaviour
 {
-    private const double DEFAULT_FREQUENCY = 440;
-    private const double DEFAULT_GAIN = 0.05;
 
-    public double frequencyCoefficient = 1.0;
-    public double gainCoefficient = 1.0;
-    public double panCoefficient = 0.0;
+    private const double DEFAULT_FREQUENCY = 622.254;
+    private const double DEFAULT_GAIN = 0.07;
 
-    [SerializeField] private double frequency = 440;
-    [SerializeField] private double gain = 0.05;
+    public double frequencyCoefficient;
+    public double gainCoefficient;
+    public double panCoefficient;
+
+    [SerializeField] private double frequency;
+    [SerializeField] private double gain;
 
     [SerializeField] private double pan = 0;
     [SerializeField] private bool isSound = true;
@@ -27,7 +28,9 @@ public class CreateSoundController : MonoBehaviour
 
     private void Start()
     {
-        // EditorApplication.Beep();
+        frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
+        gain = DEFAULT_GAIN * gainCoefficient;
+
     }
     private void Update()
     {

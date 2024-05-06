@@ -1,0 +1,7 @@
+{
+    "dotnet.backgroundAnalysis.compilerDiagnosticsScope": "openFiles",
+    "omnisharp.disableMSBuildDiagnosticWarning": true,
+    "csharp.inlayHints.enableInlayHintsForImplicitObjectCreation": true,
+    "dotnet.preferCSharpExtension": true,
+    "dotnet.server.useOmnisharp": true
+}
