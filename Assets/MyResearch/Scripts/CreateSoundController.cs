@@ -9,14 +9,14 @@ public class CreateSoundController : MonoBehaviour
 {
 
     private const double DEFAULT_FREQUENCY = 622.254;
-    private const double DEFAULT_GAIN = 0.07;
+    private const double DEFAULT_GAIN = 0.1;
 
     public double frequencyCoefficient;
-    public double gainCoefficient;
+
     public double panCoefficient;
 
     [SerializeField] private double frequency;
-    [SerializeField] private double gain;
+    [SerializeField] public double gain;
 
     [SerializeField] private double pan = 0;
     [SerializeField] private bool isSound = true;
@@ -29,13 +29,12 @@ public class CreateSoundController : MonoBehaviour
     private void Start()
     {
         frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
-        gain = DEFAULT_GAIN * gainCoefficient;
 
     }
     private void Update()
     {
         frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
-        gain = DEFAULT_GAIN * gainCoefficient;
+
         if (!isSound)
         {
             gain = 0;

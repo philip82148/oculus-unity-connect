@@ -10,6 +10,7 @@ using TMPro;
 using System;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.Serialization;
+using System.Runtime.ConstrainedExecution;
 
 public class AudioController : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] CreateSoundController soundController;
     [SerializeField] float spatialBlend = 1.0f;
-    [SerializeField] private float amplitudeCoefficient = 5.0f;
+    [SerializeField] private float amplitudeCoefficient = 0.5f;
     [SerializeField] private float amplitude;
     [SerializeField] private float frequencyCoefficient = 2.0f;
     [SerializeField] private float frequency;
@@ -34,7 +35,7 @@ public class AudioController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        soundController.gainCoefficient = amplitude * amplitudeCoefficient;
+        soundController.gain = amplitude * amplitudeCoefficient;
         soundController.frequencyCoefficient = frequency * frequencyCoefficient;
         soundController.panCoefficient = pan * panCoefficient;
         audioSource.loop = true;
@@ -61,10 +62,49 @@ public class AudioController : MonoBehaviour
         frequency = 0.5f + frequencyScalingFactor * controllerPosition.y;
         pan = controllerPosition.x;
 
-        // Debug.Log("ans" + amplitude * amplitudeCoefficient);
-        soundController.gainCoefficient = amplitude * amplitudeCoefficient;
+
+        // amplitude = 0.5f;
+        // frequency = 0.5f;
+        // pan = controllerPosition.x;
+
+
+        soundController.gain = amplitude * amplitudeCoefficient;
         soundController.frequencyCoefficient = frequency * frequencyCoefficient;
         soundController.panCoefficient = pan * panCoefficient;
+
+    }
+
+    public void SetAudioSettingWithPolar(Vector3 controllerPosition)
+    {
+        float radius = MathF.Sqrt(controllerPosition.x * controllerPosition.x + controllerPosition.z * controllerPosition.z + controllerPosition.y * controllerPosition.y);
+        float azimuth = MathF.Atan2(MathF.Abs(controllerPosition.z), MathF.Abs(controllerPosition.x));
+        float elevation = MathF.Asin(controllerPosition.y / radius) / 90;
+        amplitude = 1.0f - amplitudeScalingFactor * radius;
+
+
+
+        frequency = 0.5f + frequencyScalingFactor * controllerPosition.y;
+        pan = controllerPosition.x;
+
+
+        soundController.gain = amplitude * amplitudeCoefficient;
+        soundController.frequencyCoefficient = frequency * frequencyCoefficient;
+        soundController.panCoefficient = pan * panCoefficient;
+    }
+
+    public void SetAudioSettingWithWeberFechner(Vector3 controllerPosition)
+    {
+        float amplitudeStimulus = MathF.Max(0.01f, controllerPosition.z);
+        float frequencyStimulus = MathF.Max(0.01f, controllerPosition.y);
+
+        amplitude = 1.0f - amplitudeScalingFactor * Mathf.Log10(amplitudeStimulus + 1);
+        frequency = 0.5f + frequencyScalingFactor * Mathf.Log10(frequencyStimulus + 1);
+        pan = controllerPosition.x;
+
+        soundController.gain = amplitude * amplitudeCoefficient;
+        soundController.frequencyCoefficient = frequency * frequencyCoefficient;
+        soundController.panCoefficient = pan * panCoefficient;
+
 
     }
 

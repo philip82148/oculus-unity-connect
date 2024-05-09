@@ -9,6 +9,8 @@ using System.Text;
 using TMPro;
 using System;
 using Microsoft.Win32.SafeHandles;
+// using System.Diagnostics;
+// using System.Diagnostics;
 
 
 
@@ -72,9 +74,14 @@ public class ExperienceController : MonoBehaviour
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
         string directory = isSound ? $"{experienceCount}exp_withsound" : $"{experienceCount}exp_withoutsound";
+        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0507\\{directory}";
+
+        Directory.CreateDirectory(folder);
+        Debug.Log("create folder");
+
         string fileName = $"OpenBrushData_{dateTime}.txt";
 
-        return System.IO.Path.Combine($"C:\\Users\\takaharayota\\Research\\data\\0506\\{directory}", fileName);
+        return System.IO.Path.Combine(folder, fileName);
     }
 
 
@@ -137,6 +144,8 @@ public class ExperienceController : MonoBehaviour
     private void AudioSetting()
     {
         audioController.SetAudioSetting(rightControllerPosition);
+        // audioController.SetAudioSettingWithPolar(rightControllerPosition);
+        // audioController.SetAudioSettingWithWeberFechner(rightControllerPosition);
 
     }
 
