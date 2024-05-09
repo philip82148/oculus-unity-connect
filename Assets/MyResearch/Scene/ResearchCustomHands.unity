@@ -1458,7 +1458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightControllerPosition: {x: 0, y: 0, z: 0}
   isSound: 1
-  experienceCount: 2
+  experienceCount: 1
   audioController: {fileID: 1850028762}
   dataLoggerController: {fileID: 1242190031}
   isAmplitudeInversion: 0
@@ -3007,11 +3007,11 @@ MonoBehaviour:
   audioSource: {fileID: 1850028761}
   soundController: {fileID: 1850028763}
   spatialBlend: 1
-  amplitudeCoefficient: 5
+  amplitudeCoefficient: 0.5
   amplitude: 0
   frequencyCoefficient: 2
   frequency: 0
-  panCoefficient: 10
+  panCoefficient: 15
   pan: 0
   isAmplitudeInversion: 0
   amplitudeScalingFactor: 4
@@ -3029,8 +3029,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequencyCoefficient: 1
-  gainCoefficient: 1
-  panCoefficient: 0
   frequency: 622.254
   gain: 0.07
   pan: 0

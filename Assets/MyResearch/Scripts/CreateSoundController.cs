@@ -13,12 +13,11 @@ public class CreateSoundController : MonoBehaviour
 
     public double frequencyCoefficient;
 
-    public double panCoefficient;
 
     [SerializeField] private double frequency;
     [SerializeField] public double gain;
 
-    [SerializeField] private double pan = 0;
+    [SerializeField] public double pan = 0;
     [SerializeField] private bool isSound = true;
 
 
@@ -39,7 +38,7 @@ public class CreateSoundController : MonoBehaviour
         {
             gain = 0;
         }
-        pan = 1.5 * panCoefficient;
+
     }
     private void OnAudioFilterRead(float[] data, int channels)
     {

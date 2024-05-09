@@ -23,7 +23,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] private float amplitude;
     [SerializeField] private float frequencyCoefficient = 2.0f;
     [SerializeField] private float frequency;
-    [SerializeField] private float panCoefficient = 10.0f;
+    [SerializeField] private float panCoefficient = 15.0f;
     [SerializeField] private float pan;
     [SerializeField] public bool isAmplitudeInversion = false;
 
@@ -35,9 +35,7 @@ public class AudioController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        soundController.gain = amplitude * amplitudeCoefficient;
-        soundController.frequencyCoefficient = frequency * frequencyCoefficient;
-        soundController.panCoefficient = pan * panCoefficient;
+        ReflectAudioSettings();
         audioSource.loop = true;
         audioSource.Play();
         ChangeSpatialBlend();
@@ -67,10 +65,7 @@ public class AudioController : MonoBehaviour
         // frequency = 0.5f;
         // pan = controllerPosition.x;
 
-
-        soundController.gain = amplitude * amplitudeCoefficient;
-        soundController.frequencyCoefficient = frequency * frequencyCoefficient;
-        soundController.panCoefficient = pan * panCoefficient;
+        ReflectAudioSettings();
 
     }
 
@@ -87,9 +82,7 @@ public class AudioController : MonoBehaviour
         pan = controllerPosition.x;
 
 
-        soundController.gain = amplitude * amplitudeCoefficient;
-        soundController.frequencyCoefficient = frequency * frequencyCoefficient;
-        soundController.panCoefficient = pan * panCoefficient;
+        ReflectAudioSettings();
     }
 
     public void SetAudioSettingWithWeberFechner(Vector3 controllerPosition)
@@ -101,11 +94,18 @@ public class AudioController : MonoBehaviour
         frequency = 0.5f + frequencyScalingFactor * Mathf.Log10(frequencyStimulus + 1);
         pan = controllerPosition.x;
 
+        ReflectAudioSettings();
+
+
+
+
+    }
+
+    private void ReflectAudioSettings()
+    {
         soundController.gain = amplitude * amplitudeCoefficient;
         soundController.frequencyCoefficient = frequency * frequencyCoefficient;
-        soundController.panCoefficient = pan * panCoefficient;
-
-
+        soundController.pan = pan * panCoefficient;
     }
 
     private void ChangeSpatialBlend()
