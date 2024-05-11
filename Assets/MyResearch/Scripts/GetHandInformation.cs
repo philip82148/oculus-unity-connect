@@ -23,7 +23,7 @@ public class GetHandInformation : MonoBehaviour
     private void Start()
     {
         filePath = Path.Combine(Application.persistentDataPath, "HandInformation.txt");
-        Debug.Log(filePath);
+
         displayText.text = filePath;
     }
 
@@ -78,7 +78,7 @@ public class GetHandInformation : MonoBehaviour
             FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
             writer = new StreamWriter(fileStream, Encoding.UTF8);
             isMeasuring = true;
-            Debug.Log("Measurement start");
+
         }
 
     }
@@ -93,7 +93,7 @@ public class GetHandInformation : MonoBehaviour
             writer = null;
         }
         isMeasuring = false;
-        Debug.Log("Measurement stop");
+
         Application.Quit();
     }
     private void OnDestroy()

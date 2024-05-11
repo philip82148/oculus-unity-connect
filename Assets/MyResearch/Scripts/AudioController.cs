@@ -15,15 +15,16 @@ using System.Runtime.ConstrainedExecution;
 public class AudioController : MonoBehaviour
 {
 
+
     [Header("audio source setting")]
     [SerializeField] AudioSource audioSource;
     [SerializeField] CreateSoundController soundController;
     [SerializeField] float spatialBlend = 1.0f;
-    [SerializeField] private float amplitudeCoefficient = 0.5f;
+    [SerializeField] private const float amplitudeCoefficient = 0.5f;
     [SerializeField] private float amplitude;
-    [SerializeField] private float frequencyCoefficient = 2.0f;
+    [SerializeField] private const float frequencyCoefficient = 2.0f;
     [SerializeField] private float frequency;
-    [SerializeField] private float panCoefficient = 15.0f;
+    [SerializeField] private const float panCoefficient = 15.0f;
     [SerializeField] private float pan;
     [SerializeField] public bool isAmplitudeInversion = false;
 
@@ -32,7 +33,6 @@ public class AudioController : MonoBehaviour
     [SerializeField] float frequencyScalingFactor = 1.0f; // この値を増減させて、影響度を調整
 
 
-    // Start is called before the first frame update
     void Start()
     {
         ReflectAudioSettings();
@@ -68,6 +68,40 @@ public class AudioController : MonoBehaviour
         ReflectAudioSettings();
 
     }
+    public void SetAudioSettingOnlyAmplitude(Vector3 controllerPosition)
+    {
+        amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
+        frequency = 0.5f;
+        pan = 0;
+
+        ReflectAudioSettings();
+
+    }
+    public void SetAudioSettingOnlyFrequency(Vector3 controllerPosition)
+    {
+        amplitude = 0.5f;
+        frequency = 0.5f + frequencyScalingFactor * controllerPosition.y;
+        pan = 0;
+
+        ReflectAudioSettings();
+
+    }
+    public void SetAudioSettingOnlyPan(Vector3 controllerPosition)
+    {
+        amplitude = 1.0f;
+        frequency = 0.5f;
+        pan = 0;
+
+        ReflectAudioSettings();
+
+    }
+
+
+
+
+
+
+
 
     public void SetAudioSettingWithPolar(Vector3 controllerPosition)
     {

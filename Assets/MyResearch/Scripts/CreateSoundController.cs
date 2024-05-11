@@ -9,7 +9,7 @@ public class CreateSoundController : MonoBehaviour
 {
 
     private const double DEFAULT_FREQUENCY = 622.254;
-    private const double DEFAULT_GAIN = 0.1;
+
 
     public double frequencyCoefficient;
 
@@ -19,6 +19,7 @@ public class CreateSoundController : MonoBehaviour
 
     [SerializeField] public double pan = 0;
     [SerializeField] private bool isSound = true;
+    [SerializeField] private bool isAudio = true;
 
 
     public double increment;
@@ -34,7 +35,7 @@ public class CreateSoundController : MonoBehaviour
     {
         frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
 
-        if (!isSound)
+        if (!isSound || !isAudio)
         {
             gain = 0;
         }
@@ -66,4 +67,15 @@ public class CreateSoundController : MonoBehaviour
             if (phase > 2 * Math.PI) phase -= 2 * Math.PI; // 位相をリセット
         }
     }
+
+    public void EnableAudio()
+    {
+        isAudio = true;
+    }
+    public void DisableAudio()
+    {
+        isAudio = false;
+
+    }
+
 }

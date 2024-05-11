@@ -18,7 +18,16 @@ public class ExperienceController : MonoBehaviour
 {
 
 
+    [Header("target place text")]
+    [SerializeField] private Vector3 targetPosition;
+    [SerializeField]
 
+    private TextMeshPro targetPlaceText;
+
+
+    [Header("main setting")]
+
+    [SerializeField] private CreateSoundController createSoundController;
 
     private bool isMeasuring = false;
 
@@ -45,6 +54,11 @@ public class ExperienceController : MonoBehaviour
     [SerializeField] private DataLoggerController dataLoggerController;
 
     [SerializeField] private bool isAmplitudeInversion = false;
+
+    [Header("parameter setting")]
+
+    [SerializeField]
+    private int whichAudioParameter = 0;
 
 
 
@@ -74,12 +88,12 @@ public class ExperienceController : MonoBehaviour
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
         string directory = isSound ? $"{experienceCount}exp_withsound" : $"{experienceCount}exp_withoutsound";
-        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0507\\{directory}";
+        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0509\\{directory}";
 
         Directory.CreateDirectory(folder);
         Debug.Log("create folder");
 
-        string fileName = $"OpenBrushData_{dateTime}.txt";
+        string fileName = $"OpenBrushData_{dateTime}_{whichAudioParameter}.txt";
 
         return System.IO.Path.Combine(folder, fileName);
     }
@@ -104,6 +118,7 @@ public class ExperienceController : MonoBehaviour
         {
             AudioSetting();
         }
+        CheckIfAudioEnabled();
 
         previousRightControllerPosition = rightControllerPosition;
 
@@ -120,6 +135,26 @@ public class ExperienceController : MonoBehaviour
     }
 
 
+    private void CheckIfAudioEnabled()
+    {
+        double requiredLength = 0.15;
+
+        // Debug.Log("math abs: " + Mathf.Abs(rightControllerPosition.x - targetPlaceText.transform.position.x));
+        targetPosition = targetPlaceText.transform.localPosition;
+        if ((Mathf.Abs(rightControllerPosition.x - targetPlaceText.transform.position.x) < requiredLength) &&
+        (Mathf.Abs(rightControllerPosition.y) < requiredLength)
+    && (Mathf.Abs(rightControllerPosition.z - targetPlaceText.transform.position.z) < requiredLength))
+        {
+            createSoundController.EnableAudio();
+        }
+        else
+        {
+            // createSoundController.EnableAudio();
+            createSoundController.DisableAudio();
+        }
+    }
+
+
 
 
     private void WriteInformation()
@@ -131,7 +166,7 @@ public class ExperienceController : MonoBehaviour
     private Vector3 GetRightControllerPosition()
     {
         Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-        Debug.Log("controller position" + controllerPosition);
+
         return controllerPosition;
 
     }
@@ -143,7 +178,23 @@ public class ExperienceController : MonoBehaviour
 
     private void AudioSetting()
     {
-        audioController.SetAudioSetting(rightControllerPosition);
+        if (whichAudioParameter == 0)
+        {
+
+            audioController.SetAudioSetting(rightControllerPosition);
+        }
+        else if (whichAudioParameter == 1)
+        {
+            audioController.SetAudioSettingOnlyAmplitude(rightControllerPosition);
+        }
+        else if (whichAudioParameter == 2)
+        {
+            audioController.SetAudioSettingOnlyFrequency(rightControllerPosition);
+        }
+        else if (whichAudioParameter == 3)
+        {
+            audioController.SetAudioSettingOnlyPan(rightControllerPosition);
+        }
         // audioController.SetAudioSettingWithPolar(rightControllerPosition);
         // audioController.SetAudioSettingWithWeberFechner(rightControllerPosition);
 
