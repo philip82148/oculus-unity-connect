@@ -3016,7 +3016,7 @@ MonoBehaviour:
   pan: 0
   isAmplitudeInversion: 0
   amplitudeScalingFactor: 1
-  frequencyScalingFactor: 1
+  frequencyScalingFactor: 4
 --- !u!114 &1850028763
 MonoBehaviour:
   m_ObjectHideFlags: 0

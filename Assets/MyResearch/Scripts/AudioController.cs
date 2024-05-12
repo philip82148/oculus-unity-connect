@@ -47,14 +47,14 @@ public class AudioController : MonoBehaviour
 
 
 
-        if (isAmplitudeInversion)
-        {
-            amplitude = 0.5f + amplitudeScalingFactor * controllerPosition.z;
-        }
-        else
-        {
-            amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
-        }
+        // if (isAmplitudeInversion)
+        // {
+        //     amplitude = 0.5f + amplitudeScalingFactor * controllerPosition.z;
+        // }
+        // else
+        // {
+        amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
+        // }
 
 
         frequency = 0.5f + frequencyScalingFactor * controllerPosition.y;
@@ -70,7 +70,9 @@ public class AudioController : MonoBehaviour
     }
     public void SetAudioSettingOnlyAmplitude(Vector3 controllerPosition)
     {
-        amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
+        float discreteZ = Mathf.Floor(controllerPosition.z / 0.01f) * 0.01f;
+        // amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
+        amplitude = 1.0f - amplitudeScalingFactor * discreteZ;
         frequency = 0.5f;
         pan = 0;
 
@@ -79,7 +81,11 @@ public class AudioController : MonoBehaviour
     }
     public void SetAudioSettingOnlyFrequency(Vector3 controllerPosition)
     {
+        float discreteY = Mathf.Floor(controllerPosition.y / 0.01f) * 0.01f;
+
+
         amplitude = 0.5f;
+        frequency = 0.5f + frequencyScalingFactor * discreteY;
         frequency = 0.5f + frequencyScalingFactor * controllerPosition.y;
         pan = 0;
 
