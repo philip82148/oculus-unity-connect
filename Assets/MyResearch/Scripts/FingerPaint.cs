@@ -51,12 +51,12 @@ public class FingerPaint : MonoBehaviour
     public void ContinueDrawing()
     {
         Vector3 fingerPosition = GetFingerPosition();
-        if (Vector3.Distance(positions[positions.Count - 1], fingerPosition) > 0.01f)
-        {
-            positions.Add(fingerPosition);
-            currentDrawing.positionCount = positions.Count;
-            currentDrawing.SetPositions(positions.ToArray());
-        }
+        // if (Vector3.Distance(positions[positions.Count - 1], fingerPosition) > 0.01f)
+        // {
+        positions.Add(fingerPosition);
+        currentDrawing.positionCount = positions.Count;
+        currentDrawing.SetPositions(positions.ToArray());
+        // }
     }
 
     public void StopDrawing()

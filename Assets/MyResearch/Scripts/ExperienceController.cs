@@ -59,6 +59,8 @@ public class ExperienceController : MonoBehaviour
 
     [SerializeField]
     private int whichAudioParameter = 0;
+    [SerializeField]
+    private double requiredLength = 0.15;
 
 
 
@@ -88,7 +90,7 @@ public class ExperienceController : MonoBehaviour
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
         string directory = isSound ? $"{experienceCount}exp_withsound" : $"{experienceCount}exp_withoutsound";
-        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0509\\{directory}";
+        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0516\\{directory}";
 
         Directory.CreateDirectory(folder);
         Debug.Log("create folder");
@@ -137,12 +139,12 @@ public class ExperienceController : MonoBehaviour
 
     private void CheckIfAudioEnabled()
     {
-        double requiredLength = 0.15;
+        // double requiredLength = 0.15;
 
         // Debug.Log("math abs: " + Mathf.Abs(rightControllerPosition.x - targetPlaceText.transform.position.x));
         targetPosition = targetPlaceText.transform.localPosition;
         if ((Mathf.Abs(rightControllerPosition.x - targetPlaceText.transform.position.x) < requiredLength) &&
-        (Mathf.Abs(rightControllerPosition.y) < requiredLength)
+        (Mathf.Abs(rightControllerPosition.y - targetPlaceText.transform.position.y) < requiredLength)
     && (Mathf.Abs(rightControllerPosition.z - targetPlaceText.transform.position.z) < requiredLength))
         {
             createSoundController.EnableAudio();
@@ -170,11 +172,7 @@ public class ExperienceController : MonoBehaviour
         return controllerPosition;
 
     }
-    private Vector3 GetPointerPosition()
-    {
-        return Input.mousePosition;
 
-    }
 
     private void AudioSetting()
     {

@@ -22,7 +22,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] float spatialBlend = 1.0f;
     [SerializeField] private const float amplitudeCoefficient = 0.5f;
     [SerializeField] private float amplitude;
-    [SerializeField] private const float frequencyCoefficient = 2.0f;
+    private const float frequencyCoefficient = 4.0f;
     [SerializeField] private float frequency;
     [SerializeField] private const float panCoefficient = 15.0f;
     [SerializeField] private float pan;
@@ -31,6 +31,9 @@ public class AudioController : MonoBehaviour
     [Header("scaling factor")]
     [SerializeField] float amplitudeScalingFactor = 1.0f; // この値を増減させて、影響度を調整
     [SerializeField] float frequencyScalingFactor = 1.0f; // この値を増減させて、影響度を調整
+    [SerializeField] float controllerYPosition;
+
+    private float discreteFactor = 0.005f;
 
 
     void Start()
@@ -70,7 +73,7 @@ public class AudioController : MonoBehaviour
     }
     public void SetAudioSettingOnlyAmplitude(Vector3 controllerPosition)
     {
-        float discreteZ = Mathf.Floor(controllerPosition.z / 0.01f) * 0.01f;
+        float discreteZ = Mathf.Floor(controllerPosition.z / discreteFactor) * discreteFactor;
         // amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
         amplitude = 1.0f - amplitudeScalingFactor * discreteZ;
         frequency = 0.5f;
@@ -79,19 +82,50 @@ public class AudioController : MonoBehaviour
         ReflectAudioSettings();
 
     }
+
+
+    // public void SetAudioSettingOnlyFrequency(Vector3 controllerPosition)
+    // {
+
+    //     float discreteY = Mathf.Floor((controllerPosition.y + 0.7f) / discreteFactor) * discreteFactor;
+    //     controllerYPosition = controllerPosition.y;
+
+
+    //     amplitude = 0.25f;
+    //     frequency = frequencyScalingFactor * discreteY;
+    //     if (frequency < 0)
+    //     {
+    //         frequency = 0;
+    //     }
+
+    //     pan = 0;
+
+    //     ReflectAudioSettings();
+
+    // }
+
+
     public void SetAudioSettingOnlyFrequency(Vector3 controllerPosition)
     {
-        float discreteY = Mathf.Floor(controllerPosition.y / 0.01f) * 0.01f;
+        // frequency の基本値（controllerPosition.y が 0 のときの値）
+        float baseFrequency = 1.0f;  // 適切な基本周波数を設定する
+        amplitude = 0.25f;
+        float discreteY = Mathf.Floor((controllerPosition.y + 0.05f - 0.25f) / discreteFactor) * discreteFactor + 0.05f;
+        // 1cm 増えるごとに 1.5 倍になるための計算
+        frequency = baseFrequency * Mathf.Pow(frequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
+        controllerYPosition = controllerPosition.y;
+        // frequency が負の値にならないようにチェック
+        if (frequency < 0)
+        {
+            frequency = 0;
+        }
 
+        pan = 0;  // パンは変更しない
 
-        amplitude = 0.5f;
-        frequency = 0.5f + frequencyScalingFactor * discreteY;
-        frequency = 0.5f + frequencyScalingFactor * controllerPosition.y;
-        pan = 0;
-
-        ReflectAudioSettings();
+        ReflectAudioSettings();  // オーディオ設定を反映
 
     }
+
     public void SetAudioSettingOnlyPan(Vector3 controllerPosition)
     {
         amplitude = 1.0f;

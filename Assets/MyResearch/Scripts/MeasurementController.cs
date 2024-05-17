@@ -19,7 +19,7 @@ public class MeasurementController : MonoBehaviour
 
     private void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Two)) // 'B' button to start
+        if (OVRInput.GetDown(OVRInput.Button.Three))
         {
 
             if (!isMeasuring)
@@ -33,7 +33,7 @@ public class MeasurementController : MonoBehaviour
                 isMeasuring = true;
             }
         }
-        else if (OVRInput.GetUp(OVRInput.Button.Two)) // 'B' button to stop
+        else if (OVRInput.GetUp(OVRInput.Button.Three))
         {
             isMeasuring = false;
 
