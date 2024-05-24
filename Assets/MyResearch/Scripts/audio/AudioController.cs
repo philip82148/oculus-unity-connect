@@ -10,7 +10,8 @@ using TMPro;
 using System;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.Serialization;
-using System.Runtime.ConstrainedExecution;
+
+
 
 public class AudioController : MonoBehaviour
 {
@@ -36,12 +37,24 @@ public class AudioController : MonoBehaviour
     private float discreteFactor = 0.005f;
 
 
+
+
     void Start()
     {
+        Initialize();
         ReflectAudioSettings();
         audioSource.loop = true;
         audioSource.Play();
         ChangeSpatialBlend();
+    }
+
+    void Initialize()
+    {
+        amplitude = 1.0f;
+        frequency = 0.5f;
+        pan = 0;
+
+
     }
 
 
@@ -50,23 +63,12 @@ public class AudioController : MonoBehaviour
 
 
 
-        // if (isAmplitudeInversion)
-        // {
-        //     amplitude = 0.5f + amplitudeScalingFactor * controllerPosition.z;
-        // }
-        // else
-        // {
         amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
         // }
 
 
         frequency = 0.5f + frequencyScalingFactor * controllerPosition.y;
         pan = controllerPosition.x;
-
-
-        // amplitude = 0.5f;
-        // frequency = 0.5f;
-        // pan = controllerPosition.x;
 
         ReflectAudioSettings();
 
@@ -76,8 +78,6 @@ public class AudioController : MonoBehaviour
         float discreteZ = Mathf.Floor(controllerPosition.z / discreteFactor) * discreteFactor;
         // amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
         amplitude = 1.0f - amplitudeScalingFactor * discreteZ;
-        frequency = 0.5f;
-        pan = 0;
 
         ReflectAudioSettings();
 
@@ -128,12 +128,48 @@ public class AudioController : MonoBehaviour
 
     public void SetAudioSettingOnlyPan(Vector3 controllerPosition)
     {
-        amplitude = 1.0f;
-        frequency = 0.5f;
-        pan = 0;
+
 
         ReflectAudioSettings();
 
+    }
+
+
+    public void SetAudioSettingOnlyPanWithTargetText(Vector3 targetDiff)
+    {
+
+        double diffX = targetDiff.x * 1000;
+        if (-5 < diffX && diffX < 5)
+        {
+            Debug.Log("-10 < diffX && diffX < 10");
+            pan = 0; amplitude = 1.0f;
+        }
+        else if (-30 < diffX && diffX <= -5)
+        {
+            Debug.Log("-30 < diffX && diffX <= -10");
+            pan = -0.5f; amplitude = 1.0f;
+        }
+        else if (5 <= diffX && diffX < 30)
+        {
+            Debug.Log("diffX <= 10 && diffX < 30");
+            pan = 0.5f; amplitude = 1.0f;
+        }
+        else
+        {
+
+            amplitude = 0;
+        }
+        // else if (-50 < diffX && diffX <= -30)
+        // {
+        //     pan = -1; amplitude = 1.0f;
+        // }
+        // else if (30 <= diffX && diffX < 50)
+        // {
+        //     pan = 1; amplitude = 1.0f;
+        // }
+
+
+        ReflectAudioSettings();
     }
 
 

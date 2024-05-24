@@ -8,9 +8,7 @@ using UnityEngine.UI;
 using System.Text;
 using TMPro;
 using System;
-using Microsoft.Win32.SafeHandles;
-// using System.Diagnostics;
-// using System.Diagnostics;
+
 
 
 
@@ -25,6 +23,7 @@ public class ExperienceController : MonoBehaviour
     private TextMeshPro targetPlaceText;
 
 
+
     [Header("main setting")]
 
     [SerializeField] private CreateSoundController createSoundController;
@@ -35,11 +34,11 @@ public class ExperienceController : MonoBehaviour
     [SerializeField]
     private Vector3
          rightControllerPosition;
+    [SerializeField] private Vector3 diff;
 
-    private Vector3
-    previousRightControllerPosition;
+
     private float movementSpeed;
-    // private Vector3 acceleration;
+
     private string filePath;
 
 
@@ -47,7 +46,6 @@ public class ExperienceController : MonoBehaviour
     [SerializeField] private bool isSound = true;
     [SerializeField] private int experienceCount = 1;
 
-    // [SerializeField] private bool isMeasuringEveryInformation = false;
 
     [Header("Controller Setting")]
     [SerializeField] private AudioController audioController;
@@ -79,10 +77,6 @@ public class ExperienceController : MonoBehaviour
 
         filePath = SetupFilePath();
         dataLoggerController.Initialize(filePath);
-
-
-        previousRightControllerPosition = GetRightControllerPosition();
-
 
     }
 
@@ -122,7 +116,7 @@ public class ExperienceController : MonoBehaviour
         }
         CheckIfAudioEnabled();
 
-        previousRightControllerPosition = rightControllerPosition;
+
 
         // Oculus Touchの右コントローラーのスティック入力を取得
         Vector2 stickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
@@ -172,6 +166,12 @@ public class ExperienceController : MonoBehaviour
         return controllerPosition;
 
     }
+    private Vector3 CalculateControllerPositionAndTextDiff()
+    {
+
+        diff = rightControllerPosition - targetPlaceText.transform.position;
+        return diff;
+    }
 
 
     private void AudioSetting()
@@ -191,7 +191,8 @@ public class ExperienceController : MonoBehaviour
         }
         else if (whichAudioParameter == 3)
         {
-            audioController.SetAudioSettingOnlyPan(rightControllerPosition);
+            // audioController.SetAudioSettingOnlyPan(rightControllerPosition);
+            audioController.SetAudioSettingOnlyPanWithTargetText(CalculateControllerPositionAndTextDiff());
         }
         // audioController.SetAudioSettingWithPolar(rightControllerPosition);
         // audioController.SetAudioSettingWithWeberFechner(rightControllerPosition);
