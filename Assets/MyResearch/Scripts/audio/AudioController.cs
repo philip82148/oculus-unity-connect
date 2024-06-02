@@ -75,17 +75,61 @@ public class AudioController : MonoBehaviour
     }
 
 
+    // public void SetAudioSettingWithTargetText(Vector3 targetDiff)
+    // {
+    //     float discreteZ = Mathf.Floor(targetDiff.z / discreteFactor) * discreteFactor;
+    //     amplitude = Mathf.Pow(2.0f, -discreteZ / discreteFactor);
+
+
+    //     float fre = 0.11f;
+
+    //     float discreteY = Mathf.Floor((targetDiff.y + fre - 0.25f) / discreteFactor) * discreteFactor + fre;
+    //     // 1cm 増えるごとに 1.5 倍になるための計算
+    //     frequency = Mathf.Pow(frequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
+
+    //     // frequency が負の値にならないようにチェック
+    //     if (frequency < 0)
+    //     {
+    //         frequency = 0;
+    //     }
+
+
+    //     double diffX = targetDiff.x * 1000;
+    //     if (-5 < diffX && diffX < 5)
+    //     {
+    //         Debug.Log("-10 < diffX && diffX < 10");
+    //         pan = 0;
+    //     }
+    //     else if (-30 < diffX && diffX <= -5)
+    //     {
+    //         Debug.Log("-30 < diffX && diffX <= -10");
+    //         pan = -0.5f;
+    //     }
+    //     else if (5 <= diffX && diffX < 30)
+    //     {
+    //         Debug.Log("diffX <= 10 && diffX < 30");
+    //         pan = 0.5f;
+    //     }
+    //     else
+    //     {
+    //         amplitude = 0;
+    //     }
+
+    //     ReflectAudioSettings();
+
+    // }
+
+
     public void SetAudioSettingWithTargetText(Vector3 targetDiff)
     {
-        float discreteZ = Mathf.Floor(targetDiff.z / discreteFactor) * discreteFactor;
-        amplitude = Mathf.Pow(2.0f, -discreteZ / discreteFactor);
+        float yOffset = 0.15f;
+        float zOffset = 0.0f;
+        float discreteZ = Mathf.Floor((targetDiff.z + zOffset) / discreteFactor) * discreteFactor + zOffset;
+        float discreteY = Mathf.Floor((targetDiff.y + yOffset - 0.25f) / discreteFactor) * discreteFactor + yOffset;
 
-
-        float fre = 0.11f;
-
-        float discreteY = Mathf.Floor((targetDiff.y + fre - 0.25f) / discreteFactor) * discreteFactor + fre;
+        amplitude = Mathf.Pow(2.0f, discreteY / discreteFactor);
         // 1cm 増えるごとに 1.5 倍になるための計算
-        frequency = Mathf.Pow(frequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
+        frequency = Mathf.Pow(frequencyScalingFactor, discreteZ * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
 
         // frequency が負の値にならないようにチェック
         if (frequency < 0)
@@ -118,6 +162,10 @@ public class AudioController : MonoBehaviour
         ReflectAudioSettings();
 
     }
+
+
+
+
 
     public void SetAudioSettingOnlyAmplitude(Vector3 controllerPosition)
     {

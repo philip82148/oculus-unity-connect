@@ -1500,7 +1500,7 @@ MonoBehaviour:
   - {fileID: 1319220705}
   - {fileID: 1795400911}
   - {fileID: 1417006003}
-  targetPlaceTextIndex: 5
+  targetPlaceTextIndex: 4
   createSoundController: {fileID: 1850028763}
   rightControllerPosition: {x: 0, y: 0, z: 0}
   diff: {x: 0, y: 0, z: 0}
