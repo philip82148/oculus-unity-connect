@@ -257,6 +257,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31510162}
   m_CullTransparentMesh: 1
+--- !u!1 &39585767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 39585769}
+  - component: {fileID: 39585768}
+  m_Layer: 0
+  m_Name: TimeLoggerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &39585768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39585767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9396e151cb3500f4ba74467ecd050279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &39585769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39585767}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2500499, y: -0.100365646, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &70430469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,15 +1493,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPosition: {x: 0, y: 0, z: 0}
-  targetPlaceText: {fileID: 1417006003}
+  targetPlaceTextList:
+  - {fileID: 1776633431}
+  - {fileID: 621234912}
+  - {fileID: 1082826028}
+  - {fileID: 1319220705}
+  - {fileID: 1795400911}
+  - {fileID: 1417006003}
+  targetPlaceTextIndex: 5
   createSoundController: {fileID: 1850028763}
   rightControllerPosition: {x: 0, y: 0, z: 0}
+  diff: {x: 0, y: 0, z: 0}
   isSound: 1
   experienceCount: 1
   audioController: {fileID: 1850028762}
   dataLoggerController: {fileID: 1242190031}
+  timeLoggerController: {fileID: 39585768}
   isAmplitudeInversion: 0
-  whichAudioParameter: 2
+  whichAudioParameter: 0
   requiredLength: 0.15
 --- !u!1 &927488746
 GameObject:
@@ -1683,7 +1736,7 @@ GameObject:
   - component: {fileID: 1082826029}
   - component: {fileID: 1082826028}
   m_Layer: 0
-  m_Name: TextForStart (6)
+  m_Name: TextForStart (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2180,7 +2233,7 @@ GameObject:
   - component: {fileID: 1319220706}
   - component: {fileID: 1319220705}
   m_Layer: 0
-  m_Name: TextForStart (2)
+  m_Name: TextForStart (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2425,7 +2478,7 @@ GameObject:
   - component: {fileID: 1417006004}
   - component: {fileID: 1417006003}
   m_Layer: 0
-  m_Name: TextForStart (7)
+  m_Name: TextForStart (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3384,7 +3437,7 @@ GameObject:
   - component: {fileID: 1795400912}
   - component: {fileID: 1795400911}
   m_Layer: 0
-  m_Name: TextForStart (3)
+  m_Name: TextForStart (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3682,7 +3735,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1850028759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa993164dba7b6469c5934a2345eda2, type: 3}
+  m_Script: {fileID: 11500000, guid: 408af4f6a9693014ea2ca5615c745fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1850028761}
@@ -3692,7 +3745,7 @@ MonoBehaviour:
   frequency: 0
   pan: 0
   isAmplitudeInversion: 0
-  amplitudeScalingFactor: 2
+  amplitudeScalingFactor: 1
   frequencyScalingFactor: 2
   controllerYPosition: 0
 --- !u!114 &1850028763
@@ -3977,3 +4030,4 @@ SceneRoots:
   - {fileID: 1850028760}
   - {fileID: 1242190030}
   - {fileID: 355314063}
+  - {fileID: 39585769}

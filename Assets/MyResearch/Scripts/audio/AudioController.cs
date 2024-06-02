@@ -5,11 +5,10 @@ using UnityEngine.XR;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
-using System.Text;
+
+
 using TMPro;
-using System;
-using Microsoft.Win32.SafeHandles;
-using System.Runtime.Serialization;
+
 
 
 
@@ -21,7 +20,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] CreateSoundController soundController;
     [SerializeField] float spatialBlend = 1.0f;
-    [SerializeField] private const float amplitudeCoefficient = 0.5f;
+    [SerializeField] private const float amplitudeCoefficient = 1.0f;
     [SerializeField] private float amplitude;
     private const float frequencyCoefficient = 4.0f;
     [SerializeField] private float frequency;
@@ -31,10 +30,11 @@ public class AudioController : MonoBehaviour
 
     [Header("scaling factor")]
     [SerializeField] float amplitudeScalingFactor = 1.0f; // この値を増減させて、影響度を調整
-    [SerializeField] float frequencyScalingFactor = 1.0f; // この値を増減させて、影響度を調整
+    [SerializeField] float frequencyScalingFactor = 2.0f; // この値を増減させて、影響度を調整
     [SerializeField] float controllerYPosition;
 
     private float discreteFactor = 0.005f;
+    // private float discreteFactor = 0.01f;
 
 
 
@@ -73,6 +73,52 @@ public class AudioController : MonoBehaviour
         ReflectAudioSettings();
 
     }
+
+
+    public void SetAudioSettingWithTargetText(Vector3 targetDiff)
+    {
+        float discreteZ = Mathf.Floor(targetDiff.z / discreteFactor) * discreteFactor;
+        amplitude = Mathf.Pow(2.0f, -discreteZ / discreteFactor);
+
+
+        float fre = 0.11f;
+
+        float discreteY = Mathf.Floor((targetDiff.y + fre - 0.25f) / discreteFactor) * discreteFactor + fre;
+        // 1cm 増えるごとに 1.5 倍になるための計算
+        frequency = Mathf.Pow(frequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
+
+        // frequency が負の値にならないようにチェック
+        if (frequency < 0)
+        {
+            frequency = 0;
+        }
+
+
+        double diffX = targetDiff.x * 1000;
+        if (-5 < diffX && diffX < 5)
+        {
+            Debug.Log("-10 < diffX && diffX < 10");
+            pan = 0;
+        }
+        else if (-30 < diffX && diffX <= -5)
+        {
+            Debug.Log("-30 < diffX && diffX <= -10");
+            pan = -0.5f;
+        }
+        else if (5 <= diffX && diffX < 30)
+        {
+            Debug.Log("diffX <= 10 && diffX < 30");
+            pan = 0.5f;
+        }
+        else
+        {
+            amplitude = 0;
+        }
+
+        ReflectAudioSettings();
+
+    }
+
     public void SetAudioSettingOnlyAmplitude(Vector3 controllerPosition)
     {
         float discreteZ = Mathf.Floor(controllerPosition.z / discreteFactor) * discreteFactor;
@@ -80,6 +126,16 @@ public class AudioController : MonoBehaviour
         amplitude = 1.0f - amplitudeScalingFactor * discreteZ;
 
         ReflectAudioSettings();
+
+    }
+    public void SetAudioSettingOnlyAmplitudeWithTargetText(Vector3 targetDiff)
+    {
+        float discreteZ = Mathf.Floor(targetDiff.z / discreteFactor) * discreteFactor;
+        amplitude = Mathf.Pow(2.0f, -discreteZ / discreteFactor);
+
+
+        ReflectAudioSettings();
+
 
     }
 
@@ -113,7 +169,7 @@ public class AudioController : MonoBehaviour
         float discreteY = Mathf.Floor((controllerPosition.y + 0.05f - 0.25f) / discreteFactor) * discreteFactor + 0.05f;
         // 1cm 増えるごとに 1.5 倍になるための計算
         frequency = baseFrequency * Mathf.Pow(frequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
-        controllerYPosition = controllerPosition.y;
+
         // frequency が負の値にならないようにチェック
         if (frequency < 0)
         {
@@ -181,9 +237,9 @@ public class AudioController : MonoBehaviour
 
     public void SetAudioSettingWithPolar(Vector3 controllerPosition)
     {
-        float radius = MathF.Sqrt(controllerPosition.x * controllerPosition.x + controllerPosition.z * controllerPosition.z + controllerPosition.y * controllerPosition.y);
-        float azimuth = MathF.Atan2(MathF.Abs(controllerPosition.z), MathF.Abs(controllerPosition.x));
-        float elevation = MathF.Asin(controllerPosition.y / radius) / 90;
+        float radius = Mathf.Sqrt(controllerPosition.x * controllerPosition.x + controllerPosition.z * controllerPosition.z + controllerPosition.y * controllerPosition.y);
+        float azimuth = Mathf.Atan2(Mathf.Abs(controllerPosition.z), Mathf.Abs(controllerPosition.x));
+        float elevation = Mathf.Asin(controllerPosition.y / radius) / 90;
         amplitude = 1.0f - amplitudeScalingFactor * radius;
 
 
@@ -197,8 +253,8 @@ public class AudioController : MonoBehaviour
 
     public void SetAudioSettingWithWeberFechner(Vector3 controllerPosition)
     {
-        float amplitudeStimulus = MathF.Max(0.01f, controllerPosition.z);
-        float frequencyStimulus = MathF.Max(0.01f, controllerPosition.y);
+        float amplitudeStimulus = Mathf.Max(0.01f, controllerPosition.z);
+        float frequencyStimulus = Mathf.Max(0.01f, controllerPosition.y);
 
         amplitude = 1.0f - amplitudeScalingFactor * Mathf.Log10(amplitudeStimulus + 1);
         frequency = 0.5f + frequencyScalingFactor * Mathf.Log10(frequencyStimulus + 1);

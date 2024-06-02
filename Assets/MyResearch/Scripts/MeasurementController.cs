@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class MeasurementController : MonoBehaviour
@@ -15,6 +16,10 @@ public class MeasurementController : MonoBehaviour
 
     [SerializeField] private bool isMeasuring;
     [SerializeField] private int count = 0;
+
+    private bool isTimeMeasuring;
+    // private double measuringTime = 0;
+    private float pressStartTime;
 
 
     private void Update()
@@ -41,6 +46,34 @@ public class MeasurementController : MonoBehaviour
             experienceController.EndMeasurement();
             fingerPaint.StopDrawing(); // Stop drawing
             // handInformation.EndMeasurement(); // Stop hand information recording
+
+        }
+
+
+        if (OVRInput.GetDown(OVRInput.Button.Four))
+        {
+
+            if (!isTimeMeasuring)
+            {
+                Debug.Log("time measuring start");
+                // measuringTime = 0;
+                isTimeMeasuring = true;
+                pressStartTime = Time.time;
+            }
+            // measuringTime += Time.deltaTime;
+
+
+        }
+        else if (OVRInput.GetUp(OVRInput.Button.Four))
+        {
+            isTimeMeasuring = false;
+
+
+            Debug.Log("time Measurement and drawing stopped");
+            float pressDuration = Time.time - pressStartTime;
+            Debug.Log("time::" + pressDuration);
+            experienceController.WriteTimeInformation(pressDuration);
+            // measuringTime = 0;
 
         }
     }

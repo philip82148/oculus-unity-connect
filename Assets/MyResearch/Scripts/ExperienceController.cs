@@ -20,7 +20,8 @@ public class ExperienceController : MonoBehaviour
     [SerializeField] private Vector3 targetPosition;
     [SerializeField]
 
-    private TextMeshPro targetPlaceText;
+    private List<TextMeshPro> targetPlaceTextList;
+    [SerializeField] private int targetPlaceTextIndex = 0;
 
 
 
@@ -50,6 +51,7 @@ public class ExperienceController : MonoBehaviour
     [Header("Controller Setting")]
     [SerializeField] private AudioController audioController;
     [SerializeField] private DataLoggerController dataLoggerController;
+    [SerializeField] private TimeLoggerController timeLoggerController;
 
     [SerializeField] private bool isAmplitudeInversion = false;
 
@@ -75,22 +77,45 @@ public class ExperienceController : MonoBehaviour
     {
         audioController.isAmplitudeInversion = isAmplitudeInversion;
 
-        filePath = SetupFilePath();
+        filePath = SetupFilePath(0);
         dataLoggerController.Initialize(filePath);
+
+        timeLoggerController.Initialize(SetupFilePath(1));
+
+
+
+
 
     }
 
-    private string SetupFilePath()
+    private string SetupFilePath(int way)
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
         string directory = isSound ? $"{experienceCount}exp_withsound" : $"{experienceCount}exp_withoutsound";
-        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0516\\{directory}";
+        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0602\\{directory}";
 
         Directory.CreateDirectory(folder);
         Debug.Log("create folder");
 
-        string fileName = $"OpenBrushData_{dateTime}_{whichAudioParameter}.txt";
+        string fileName;
 
+        string filePlaceTextName;
+        if (targetPlaceTextIndex == 0) filePlaceTextName = "(0.25,-0.1,0.25)";
+        else if (targetPlaceTextIndex == 1) filePlaceTextName = "(0.25,0.15,0.25)";
+        else if (targetPlaceTextIndex == 2) filePlaceTextName = "(0.25,-0.1,0.5)";
+        else if (targetPlaceTextIndex == 3) filePlaceTextName = "(0.25,0.15,0.5)";
+        else if (targetPlaceTextIndex == 4) filePlaceTextName = "(0.25,-0.1,0.75)";
+        else filePlaceTextName = "(0.25,0.15,0.75)";
+
+        if (way == 0)
+
+        {
+            fileName = $"{filePlaceTextName}_{dateTime}.txt";
+        }
+        else
+        {
+            fileName = $"time_{filePlaceTextName}.txt";
+        }
         return System.IO.Path.Combine(folder, fileName);
     }
 
@@ -105,6 +130,12 @@ public class ExperienceController : MonoBehaviour
     public void EndMeasurement()
     {
         isMeasuring = false;
+    }
+
+    public void EndTimeMeasurement(float time)
+    {
+
+        timeLoggerController.WriteTimeInformation(time);
     }
 
     void Update()
@@ -136,10 +167,10 @@ public class ExperienceController : MonoBehaviour
         // double requiredLength = 0.15;
 
         // Debug.Log("math abs: " + Mathf.Abs(rightControllerPosition.x - targetPlaceText.transform.position.x));
-        targetPosition = targetPlaceText.transform.localPosition;
-        if ((Mathf.Abs(rightControllerPosition.x - targetPlaceText.transform.position.x) < requiredLength) &&
-        (Mathf.Abs(rightControllerPosition.y - targetPlaceText.transform.position.y) < requiredLength)
-    && (Mathf.Abs(rightControllerPosition.z - targetPlaceText.transform.position.z) < requiredLength))
+        targetPosition = targetPlaceTextList[targetPlaceTextIndex].transform.position;
+        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
+        (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
         {
             createSoundController.EnableAudio();
         }
@@ -159,6 +190,16 @@ public class ExperienceController : MonoBehaviour
 
     }
 
+    public void WriteTimeInformation(double time)
+    {
+        timeLoggerController.WriteTimeInformation(time);
+
+
+    }
+
+
+
+
     private Vector3 GetRightControllerPosition()
     {
         Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
@@ -169,7 +210,7 @@ public class ExperienceController : MonoBehaviour
     private Vector3 CalculateControllerPositionAndTextDiff()
     {
 
-        diff = rightControllerPosition - targetPlaceText.transform.position;
+        diff = rightControllerPosition - targetPlaceTextList[targetPlaceTextIndex].transform.position;
         return diff;
     }
 
@@ -179,11 +220,14 @@ public class ExperienceController : MonoBehaviour
         if (whichAudioParameter == 0)
         {
 
-            audioController.SetAudioSetting(rightControllerPosition);
+            // audioController.SetAudioSetting(rightControllerPosition);
+            audioController.SetAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff());
+
         }
         else if (whichAudioParameter == 1)
         {
-            audioController.SetAudioSettingOnlyAmplitude(rightControllerPosition);
+            // audioController.SetAudioSettingOnlyAmplitude(rightControllerPosition);
+            audioController.SetAudioSettingOnlyAmplitudeWithTargetText(CalculateControllerPositionAndTextDiff());
         }
         else if (whichAudioParameter == 2)
         {
@@ -204,6 +248,7 @@ public class ExperienceController : MonoBehaviour
     private void OnDestroy()
     {
         dataLoggerController.Close();
+        timeLoggerController.Close();
     }
 
 
