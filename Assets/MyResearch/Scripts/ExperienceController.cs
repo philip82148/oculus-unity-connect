@@ -15,12 +15,16 @@ using System;
 public class ExperienceController : MonoBehaviour
 {
 
+    [Header("OVR Input Information")]
+    // [SerializeField] private OVRSkeleton skeleton;
+    [SerializeField] private GameObject indexFinger;
+
 
     [Header("target place text")]
     [SerializeField] private Vector3 targetPosition;
     [SerializeField]
 
-    private List<TextMeshPro> targetPlaceTextList;
+    private List<GameObject> targetPlaceList;
     [SerializeField] private int targetPlaceTextIndex = 0;
 
 
@@ -92,7 +96,7 @@ public class ExperienceController : MonoBehaviour
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
         string directory = isSound ? $"{experienceCount}exp_withsound" : $"{experienceCount}exp_withoutsound";
-        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0602\\{directory}";
+        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0615\\{directory}";
 
         Directory.CreateDirectory(folder);
         Debug.Log("create folder");
@@ -140,13 +144,13 @@ public class ExperienceController : MonoBehaviour
 
     void Update()
     {
-        rightControllerPosition = GetRightControllerPosition();
+        // rightControllerPosition = GetRightControllerPosition();
+        rightControllerPosition = GetRightIndexFingerPosition();
         if (isSound)
         {
-            AudioSetting();
-        }
-        CheckIfAudioEnabled();
 
+            CheckIfAudioEnabled();
+        }
 
 
         // Oculus Touchの右コントローラーのスティック入力を取得
@@ -164,19 +168,29 @@ public class ExperienceController : MonoBehaviour
 
     private void CheckIfAudioEnabled()
     {
-        // double requiredLength = 0.15;
 
-        // Debug.Log("math abs: " + Mathf.Abs(rightControllerPosition.x - targetPlaceText.transform.position.x));
-        targetPosition = targetPlaceTextList[targetPlaceTextIndex].transform.position;
-        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
-        (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
-    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
+        bool isAudioFlag = false;
+
+        for (int i = 0; i < targetPlaceList.Count; i++)
+        {
+
+            targetPosition = targetPlaceList[i].transform.position;
+            if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
+            (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
+        && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
+            {
+                isAudioFlag = true;
+                AudioSetting(i);
+
+                break;
+            }
+        }
+        if (isAudioFlag)
         {
             createSoundController.EnableAudio();
         }
         else
         {
-            // createSoundController.EnableAudio();
             createSoundController.DisableAudio();
         }
     }
@@ -207,27 +221,36 @@ public class ExperienceController : MonoBehaviour
         return controllerPosition;
 
     }
-    private Vector3 CalculateControllerPositionAndTextDiff()
+
+    private Vector3 GetRightIndexFingerPosition()
     {
 
-        diff = rightControllerPosition - targetPlaceTextList[targetPlaceTextIndex].transform.position;
+        // return skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.position;
+        return indexFinger.transform.position;
+
+    }
+
+    private Vector3 CalculateControllerPositionAndTextDiff(int index)
+    {
+
+        diff = rightControllerPosition - targetPlaceList[index].transform.position;
         return diff;
     }
 
 
-    private void AudioSetting()
+    private void AudioSetting(int index)
     {
         if (whichAudioParameter == 0)
         {
 
             // audioController.SetAudioSetting(rightControllerPosition);
-            audioController.SetAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff());
+            audioController.SetAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
 
         }
         else if (whichAudioParameter == 1)
         {
             // audioController.SetAudioSettingOnlyAmplitude(rightControllerPosition);
-            audioController.SetAudioSettingOnlyAmplitudeWithTargetText(CalculateControllerPositionAndTextDiff());
+            audioController.SetAudioSettingOnlyAmplitudeWithTargetText(CalculateControllerPositionAndTextDiff(index));
         }
         else if (whichAudioParameter == 2)
         {
@@ -236,7 +259,7 @@ public class ExperienceController : MonoBehaviour
         else if (whichAudioParameter == 3)
         {
             // audioController.SetAudioSettingOnlyPan(rightControllerPosition);
-            audioController.SetAudioSettingOnlyPanWithTargetText(CalculateControllerPositionAndTextDiff());
+            audioController.SetAudioSettingOnlyPanWithTargetText(CalculateControllerPositionAndTextDiff(index));
         }
         // audioController.SetAudioSettingWithPolar(rightControllerPosition);
         // audioController.SetAudioSettingWithWeberFechner(rightControllerPosition);

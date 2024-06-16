@@ -33,7 +33,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] float frequencyScalingFactor = 2.0f; // この値を増減させて、影響度を調整
     [SerializeField] float controllerYPosition;
 
-    private float discreteFactor = 0.005f;
+    private float discreteFactor = 0.01f;
     // private float discreteFactor = 0.01f;
 
 
@@ -75,52 +75,53 @@ public class AudioController : MonoBehaviour
     }
 
 
-    // public void SetAudioSettingWithTargetText(Vector3 targetDiff)
-    // {
-    //     float discreteZ = Mathf.Floor(targetDiff.z / discreteFactor) * discreteFactor;
-    //     amplitude = Mathf.Pow(2.0f, -discreteZ / discreteFactor);
-
-
-    //     float fre = 0.11f;
-
-    //     float discreteY = Mathf.Floor((targetDiff.y + fre - 0.25f) / discreteFactor) * discreteFactor + fre;
-    //     // 1cm 増えるごとに 1.5 倍になるための計算
-    //     frequency = Mathf.Pow(frequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
-
-    //     // frequency が負の値にならないようにチェック
-    //     if (frequency < 0)
-    //     {
-    //         frequency = 0;
-    //     }
-
-
-    //     double diffX = targetDiff.x * 1000;
-    //     if (-5 < diffX && diffX < 5)
-    //     {
-    //         Debug.Log("-10 < diffX && diffX < 10");
-    //         pan = 0;
-    //     }
-    //     else if (-30 < diffX && diffX <= -5)
-    //     {
-    //         Debug.Log("-30 < diffX && diffX <= -10");
-    //         pan = -0.5f;
-    //     }
-    //     else if (5 <= diffX && diffX < 30)
-    //     {
-    //         Debug.Log("diffX <= 10 && diffX < 30");
-    //         pan = 0.5f;
-    //     }
-    //     else
-    //     {
-    //         amplitude = 0;
-    //     }
-
-    //     ReflectAudioSettings();
-
-    // }
-
-
     public void SetAudioSettingWithTargetText(Vector3 targetDiff)
+    {
+        float zOffset = -0.1f;
+        float discreteZ = Mathf.Floor((targetDiff.z + zOffset) / discreteFactor) * discreteFactor;
+        amplitude = Mathf.Pow(2.0f, -discreteZ / discreteFactor);
+
+
+        float fre = 0.11f;
+
+        float discreteY = Mathf.Floor((targetDiff.y + fre - 0.25f) / discreteFactor) * discreteFactor + fre;
+        // 1cm 増えるごとに 1.5 倍になるための計算
+        frequency = Mathf.Pow(frequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
+
+        // frequency が負の値にならないようにチェック
+        if (frequency < 0)
+        {
+            frequency = 0;
+        }
+
+
+        double diffX = targetDiff.x * 1000;
+        if (-5 < diffX && diffX < 5)
+        {
+            Debug.Log("-10 < diffX && diffX < 10");
+            pan = 0;
+        }
+        else if (-30 < diffX && diffX <= -5)
+        {
+            Debug.Log("-30 < diffX && diffX <= -10");
+            pan = -1.0f;
+        }
+        else if (5 <= diffX && diffX < 30)
+        {
+            Debug.Log("diffX <= 10 && diffX < 30");
+            pan = 1.0f;
+        }
+        else
+        {
+            amplitude = 0;
+        }
+
+        ReflectAudioSettings();
+
+    }
+
+
+    public void SetAudioSettingWithTargetText2(Vector3 targetDiff)
     {
         float yOffset = 0.15f;
         float zOffset = 0.0f;
