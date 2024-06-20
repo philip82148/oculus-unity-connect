@@ -96,7 +96,7 @@ public class ExperienceController : MonoBehaviour
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
         string directory = isSound ? $"{experienceCount}exp_withsound" : $"{experienceCount}exp_withoutsound";
-        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0615\\{directory}";
+        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0620\\{directory}";
 
         Directory.CreateDirectory(folder);
         Debug.Log("create folder");
@@ -244,7 +244,7 @@ public class ExperienceController : MonoBehaviour
         {
 
             // audioController.SetAudioSetting(rightControllerPosition);
-            audioController.SetAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
+            audioController.SetDiscreteAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
 
         }
         else if (whichAudioParameter == 1)
