@@ -29,19 +29,18 @@ public class AudioController : MonoBehaviour
     [SerializeField] public bool isAmplitudeInversion = false;
 
     [Header("scaling factor")]
-    [SerializeField] float amplitudeScalingFactor = 1.0f; // この値を増減させて、影響度を調整
+    [SerializeField] float amplitudeScalingFactor = 2.0f; // この値を増減させて、影響度を調整
     [SerializeField] float frequencyScalingFactor = 2.0f; // この値を増減させて、影響度を調整
-    [SerializeField] float controllerYPosition;
 
     private float discreteFactor = 0.01f;
-    // private float discreteFactor = 0.01f;
+
 
 
 
 
     void Start()
     {
-        // Initialize();
+
         ReflectAudioSettings();
         audioSource.loop = true;
         audioSource.Play();
@@ -61,7 +60,7 @@ public class AudioController : MonoBehaviour
     public void SetAudioSetting(Vector3 controllerPosition)
     {
 
-        amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
+        amplitude = 0.5f - amplitudeScalingFactor * controllerPosition.z;
         frequency = 0.5f + frequencyScalingFactor * controllerPosition.y;
         pan = controllerPosition.x;
 
@@ -70,7 +69,49 @@ public class AudioController : MonoBehaviour
     }
 
 
-    public void SetDiscreteAudioSettingWithTargetText(Vector3 targetDiff)
+    public void SetContinuousExponentAudioSettingWithTargetText(Vector3 targetDiff)
+    {
+        float zOffset = -0.1f;
+        float adjustedZ = targetDiff.z + zOffset;
+        amplitude = Mathf.Pow(2.0f, -adjustedZ * 100);
+
+        float fre = 0.11f;
+        float adjustedY = targetDiff.y + fre - 0.25f;
+        frequency = Mathf.Pow(frequencyScalingFactor, adjustedY * 100);
+
+        // frequency が負の値にならないようにチェック
+        if (frequency < 0)
+        {
+            frequency = 0;
+        }
+
+        float diffX = targetDiff.x * 1000;
+        if (-5 < diffX && diffX < 5)
+        {
+            Debug.Log("-10 < diffX && diffX < 10");
+            pan = 0;
+        }
+        else if (-30 < diffX && diffX <= -5)
+        {
+            Debug.Log("-30 < diffX && diffX <= -10");
+            pan = Mathf.Lerp(-1.0f, 0f, (diffX + 5) / 25.0f);
+        }
+        else if (5 <= diffX && diffX < 30)
+        {
+            Debug.Log("diffX <= 10 && diffX < 30");
+            pan = Mathf.Lerp(0f, 1.0f, (diffX - 5) / 25.0f);
+        }
+        else
+        {
+            amplitude = 0;
+        }
+
+        ReflectAudioSettings();
+
+    }
+
+
+    public void SetDiscreteExponentAudioSettingWithTargetText(Vector3 targetDiff)
     {
         float zOffset = -0.1f;
         float discreteZ = Mathf.Floor((targetDiff.z + zOffset) / discreteFactor) * discreteFactor;

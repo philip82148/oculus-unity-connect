@@ -243,26 +243,20 @@ public class ExperienceController : MonoBehaviour
         if (whichAudioParameter == 0)
         {
 
-            // audioController.SetAudioSetting(rightControllerPosition);
-            audioController.SetDiscreteAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
+            audioController.SetDiscreteExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
 
         }
         else if (whichAudioParameter == 1)
         {
-            // audioController.SetAudioSettingOnlyAmplitude(rightControllerPosition);
-            audioController.SetAudioSettingOnlyAmplitudeWithTargetText(CalculateControllerPositionAndTextDiff(index));
+
+            audioController.SetContinuousExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
         }
         else if (whichAudioParameter == 2)
         {
-            audioController.SetAudioSettingOnlyFrequency(rightControllerPosition);
+            audioController.SetAudioSetting(CalculateControllerPositionAndTextDiff(index));
         }
-        else if (whichAudioParameter == 3)
-        {
-            // audioController.SetAudioSettingOnlyPan(rightControllerPosition);
-            audioController.SetAudioSettingOnlyPanWithTargetText(CalculateControllerPositionAndTextDiff(index));
-        }
-        // audioController.SetAudioSettingWithPolar(rightControllerPosition);
-        // audioController.SetAudioSettingWithWeberFechner(rightControllerPosition);
+
+
 
     }
 
