@@ -255,6 +255,10 @@ public class ExperienceController : MonoBehaviour
         {
             audioController.SetAudioSetting(CalculateControllerPositionAndTextDiff(index));
         }
+        else if (whichAudioParameter == 3)
+        {
+            audioController.SetAudioSettingOnlyAmplitudeWithTargetText(CalculateControllerPositionAndTextDiff(index));
+        }
 
 
 

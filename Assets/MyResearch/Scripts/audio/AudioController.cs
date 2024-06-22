@@ -215,7 +215,9 @@ public class AudioController : MonoBehaviour
     }
     public void SetAudioSettingOnlyAmplitudeWithTargetText(Vector3 targetDiff)
     {
-        float discreteZ = Mathf.Floor(targetDiff.z / discreteFactor) * discreteFactor;
+        float zOffset = -0.1f;
+        float discreteZ = Mathf.Floor((targetDiff.z + zOffset) / discreteFactor) * discreteFactor;
+
         amplitude = Mathf.Pow(2.0f, -discreteZ / discreteFactor);
 
 
