@@ -82,9 +82,9 @@ public class AudioControllerMethod : MonoBehaviour
         amplitude = Mathf.Pow(2.0f, -discreteZ / discreteFactor);
 
 
-        float fre = 0.11f;
 
-        float discreteY = Mathf.Floor((targetDiff.y + fre - 0.25f) / discreteFactor) * discreteFactor + fre;
+
+        float discreteY = Mathf.Floor((targetDiff.y) / discreteFactor) * discreteFactor;
         // 1cm 増えるごとに 1.5 倍になるための計算
         frequency = Mathf.Pow(frequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
 

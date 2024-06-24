@@ -35,6 +35,10 @@ public class AudioController : MonoBehaviour
     private float discreteFactor = 0.01f;
 
 
+    [Header("subtle")]
+    [SerializeField] private const float yOffset = -0.02f;
+
+
 
 
 
@@ -57,14 +61,14 @@ public class AudioController : MonoBehaviour
     }
 
 
-    public void SetAudioSetting(Vector3 controllerPosition)
+    public void SetAudioSetting(Vector3 targetDiff)
     {
 
-        amplitude = 0.5f - amplitudeScalingFactor * controllerPosition.z;
-        frequency = 0.5f + frequencyScalingFactor * controllerPosition.y;
-        pan = controllerPosition.x;
+        amplitude = 0.5f - amplitudeScalingFactor * targetDiff.z;
+        frequency = 1.0f + frequencyScalingFactor * targetDiff.y;
+        pan = 100 / 10 * targetDiff.x;
 
-        ReflectAudioSettings();
+        ReflectContinuousAudioSettings();
 
     }
 
@@ -75,9 +79,7 @@ public class AudioController : MonoBehaviour
         float adjustedZ = targetDiff.z + zOffset;
         amplitude = Mathf.Pow(2.0f, -adjustedZ * 100);
 
-        float fre = 0.11f;
-        float adjustedY = targetDiff.y + fre - 0.25f;
-        frequency = Mathf.Pow(frequencyScalingFactor, adjustedY * 100);
+        frequency = Mathf.Pow(frequencyScalingFactor, (targetDiff.y + yOffset) * 100);
 
         // frequency が負の値にならないようにチェック
         if (frequency < 0)
@@ -118,9 +120,9 @@ public class AudioController : MonoBehaviour
         amplitude = Mathf.Pow(2.0f, -discreteZ / discreteFactor);
 
 
-        float fre = 0.11f;
 
-        float discreteY = Mathf.Floor((targetDiff.y + fre - 0.25f) / discreteFactor) * discreteFactor + fre;
+
+        float discreteY = Mathf.Floor((targetDiff.y + yOffset) / discreteFactor) * discreteFactor;
         // 1cm 増えるごとに 1.5 倍になるための計算
         frequency = Mathf.Pow(frequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
 
@@ -294,6 +296,12 @@ public class AudioController : MonoBehaviour
     {
         soundController.gain = amplitude * amplitudeCoefficient;
         soundController.frequencyCoefficient = frequency * frequencyCoefficient;
+        soundController.pan = pan * panCoefficient;
+    }
+    private void ReflectContinuousAudioSettings()
+    {
+        soundController.gain = amplitude * amplitudeCoefficient;
+        soundController.frequencyCoefficient = frequency;
         soundController.pan = pan * panCoefficient;
     }
 

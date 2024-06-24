@@ -10,13 +10,10 @@ using TMPro;
 using System;
 
 
-
-
 public class ExperienceController : MonoBehaviour
 {
 
     [Header("OVR Input Information")]
-    // [SerializeField] private OVRSkeleton skeleton;
     [SerializeField] private GameObject indexFinger;
 
 
@@ -55,6 +52,7 @@ public class ExperienceController : MonoBehaviour
     [Header("Controller Setting")]
     [SerializeField] private AudioController audioController;
     [SerializeField] private DataLoggerController dataLoggerController;
+
     [SerializeField] private TimeLoggerController timeLoggerController;
 
     [SerializeField] private bool isAmplitudeInversion = false;
@@ -96,7 +94,7 @@ public class ExperienceController : MonoBehaviour
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
         string directory = isSound ? $"{experienceCount}exp_withsound" : $"{experienceCount}exp_withoutsound";
-        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0620\\{directory}";
+        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0623\\{directory}\\{whichAudioParameter}";
 
         Directory.CreateDirectory(folder);
         Debug.Log("create folder");
@@ -114,10 +112,13 @@ public class ExperienceController : MonoBehaviour
         if (way == 0)
 
         {
-            fileName = $"{filePlaceTextName}_{dateTime}.txt";
+            fileName = $"{targetPlaceTextIndex}_{whichAudioParameter}_{dateTime}.txt";
         }
         else
         {
+            folder = $"C:\\Users\\takaharayota\\Research\\data\\0623\\times\\{directory}\\{whichAudioParameter}";
+            Directory.CreateDirectory(folder);
+
             fileName = $"time_{filePlaceTextName}.txt";
         }
         return System.IO.Path.Combine(folder, fileName);
