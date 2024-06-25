@@ -32,6 +32,12 @@ public class TimeLoggerController : MonoBehaviour
         writer.WriteLine($"{time}");
 
     }
+    public void ReflectPlaceChange(
+        int placeIndex
+    )
+    {
+        writer.WriteLine("place index:" + placeIndex);
+    }
 
 
     public void Close()

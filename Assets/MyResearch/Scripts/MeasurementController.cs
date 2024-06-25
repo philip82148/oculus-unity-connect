@@ -9,10 +9,10 @@ public class MeasurementController : MonoBehaviour
     [SerializeField]
     private FingerPaint fingerPaint;
 
-    // [SerializeField] private GetHandInformation handInformation;
     [SerializeField]
     private ExperienceController experienceController;
-    // [SerializeField] private CounterController counterController;
+    [SerializeField] private ProgressController progressController;
+
 
 
     [SerializeField] private bool isMeasuring;
@@ -21,6 +21,13 @@ public class MeasurementController : MonoBehaviour
     private bool isTimeMeasuring;
     // private double measuringTime = 0;
     private float pressStartTime;
+
+
+    public void Initialize()
+    {
+        count = 0;
+
+    }
 
 
     private void Update()
@@ -33,8 +40,8 @@ public class MeasurementController : MonoBehaviour
 
                 Debug.Log("Measurement and drawing started");
                 count++;
+
                 experienceController.StartMeasurement(count);
-                fingerPaint.StartDrawing();
                 isMeasuring = true;
 
 
@@ -45,8 +52,12 @@ public class MeasurementController : MonoBehaviour
             isMeasuring = false;
 
             Debug.Log("Measurement and drawing stopped");
+            Debug.Log("count:" + count);
+
             experienceController.EndMeasurement();
-            fingerPaint.StopDrawing(); // Stop drawing
+            progressController.SubtractCount();
+
+            // fingerPaint.StopDrawing(); // Stop drawing
 
         }
 
@@ -72,7 +83,6 @@ public class MeasurementController : MonoBehaviour
 
             Debug.Log("time Measurement and drawing stopped");
             float pressDuration = Time.time - pressStartTime;
-            Debug.Log("time::" + pressDuration);
             experienceController.WriteTimeInformation(pressDuration);
             // measuringTime = 0;
 

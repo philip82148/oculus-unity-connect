@@ -36,7 +36,6 @@ public class ExperienceController : MonoBehaviour
 
     private string filePath;
     [SerializeField] private bool isSound = true;
-    [SerializeField] private int experienceCount = 1;
 
 
     [Header("Controller Setting")]
@@ -44,7 +43,7 @@ public class ExperienceController : MonoBehaviour
     [SerializeField] private DataLoggerController dataLoggerController;
 
     [SerializeField] private TimeLoggerController timeLoggerController;
-    [SerializeField] private ProgressController progressController;
+
 
     [SerializeField] private bool isAmplitudeInversion = false;
 
@@ -54,29 +53,27 @@ public class ExperienceController : MonoBehaviour
     private int whichAudioParameter = 0;
     [SerializeField]
     private double requiredLength = 0.15;
+    [Header("Subject Name")]
+    [SerializeField] private string subjectName = "高原陽太";
 
 
 
 
-    void Start()
+    public void Initialize()
     {
-        Initialize();
 
-
-
-    }
-
-    void Initialize()
-    {
         audioController.isAmplitudeInversion = isAmplitudeInversion;
+        filePath = SetupFilePath(0);
+        dataLoggerController.Initialize(filePath);
+        timeLoggerController.Initialize(SetupFilePath(1));
 
     }
 
     private string SetupFilePath(int isTime)
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
-        string directory = isSound ? $"{experienceCount}exp_withsound" : $"{experienceCount}exp_withoutsound";
-        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0625\\{directory}\\{whichAudioParameter}";
+
+        string folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\{whichAudioParameter}";
 
         Directory.CreateDirectory(folder);
 
@@ -89,7 +86,7 @@ public class ExperienceController : MonoBehaviour
         }
         else
         {
-            folder = $"C:\\Users\\takaharayota\\Research\\data\\0625\\times\\{directory}\\{whichAudioParameter}";
+            folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\times\\{whichAudioParameter}";
             Directory.CreateDirectory(folder);
 
             fileName = $"time_{targetPlaceTextIndex}_{whichAudioParameter}.txt";
@@ -101,7 +98,6 @@ public class ExperienceController : MonoBehaviour
     public void StartMeasurement(int count)
     {
         dataLoggerController.CountAdd(count);
-        progressController.SubtractCount();
 
         isMeasuring = true;
 
@@ -142,20 +138,19 @@ public class ExperienceController : MonoBehaviour
 
         bool isAudioFlag = false;
 
-        for (int i = 0; i < targetPlaceList.Count; i++)
+
+
+        Vector3 targetPosition = targetPlaceList[targetPlaceTextIndex].transform.position;
+        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
+        (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
         {
+            isAudioFlag = true;
+            AudioSetting(targetPlaceTextIndex);
 
-            Vector3 targetPosition = targetPlaceList[i].transform.position;
-            if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
-            (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
-        && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
-            {
-                isAudioFlag = true;
-                AudioSetting(i);
 
-                break;
-            }
         }
+
         if (isAudioFlag)
         {
             createSoundController.EnableAudio();
@@ -222,20 +217,19 @@ public class ExperienceController : MonoBehaviour
 
 
     }
-
     public void SetTargetPlaceIndex(int placeIndex)
     {
         targetPlaceTextIndex = placeIndex;
-        SetDataLogSetting();
 
     }
-    private void SetDataLogSetting()
+    public void SetTargetPlaceChange(int placeIndex)
     {
-        filePath = SetupFilePath(0);
-        dataLoggerController.Initialize(filePath);
-        timeLoggerController.Initialize(SetupFilePath(1));
-        Debug.Log("file path:" + filePath);
+        SetTargetPlaceIndex(placeIndex);
+        dataLoggerController.ReflectPlaceChange(targetPlaceTextIndex);
+        timeLoggerController.ReflectPlaceChange(targetPlaceTextIndex);
     }
+
+
 
 
 

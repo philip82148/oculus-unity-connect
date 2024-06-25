@@ -8,6 +8,8 @@ public class ProgressController : MonoBehaviour
 
     [Header("Controller Setting")]
     [SerializeField] private ExperienceController experienceController;
+    [SerializeField] private MeasurementController measurementController;
+    [SerializeField] private DisplayTargetPlaceController displayTargetPlaceController;
 
     private const int EXP_COUNT = 5;
     private const int PLACE_COUNT = 4;
@@ -22,12 +24,18 @@ public class ProgressController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         remainingCount = EXP_COUNT;
         counterText.text = remainingCount.ToString();
 
         expOrderArray = GenerateRandomArray();
-        placeText.text = expOrderArray[ExpProgress].ToString();
-        experienceController.SetTargetPlaceIndex(expOrderArray[ExpProgress]);
+        int firstIndex = expOrderArray[ExpProgress];
+        placeText.text = firstIndex.ToString();
+        experienceController.SetTargetPlaceIndex(firstIndex);
+
+        experienceController.Initialize();
+        experienceController.SetTargetPlaceChange(firstIndex);
+        displayTargetPlaceController.ChangeColors(firstIndex);
     }
 
 
@@ -78,10 +86,14 @@ public class ProgressController : MonoBehaviour
         }
         else
         {
-            experienceController.SetTargetPlaceIndex(expOrderArray[ExpProgress]);
-            placeText.text = expOrderArray[ExpProgress].ToString();
+            int nextIndex = expOrderArray[ExpProgress];
+            experienceController.SetTargetPlaceChange(nextIndex);
+
+            measurementController.Initialize();
+            placeText.text = nextIndex.ToString();
             remainingCount = EXP_COUNT;
             counterText.text = remainingCount.ToString();
+            displayTargetPlaceController.ChangeColors(nextIndex);
 
         }
 

@@ -18,14 +18,14 @@ public class ChangeColorController : MonoBehaviour
     {
         frequency = (float)createSoundController.frequency;
 
-        if (MathF.Abs(primaryFrequency - frequency) < 50f)
-        {
-            renderer.material.color = Color.red;
-        }
-        else
-        {
-            renderer.material.color = Color.blue;
-        }
+        // if (MathF.Abs(primaryFrequency - frequency) < 50f)
+        // {
+        //     renderer.material.color = Color.red;
+        // }
+        // else
+        // {
+        //     renderer.material.color = Color.blue;
+        // }
 
     }
 }
