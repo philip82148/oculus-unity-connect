@@ -6,7 +6,7 @@ using UnityEngine;
 public class ProgressController : MonoBehaviour
 {
     private const int EXP_COUNT = 5;
-    private const
+    private const int PLACE_COUNT = 4;
     [SerializeField] private int remainingCount;
     [SerializeField] private TextMeshProUGUI counterText;
     // Start is called before the first frame update
