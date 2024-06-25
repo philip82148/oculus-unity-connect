@@ -34,10 +34,9 @@ public class MeasurementController : MonoBehaviour
                 Debug.Log("Measurement and drawing started");
                 count++;
                 experienceController.StartMeasurement(count);
-                fingerPaint.StartDrawing(); // Start drawing
-                // handInformation.StartMeasurement(); // Start hand information recording
+                fingerPaint.StartDrawing();
                 isMeasuring = true;
-                // counterController.SubtractCount();
+
 
             }
         }
@@ -48,7 +47,6 @@ public class MeasurementController : MonoBehaviour
             Debug.Log("Measurement and drawing stopped");
             experienceController.EndMeasurement();
             fingerPaint.StopDrawing(); // Stop drawing
-            // handInformation.EndMeasurement(); // Stop hand information recording
 
         }
 

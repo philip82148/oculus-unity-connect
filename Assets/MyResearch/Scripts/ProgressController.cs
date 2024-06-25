@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class ProgressController : MonoBehaviour
 {
+
+    [Header("Controller Setting")]
+    [SerializeField] private ExperienceController experienceController;
+
     private const int EXP_COUNT = 5;
     private const int PLACE_COUNT = 4;
 
     public int ExpProgress = 0;
     [SerializeField] private int remainingCount;
-    [SerializeField] private TextMeshProUGUI progressText;
+    [SerializeField] private TextMeshProUGUI placeText;
     [SerializeField] private TextMeshProUGUI counterText;
 
 
@@ -22,20 +26,11 @@ public class ProgressController : MonoBehaviour
         counterText.text = remainingCount.ToString();
 
         expOrderArray = GenerateRandomArray();
-        progressText.text = expOrderArray[ExpProgress].ToString();
+        placeText.text = expOrderArray[ExpProgress].ToString();
+        experienceController.SetTargetPlaceIndex(expOrderArray[ExpProgress]);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (OVRInput.GetDown(OVRInput.Button.One))
-        {
-            SubtractCount();
-        }
 
-
-
-    }
     public void SubtractCount()
     {
         if (remainingCount > 0)
@@ -83,7 +78,8 @@ public class ProgressController : MonoBehaviour
         }
         else
         {
-            progressText.text = expOrderArray[ExpProgress].ToString();
+            experienceController.SetTargetPlaceIndex(expOrderArray[ExpProgress]);
+            placeText.text = expOrderArray[ExpProgress].ToString();
             remainingCount = EXP_COUNT;
             counterText.text = remainingCount.ToString();
 
@@ -95,7 +91,7 @@ public class ProgressController : MonoBehaviour
     {
 
         counterText.text = "";
-        progressText.text = "Test Finished";
+        placeText.text = "Test Finished";
     }
 
 }

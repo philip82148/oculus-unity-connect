@@ -18,13 +18,9 @@ public class ExperienceController : MonoBehaviour
 
 
     [Header("target place text")]
-    [SerializeField] private Vector3 targetPosition;
-    [SerializeField]
 
-    private List<GameObject> targetPlaceList;
+    [SerializeField] private List<GameObject> targetPlaceList;
     [SerializeField] private int targetPlaceTextIndex = 0;
-
-
 
     [Header("main setting")]
 
@@ -38,13 +34,7 @@ public class ExperienceController : MonoBehaviour
          rightControllerPosition;
     [SerializeField] private Vector3 diff;
 
-
-    private float movementSpeed;
-
     private string filePath;
-
-
-
     [SerializeField] private bool isSound = true;
     [SerializeField] private int experienceCount = 1;
 
@@ -54,7 +44,7 @@ public class ExperienceController : MonoBehaviour
     [SerializeField] private DataLoggerController dataLoggerController;
 
     [SerializeField] private TimeLoggerController timeLoggerController;
-    [SerializeField] private ProgressController counterController;
+    [SerializeField] private ProgressController progressController;
 
     [SerializeField] private bool isAmplitudeInversion = false;
 
@@ -80,44 +70,26 @@ public class ExperienceController : MonoBehaviour
     {
         audioController.isAmplitudeInversion = isAmplitudeInversion;
 
-        filePath = SetupFilePath(0);
-        dataLoggerController.Initialize(filePath);
-
-        timeLoggerController.Initialize(SetupFilePath(1));
-
-
-
-
-
     }
 
-    private string SetupFilePath(int way)
+    private string SetupFilePath(int isTime)
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
         string directory = isSound ? $"{experienceCount}exp_withsound" : $"{experienceCount}exp_withoutsound";
-        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0623\\{directory}\\{whichAudioParameter}";
+        string folder = $"C:\\Users\\takaharayota\\Research\\data\\0625\\{directory}\\{whichAudioParameter}";
 
         Directory.CreateDirectory(folder);
-        Debug.Log("create folder");
 
         string fileName;
 
-        // string filePlaceTextName;
-        // if (targetPlaceTextIndex == 0) filePlaceTextName = "(0.25,-0.1,0.25)";
-        // else if (targetPlaceTextIndex == 1) filePlaceTextName = "(0.25,0.15,0.25)";
-        // else if (targetPlaceTextIndex == 2) filePlaceTextName = "(0.25,-0.1,0.5)";
-        // else if (targetPlaceTextIndex == 3) filePlaceTextName = "(0.25,0.15,0.5)";
-        // else if (targetPlaceTextIndex == 4) filePlaceTextName = "(0.25,-0.1,0.75)";
-        // else filePlaceTextName = "(0.25,0.15,0.75)";
-
-        if (way == 0)
+        if (isTime == 0)
 
         {
             fileName = $"{targetPlaceTextIndex}_{whichAudioParameter}_{dateTime}.txt";
         }
         else
         {
-            folder = $"C:\\Users\\takaharayota\\Research\\data\\0623\\times\\{directory}\\{whichAudioParameter}";
+            folder = $"C:\\Users\\takaharayota\\Research\\data\\0625\\times\\{directory}\\{whichAudioParameter}";
             Directory.CreateDirectory(folder);
 
             fileName = $"time_{targetPlaceTextIndex}_{whichAudioParameter}.txt";
@@ -129,7 +101,7 @@ public class ExperienceController : MonoBehaviour
     public void StartMeasurement(int count)
     {
         dataLoggerController.CountAdd(count);
-        counterController.SubtractCount();
+        progressController.SubtractCount();
 
         isMeasuring = true;
 
@@ -156,10 +128,6 @@ public class ExperienceController : MonoBehaviour
         }
 
 
-        // Oculus Touchの右コントローラーのスティック入力を取得
-        Vector2 stickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
-
-
         if (isMeasuring)
         {
             Debug.Log("start data measurement");
@@ -177,7 +145,7 @@ public class ExperienceController : MonoBehaviour
         for (int i = 0; i < targetPlaceList.Count; i++)
         {
 
-            targetPosition = targetPlaceList[i].transform.position;
+            Vector3 targetPosition = targetPlaceList[i].transform.position;
             if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
             (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
         && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
@@ -211,17 +179,6 @@ public class ExperienceController : MonoBehaviour
     {
         timeLoggerController.WriteTimeInformation(time);
 
-
-    }
-
-
-
-
-    private Vector3 GetRightControllerPosition()
-    {
-        Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-
-        return controllerPosition;
 
     }
 
@@ -264,6 +221,20 @@ public class ExperienceController : MonoBehaviour
 
 
 
+    }
+
+    public void SetTargetPlaceIndex(int placeIndex)
+    {
+        targetPlaceTextIndex = placeIndex;
+        SetDataLogSetting();
+
+    }
+    private void SetDataLogSetting()
+    {
+        filePath = SetupFilePath(0);
+        dataLoggerController.Initialize(filePath);
+        timeLoggerController.Initialize(SetupFilePath(1));
+        Debug.Log("file path:" + filePath);
     }
 
 
