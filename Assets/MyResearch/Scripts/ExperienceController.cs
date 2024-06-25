@@ -54,6 +54,7 @@ public class ExperienceController : MonoBehaviour
     [SerializeField] private DataLoggerController dataLoggerController;
 
     [SerializeField] private TimeLoggerController timeLoggerController;
+    [SerializeField] private ProgressController counterController;
 
     [SerializeField] private bool isAmplitudeInversion = false;
 
@@ -101,13 +102,13 @@ public class ExperienceController : MonoBehaviour
 
         string fileName;
 
-        string filePlaceTextName;
-        if (targetPlaceTextIndex == 0) filePlaceTextName = "(0.25,-0.1,0.25)";
-        else if (targetPlaceTextIndex == 1) filePlaceTextName = "(0.25,0.15,0.25)";
-        else if (targetPlaceTextIndex == 2) filePlaceTextName = "(0.25,-0.1,0.5)";
-        else if (targetPlaceTextIndex == 3) filePlaceTextName = "(0.25,0.15,0.5)";
-        else if (targetPlaceTextIndex == 4) filePlaceTextName = "(0.25,-0.1,0.75)";
-        else filePlaceTextName = "(0.25,0.15,0.75)";
+        // string filePlaceTextName;
+        // if (targetPlaceTextIndex == 0) filePlaceTextName = "(0.25,-0.1,0.25)";
+        // else if (targetPlaceTextIndex == 1) filePlaceTextName = "(0.25,0.15,0.25)";
+        // else if (targetPlaceTextIndex == 2) filePlaceTextName = "(0.25,-0.1,0.5)";
+        // else if (targetPlaceTextIndex == 3) filePlaceTextName = "(0.25,0.15,0.5)";
+        // else if (targetPlaceTextIndex == 4) filePlaceTextName = "(0.25,-0.1,0.75)";
+        // else filePlaceTextName = "(0.25,0.15,0.75)";
 
         if (way == 0)
 
@@ -119,7 +120,7 @@ public class ExperienceController : MonoBehaviour
             folder = $"C:\\Users\\takaharayota\\Research\\data\\0623\\times\\{directory}\\{whichAudioParameter}";
             Directory.CreateDirectory(folder);
 
-            fileName = $"time_{filePlaceTextName}.txt";
+            fileName = $"time_{targetPlaceTextIndex}_{whichAudioParameter}.txt";
         }
         return System.IO.Path.Combine(folder, fileName);
     }
@@ -128,6 +129,7 @@ public class ExperienceController : MonoBehaviour
     public void StartMeasurement(int count)
     {
         dataLoggerController.CountAdd(count);
+        counterController.SubtractCount();
 
         isMeasuring = true;
 
@@ -226,7 +228,6 @@ public class ExperienceController : MonoBehaviour
     private Vector3 GetRightIndexFingerPosition()
     {
 
-        // return skeleton.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.position;
         return indexFinger.transform.position;
 
     }
@@ -254,11 +255,11 @@ public class ExperienceController : MonoBehaviour
         }
         else if (whichAudioParameter == 2)
         {
-            audioController.SetAudioSetting(CalculateControllerPositionAndTextDiff(index));
+            audioController.SetContinuousAudioSetting(CalculateControllerPositionAndTextDiff(index));
         }
         else if (whichAudioParameter == 3)
         {
-            audioController.SetAudioSettingOnlyAmplitudeWithTargetText(CalculateControllerPositionAndTextDiff(index));
+            audioController.SetDiscreteAudioSetting(CalculateControllerPositionAndTextDiff(index));
         }
 
 

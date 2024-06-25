@@ -61,7 +61,7 @@ public class AudioController : MonoBehaviour
     }
 
 
-    public void SetAudioSetting(Vector3 targetDiff)
+    public void SetContinuousAudioSetting(Vector3 targetDiff)
     {
 
         amplitude = 0.5f - amplitudeScalingFactor * targetDiff.z;
@@ -71,6 +71,24 @@ public class AudioController : MonoBehaviour
         ReflectContinuousAudioSettings();
 
     }
+
+    public void SetDiscreteAudioSetting(Vector3 targetDiff)
+    {
+
+
+        float discreteX = Mathf.Floor(targetDiff.x / discreteFactor) * discreteFactor;
+        float discreteY = Mathf.Floor(targetDiff.y / discreteFactor) * discreteFactor;
+        float discreteZ = Mathf.Floor(targetDiff.z / discreteFactor) * discreteFactor;
+
+
+        amplitude = 0.5f - amplitudeScalingFactor * discreteZ;
+        frequency = 1.0f + frequencyScalingFactor * discreteY;
+        pan = 10 * discreteX;
+
+        ReflectContinuousAudioSettings();
+
+    }
+
 
 
     public void SetContinuousExponentAudioSettingWithTargetText(Vector3 targetDiff)
@@ -157,51 +175,6 @@ public class AudioController : MonoBehaviour
         ReflectAudioSettings();
 
     }
-
-
-    public void SetAudioSettingWithTargetText2(Vector3 targetDiff)
-    {
-        float yOffset = 0.15f;
-        float zOffset = 0.0f;
-        float discreteZ = Mathf.Floor((targetDiff.z + zOffset) / discreteFactor) * discreteFactor + zOffset;
-        float discreteY = Mathf.Floor((targetDiff.y + yOffset - 0.25f) / discreteFactor) * discreteFactor + yOffset;
-
-        amplitude = Mathf.Pow(2.0f, discreteY / discreteFactor);
-        // 1cm 増えるごとに 1.5 倍になるための計算
-        frequency = Mathf.Pow(frequencyScalingFactor, discreteZ * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
-
-        // frequency が負の値にならないようにチェック
-        if (frequency < 0)
-        {
-            frequency = 0;
-        }
-
-
-        double diffX = targetDiff.x * 1000;
-        if (-5 < diffX && diffX < 5)
-        {
-            Debug.Log("-10 < diffX && diffX < 10");
-            pan = 0;
-        }
-        else if (-30 < diffX && diffX <= -5)
-        {
-            Debug.Log("-30 < diffX && diffX <= -10");
-            pan = -1.0f;
-        }
-        else if (5 <= diffX && diffX < 30)
-        {
-            Debug.Log("diffX <= 10 && diffX < 30");
-            pan = 1.0f;
-        }
-        else
-        {
-            amplitude = 0;
-        }
-
-        ReflectAudioSettings();
-
-    }
-
 
 
 

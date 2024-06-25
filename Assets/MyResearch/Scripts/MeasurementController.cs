@@ -12,6 +12,7 @@ public class MeasurementController : MonoBehaviour
     // [SerializeField] private GetHandInformation handInformation;
     [SerializeField]
     private ExperienceController experienceController;
+    // [SerializeField] private CounterController counterController;
 
 
     [SerializeField] private bool isMeasuring;
@@ -36,6 +37,8 @@ public class MeasurementController : MonoBehaviour
                 fingerPaint.StartDrawing(); // Start drawing
                 // handInformation.StartMeasurement(); // Start hand information recording
                 isMeasuring = true;
+                // counterController.SubtractCount();
+
             }
         }
         else if (OVRInput.GetUp(OVRInput.Button.Three))
