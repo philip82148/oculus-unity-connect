@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ChangeColorController : MonoBehaviour
 {
     [SerializeField] private Renderer renderer;
@@ -18,14 +19,14 @@ public class ChangeColorController : MonoBehaviour
     {
         frequency = (float)createSoundController.frequency;
 
-        // if (MathF.Abs(primaryFrequency - frequency) < 50f)
-        // {
-        //     renderer.material.color = Color.red;
-        // }
-        // else
-        // {
-        //     renderer.material.color = Color.blue;
-        // }
+        if (MathF.Abs(primaryFrequency - frequency) < 50f)
+        {
+            renderer.material.color = Color.red;
+        }
+        else
+        {
+            renderer.material.color = Color.blue;
+        }
 
     }
 }

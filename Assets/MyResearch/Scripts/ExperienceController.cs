@@ -82,14 +82,14 @@ public class ExperienceController : MonoBehaviour
         if (isTime == 0)
 
         {
-            fileName = $"{targetPlaceTextIndex}_{whichAudioParameter}_{dateTime}.txt";
+            fileName = $"{isSound}_{targetPlaceTextIndex}_{whichAudioParameter}_{dateTime}.txt";
         }
         else
         {
             folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\times\\{whichAudioParameter}";
             Directory.CreateDirectory(folder);
 
-            fileName = $"time_{targetPlaceTextIndex}_{whichAudioParameter}.txt";
+            fileName = $"{isSound}_time_{targetPlaceTextIndex}_{whichAudioParameter}.txt";
         }
         return System.IO.Path.Combine(folder, fileName);
     }
