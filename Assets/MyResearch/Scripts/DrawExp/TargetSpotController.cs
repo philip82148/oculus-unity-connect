@@ -8,10 +8,12 @@ public class TargetSpotController : MonoBehaviour
 {
     [Header("Controller Setting")]
     [SerializeField] private DrawExperienceController drawExperienceController;
+
     [SerializeField] private Image thisImage;
     [SerializeField] private TextMeshProUGUI debugText;
     private bool isCollision = false;
     private Color defaultColor;
+    private int targetPlaceIndex;
 
     private HashSet<GameObject> collidingObjects = new HashSet<GameObject>();
 
@@ -48,6 +50,11 @@ public class TargetSpotController : MonoBehaviour
     private void SetColor(Color color)
     {
         thisImage.color = color;
+    }
+
+    public void SetTargetPlaceIndex(int index)
+    {
+        targetPlaceIndex = index;
     }
 
 

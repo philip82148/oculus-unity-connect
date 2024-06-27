@@ -10,13 +10,11 @@ public class HandActionController : MonoBehaviour
 
     [SerializeField] private GameObject[] paletteObjects;
     [SerializeField] private GameObject grabbedObject;
+
     private bool isGrabbed = false;
 
 
-    void Start()
-    {
 
-    }
 
     // Update is called once per frame
     void Update()
@@ -63,7 +61,7 @@ public class HandActionController : MonoBehaviour
                 PaletteObjectController paletteObject = grabbedObject.GetComponent<PaletteObjectController>();
                 if (paletteObject != null)
                 {
-                    grabbedObject.transform.position = paletteObject.defaultPosition;
+                    grabbedObject.transform.position = paletteObject.GetDefaultPoisition();
                 }
                 isGrabbed = false;
             }
@@ -78,6 +76,7 @@ public class HandActionController : MonoBehaviour
         if (paletteObjectController != null)
         {
             paletteObjectController.SetDefaultPosition();
+
         }
     }
 

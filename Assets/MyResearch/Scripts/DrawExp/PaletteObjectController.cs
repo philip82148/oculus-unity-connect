@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PaletteObjectController : MonoBehaviour
 {
-    public Vector3 defaultPosition = new Vector3(-0.25f, -0.1f, 0f);
+    [SerializeField] private Vector3 defaultPosition = new Vector3(-0.25f, -0.1f, 0f);
+    [SerializeField] private int index = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,14 @@ public class PaletteObjectController : MonoBehaviour
     public void SetDefaultPosition()
     {
         this.transform.position = defaultPosition;
+    }
+    public Vector3 GetDefaultPoisition()
+    {
+        return this.defaultPosition;
+    }
+    public int GetIndex()
+    {
+        return index;
     }
 
 
