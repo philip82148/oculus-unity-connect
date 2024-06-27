@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Meta.Voice.Samples.BuiltInTimer;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -14,6 +16,12 @@ public class DrawExperienceController : MonoBehaviour
 
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
     [SerializeField] private TargetSpotController targetSpotController;
+    [SerializeField] private DrawDataLoggerController drawDataLoggerController;
+
+
+    [Header("UI Setting")]
+    [SerializeField] private TextMeshProUGUI finalScoreText;
+    [SerializeField] private TextMeshProUGUI accuracyScoreText;
 
 
     private const int PLACE_COUNT = 9;
@@ -23,10 +31,7 @@ public class DrawExperienceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RandomlyChoosePlace();
-        ChangeDisplayColor();
-        targetSpotController.SetTargetPlaceIndex(targetIndex);
-
+        SetNextTarget();
     }
 
     // Update is called once per frame
@@ -39,9 +44,24 @@ public class DrawExperienceController : MonoBehaviour
         }
     }
 
-    public void AddScore()
+
+    private void SetNextTarget()
     {
-        scoreController.AddScore();
+        RandomlyChoosePlace();
+        ChangeDisplayColor();
+        targetSpotController.SetTargetPlaceIndex(targetIndex);
+    }
+
+
+    public void GetCorrectAnswer()
+    {
+        scoreController.GetCorrectAnswer();
+        SetNextTarget();
+    }
+
+    public void GetIncorrectAnswer()
+    {
+        scoreController.GetIncorrectAnswer();
     }
 
     public void ChangeDisplayColor()
@@ -52,5 +72,19 @@ public class DrawExperienceController : MonoBehaviour
     public void RandomlyChoosePlace()
     {
         targetIndex = Random.Range(0, PLACE_COUNT);
+    }
+
+    public void EndGame()
+    {
+        scoreController.EndGame();
+        float[] resultArray = scoreController.GetFinalResult();
+        finalScoreText.text = "Score:" + resultArray[0].ToString("f0");
+        accuracyScoreText.text = "Accuracy:" + resultArray[1].ToString("f2");
+        drawDataLoggerController.WriteResultInformation(resultArray);
+    }
+
+    private void OnDestroy()
+    {
+        drawDataLoggerController.Close();
     }
 }

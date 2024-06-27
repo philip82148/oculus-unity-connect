@@ -19,6 +19,8 @@ public class TimeController : MonoBehaviour
     [SerializeField] private GameObject countDownPanel;
     [SerializeField]
     private TextMeshProUGUI countDownText;
+    [SerializeField]
+    private GameObject gameFinishDiplayCanvas;
 
     private float remainingTime;
     private float countDownTime;
@@ -58,13 +60,16 @@ public class TimeController : MonoBehaviour
         if (isGame)
         {
             remainingTime -= Time.deltaTime;
+            if (remainingTime <= 0)
+            {
+                Debug.Log("game end");
+
+
+                EndGame();
+            }
 
         }
-        if (remainingTime <= 0)
-        {
-            remainingTime = 0;
-            EndGame();
-        }
+
         timerText.text = remainingTime.ToString("f1");
     }
 
@@ -82,8 +87,10 @@ public class TimeController : MonoBehaviour
     }
     public void EndGame()
     {
-        timerText.text = "Game Finished";
+        isGame = false;
+        gameFinishDiplayCanvas.SetActive(true);
         descriptionText.text = "";
+        drawExperienceController.EndGame();
     }
 
 }
