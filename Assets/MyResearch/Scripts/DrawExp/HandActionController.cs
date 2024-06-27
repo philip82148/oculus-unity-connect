@@ -8,8 +8,10 @@ public class HandActionController : MonoBehaviour
 {
 
 
-    [SerializeField] private GameObject[] paletteObjects;
-    [SerializeField] private GameObject grabbedObject;
+    // [SerializeField] private GameObject[] paletteObjects;
+    private GameObject closestObject;
+    private float closestDistance = Mathf.Infinity;
+    // private GameObject closestObject;
 
     private bool isGrabbed = false;
 
@@ -19,36 +21,35 @@ public class HandActionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger))
+        if (isGrabbed)
         {
-
+            MoveGrabbedObject();
         }
-
     }
 
-    private void CheckObjectsCollider()
-    {
-        for (int i = 0; i < paletteObjects.Length; i++)
-        {
 
-
-        }
-
-    }
 
     private void OnTriggerStay(Collider otherObject)
     {
 
         if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger))
         {
-            grabbedObject = otherObject.gameObject;
+            float tmpDistance = Vector3.Distance(otherObject.transform.position, this.transform.position);
+            if (tmpDistance < closestDistance)
+            {
+                closestObject = otherObject.gameObject;
+                closestDistance = tmpDistance;
 
+            }
+            else
+            {
+                return;
+            }
 
             Renderer objectRenderer = otherObject.gameObject.GetComponent<Renderer>();
             if (objectRenderer != null)
             {
                 objectRenderer.material.color = Color.green;
-                MoveGrabbedObject();
                 isGrabbed = true;
             }
 
@@ -56,16 +57,8 @@ public class HandActionController : MonoBehaviour
         else
         {
 
-            if (isGrabbed)
-            {
-                PaletteObjectController paletteObject = grabbedObject.GetComponent<PaletteObjectController>();
-                if (paletteObject != null)
-                {
-                    grabbedObject.transform.position = paletteObject.GetDefaultPoisition();
-                }
-                isGrabbed = false;
-            }
-            grabbedObject = null;
+            isGrabbed = false;
+
         }
     }
     private void OnTriggerExit(Collider otherObject)
@@ -76,6 +69,13 @@ public class HandActionController : MonoBehaviour
         if (paletteObjectController != null)
         {
             paletteObjectController.SetDefaultPosition();
+            paletteObjectController.SetDefaultColor();
+
+        }
+        if (otherObject.gameObject == closestObject)
+        {
+            closestObject = null;
+            closestDistance = Mathf.Infinity;
 
         }
     }
@@ -83,13 +83,10 @@ public class HandActionController : MonoBehaviour
     // 物体を追従させる
     private void MoveGrabbedObject()
     {
-        grabbedObject.transform.position = this.gameObject.transform.position;
+        closestObject.transform.position = this.gameObject.transform.position;
     }
 
-    public void UngrabbeObject()
-    {
-        isGrabbed = false;
-    }
+
 
 
 

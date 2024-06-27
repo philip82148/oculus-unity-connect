@@ -5,6 +5,8 @@ using UnityEngine;
 public class PaletteObjectController : MonoBehaviour
 {
     [SerializeField] private Vector3 defaultPosition = new Vector3(-0.25f, -0.1f, 0f);
+    [SerializeField] private Color defaultColor = Color.white;
+    [SerializeField] private Renderer thisRenderer;
     [SerializeField] private int index = 0;
     // Start is called before the first frame update
     void Start()
@@ -22,9 +24,13 @@ public class PaletteObjectController : MonoBehaviour
     {
         this.transform.position = defaultPosition;
     }
-    public Vector3 GetDefaultPoisition()
+    // public Vector3 GetDefaultPosition()
+    // {
+    //     return this.defaultPosition;
+    // }
+    public void SetDefaultColor()
     {
-        return this.defaultPosition;
+        thisRenderer.material.color = defaultColor;
     }
     public int GetIndex()
     {
