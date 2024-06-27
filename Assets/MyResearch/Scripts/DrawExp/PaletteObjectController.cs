@@ -16,4 +16,11 @@ public class PaletteObjectController : MonoBehaviour
     {
 
     }
+
+    public void SetDefaultPosition()
+    {
+        this.transform.position = defaultPosition;
+    }
+
+
 }

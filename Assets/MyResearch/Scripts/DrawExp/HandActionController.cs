@@ -45,7 +45,7 @@ public class HandActionController : MonoBehaviour
         {
             grabbedObject = otherObject.gameObject;
 
-            Debug.Log("grabbed Object" + grabbedObject.name);
+
             Renderer objectRenderer = otherObject.gameObject.GetComponent<Renderer>();
             if (objectRenderer != null)
             {
@@ -57,14 +57,27 @@ public class HandActionController : MonoBehaviour
         }
         else
         {
-            grabbedObject = null;
+
             if (isGrabbed)
             {
                 PaletteObjectController paletteObject = grabbedObject.GetComponent<PaletteObjectController>();
-                grabbedObject.transform.position = paletteObject.defaultPosition;
-                // grabbedObject
+                if (paletteObject != null)
+                {
+                    grabbedObject.transform.position = paletteObject.defaultPosition;
+                }
                 isGrabbed = false;
             }
+            grabbedObject = null;
+        }
+    }
+    private void OnTriggerExit(Collider otherObject)
+
+    {
+        PaletteObjectController paletteObjectController =
+        otherObject.GetComponent<PaletteObjectController>();
+        if (paletteObjectController != null)
+        {
+            paletteObjectController.SetDefaultPosition();
         }
     }
 
@@ -72,6 +85,11 @@ public class HandActionController : MonoBehaviour
     private void MoveGrabbedObject()
     {
         grabbedObject.transform.position = this.gameObject.transform.position;
+    }
+
+    public void UngrabbeObject()
+    {
+        isGrabbed = false;
     }
 
 
