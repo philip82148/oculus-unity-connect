@@ -17,11 +17,17 @@ public class DrawExperienceController : MonoBehaviour
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
     [SerializeField] private TargetSpotController targetSpotController;
     [SerializeField] private DrawDataLoggerController drawDataLoggerController;
+    [SerializeField] private AudioSettingController audioSettingController;
 
 
     [Header("UI Setting")]
     [SerializeField] private TextMeshProUGUI finalScoreText;
     [SerializeField] private TextMeshProUGUI accuracyScoreText;
+
+
+    [Header("OVR Input Information")]
+    [SerializeField]
+    private GameObject indexFinger;
 
 
     private const int PLACE_COUNT = 9;
@@ -50,6 +56,7 @@ public class DrawExperienceController : MonoBehaviour
         RandomlyChoosePlace();
         ChangeDisplayColor();
         targetSpotController.SetTargetPlaceIndex(targetIndex);
+        audioSettingController.SetTargetPlaceIndex(targetIndex);
     }
 
 
