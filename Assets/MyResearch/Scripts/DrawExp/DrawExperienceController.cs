@@ -17,7 +17,7 @@ public class DrawExperienceController : MonoBehaviour
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
     [SerializeField] private TargetSpotController targetSpotController;
     [SerializeField] private DrawDataLoggerController drawDataLoggerController;
-    [SerializeField] private AudioSettingController audioSettingController;
+    // [SerializeField] private AudioSettingController audioSettingController;
 
 
     [Header("UI Setting")]
@@ -54,7 +54,7 @@ public class DrawExperienceController : MonoBehaviour
         RandomlyChoosePlace();
         ChangeDisplayColor();
         targetSpotController.SetTargetPlaceIndex(targetIndex);
-        audioSettingController.SetTargetPlaceIndex(targetIndex);
+        // audioSettingController.SetTargetPlaceIndex(targetIndex);
     }
 
 

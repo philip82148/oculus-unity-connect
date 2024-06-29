@@ -31,11 +31,11 @@ public class AudioSettingController : MonoBehaviour
 
 
 
-    public void SetTargetPlaceIndex(int index)
-    {
-        // targetPlaceIndex = index;
+    // public void SetTargetPlaceIndex(int index)
+    // {
+    //     // targetPlaceIndex = index;
 
-    }
+    // }
 
     void Update()
     {
