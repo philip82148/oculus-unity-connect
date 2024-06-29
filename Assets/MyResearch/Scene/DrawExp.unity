@@ -1153,7 +1153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f19dd160306dc44a968388338ef2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subjectName: "\u9AD8\u539F\u967D\u592A"
+  subjectName: test
   whichAudioParameter: 0
 --- !u!4 &237646146
 Transform:

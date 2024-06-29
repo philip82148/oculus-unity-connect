@@ -78,6 +78,11 @@ public class DrawExperienceController : MonoBehaviour
     {
         targetIndex = Random.Range(0, PLACE_COUNT);
     }
+    // public void RandomlyChoosePlace()
+    // {
+    //     int[] allowedIndexes = { 0, 3, 4, 9 };
+    //     targetIndex = allowedIndexes[Random.Range(0, allowedIndexes.Length)];
+    // }
 
     public void EndGame()
     {

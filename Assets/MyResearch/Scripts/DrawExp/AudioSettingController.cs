@@ -27,19 +27,19 @@ public class AudioSettingController : MonoBehaviour
     private const double requiredLength = 0.06;
     private const double zRequiredLength = 0.06;
 
-    // private int targetPlaceIndex = 0;
+    private bool isSound = true;
 
-
-
-    // public void SetTargetPlaceIndex(int index)
-    // {
-    //     // targetPlaceIndex = index;
-
-    // }
+    void Start()
+    {
+        IsSound();
+    }
 
     void Update()
     {
-        CheckIfAudioEnabled();
+        if (isSound)
+        {
+            CheckIfAudioEnabled();
+        }
     }
 
     private void CheckIfAudioEnabled()
@@ -97,6 +97,10 @@ public class AudioSettingController : MonoBehaviour
         {
             audioController.SetDiscreteAudioSetting(positionDiff);
         }
+        else if (whichAudioParameter == -1)
+        {
+            IsSound();
+        }
 
 
 
@@ -119,4 +123,17 @@ public class AudioSettingController : MonoBehaviour
         }
     }
 
+
+    private void IsSound()
+    {
+        if (whichAudioParameter == -1)
+        {
+            isSound = false;
+        }
+
+    }
+    public int GetWhichAudioParameter()
+    {
+        return whichAudioParameter;
+    }
 }

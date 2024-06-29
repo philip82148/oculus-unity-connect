@@ -9,7 +9,7 @@ public class TimeController : MonoBehaviour
     [Header("Controller Setting")]
     [SerializeField] private DrawExperienceController drawExperienceController;
 
-    [SerializeField] private const float gameTime = 10.0f;
+    [SerializeField] private const float gameTime = 60.0f;
     private const float countTime = 5.0f;
 
     [Header("UI Setting")]
