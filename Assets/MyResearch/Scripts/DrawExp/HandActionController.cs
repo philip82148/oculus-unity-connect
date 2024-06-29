@@ -83,7 +83,10 @@ public class HandActionController : MonoBehaviour
     // 物体を追従させる
     private void MoveGrabbedObject()
     {
-        closestObject.transform.position = this.gameObject.transform.position;
+        if (closestObject != null)
+        {
+            closestObject.transform.position = this.gameObject.transform.position;
+        }
     }
 
 

@@ -25,9 +25,7 @@ public class DrawExperienceController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI accuracyScoreText;
 
 
-    [Header("OVR Input Information")]
-    [SerializeField]
-    private GameObject indexFinger;
+
 
 
     private const int PLACE_COUNT = 9;

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using TMPro;
 using UnityEngine;
 
 public class MeasurementController : MonoBehaviour
@@ -9,18 +9,21 @@ public class MeasurementController : MonoBehaviour
     [SerializeField]
     private FingerPaint fingerPaint;
 
+
+    [Header("Controller Setting")]
     [SerializeField]
     private ExperienceController experienceController;
     [SerializeField] private ProgressController progressController;
+    [Header("Debug UI")]
+    [SerializeField] private TextMeshProUGUI measurementText;
 
 
 
-    [SerializeField] private bool isMeasuring;
-    [SerializeField] private int count = 0;
+    private bool isMeasuring;
+    private int count = 0;
 
-    private bool isTimeMeasuring;
-    // private double measuringTime = 0;
-    private float pressStartTime;
+    private float startTime;
+
 
 
     public void Initialize()
@@ -29,64 +32,45 @@ public class MeasurementController : MonoBehaviour
 
     }
 
-
-    private void Update()
+    void Update()
     {
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
-
             if (!isMeasuring)
             {
 
-                Debug.Log("Measurement and drawing started");
+                Debug.Log("Measurement and Drawing Started");
                 count++;
-
                 experienceController.StartMeasurement(count);
+                startTime = Time.time;
                 isMeasuring = true;
 
 
             }
         }
-        else if (OVRInput.GetUp(OVRInput.Button.Three))
+        else if (OVRInput.GetDown(OVRInput.Button.Four))
         {
-            isMeasuring = false;
-
-            Debug.Log("Measurement and drawing stopped");
-            Debug.Log("count:" + count);
-
-            experienceController.EndMeasurement();
-            progressController.SubtractCount();
-
-            // fingerPaint.StopDrawing(); // Stop drawing
-
-        }
-
-
-        if (OVRInput.GetDown(OVRInput.Button.Four))
-        {
-
-            if (!isTimeMeasuring)
+            if (isMeasuring)
             {
-                Debug.Log("time measuring start");
-                // measuringTime = 0;
-                isTimeMeasuring = true;
-                pressStartTime = Time.time;
+                float endTime = Time.time;
+                float duration = endTime - startTime;
+                experienceController.EndMeasurement();
+                experienceController.WriteTimeInformation(duration);
+                progressController.SubtractCount();
+                Debug.Log("Measurement and drawing stopped:" + count);
+                isMeasuring = false;
+
             }
-            // measuringTime += Time.deltaTime;
-
-
         }
-        else if (OVRInput.GetUp(OVRInput.Button.Four))
+        if (isMeasuring)
         {
-            isTimeMeasuring = false;
-
-
-            Debug.Log("time Measurement and drawing stopped");
-            float pressDuration = Time.time - pressStartTime;
-            experienceController.WriteTimeInformation(pressDuration);
-            // measuringTime = 0;
-
+            measurementText.text = "Recording";
+        }
+        else
+        {
+            measurementText.text = "";
         }
     }
+
 
 }

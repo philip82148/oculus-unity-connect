@@ -1910,7 +1910,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drawExperienceController: {fileID: 1684449951}
   thisImage: {fileID: 475592931}
-  debugText: {fileID: 865141977}
 --- !u!1 &475754195
 GameObject:
   m_ObjectHideFlags: 0
@@ -3324,6 +3323,8 @@ MonoBehaviour:
   - {fileID: 1027524902}
   - {fileID: 8761914}
   - {fileID: 1891552996}
+  whichAudioParameter: 0
+  debugText: {fileID: 865141977}
 --- !u!4 &883066932
 Transform:
   m_ObjectHideFlags: 0
@@ -4715,72 +4716,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180140575}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1193946993
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1193946995}
-  - component: {fileID: 1193946994}
-  m_Layer: 0
-  m_Name: ExperienceController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1193946994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193946993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e35b84a0f2d9b4c45a6d19c1151febcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indexFinger: {fileID: 1157857308}
-  targetPlaceList:
-  - {fileID: 227909033}
-  - {fileID: 1003485994}
-  - {fileID: 619713385}
-  - {fileID: 815799023}
-  - {fileID: 734246391}
-  - {fileID: 1023693953}
-  - {fileID: 1692271449}
-  - {fileID: 1902985906}
-  targetPlaceTextIndex: 5
-  createSoundController: {fileID: 1944484595}
-  rightControllerPosition: {x: 0, y: 0, z: 0}
-  diff: {x: 0, y: 0, z: 0}
-  isSound: 1
-  audioController: {fileID: 1944484593}
-  dataLoggerController: {fileID: 0}
-  timeLoggerController: {fileID: 1939603160}
-  isAmplitudeInversion: 0
-  whichAudioParameter: 2
-  requiredLength: 0.1
-  subjectName: "\u9AD8\u539F\u967D\u592A"
---- !u!4 &1193946995
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193946993}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.41363, z: 1.75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1224070154
 GameObject:
   m_ObjectHideFlags: 0
@@ -6916,10 +6851,9 @@ MonoBehaviour:
   displayTargetPlaceColorController: {fileID: 1877973178}
   targetSpotController: {fileID: 475592933}
   drawDataLoggerController: {fileID: 237646145}
-  audioSettingController: {fileID: 0}
+  audioSettingController: {fileID: 883066931}
   finalScoreText: {fileID: 1691747843}
   accuracyScoreText: {fileID: 1596297177}
-  indexFinger: {fileID: 0}
 --- !u!4 &1684449952
 Transform:
   m_ObjectHideFlags: 0
@@ -9017,7 +8951,6 @@ SceneRoots:
   - {fileID: 1445748116}
   - {fileID: 1420308717}
   - {fileID: 1310513409}
-  - {fileID: 1193946995}
   - {fileID: 1684449952}
   - {fileID: 773029059}
   - {fileID: 1944484596}

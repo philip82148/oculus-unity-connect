@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioSettingController : MonoBehaviour
@@ -14,9 +16,13 @@ public class AudioSettingController : MonoBehaviour
     [Header("target place text")]
     [SerializeField] private List<GameObject> targetPlaceList;
     [Header("Parameter Setting")]
+    [SerializeField] private int whichAudioParameter = 0;
+
+    [Header("Debug Text")]
+    [SerializeField] private TextMeshProUGUI debugText;
 
     private const double requiredLength = 0.1;
-    private int whichAudioParameter = 0;
+
     private int targetPlaceIndex = 0;
 
 
@@ -24,6 +30,7 @@ public class AudioSettingController : MonoBehaviour
     public void SetTargetPlaceIndex(int index)
     {
         targetPlaceIndex = index;
+
     }
 
     void Update()
@@ -35,8 +42,10 @@ public class AudioSettingController : MonoBehaviour
     {
 
         Vector3 targetPosition = targetPlaceList[targetPlaceIndex].transform.position;
+        debugText.text = IsInSoundTeritory().ToString();
         if (IsInSoundTeritory())
         {
+            AudioSetting();
             createSoundController.EnableAudio();
         }
         else
@@ -61,26 +70,26 @@ public class AudioSettingController : MonoBehaviour
     {
         return indexFinger.transform.position;
     }
-    private void AudioSetting(int index)
+    private void AudioSetting()
     {
         if (whichAudioParameter == 0)
         {
 
-            audioController.SetDiscreteExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
+            audioController.SetDiscreteExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(targetPlaceIndex));
 
         }
         else if (whichAudioParameter == 1)
         {
 
-            audioController.SetContinuousExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
+            audioController.SetContinuousExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(targetPlaceIndex));
         }
         else if (whichAudioParameter == 2)
         {
-            audioController.SetContinuousAudioSetting(CalculateControllerPositionAndTextDiff(index));
+            audioController.SetContinuousAudioSetting(CalculateControllerPositionAndTextDiff(targetPlaceIndex));
         }
         else if (whichAudioParameter == 3)
         {
-            audioController.SetDiscreteAudioSetting(CalculateControllerPositionAndTextDiff(index));
+            audioController.SetDiscreteAudioSetting(CalculateControllerPositionAndTextDiff(targetPlaceIndex));
         }
 
 

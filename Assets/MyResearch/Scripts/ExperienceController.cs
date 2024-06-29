@@ -35,7 +35,7 @@ public class ExperienceController : MonoBehaviour
     [SerializeField] private Vector3 diff;
 
     private string filePath;
-    [SerializeField] private bool isSound = true;
+    private bool isSound = true;
 
 
     [Header("Controller Setting")]
@@ -57,6 +57,17 @@ public class ExperienceController : MonoBehaviour
     [SerializeField] private string subjectName = "高原陽太";
 
 
+
+
+
+    void Start()
+    {
+
+        if (whichAudioParameter == -1)
+        {
+            isSound = false;
+        }
+    }
 
 
     public void Initialize()
@@ -86,7 +97,7 @@ public class ExperienceController : MonoBehaviour
         }
         else
         {
-            folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\times\\{whichAudioParameter}";
+            folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\times";
             Directory.CreateDirectory(folder);
 
             fileName = $"{isSound}_time_{targetPlaceTextIndex}_{whichAudioParameter}.txt";
@@ -194,6 +205,7 @@ public class ExperienceController : MonoBehaviour
 
     private void AudioSetting(int index)
     {
+
         if (whichAudioParameter == 0)
         {
 
@@ -212,6 +224,10 @@ public class ExperienceController : MonoBehaviour
         else if (whichAudioParameter == 3)
         {
             audioController.SetDiscreteAudioSetting(CalculateControllerPositionAndTextDiff(index));
+        }
+        else if (whichAudioParameter == -1)
+        {
+            isSound = false;
         }
 
 

@@ -10,7 +10,6 @@ public class TargetSpotController : MonoBehaviour
     [SerializeField] private DrawExperienceController drawExperienceController;
 
     [SerializeField] private Image thisImage;
-    [SerializeField] private TextMeshProUGUI debugText;
     private bool isCollision = false;
     private Color defaultColor;
     private int targetPlaceIndex;
@@ -24,28 +23,6 @@ public class TargetSpotController : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        // // リストが空でない場合、赤色に変更
-        // if (collidingObjects.Count > 0)
-        // {
-        //     SetColor(Color.red);
-        // }
-        // else
-        // {
-        //     SetColor(defaultColor);
-        // }
-        // // HashSetにあるすべてのオブジェクトに対してPaletteObjectControllerを取得して処理
-        // foreach (var obj in collidingObjects)
-        // {
-        //     PaletteObjectController paletteObjectController = obj.GetComponent<PaletteObjectController>();
-        //     if (paletteObjectController != null)
-        //     {
-        //         paletteObjectController.SetDefaultPosition();
-        //         debugText.text = obj.name;  // 直近のオブジェクト名を表示
-        //     }
-        // }
-    }
 
     private void SetColor(Color color)
     {
@@ -65,8 +42,6 @@ public class TargetSpotController : MonoBehaviour
         if (paletteObjectController != null)
         {
             int objectIndex = paletteObjectController.GetIndex();
-            // drawExperienceController.AddScore();
-            debugText.text = "objNum:" + objectIndex.ToString();
             if (objectIndex == targetPlaceIndex)
             {
                 SetColor(Color.green);
