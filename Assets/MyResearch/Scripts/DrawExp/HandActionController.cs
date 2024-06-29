@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Oculus.Interaction.Editor.BuildingBlocks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Scripting;
 
@@ -8,7 +9,7 @@ public class HandActionController : MonoBehaviour
 {
 
 
-    // [SerializeField] private GameObject[] paletteObjects;
+    [SerializeField] private TextMeshProUGUI debugText;
     private GameObject closestObject;
     private float closestDistance = Mathf.Infinity;
     // private GameObject closestObject;
@@ -23,7 +24,12 @@ public class HandActionController : MonoBehaviour
     {
         if (isGrabbed)
         {
+            debugText.text = "Grabbed";
             MoveGrabbedObject();
+        }
+        else
+        {
+            debugText.text = "";
         }
     }
 
@@ -32,8 +38,10 @@ public class HandActionController : MonoBehaviour
     private void OnTriggerStay(Collider otherObject)
     {
 
-        if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger))
+        // index fingerボタンにすると人差し指の位置が変わってしまうことがあるので変更するようにした
+        if (OVRInput.Get(OVRInput.Button.One))
         {
+
             float tmpDistance = Vector3.Distance(otherObject.transform.position, this.transform.position);
             if (tmpDistance < closestDistance)
             {

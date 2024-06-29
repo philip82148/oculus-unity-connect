@@ -41,7 +41,7 @@ public class DrawExperienceController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        if (OVRInput.GetDown(OVRInput.Button.Three))
         {
             timeController.StartGameCountDown();
             scoreController.StartGame();

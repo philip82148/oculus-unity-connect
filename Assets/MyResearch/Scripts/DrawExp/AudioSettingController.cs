@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SpatialTracking;
 
 public class AudioSettingController : MonoBehaviour
 {
@@ -14,22 +15,25 @@ public class AudioSettingController : MonoBehaviour
     [SerializeField] private GameObject indexFinger;
 
     [Header("target place text")]
-    [SerializeField] private List<GameObject> targetPlaceList;
+    [SerializeField] private GameObject centralSoundObject;
+
     [Header("Parameter Setting")]
     [SerializeField] private int whichAudioParameter = 0;
 
     [Header("Debug Text")]
     [SerializeField] private TextMeshProUGUI debugText;
 
-    private const double requiredLength = 0.1;
+    // これぐらいが一番音として聞こえやすいのでは
+    private const double requiredLength = 0.06;
+    private const double zRequiredLength = 0.06;
 
-    private int targetPlaceIndex = 0;
+    // private int targetPlaceIndex = 0;
 
 
 
     public void SetTargetPlaceIndex(int index)
     {
-        targetPlaceIndex = index;
+        // targetPlaceIndex = index;
 
     }
 
@@ -41,8 +45,8 @@ public class AudioSettingController : MonoBehaviour
     private void CheckIfAudioEnabled()
     {
 
-        Vector3 targetPosition = targetPlaceList[targetPlaceIndex].transform.position;
-        debugText.text = IsInSoundTeritory().ToString();
+
+        // debugText.text = IsInSoundTeritory().ToString() + centralSoundObject.name;
         if (IsInSoundTeritory())
         {
             AudioSetting();
@@ -59,10 +63,10 @@ public class AudioSettingController : MonoBehaviour
 
 
 
-    private Vector3 CalculateControllerPositionAndTextDiff(int index)
+    private Vector3 CalculateControllerPositionAndTextDiff()
     {
 
-        Vector3 diff = GetRightIndexFingerPosition() - targetPlaceList[index].transform.position;
+        Vector3 diff = GetRightIndexFingerPosition() - centralSoundObject.transform.position;
         return diff;
     }
 
@@ -72,24 +76,26 @@ public class AudioSettingController : MonoBehaviour
     }
     private void AudioSetting()
     {
+        Vector3 positionDiff = CalculateControllerPositionAndTextDiff();
+
         if (whichAudioParameter == 0)
         {
 
-            audioController.SetDiscreteExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(targetPlaceIndex));
+            audioController.SetDiscreteExponentAudioSettingWithTargetText(positionDiff);
 
         }
         else if (whichAudioParameter == 1)
         {
 
-            audioController.SetContinuousExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(targetPlaceIndex));
+            audioController.SetContinuousExponentAudioSettingWithTargetText(positionDiff);
         }
         else if (whichAudioParameter == 2)
         {
-            audioController.SetContinuousAudioSetting(CalculateControllerPositionAndTextDiff(targetPlaceIndex));
+            audioController.SetContinuousAudioSetting(positionDiff);
         }
         else if (whichAudioParameter == 3)
         {
-            audioController.SetDiscreteAudioSetting(CalculateControllerPositionAndTextDiff(targetPlaceIndex));
+            audioController.SetDiscreteAudioSetting(positionDiff);
         }
 
 
@@ -100,10 +106,10 @@ public class AudioSettingController : MonoBehaviour
     private bool IsInSoundTeritory()
     {
         Vector3 rightControllerPosition = GetRightIndexFingerPosition();
-        Vector3 targetPosition = targetPlaceList[targetPlaceIndex].transform.position;
+        Vector3 targetPosition = centralSoundObject.transform.position;
         if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
         (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
-    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < zRequiredLength))
         {
             return true;
         }

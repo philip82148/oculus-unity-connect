@@ -24,10 +24,7 @@ public class PaletteObjectController : MonoBehaviour
     {
         this.transform.position = defaultPosition;
     }
-    // public Vector3 GetDefaultPosition()
-    // {
-    //     return this.defaultPosition;
-    // }
+
     public void SetDefaultColor()
     {
         thisRenderer.material.color = defaultColor;
