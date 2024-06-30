@@ -17,6 +17,8 @@ public class DrawExperienceController : MonoBehaviour
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
     [SerializeField] private TargetSpotController targetSpotController;
     [SerializeField] private DrawDataLoggerController drawDataLoggerController;
+    [Header("OVR Input Information")]
+    [SerializeField] private GameObject indexFinger;
 
 
     [Header("UI Setting")]
@@ -26,6 +28,9 @@ public class DrawExperienceController : MonoBehaviour
 
     private const int PLACE_COUNT = 9;
     private int targetIndex = 0;
+    private int previousIndex = -1;
+    private int[] allowedIndexes = { 0, 2, 6, 8 };
+    private bool isGame = false;
 
 
     // Start is called before the first frame update
@@ -42,6 +47,11 @@ public class DrawExperienceController : MonoBehaviour
             timeController.StartGameCountDown();
             scoreController.StartGame();
             SetNextTarget();
+        }
+        if (isGame && OVRInput.GetDown(OVRInput.Button.One))
+        {
+            Debug.Log("isgamestart");
+            drawDataLoggerController.WriteCoordinateInformation(targetIndex, indexFinger.transform.position);
         }
     }
 
@@ -71,15 +81,25 @@ public class DrawExperienceController : MonoBehaviour
         displayTargetPlaceColorController.ChangeIndexAndReflect(targetIndex);
     }
 
-    // public void RandomlyChoosePlace()
-    // {
-    //     targetIndex = Random.Range(0, PLACE_COUNT);
-    // }
+
+
     public void RandomlyChoosePlace()
     {
-        int[] allowedIndexes = { 0, 2, 6, 8 };
-        targetIndex = allowedIndexes[Random.Range(0, allowedIndexes.Length)];
+        int newIndex;
+        do
+        {
+            newIndex = allowedIndexes[Random.Range(0, allowedIndexes.Length)];
+        } while (newIndex == previousIndex);
+
+        previousIndex = newIndex;
+        targetIndex = newIndex;
     }
+
+    public void CallGameStart()
+    {
+        isGame = true;
+    }
+
 
     // public void EndGame()
     // {
@@ -92,15 +112,17 @@ public class DrawExperienceController : MonoBehaviour
 
     public void EndGame1()
     {
-        timeController.EndGame1();
+        isGame = false;
+        timeController.EndGame();
         float[] resultArray = scoreController.GetFinalResult();
         float consumedTime = timeController.GetConsumedTime();
-        finalScoreText.text = "Score:" + consumedTime.ToString("f0");
+        finalScoreText.text = "Time:" + consumedTime.ToString("f0");
         accuracyScoreText.text = "Accuracy:" + resultArray[1].ToString("f2");
         drawDataLoggerController.WriteResultInformation(consumedTime, resultArray[1]);
 
 
     }
+
 
     private void OnDestroy()
     {

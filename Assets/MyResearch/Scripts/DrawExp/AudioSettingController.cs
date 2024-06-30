@@ -70,7 +70,7 @@ public class AudioSettingController : MonoBehaviour
         return diff;
     }
 
-    private Vector3 GetRightIndexFingerPosition()
+    public Vector3 GetRightIndexFingerPosition()
     {
         return indexFinger.transform.position;
     }

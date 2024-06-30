@@ -221,7 +221,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &8761919
 MeshRenderer:
@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &86620624
 RectTransform:
   m_ObjectHideFlags: 0
@@ -711,7 +711,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &199706767
 MeshRenderer:
@@ -1132,7 +1132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSettingController: {fileID: 883066931}
-  subjectName: test
+  subjectName: test-2
   whichAudioParameter: 0
 --- !u!4 &237646146
 Transform:
@@ -2524,7 +2524,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &647845620
 MeshRenderer:
@@ -3263,7 +3263,7 @@ MonoBehaviour:
   createSoundController: {fileID: 1944484595}
   indexFinger: {fileID: 1157857308}
   centralSoundObject: {fileID: 1083751391}
-  whichAudioParameter: 1
+  whichAudioParameter: 3
   debugText: {fileID: 865141977}
 --- !u!4 &883066932
 Transform:
@@ -3738,7 +3738,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1027524907
 MeshRenderer:
@@ -3967,7 +3967,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1083751396
 MeshRenderer:
@@ -4539,7 +4539,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1180140580
 MeshRenderer:
@@ -6076,7 +6076,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1552959844
 MeshRenderer:
@@ -6726,6 +6726,7 @@ MonoBehaviour:
   displayTargetPlaceColorController: {fileID: 1877973178}
   targetSpotController: {fileID: 475592933}
   drawDataLoggerController: {fileID: 237646145}
+  indexFinger: {fileID: 1157857308}
   finalScoreText: {fileID: 1691747843}
   accuracyScoreText: {fileID: 1596297177}
 --- !u!4 &1684449952
@@ -7349,7 +7350,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1830933913
 MeshRenderer:
@@ -7567,7 +7568,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1891553001
 MeshRenderer:

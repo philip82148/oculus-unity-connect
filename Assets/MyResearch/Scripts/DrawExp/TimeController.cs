@@ -63,16 +63,6 @@ public class TimeController : MonoBehaviour
             remainingTime -= Time.deltaTime;
             consumedTime += Time.deltaTime;
 
-
-            // if (remainingTime <= 0)
-            // {
-            //     Debug.Log("game end");
-
-
-            //     EndGame();
-            // }
-
-
         }
 
         timerText.text = remainingTime.ToString("f1");
@@ -82,23 +72,19 @@ public class TimeController : MonoBehaviour
     {
         isCount = true;
         countDownPanel.SetActive(true);
+
     }
 
     public void StartGame()
     {
         isGame = true;
         Initialize();
+        drawExperienceController.CallGameStart();
 
     }
-    // public void EndGame()
-    // {
-    //     isGame = false;
-    //     gameFinishDiplayCanvas.SetActive(true);
-    //     descriptionText.text = "";
-    //     drawExperienceController.EndGame();
-    // }
 
-    public void EndGame1()
+
+    public void EndGame()
     {
         isGame = false;
         gameFinishDiplayCanvas.SetActive(true);

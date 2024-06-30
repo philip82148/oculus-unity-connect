@@ -16,9 +16,9 @@ public class DrawDataLoggerController : MonoBehaviour
     [SerializeField] private int whichAudioParameter = 0;
 
     private string folder;
-    private string timeFolder;
+    private string coordinateFolder;
     private StreamWriter expResultWriter;
-    private StreamWriter timeResultWriter;
+    private StreamWriter coordinateResultWriter;
 
     private string resultFileName;
 
@@ -26,10 +26,10 @@ public class DrawDataLoggerController : MonoBehaviour
     void Start()
     {
         whichAudioParameter = audioSettingController.GetWhichAudioParameter();
-        folder = $"C:\\Users\\takaharayota\\Research\\Exp2-data\\{subjectName}\\{whichAudioParameter}";
+        folder = $"C:\\Users\\takaharayota\\Research\\Exp2-data\\{subjectName}\\Values";
         Directory.CreateDirectory(folder);
-        timeFolder = $"C:\\Users\\takaharayota\\Research\\Exp2-data\\{subjectName}\\Time\\{whichAudioParameter}";
-        Directory.CreateDirectory(timeFolder);
+        coordinateFolder = $"C:\\Users\\takaharayota\\Research\\Exp2-data\\{subjectName}\\Coordinate";
+        Directory.CreateDirectory(coordinateFolder);
 
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
 
@@ -38,10 +38,10 @@ public class DrawDataLoggerController : MonoBehaviour
         FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
         expResultWriter = new StreamWriter(fileStream, Encoding.UTF8);
 
-        string timeFilePath = System.IO.Path.Combine(timeFolder, resultFileName);
-        FileStream timeFileStream = new FileStream(timeFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+        string timeFilePath = System.IO.Path.Combine(coordinateFolder, resultFileName);
+        FileStream coordinateFileStream = new FileStream(timeFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
 
-        timeResultWriter = new StreamWriter(timeFileStream, Encoding.UTF8);
+        coordinateResultWriter = new StreamWriter(coordinateFileStream, Encoding.UTF8);
     }
 
 
@@ -59,9 +59,12 @@ public class DrawDataLoggerController : MonoBehaviour
     public void WriteCoordinateInformation(int targetPlaceIndex, Vector3 coordinate)
     {
 
+        Debug.Log("called here");
+        coordinateResultWriter.WriteLine($"target place:{targetPlaceIndex},result coordinate:{coordinate}");
     }
     public void Close()
     {
         expResultWriter.Close();
+        coordinateResultWriter.Close();
     }
 }
