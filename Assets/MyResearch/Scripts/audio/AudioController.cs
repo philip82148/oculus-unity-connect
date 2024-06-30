@@ -15,16 +15,15 @@ public class AudioController : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] CreateSoundController soundController;
     [SerializeField] float spatialBlend = 1.0f;
+    private float amplitude;
 
-    [SerializeField] private float amplitude;
+    private float frequency;
 
-    [SerializeField] private float frequency;
-    [SerializeField] private const float panCoefficient = 1.0f;
-    [SerializeField] private float pan;
+    private float pan;
     [SerializeField] public bool isAmplitudeInversion = false;
     [Header("subtle")]
     [SerializeField] private float yOffset = 0.0f;
-    [SerializeField] private float zOffset = 0f;
+    [SerializeField] private float zOffset = -0.01f;
 
 
     const float discreteAmplitudeScalingFactor = 2.0f; // この値を増減させて、影響度を調整
@@ -36,13 +35,6 @@ public class AudioController : MonoBehaviour
 
     private const float discreteFactor = 0.01f;
     private const float initialAmplitude = 2.0f;
-
-
-
-
-
-
-
 
 
     void Start()
@@ -59,7 +51,7 @@ public class AudioController : MonoBehaviour
     public void SetContinuousAudioSetting(Vector3 targetDiff)
     {
 
-        amplitude = initialAmplitude - amplitudeScalingFactor * targetDiff.z;
+        amplitude = initialAmplitude * (1 - amplitudeScalingFactor * targetDiff.z);
         frequency = 1.0f + frequencyScalingFactor * targetDiff.y;
         pan = 10 * targetDiff.x;
 
@@ -76,9 +68,11 @@ public class AudioController : MonoBehaviour
         float discreteZ = Mathf.Floor(targetDiff.z / discreteFactor) * discreteFactor;
 
 
-        amplitude = initialAmplitude - amplitudeScalingFactor * discreteZ;
+        amplitude = initialAmplitude * (1 - amplitudeScalingFactor * targetDiff.z);
         frequency = 1.0f + frequencyScalingFactor * discreteY;
         pan = 10 * discreteX;
+
+
 
         ReflectAudioSettings();
 
@@ -219,6 +213,17 @@ public class AudioController : MonoBehaviour
 
     private void ReflectAudioSettings()
     {
+        // frequency が負の値にならないようにチェック
+        if (amplitude < 0)
+        {
+            amplitude = 0;
+        }
+        // frequency が負の値にならないようにチェック
+        if (frequency < 0)
+        {
+            frequency = 0;
+        }
+
         soundController.SetAmplitude(amplitude);
         soundController.frequencyCoefficient = frequency;
         soundController.SetPan(pan);

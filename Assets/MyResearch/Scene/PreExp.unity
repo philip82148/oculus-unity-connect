@@ -998,9 +998,9 @@ MonoBehaviour:
   timeLoggerController: {fileID: 2091687094}
   changeColorController: {fileID: 2105194214}
   isAmplitudeInversion: 0
-  whichAudioParameter: 0
+  whichAudioParameter: 2
   requiredLength: 0.1
-  subjectName: test
+  subjectName: "fre\u3054\u3068\u306E\u9055\u3044"
 --- !u!4 &217664108
 Transform:
   m_ObjectHideFlags: 0
@@ -1972,7 +1972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &587113334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3976,7 +3976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1235771272
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6722,6 +6722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b9e2db836e1884f93ef7cc06fa4015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEFAULT_FREQUENCY: 622.254
   frequencyCoefficient: 1
   increment: 0
   phase: 0
