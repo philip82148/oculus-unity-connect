@@ -6,26 +6,32 @@ using UnityEngine;
 
 public class ChangeColorController : MonoBehaviour
 {
-    [SerializeField] private Renderer renderer;
+    [SerializeField] private int placeIndex;
+    [SerializeField] private Renderer[] rendererList;
     private float primaryFrequency = 622.254f;
-    private float secondaryFrequency = 440.0f;
+    // private float secondaryFrequency = 440.0f;
+    private float frequency;
 
-    [SerializeField] private float frequency;
+    [SerializeField] private CreateSoundController createSoundController;
+    private int tmpPlaceIndex = 0;
 
-    public CreateSoundController createSoundController;
 
-    // Update is called once per frame
+    public void SetTargetPlaceIndex(int index)
+    {
+        tmpPlaceIndex = index;
+    }
+
     void Update()
     {
         frequency = (float)createSoundController.frequency;
 
         if (MathF.Abs(primaryFrequency - frequency) < 50f)
         {
-            renderer.material.color = Color.red;
+            rendererList[tmpPlaceIndex].material.color = Color.red;
         }
         else
         {
-            renderer.material.color = Color.blue;
+            rendererList[tmpPlaceIndex].material.color = Color.blue;
         }
 
     }

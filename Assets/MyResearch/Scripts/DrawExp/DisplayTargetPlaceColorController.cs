@@ -38,12 +38,36 @@ public class DisplayTargetPlaceColorController : MonoBehaviour
             if (i == targetPlaceIndex)
             {
                 Debug.Log("called" + targetPlaceIndex);
-                targetPlaceDisplays[targetPlaceIndex].color = Color.blue;
+
+                targetPlaceDisplays[targetPlaceIndex].color = DecideColor();
             }
             else
             {
                 targetPlaceDisplays[i].color = Color.white;
             }
         }
+    }
+
+
+    private Color DecideColor()
+    {
+        if (targetPlaceIndex == 0)
+        {
+            return Color.blue;
+        }
+        else if (targetPlaceIndex == 2)
+        {
+            return Color.red;
+        }
+        else if (targetPlaceIndex == 6)
+        {
+            return Color.yellow;
+        }
+        else if (targetPlaceIndex == 8)
+        {
+            return Color.black;
+        }
+        return Color.white;
+
     }
 }

@@ -43,6 +43,7 @@ public class ExperienceController : MonoBehaviour
     [SerializeField] private DataLoggerController dataLoggerController;
 
     [SerializeField] private TimeLoggerController timeLoggerController;
+    [SerializeField] private ChangeColorController changeColorController;
 
 
     [SerializeField] private bool isAmplitudeInversion = false;
@@ -241,6 +242,7 @@ public class ExperienceController : MonoBehaviour
     public void SetTargetPlaceChange(int placeIndex)
     {
         SetTargetPlaceIndex(placeIndex);
+        changeColorController.SetTargetPlaceIndex(targetPlaceTextIndex);
         dataLoggerController.ReflectPlaceChange(targetPlaceTextIndex);
         timeLoggerController.ReflectPlaceChange(targetPlaceTextIndex);
     }

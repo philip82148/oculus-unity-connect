@@ -41,10 +41,11 @@ public class DrawExperienceController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Three))
+        if (OVRInput.GetDown(OVRInput.Button.Three) || OVRInput.GetDown(OVRInput.Button.Two))
         {
             timeController.StartGameCountDown();
             scoreController.StartGame();
+            SetNextTarget();
         }
     }
 
@@ -54,7 +55,7 @@ public class DrawExperienceController : MonoBehaviour
         RandomlyChoosePlace();
         ChangeDisplayColor();
         targetSpotController.SetTargetPlaceIndex(targetIndex);
-        // audioSettingController.SetTargetPlaceIndex(targetIndex);
+
     }
 
 
@@ -74,15 +75,15 @@ public class DrawExperienceController : MonoBehaviour
         displayTargetPlaceColorController.ChangeIndexAndReflect(targetIndex);
     }
 
-    public void RandomlyChoosePlace()
-    {
-        targetIndex = Random.Range(0, PLACE_COUNT);
-    }
     // public void RandomlyChoosePlace()
     // {
-    //     int[] allowedIndexes = { 0, 3, 4, 9 };
-    //     targetIndex = allowedIndexes[Random.Range(0, allowedIndexes.Length)];
+    //     targetIndex = Random.Range(0, PLACE_COUNT);
     // }
+    public void RandomlyChoosePlace()
+    {
+        int[] allowedIndexes = { 0, 2, 6, 8 };
+        targetIndex = allowedIndexes[Random.Range(0, allowedIndexes.Length)];
+    }
 
     public void EndGame()
     {

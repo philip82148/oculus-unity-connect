@@ -12,13 +12,10 @@ public class PaletteObjectController : MonoBehaviour
     void Start()
     {
         defaultPosition = this.transform.position;
+        thisRenderer.material.color = defaultColor;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 
     public void SetDefaultPosition()
     {

@@ -247,8 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7b0f2b7e0f5da4aacf72fc2f7278e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 61528416}
-  frequency: 0
+  placeIndex: 0
+  rendererList: []
   createSoundController: {fileID: 1917277628}
 --- !u!135 &61528415
 SphereCollider:
@@ -996,6 +996,7 @@ MonoBehaviour:
   audioController: {fileID: 1917277626}
   dataLoggerController: {fileID: 1685132439}
   timeLoggerController: {fileID: 2091687094}
+  changeColorController: {fileID: 2105194214}
   isAmplitudeInversion: 0
   whichAudioParameter: 3
   requiredLength: 0.1
@@ -4983,7 +4984,6 @@ GameObject:
   - component: {fileID: 1412494854}
   - component: {fileID: 1412494853}
   - component: {fileID: 1412494852}
-  - component: {fileID: 1412494855}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -5077,21 +5077,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412494850}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1412494855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412494850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7b0f2b7e0f5da4aacf72fc2f7278e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderer: {fileID: 1412494853}
-  frequency: 0
-  createSoundController: {fileID: 1917277628}
 --- !u!1 &1423002693
 GameObject:
   m_ObjectHideFlags: 0
@@ -7758,6 +7743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2105194213}
+  - component: {fileID: 2105194214}
   m_Layer: 0
   m_Name: TargetSpherePlace
   m_TagString: Untagged
@@ -7788,6 +7774,25 @@ Transform:
   - {fileID: 1240367310}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2105194214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105194212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7b0f2b7e0f5da4aacf72fc2f7278e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeIndex: 0
+  rendererList:
+  - {fileID: 1412494853}
+  - {fileID: 1663041840}
+  - {fileID: 604668321}
+  - {fileID: 1456202893}
+  createSoundController: {fileID: 1917277628}
 --- !u!1 &2120895138
 GameObject:
   m_ObjectHideFlags: 0

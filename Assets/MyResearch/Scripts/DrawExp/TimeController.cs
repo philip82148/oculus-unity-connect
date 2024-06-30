@@ -46,7 +46,7 @@ public class TimeController : MonoBehaviour
         if (isCount)
         {
             countDownTime -= Time.deltaTime;
-            countDownText.text = countDownTime.ToString("f0");
+            countDownText.text = "count " + countDownTime.ToString("f0");
             if (countDownTime <= 0)
             {
                 StartGame();
