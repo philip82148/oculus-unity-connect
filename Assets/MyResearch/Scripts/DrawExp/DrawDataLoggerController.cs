@@ -16,9 +16,11 @@ public class DrawDataLoggerController : MonoBehaviour
     [SerializeField] private int whichAudioParameter = 0;
 
     private string folder;
-    private StreamWriter writer;
+    private string timeFolder;
+    private StreamWriter expResultWriter;
+    private StreamWriter timeResultWriter;
 
-    private string fileName;
+    private string resultFileName;
 
     // Start is called before the first frame update
     void Start()
@@ -26,20 +28,33 @@ public class DrawDataLoggerController : MonoBehaviour
         whichAudioParameter = audioSettingController.GetWhichAudioParameter();
         folder = $"C:\\Users\\takaharayota\\Research\\Exp2-data\\{subjectName}\\{whichAudioParameter}";
         Directory.CreateDirectory(folder);
+        timeFolder = $"C:\\Users\\takaharayota\\Research\\Exp2-data\\{subjectName}\\Time\\{whichAudioParameter}";
+        Directory.CreateDirectory(timeFolder);
 
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
-        fileName = $"{whichAudioParameter}_{dateTime}.txt";
-        string filePath = System.IO.Path.Combine(folder, fileName);
-        FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
 
-        writer = new StreamWriter(fileStream, Encoding.UTF8);
+        resultFileName = $"{whichAudioParameter}_{dateTime}.txt";
+        string filePath = System.IO.Path.Combine(folder, resultFileName);
+        FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+        expResultWriter = new StreamWriter(fileStream, Encoding.UTF8);
+
+        string timeFilePath = System.IO.Path.Combine(timeFolder, resultFileName);
+        FileStream timeFileStream = new FileStream(timeFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+
+        timeResultWriter = new StreamWriter(timeFileStream, Encoding.UTF8);
     }
 
 
-    public void WriteResultInformation(float[] resultArray)
+    // public void WriteResultInformation(float[] resultArray)
+    // {
+    //     Debug.Log("this place");
+    //     writer.WriteLine($"score:{resultArray[0]},accuracy:{resultArray[1]}");
+    // }
+
+    public void WriteResultInformation(float consumedTime, float accuracy)
     {
         Debug.Log("this place");
-        writer.WriteLine($"score:{resultArray[0]},accuracy:{resultArray[1]}");
+        expResultWriter.WriteLine($"consumedTime:{consumedTime},accuracy:{accuracy}");
     }
     public void WriteCoordinateInformation(int targetPlaceIndex, Vector3 coordinate)
     {
@@ -47,6 +62,6 @@ public class DrawDataLoggerController : MonoBehaviour
     }
     public void Close()
     {
-        writer.Close();
+        expResultWriter.Close();
     }
 }

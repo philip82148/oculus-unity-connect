@@ -97,6 +97,7 @@ public class DrawExperienceController : MonoBehaviour
         float consumedTime = timeController.GetConsumedTime();
         finalScoreText.text = "Score:" + consumedTime.ToString("f0");
         accuracyScoreText.text = "Accuracy:" + resultArray[1].ToString("f2");
+        drawDataLoggerController.WriteResultInformation(consumedTime, resultArray[1]);
 
 
     }
