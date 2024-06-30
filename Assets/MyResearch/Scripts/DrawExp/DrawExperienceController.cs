@@ -17,15 +17,11 @@ public class DrawExperienceController : MonoBehaviour
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
     [SerializeField] private TargetSpotController targetSpotController;
     [SerializeField] private DrawDataLoggerController drawDataLoggerController;
-    // [SerializeField] private AudioSettingController audioSettingController;
 
 
     [Header("UI Setting")]
     [SerializeField] private TextMeshProUGUI finalScoreText;
     [SerializeField] private TextMeshProUGUI accuracyScoreText;
-
-
-
 
 
     private const int PLACE_COUNT = 9;
@@ -85,13 +81,24 @@ public class DrawExperienceController : MonoBehaviour
         targetIndex = allowedIndexes[Random.Range(0, allowedIndexes.Length)];
     }
 
-    public void EndGame()
+    // public void EndGame()
+    // {
+    //     scoreController.EndGame();
+    //     float[] resultArray = scoreController.GetFinalResult();
+    //     finalScoreText.text = "Score:" + resultArray[0].ToString("f0");
+    //     accuracyScoreText.text = "Accuracy:" + resultArray[1].ToString("f2");
+    //     drawDataLoggerController.WriteResultInformation(resultArray);
+    // }
+
+    public void EndGame1()
     {
-        scoreController.EndGame();
+        timeController.EndGame1();
         float[] resultArray = scoreController.GetFinalResult();
-        finalScoreText.text = "Score:" + resultArray[0].ToString("f0");
+        float consumedTime = timeController.GetConsumedTime();
+        finalScoreText.text = "Score:" + consumedTime.ToString("f0");
         accuracyScoreText.text = "Accuracy:" + resultArray[1].ToString("f2");
-        drawDataLoggerController.WriteResultInformation(resultArray);
+
+
     }
 
     private void OnDestroy()

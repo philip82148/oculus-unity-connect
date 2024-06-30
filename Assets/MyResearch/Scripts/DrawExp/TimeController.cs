@@ -24,6 +24,7 @@ public class TimeController : MonoBehaviour
 
     private float remainingTime;
     private float countDownTime;
+    private float consumedTime = 0;
     private bool isCount = false;
     private bool isGame = false;
 
@@ -60,13 +61,17 @@ public class TimeController : MonoBehaviour
         if (isGame)
         {
             remainingTime -= Time.deltaTime;
-            if (remainingTime <= 0)
-            {
-                Debug.Log("game end");
+            consumedTime += Time.deltaTime;
 
 
-                EndGame();
-            }
+            // if (remainingTime <= 0)
+            // {
+            //     Debug.Log("game end");
+
+
+            //     EndGame();
+            // }
+
 
         }
 
@@ -85,12 +90,23 @@ public class TimeController : MonoBehaviour
         Initialize();
 
     }
-    public void EndGame()
+    // public void EndGame()
+    // {
+    //     isGame = false;
+    //     gameFinishDiplayCanvas.SetActive(true);
+    //     descriptionText.text = "";
+    //     drawExperienceController.EndGame();
+    // }
+
+    public void EndGame1()
     {
         isGame = false;
         gameFinishDiplayCanvas.SetActive(true);
         descriptionText.text = "";
-        drawExperienceController.EndGame();
-    }
 
+    }
+    public float GetConsumedTime()
+    {
+        return consumedTime;
+    }
 }

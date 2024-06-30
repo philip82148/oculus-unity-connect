@@ -7,6 +7,11 @@ using UnityEngine;
 
 public class ScoreController : MonoBehaviour
 {
+    [Header("Controller Setting")]
+    [SerializeField]
+    private DrawExperienceController drawExperienceController;
+    [Header("UI Setting")]
+
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI incorrectCountText;
     [SerializeField]
@@ -17,6 +22,9 @@ public class ScoreController : MonoBehaviour
     private int incorrectCount = 0;
 
     private bool isGame = true;
+
+    private const int requiredScore = 10;
+
 
     void Initialize()
     {
@@ -44,6 +52,7 @@ public class ScoreController : MonoBehaviour
         {
             AddScore();
             AddTotalCount();
+            CheckIfGameFinishScore();
         }
     }
     public void GetIncorrectAnswer()
@@ -76,6 +85,16 @@ public class ScoreController : MonoBehaviour
     {
         float[] ansArray = { correctCount, (float)correctCount / (float)totalCount };
         return ansArray;
+    }
+
+    private void CheckIfGameFinishScore()
+    {
+        if (requiredScore <= correctCount)
+        {
+            isGame = false;
+            drawExperienceController.EndGame1();
+
+        }
     }
 
 }
