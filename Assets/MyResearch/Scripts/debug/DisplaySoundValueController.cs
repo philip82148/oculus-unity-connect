@@ -15,9 +15,9 @@ public class DisplaySoundValueConrtoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        amplitudeText.text = "amp:" + createSoundController.gain.ToString("f2");
-        frequencyText.text = "fre:" + createSoundController.frequency.ToString("f2");
-        panText.text = "pan:" + createSoundController.pan.ToString("f2");
+        amplitudeText.text = "amp:" + createSoundController.GetTmpAmplitude().ToString("f2");
+        frequencyText.text = "fre:" + createSoundController.GetTmpFrequency().ToString("f2");
+        panText.text = "pan:" + createSoundController.GetTmpPan().ToString("f2");
 
     }
 }

@@ -17,25 +17,29 @@ public class AudioController : MonoBehaviour
     [SerializeField] float spatialBlend = 1.0f;
 
     [SerializeField] private float amplitude;
-    [SerializeField] private float frequencyCoefficient = 4.0f;
+
     [SerializeField] private float frequency;
     [SerializeField] private const float panCoefficient = 1.0f;
     [SerializeField] private float pan;
     [SerializeField] public bool isAmplitudeInversion = false;
-
-    [Header("scaling factor")]
-    [SerializeField] const float discreteAmplitudeScalingFactor = 2.0f; // この値を増減させて、影響度を調整
-    [SerializeField] const float discreteFrequencyScalingFactor = 2.0f; // この値を増減させて、影響度を調整
-    [SerializeField] const float amplitudeScalingFactor = 12.0f; // この値を増減させて、影響度を調整
-    [SerializeField] const float frequencyScalingFactor = 4.0f; // この値を増減させて、影響度を調整
-
-
-    private float discreteFactor = 0.01f;
-
-
     [Header("subtle")]
     [SerializeField] private float yOffset = 0.0f;
     [SerializeField] private float zOffset = 0f;
+
+
+    const float discreteAmplitudeScalingFactor = 2.0f; // この値を増減させて、影響度を調整
+    const float discreteFrequencyScalingFactor = 2.0f; // この値を増減させて、影響度を調整
+    const float amplitudeScalingFactor = 12.0f; // この値を増減させて、影響度を調整
+    const float frequencyScalingFactor = 4.0f; // この値を増減させて、影響度を調整
+    [SerializeField] float frequencyCoefficient = 4.0f;
+
+
+    private const float discreteFactor = 0.01f;
+    private const float initialAmplitude = 2.0f;
+
+
+
+
 
 
 
@@ -55,11 +59,11 @@ public class AudioController : MonoBehaviour
     public void SetContinuousAudioSetting(Vector3 targetDiff)
     {
 
-        amplitude = 0.5f - amplitudeScalingFactor * targetDiff.z;
+        amplitude = initialAmplitude - amplitudeScalingFactor * targetDiff.z;
         frequency = 1.0f + frequencyScalingFactor * targetDiff.y;
-        pan = 100 / 10 * targetDiff.x;
+        pan = 10 * targetDiff.x;
 
-        ReflectLinearAudioSettings();
+        ReflectAudioSettings();
 
     }
 
@@ -72,11 +76,11 @@ public class AudioController : MonoBehaviour
         float discreteZ = Mathf.Floor(targetDiff.z / discreteFactor) * discreteFactor;
 
 
-        amplitude = 0.5f - amplitudeScalingFactor * discreteZ;
+        amplitude = initialAmplitude - amplitudeScalingFactor * discreteZ;
         frequency = 1.0f + frequencyScalingFactor * discreteY;
         pan = 10 * discreteX;
 
-        ReflectLinearAudioSettings();
+        ReflectAudioSettings();
 
     }
 
@@ -168,16 +172,6 @@ public class AudioController : MonoBehaviour
 
 
 
-
-    public void SetAudioSettingOnlyAmplitude(Vector3 controllerPosition)
-    {
-        float discreteZ = Mathf.Floor(controllerPosition.z / discreteFactor) * discreteFactor;
-        // amplitude = 1.0f - amplitudeScalingFactor * controllerPosition.z;
-        amplitude = 1.0f - amplitudeScalingFactor * discreteZ;
-
-        ReflectAudioSettings();
-
-    }
     public void SetAudioSettingOnlyAmplitudeWithTargetText(Vector3 targetDiff)
     {
         float zOffset = -0.1f;
@@ -188,38 +182,6 @@ public class AudioController : MonoBehaviour
 
     }
 
-
-
-
-
-    public void SetAudioSettingOnlyFrequency(Vector3 controllerPosition)
-    {
-        // frequency の基本値（controllerPosition.y が 0 のときの値）
-        float baseFrequency = 1.0f;  // 適切な基本周波数を設定する
-        amplitude = 0.25f;
-        float discreteY = Mathf.Floor((controllerPosition.y + 0.05f - 0.25f) / discreteFactor) * discreteFactor + 0.05f;
-        // 1cm 増えるごとに 1.5 倍になるための計算
-        frequency = baseFrequency * Mathf.Pow(discreteFrequencyScalingFactor, discreteY * 100);  // controllerPosition.y がメートル単位なので、100 を掛けてセンチメートル単位に変換
-
-        // frequency が負の値にならないようにチェック
-        if (frequency < 0)
-        {
-            frequency = 0;
-        }
-
-        pan = 0;  // パンは変更しない
-
-        ReflectAudioSettings();  // オーディオ設定を反映
-
-    }
-
-    public void SetAudioSettingOnlyPan(Vector3 controllerPosition)
-    {
-
-
-        ReflectAudioSettings();
-
-    }
 
 
     public void SetAudioSettingOnlyPanWithTargetText(Vector3 targetDiff)
@@ -254,17 +216,12 @@ public class AudioController : MonoBehaviour
 
 
 
+
     private void ReflectAudioSettings()
     {
-        soundController.gain = amplitude;
-        soundController.frequencyCoefficient = frequency * frequencyCoefficient;
-        soundController.pan = pan;
-    }
-    private void ReflectLinearAudioSettings()
-    {
-        soundController.gain = amplitude;
+        soundController.SetAmplitude(amplitude);
         soundController.frequencyCoefficient = frequency;
-        soundController.pan = pan;
+        soundController.SetPan(pan);
     }
 
     private void ChangeSpatialBlend()

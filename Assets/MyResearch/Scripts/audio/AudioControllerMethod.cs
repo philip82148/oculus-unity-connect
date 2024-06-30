@@ -318,9 +318,9 @@ public class AudioControllerMethod : MonoBehaviour
 
     private void ReflectAudioSettings()
     {
-        soundController.gain = amplitude * amplitudeCoefficient;
+        soundController.SetAmplitude(amplitude * amplitudeCoefficient);
         soundController.frequencyCoefficient = frequency * frequencyCoefficient;
-        soundController.pan = pan * panCoefficient;
+        soundController.SetPan(pan * panCoefficient);
     }
 
     private void ChangeSpatialBlend()

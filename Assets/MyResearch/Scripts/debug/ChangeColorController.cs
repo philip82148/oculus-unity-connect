@@ -25,7 +25,7 @@ public class ChangeColorController : MonoBehaviour
 
     void Update()
     {
-        frequency = (float)createSoundController.frequency;
+        frequency = (float)createSoundController.GetTmpFrequency();
 
         if (MathF.Abs(primaryFrequency - frequency) < 50f)
         {

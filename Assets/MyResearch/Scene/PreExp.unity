@@ -998,7 +998,7 @@ MonoBehaviour:
   timeLoggerController: {fileID: 2091687094}
   changeColorController: {fileID: 2105194214}
   isAmplitudeInversion: 0
-  whichAudioParameter: 3
+  whichAudioParameter: 0
   requiredLength: 0.1
   subjectName: test
 --- !u!4 &217664108
@@ -1972,7 +1972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &587113334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3976,7 +3976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1235771272
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6608,12 +6608,12 @@ MonoBehaviour:
   soundController: {fileID: 1917277628}
   spatialBlend: 1
   amplitude: 0
-  frequencyCoefficient: 1
   frequency: 0
   pan: 0
   isAmplitudeInversion: 0
   yOffset: 0
   zOffset: -0.01
+  frequencyCoefficient: 1
 --- !u!82 &1917277627
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6723,10 +6723,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequencyCoefficient: 1
-  frequency: 622.254
-  gain: 0.07
-  pan: 0
-  isSound: 1
   increment: 0
   phase: 0
 --- !u!4 &1917277629
