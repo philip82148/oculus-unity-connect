@@ -16,8 +16,10 @@ public class ChangeColorController : MonoBehaviour
     private int tmpPlaceIndex = 0;
 
 
+
     public void SetTargetPlaceIndex(int index)
     {
+        rendererList[tmpPlaceIndex].material.color = Color.blue;
         tmpPlaceIndex = index;
     }
 

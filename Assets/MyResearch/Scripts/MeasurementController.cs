@@ -41,7 +41,7 @@ public class MeasurementController : MonoBehaviour
 
                 Debug.Log("Measurement and Drawing Started");
                 count++;
-                experienceController.StartMeasurement(count);
+
                 startTime = Time.time;
                 isMeasuring = true;
 
@@ -52,9 +52,10 @@ public class MeasurementController : MonoBehaviour
         {
             if (isMeasuring)
             {
+
                 float endTime = Time.time;
                 float duration = endTime - startTime;
-                experienceController.EndMeasurement();
+                experienceController.MeasureAndWriteInformation();
                 experienceController.WriteTimeInformation(duration);
                 progressController.SubtractCount();
                 Debug.Log("Measurement and drawing stopped:" + count);
@@ -64,7 +65,7 @@ public class MeasurementController : MonoBehaviour
         }
         if (isMeasuring)
         {
-            measurementText.text = "Recording";
+            measurementText.text = "Searching";
         }
         else
         {

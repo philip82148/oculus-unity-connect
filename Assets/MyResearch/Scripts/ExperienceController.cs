@@ -119,6 +119,11 @@ public class ExperienceController : MonoBehaviour
         isMeasuring = false;
     }
 
+    public void MeasureAndWriteInformation()
+    {
+        WriteInformation();
+    }
+
     public void EndTimeMeasurement(float time)
     {
 
@@ -136,11 +141,11 @@ public class ExperienceController : MonoBehaviour
         }
 
 
-        if (isMeasuring)
-        {
-            Debug.Log("start data measurement");
-            WriteInformation();
-        }
+        // if (isMeasuring)
+        // {
+        //     Debug.Log("start data measurement");
+        //     WriteInformation();
+        // }
 
     }
 

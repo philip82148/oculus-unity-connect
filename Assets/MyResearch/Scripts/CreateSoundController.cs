@@ -18,7 +18,7 @@ public class CreateSoundController : MonoBehaviour
 
     [SerializeField] public double pan = 0;
     [SerializeField] private bool isSound = true;
-    [SerializeField] private bool isAudio = true;
+    private bool isAudio = true;
 
 
     public double increment;
