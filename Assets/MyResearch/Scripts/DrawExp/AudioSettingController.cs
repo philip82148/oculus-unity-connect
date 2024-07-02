@@ -24,8 +24,8 @@ public class AudioSettingController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI debugText;
 
     // これぐらいが一番音として聞こえやすいのでは
+    // private const double requiredLength = 0.05;
     private const double requiredLength = 0.06;
-    private const double zRequiredLength = 0.06;
 
     private bool isSound = true;
 
@@ -113,7 +113,7 @@ public class AudioSettingController : MonoBehaviour
         Vector3 targetPosition = centralSoundObject.transform.position;
         if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
         (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
-    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < zRequiredLength))
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
         {
             return true;
         }

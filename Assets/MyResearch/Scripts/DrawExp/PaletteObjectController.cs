@@ -8,6 +8,7 @@ public class PaletteObjectController : MonoBehaviour
     [SerializeField] private Color defaultColor = Color.white;
     [SerializeField] private Renderer thisRenderer;
     [SerializeField] private int index = 0;
+    [SerializeField] private bool isMove = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,9 @@ public class PaletteObjectController : MonoBehaviour
     {
         return index;
     }
-
+    public bool IsMove()
+    {
+        return isMove;
+    }
 
 }

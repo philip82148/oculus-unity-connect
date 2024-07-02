@@ -37,28 +37,37 @@ public class HandActionController : MonoBehaviour
 
     private void OnTriggerStay(Collider otherObject)
     {
+        PaletteObjectController paletteObjectController =
+        otherObject.GetComponent<PaletteObjectController>();
+        if (paletteObjectController == null)
+        {
+            return;
+        }
+        if (!paletteObjectController.IsMove())
+        {
+            return;
+        }
 
         // index fingerボタンにすると人差し指の位置が変わってしまうことがあるので変更するようにした
         if (OVRInput.Get(OVRInput.Button.One))
         {
 
             float tmpDistance = Vector3.Distance(otherObject.transform.position, this.transform.position);
-            if (tmpDistance < closestDistance)
+            if (tmpDistance <= closestDistance)
             {
                 closestObject = otherObject.gameObject;
                 closestDistance = tmpDistance;
 
             }
-            else
+            if (closestObject == otherObject.gameObject)
             {
-                return;
-            }
 
-            Renderer objectRenderer = otherObject.gameObject.GetComponent<Renderer>();
-            if (objectRenderer != null)
-            {
-                objectRenderer.material.color = Color.green;
-                isGrabbed = true;
+                Renderer objectRenderer = otherObject.gameObject.GetComponent<Renderer>();
+                if (objectRenderer != null)
+                {
+                    objectRenderer.material.color = Color.green;
+                    isGrabbed = true;
+                }
             }
 
         }
@@ -66,6 +75,13 @@ public class HandActionController : MonoBehaviour
         {
 
             isGrabbed = false;
+
+            if (paletteObjectController != null)
+            {
+                paletteObjectController.SetDefaultPosition();
+                paletteObjectController.SetDefaultColor();
+
+            }
 
         }
     }

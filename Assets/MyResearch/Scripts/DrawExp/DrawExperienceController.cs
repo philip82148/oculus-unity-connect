@@ -101,27 +101,27 @@ public class DrawExperienceController : MonoBehaviour
     }
 
 
-    // public void EndGame()
-    // {
-    //     scoreController.EndGame();
-    //     float[] resultArray = scoreController.GetFinalResult();
-    //     finalScoreText.text = "Score:" + resultArray[0].ToString("f0");
-    //     accuracyScoreText.text = "Accuracy:" + resultArray[1].ToString("f2");
-    //     drawDataLoggerController.WriteResultInformation(resultArray);
-    // }
-
-    public void EndGame1()
+    public void EndGame()
     {
-        isGame = false;
-        timeController.EndGame();
+        scoreController.EndGame();
         float[] resultArray = scoreController.GetFinalResult();
-        float consumedTime = timeController.GetConsumedTime();
-        finalScoreText.text = "Time:" + consumedTime.ToString("f0");
+        finalScoreText.text = "Score:" + resultArray[0].ToString("f0");
         accuracyScoreText.text = "Accuracy:" + resultArray[1].ToString("f2");
-        drawDataLoggerController.WriteResultInformation(consumedTime, resultArray[1]);
-
-
+        drawDataLoggerController.WriteResultInformation(resultArray);
     }
+
+    // public void EndGame1()
+    // {
+    //     isGame = false;
+    //     timeController.EndGame1();
+    //     float[] resultArray = scoreController.GetFinalResult();
+    //     float consumedTime = timeController.GetConsumedTime();
+    //     finalScoreText.text = "Time:" + consumedTime.ToString("f0");
+    //     accuracyScoreText.text = "Accuracy:" + resultArray[1].ToString("f2");
+    //     drawDataLoggerController.WriteResultInformation(consumedTime, resultArray[1]);
+
+
+    // }
 
 
     private void OnDestroy()

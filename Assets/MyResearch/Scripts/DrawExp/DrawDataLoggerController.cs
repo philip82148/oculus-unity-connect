@@ -45,16 +45,14 @@ public class DrawDataLoggerController : MonoBehaviour
     }
 
 
-    // public void WriteResultInformation(float[] resultArray)
-    // {
-    //     Debug.Log("this place");
-    //     writer.WriteLine($"score:{resultArray[0]},accuracy:{resultArray[1]}");
-    // }
 
-    public void WriteResultInformation(float consumedTime, float accuracy)
+    public void WriteConsumedTimeResultInformation(float consumedTime, float accuracy)
     {
-        Debug.Log("this place");
         expResultWriter.WriteLine($"consumedTime:{consumedTime},accuracy:{accuracy}");
+    }
+    public void WriteResultInformation(float[] resultArray)
+    {
+        expResultWriter.WriteLine($"consumedTime:{resultArray[0]},accuracy:{resultArray[1]}");
     }
     public void WriteCoordinateInformation(int targetPlaceIndex, Vector3 coordinate)
     {

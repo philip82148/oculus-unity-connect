@@ -35,7 +35,7 @@ public class ScoreController : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = correctCount.ToString();
+        scoreText.text = "score:" + correctCount.ToString();
         incorrectCountText.text = "false:" + incorrectCount.ToString();
         totalCountText.text = "total:" + totalCount.ToString();
     }
@@ -52,7 +52,7 @@ public class ScoreController : MonoBehaviour
         {
             AddScore();
             AddTotalCount();
-            CheckIfGameFinishScore();
+            // CheckIfGameFinishScore();
         }
     }
     public void GetIncorrectAnswer()
@@ -87,14 +87,14 @@ public class ScoreController : MonoBehaviour
         return ansArray;
     }
 
-    private void CheckIfGameFinishScore()
-    {
-        if (requiredScore <= correctCount)
-        {
-            isGame = false;
-            drawExperienceController.EndGame1();
+    // private void CheckIfGameFinishScore()
+    // {
+    //     if (requiredScore <= correctCount)
+    //     {
+    //         isGame = false;
+    //         // drawExperienceController.EndGame1();
 
-        }
-    }
+    //     }
+    // }
 
 }

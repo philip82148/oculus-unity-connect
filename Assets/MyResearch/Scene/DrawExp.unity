@@ -202,6 +202,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   thisRenderer: {fileID: 8761919}
   index: 7
+  isMove: 0
 --- !u!65 &8761918
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -221,7 +222,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &8761919
 MeshRenderer:
@@ -711,7 +712,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &199706767
 MeshRenderer:
@@ -779,6 +780,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   thisRenderer: {fileID: 199706767}
   index: 1
+  isMove: 0
 --- !u!54 &199706770
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1132,8 +1134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSettingController: {fileID: 883066931}
-  subjectName: test-2
-  whichAudioParameter: 0
+  subjectName: test
+  whichAudioParameter: -1
 --- !u!4 &237646146
 Transform:
   m_ObjectHideFlags: 0
@@ -1631,7 +1633,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20.7, y: 17.27}
+  m_AnchoredPosition: {x: 20.6, y: 24}
   m_SizeDelta: {x: 216.84, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &429768222
@@ -1766,9 +1768,8 @@ GameObject:
   - component: {fileID: 475592929}
   - component: {fileID: 475592932}
   - component: {fileID: 475592931}
-  - component: {fileID: 475592930}
   - component: {fileID: 475592933}
-  - component: {fileID: 475592934}
+  - component: {fileID: 475592935}
   m_Layer: 5
   m_Name: TargetSpot
   m_TagString: Untagged
@@ -1795,27 +1796,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!65 &475592930
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475592928}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &475592931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,18 +1848,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drawExperienceController: {fileID: 1684449951}
   thisImage: {fileID: 475592931}
---- !u!114 &475592934
-MonoBehaviour:
+--- !u!65 &475592935
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475592928}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad180979de23ca846bf60e339bf49706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Size: {x: 10, y: 10, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &475754195
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,7 +2056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &545867858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2505,6 +2494,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 0.0056602955, b: 0.0056602955, a: 1}
   thisRenderer: {fileID: 647845620}
   index: 2
+  isMove: 1
 --- !u!65 &647845619
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2524,7 +2514,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &647845620
 MeshRenderer:
@@ -3263,7 +3253,7 @@ MonoBehaviour:
   createSoundController: {fileID: 1944484595}
   indexFinger: {fileID: 1157857308}
   centralSoundObject: {fileID: 1083751391}
-  whichAudioParameter: 3
+  whichAudioParameter: 0
   debugText: {fileID: 865141977}
 --- !u!4 &883066932
 Transform:
@@ -3291,6 +3281,7 @@ GameObject:
   - component: {fileID: 977122443}
   - component: {fileID: 977122446}
   - component: {fileID: 977122445}
+  - component: {fileID: 977122447}
   m_Layer: 5
   m_Name: PlaceNavigation8
   m_TagString: Untagged
@@ -3355,6 +3346,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977122442}
   m_CullTransparentMesh: 1
+--- !u!114 &977122447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977122442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
+  m_EffectDistance: {x: 0.05, y: 0.05}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1003485994
 GameObject:
   m_ObjectHideFlags: 0
@@ -3719,6 +3725,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 0.9855987, b: 0.0056602955, a: 1}
   thisRenderer: {fileID: 1027524907}
   index: 6
+  isMove: 1
 --- !u!65 &1027524906
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3738,7 +3745,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1027524907
 MeshRenderer:
@@ -3948,6 +3955,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   thisRenderer: {fileID: 1083751396}
   index: 4
+  isMove: 0
 --- !u!65 &1083751395
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3967,7 +3975,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1083751396
 MeshRenderer:
@@ -4227,7 +4235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.420002, y: 0}
+  m_AnchoredPosition: {x: -5.97, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1125519559
@@ -4319,6 +4327,14 @@ PrefabInstance:
       propertyPath: m_Interpolate
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11434164, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477634, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 11477634, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       propertyPath: m_parentTransform
       value: 
@@ -4387,7 +4403,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.01
+  m_Radius: 0.006
   m_Center: {x: -0.0058, y: -0.001, z: -0.001}
 --- !u!114 &1157857316
 MonoBehaviour:
@@ -4520,6 +4536,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   thisRenderer: {fileID: 1180140580}
   index: 5
+  isMove: 0
 --- !u!65 &1180140579
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4539,7 +4556,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1180140580
 MeshRenderer:
@@ -5124,7 +5141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1330440635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5174,8 +5191,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5240,7 +5257,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.6, y: 19.8}
+  m_AnchoredPosition: {x: -10.95, y: 19.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1354766910
@@ -5260,7 +5277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1354766911
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5727,7 +5744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1474913359
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6057,6 +6074,7 @@ MonoBehaviour:
   defaultColor: {r: 0, g: 1, b: 1, a: 1}
   thisRenderer: {fileID: 1552959844}
   index: 0
+  isMove: 1
 --- !u!65 &1552959843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6076,7 +6094,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1552959844
 MeshRenderer:
@@ -7331,6 +7349,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   thisRenderer: {fileID: 1830933913}
   index: 3
+  isMove: 0
 --- !u!65 &1830933912
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7350,7 +7369,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1830933913
 MeshRenderer:
@@ -7412,6 +7431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1877973177}
   - component: {fileID: 1877973178}
+  - component: {fileID: 1877973179}
   m_Layer: 5
   m_Name: DisplayTargetPlace
   m_TagString: Untagged
@@ -7470,6 +7490,21 @@ MonoBehaviour:
   - {fileID: 1985718031}
   - {fileID: 977122445}
   targetNumDisplayText: {fileID: 1507022675}
+--- !u!114 &1877973179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877973176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.98490566, g: 0.9421645, b: 0.9421645, a: 0}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1891552996
 GameObject:
   m_ObjectHideFlags: 0
@@ -7549,6 +7584,7 @@ MonoBehaviour:
   defaultColor: {r: 0.01886791, g: 0.01861871, b: 0.01861871, a: 1}
   thisRenderer: {fileID: 1891553001}
   index: 8
+  isMove: 1
 --- !u!65 &1891553000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7568,7 +7604,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1891553001
 MeshRenderer:
@@ -8738,7 +8774,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22.680004, y: 17.27}
+  m_AnchoredPosition: {x: -19.51, y: 24}
   m_SizeDelta: {x: 216.84, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807

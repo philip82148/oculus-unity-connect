@@ -9,7 +9,7 @@ public class TimeController : MonoBehaviour
     [Header("Controller Setting")]
     [SerializeField] private DrawExperienceController drawExperienceController;
 
-    [SerializeField] private const float gameTime = 60.0f;
+    [SerializeField] private const float GAME_TIME = 90.0f;
     private const float countTime = 5.0f;
 
     [Header("UI Setting")]
@@ -37,7 +37,7 @@ public class TimeController : MonoBehaviour
     }
     void Initialize()
     {
-        remainingTime = gameTime;
+        remainingTime = GAME_TIME;
         countDownTime = countTime;
     }
 
@@ -61,11 +61,16 @@ public class TimeController : MonoBehaviour
         if (isGame)
         {
             remainingTime -= Time.deltaTime;
+            if (remainingTime <= 0)
+            {
+                EndGame();
+
+            }
             consumedTime += Time.deltaTime;
 
         }
-
-        timerText.text = remainingTime.ToString("f1");
+        timerText.text = "Time:" + remainingTime.ToString("f1");
+        // timerText.text = "Time:" + consumedTime.ToString("f1");
     }
 
     public void StartGameCountDown()
@@ -83,14 +88,21 @@ public class TimeController : MonoBehaviour
 
     }
 
-
     public void EndGame()
     {
         isGame = false;
         gameFinishDiplayCanvas.SetActive(true);
         descriptionText.text = "";
-
+        drawExperienceController.EndGame();
     }
+    // public void EndGame1()
+    // {
+
+    //     isGame = false;
+    //     gameFinishDiplayCanvas.SetActive(true);
+    //     descriptionText.text = "";
+
+    // }
     public float GetConsumedTime()
     {
         return consumedTime;
