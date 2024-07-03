@@ -8,18 +8,16 @@ using UnityEditor;
 public class CreateSoundController : MonoBehaviour
 {
 
-    // private const double DEFAULT_FREQUENCY = 622.254;
-    private const double DEFAULT_FREQUENCY = 440;
+    private const double DEFAULT_FREQUENCY = 622.254;
 
     public double frequencyCoefficient;
 
 
-    [SerializeField] private double frequency;
-    [SerializeField] public double gain;
+    private double frequency;
+    private double gain;
 
-    [SerializeField] public double pan = 0;
-    [SerializeField] private bool isSound = true;
-    [SerializeField] private bool isAudio = true;
+    private double pan = 0;
+    private bool isSound = true;
 
 
     public double increment;
@@ -35,7 +33,7 @@ public class CreateSoundController : MonoBehaviour
     {
         frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
 
-        if (!isSound || !isAudio)
+        if (!isSound)
         {
             gain = 0;
         }
@@ -70,12 +68,35 @@ public class CreateSoundController : MonoBehaviour
 
     public void EnableAudio()
     {
-        isAudio = true;
+        isSound = true;
     }
     public void DisableAudio()
     {
-        isAudio = false;
+        isSound = false;
 
     }
+
+    public double GetTmpAmplitude()
+    {
+        return this.gain;
+    }
+    public double GetTmpFrequency()
+    {
+        return this.frequency;
+    }
+    public double GetTmpPan()
+    {
+        return this.pan;
+    }
+
+    public void SetAmplitude(double amplitude)
+    {
+        this.gain = amplitude;
+    }
+    public void SetPan(double pan)
+    {
+        this.pan = pan;
+    }
+
 
 }

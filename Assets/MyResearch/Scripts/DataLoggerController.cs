@@ -29,6 +29,12 @@ public class DataLoggerController : MonoBehaviour
         writer.WriteLine($"{controllerPosition.x},{controllerPosition.y},{controllerPosition.z}");
 
     }
+    public void ReflectPlaceChange(
+        int placeIndex
+    )
+    {
+        writer.WriteLine("place index:" + placeIndex);
+    }
 
     public void CountAdd(int count)
     {

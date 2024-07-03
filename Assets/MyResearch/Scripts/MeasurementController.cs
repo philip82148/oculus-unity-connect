@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using TMPro;
 using UnityEngine;
 
 public class MeasurementController : MonoBehaviour
@@ -9,73 +9,69 @@ public class MeasurementController : MonoBehaviour
     [SerializeField]
     private FingerPaint fingerPaint;
 
-    // [SerializeField] private GetHandInformation handInformation;
+
+    [Header("Controller Setting")]
     [SerializeField]
     private ExperienceController experienceController;
+    [SerializeField] private ProgressController progressController;
+    [Header("Debug UI")]
+    [SerializeField] private TextMeshProUGUI measurementText;
 
 
-    [SerializeField] private bool isMeasuring;
-    [SerializeField] private int count = 0;
 
-    private bool isTimeMeasuring;
-    // private double measuringTime = 0;
-    private float pressStartTime;
+    private bool isMeasuring;
+    private int count = 0;
+
+    private float startTime;
 
 
-    private void Update()
+
+    public void Initialize()
+    {
+        count = 0;
+
+    }
+
+    void Update()
     {
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
-
             if (!isMeasuring)
             {
 
-                Debug.Log("Measurement and drawing started");
+                Debug.Log("Measurement and Drawing Started");
                 count++;
-                experienceController.StartMeasurement(count);
-                fingerPaint.StartDrawing(); // Start drawing
-                // handInformation.StartMeasurement(); // Start hand information recording
+
+                startTime = Time.time;
                 isMeasuring = true;
+
+
             }
         }
-        else if (OVRInput.GetUp(OVRInput.Button.Three))
+        else if (OVRInput.GetDown(OVRInput.Button.Four))
         {
-            isMeasuring = false;
-
-            Debug.Log("Measurement and drawing stopped");
-            experienceController.EndMeasurement();
-            fingerPaint.StopDrawing(); // Stop drawing
-            // handInformation.EndMeasurement(); // Stop hand information recording
-
-        }
-
-
-        if (OVRInput.GetDown(OVRInput.Button.Four))
-        {
-
-            if (!isTimeMeasuring)
+            if (isMeasuring)
             {
-                Debug.Log("time measuring start");
-                // measuringTime = 0;
-                isTimeMeasuring = true;
-                pressStartTime = Time.time;
+
+                float endTime = Time.time;
+                float duration = endTime - startTime;
+                experienceController.MeasureAndWriteInformation();
+                experienceController.WriteTimeInformation(duration);
+                progressController.SubtractCount();
+                Debug.Log("Measurement and drawing stopped:" + count);
+                isMeasuring = false;
+
             }
-            // measuringTime += Time.deltaTime;
-
-
         }
-        else if (OVRInput.GetUp(OVRInput.Button.Four))
+        if (isMeasuring)
         {
-            isTimeMeasuring = false;
-
-
-            Debug.Log("time Measurement and drawing stopped");
-            float pressDuration = Time.time - pressStartTime;
-            Debug.Log("time::" + pressDuration);
-            experienceController.WriteTimeInformation(pressDuration);
-            // measuringTime = 0;
-
+            measurementText.text = "Searching";
+        }
+        else
+        {
+            measurementText.text = "";
         }
     }
+
 
 }
