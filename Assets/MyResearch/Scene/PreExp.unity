@@ -491,7 +491,7 @@ MonoBehaviour:
   createSoundController: {fileID: 1917277628}
   rightControllerPosition: {x: 0, y: 0, z: 0}
   diff: {x: 0, y: 0, z: 0}
-  isSound: 0
+  isSound: 1
   experienceCount: 1
   audioController: {fileID: 1917277626}
   dataLoggerController: {fileID: 1685132439}
@@ -4141,7 +4141,6 @@ MonoBehaviour:
   isAmplitudeInversion: 0
   amplitudeScalingFactor: 1
   frequencyScalingFactor: 2
-  controllerYPosition: 0
 --- !u!82 &1917277627
 AudioSource:
   m_ObjectHideFlags: 0
