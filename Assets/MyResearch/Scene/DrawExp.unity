@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSettingController: {fileID: 883066931}
-  subjectName: test
+  subjectName: "\u83CA\u6C60\u305F\u304F\u307E"
   whichAudioParameter: -1
 --- !u!4 &237646146
 Transform:
