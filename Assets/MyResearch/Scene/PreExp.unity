@@ -998,9 +998,9 @@ MonoBehaviour:
   timeLoggerController: {fileID: 2091687094}
   changeColorController: {fileID: 2105194214}
   isAmplitudeInversion: 0
-  whichAudioParameter: 1
+  whichAudioParameter: 0
   requiredLength: 0.1
-  subjectName: "\u6B69\u3055\u3093"
+  subjectName: "\u83CA\u6C60\u305F\u304F\u307E"
 --- !u!4 &217664108
 Transform:
   m_ObjectHideFlags: 0

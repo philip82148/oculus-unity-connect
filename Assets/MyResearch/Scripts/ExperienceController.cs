@@ -85,7 +85,7 @@ public class ExperienceController : MonoBehaviour
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-        string folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\{whichAudioParameter}";
+        string folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\values";
 
         Directory.CreateDirectory(folder);
 
@@ -94,14 +94,14 @@ public class ExperienceController : MonoBehaviour
         if (isTime == 0)
 
         {
-            fileName = $"{isSound}_{targetPlaceTextIndex}_{whichAudioParameter}_{dateTime}.txt";
+            fileName = $"{whichAudioParameter}_{dateTime}.txt";
         }
         else
         {
             folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\times";
             Directory.CreateDirectory(folder);
 
-            fileName = $"{isSound}_time_{targetPlaceTextIndex}_{whichAudioParameter}.txt";
+            fileName = $"time_{whichAudioParameter}.txt";
         }
         return System.IO.Path.Combine(folder, fileName);
     }
