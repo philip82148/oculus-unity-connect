@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2773873294378500122}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0.4}
+  m_LocalPosition: {x: 0, y: 0.0919, z: 0.2921}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5923757772939714634}
   - component: {fileID: 6672266596381887762}
+  - component: {fileID: 1589445721699190276}
   m_Layer: 0
   m_Name: VRGun
   m_TagString: Untagged
@@ -80,6 +81,19 @@ MonoBehaviour:
   bullet: {fileID: 2398828264604246051, guid: 02783daa98a67fd4fb152b54120f7008, type: 3}
   shootingPoint: {fileID: 2773873294378500122}
   isShoot: 0
+  bulletCountText: {fileID: 0}
+--- !u!114 &1589445721699190276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890598737978436898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf69190e04af8c84493e52380af58cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4003225634844596538
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ShooterController : MonoBehaviour
 {
@@ -10,12 +11,18 @@ public class ShooterController : MonoBehaviour
 
     [SerializeField] private bool isShoot = false;
 
+    [SerializeField]
+    private TextMeshProUGUI bulletCountText;
+
+    private int bulletCount = 0;
+    private const int DEFAULT_BULLET_COUNT = 5;
+
     // Start is called before the first frame update
 
 
     void Start()
     {
-
+        bulletCount = DEFAULT_BULLET_COUNT;
     }
 
     // Update is called once per frame
@@ -30,11 +37,23 @@ public class ShooterController : MonoBehaviour
             bullet.transform.Translate(new Vector3(0, 0, 0.003f));
         }
 
+
+        bulletCountText.text = "bullet:" + bulletCount.ToString();
+
     }
 
     private void Shoot()
     {
-        isShoot = true;
-        bullet = Instantiate(bullet, shootingPoint.transform.position, Quaternion.identity);
+        if (bulletCount > 0)
+        {
+            isShoot = true;
+            bullet = Instantiate(bullet, shootingPoint.transform.position, Quaternion.identity);
+            bulletCount -= 1;
+        }
+    }
+
+    public void BulletCountReborn()
+    {
+        bulletCount = DEFAULT_BULLET_COUNT;
     }
 }
