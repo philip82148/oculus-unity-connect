@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSettingController: {fileID: 883066931}
-  subjectName: "\u83CA\u6C60\u305F\u304F\u307E"
+  subjectName: test
   whichAudioParameter: -1
 --- !u!4 &237646146
 Transform:
@@ -3253,7 +3253,7 @@ MonoBehaviour:
   createSoundController: {fileID: 1944484595}
   indexFinger: {fileID: 1157857308}
   centralSoundObject: {fileID: 1083751391}
-  whichAudioParameter: 0
+  whichAudioParameter: 1
   debugText: {fileID: 865141977}
 --- !u!4 &883066932
 Transform:
