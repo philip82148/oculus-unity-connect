@@ -1000,7 +1000,7 @@ MonoBehaviour:
   isAmplitudeInversion: 0
   whichAudioParameter: 0
   requiredLength: 0.1
-  subjectName: "\u83CA\u6C60\u305F\u304F\u307E"
+  subjectName: "\u4E0A\u5712\u5343\u9DB4\u3055\u3093"
 --- !u!4 &217664108
 Transform:
   m_ObjectHideFlags: 0
