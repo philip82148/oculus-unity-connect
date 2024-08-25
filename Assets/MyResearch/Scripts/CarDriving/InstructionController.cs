@@ -28,6 +28,7 @@ public class InstructionController : MonoBehaviour
     private float[] instructionIntervalTime = { 5.0f, 8.0f };
     private float inInstructionTime = 2.0f;
     private static string tmpInstruction;
+    private static int tmpInstructionIndex = 0;
     private float instructionInterval = 5.0f;
     private float tmpInInstructionTime = 2.0f;
 
@@ -83,7 +84,8 @@ public class InstructionController : MonoBehaviour
     }
     private void SetInstruction()
     {
-        tmpInstruction = instructions[Random.Range(0, instructions.Length)];
+        tmpInstructionIndex = Random.Range(0, instructions.Length);
+        tmpInstruction = instructions[tmpInstructionIndex];
         isInInstruction = true;
     }
 
@@ -91,6 +93,11 @@ public class InstructionController : MonoBehaviour
     public static string GetTmpInstruction()
     {
         return tmpInstruction;
+    }
+
+    public static int GetTmpInstructionIndex()
+    {
+        return tmpInstructionIndex;
     }
 
     public static bool GetTmpIsInInstruction()
