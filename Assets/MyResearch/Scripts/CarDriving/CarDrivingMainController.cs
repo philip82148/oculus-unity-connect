@@ -27,7 +27,7 @@ public class CarDrivingMainController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Four))
+        if (OVRInput.GetDown(OVRInput.Button.Four) || Input.GetKeyDown(KeyCode.Space))
         {
             isCountDown = true;
             countDownPanel.SetActive(true);
