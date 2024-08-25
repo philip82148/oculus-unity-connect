@@ -25,7 +25,7 @@ public class AudioSettingController : MonoBehaviour
 
     // これぐらいが一番音として聞こえやすいのでは
     // private const double requiredLength = 0.05;
-    private const double requiredLength = 0.06;
+    private const double requiredLength = 0.075;
 
     private bool isSound = true;
 

@@ -8,7 +8,8 @@ using UnityEditor;
 public class CreateSoundController : MonoBehaviour
 {
 
-    private const double DEFAULT_FREQUENCY = 622.254;
+    // private const double DEFAULT_FREQUENCY = 622.254;
+    private const double DEFAULT_FREQUENCY = 440;
 
     public double frequencyCoefficient;
 

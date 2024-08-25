@@ -28,13 +28,14 @@ public class ShooterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.One) || Input.GetMouseButtonDown(0))
+        if (OVRInput.GetDown(OVRInput.Button.One) || Input.GetMouseButtonDown(0) || OVRInput.GetDown(OVRInput.Button.Three))
         {
             Shoot();
         }
         if (isShoot)
         {
-            bullet.transform.Translate(new Vector3(0, 0, 0.003f));
+            // bullet.transform.Translate(new Vector3(0, 0, 0.003f));
+            bullet.transform.Translate(new Vector3(0, 0, 0.05f));
         }
 
 

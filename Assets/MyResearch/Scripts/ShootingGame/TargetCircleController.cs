@@ -13,6 +13,8 @@ public class TargetCircleController : MonoBehaviour
     private Color defaultColor = Color.white;
     private Color inOffenseTimeColor = Color.red;
 
+    private float[] waitTimeRange = { 3.0f, 8.0f };
+
     private float waitTime = 8.0f;
     private float tmpWaitingTime = 0f;
 
@@ -26,15 +28,24 @@ public class TargetCircleController : MonoBehaviour
     private bool isHit = false;
 
 
+    void Start()
+    {
+        RandomSelectWaitingTime();
+    }
+
+
     void Update()
     {
+        // this.gameObject.SetActive(isAttack);
         if (!isAttack)
         {
+            // this.gameObject.SetActive(false);
             targetRenderer.material.color = defaultColor;
             if (waitTime <= tmpWaitingTime)
             {
                 isAttack = true;
                 tmpWaitingTime = 0;
+                RandomSelectWaitingTime();
             }
             tmpWaitingTime += Time.deltaTime;
             isHit = false;
@@ -43,7 +54,9 @@ public class TargetCircleController : MonoBehaviour
         {
             if (!isHit)
             {
+
                 targetRenderer.material.color = inOffenseTimeColor;
+                // this.gameObject.SetActive(true);
             }
             if (inAttackTime <= tmpInAttackTime)
             {
@@ -66,5 +79,10 @@ public class TargetCircleController : MonoBehaviour
             isHit = true;
             shotTargetController.CallShot();
         }
+    }
+
+    private void RandomSelectWaitingTime()
+    {
+        waitTime = Random.Range(waitTimeRange[0], waitTimeRange[1] + 1);
     }
 }
