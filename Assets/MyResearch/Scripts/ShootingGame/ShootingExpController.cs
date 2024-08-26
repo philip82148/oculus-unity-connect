@@ -9,11 +9,14 @@ public class ShootingExpController : MonoBehaviour
     [SerializeField] private GameObject countDownPanel;
     [SerializeField] private TextMeshProUGUI countDownText;
     [SerializeField] private TextMeshProUGUI countText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+
 
     private float countTime = 5.0f;
-    private float gameTime = 20f;
+    private float gameTime = 60f;
     private bool isCountDown = false;
     private bool isGame = false;
+    private int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -46,9 +49,21 @@ public class ShootingExpController : MonoBehaviour
             countText.text = "" + gameTime.ToString("F1");
             if (gameTime <= 0)
             {
+
                 countText.text = "game finished";
                 isGame = false;
             }
+        }
+        scoreText.text = "score:" + score.ToString();
+    }
+
+
+    public void CallAddScore()
+    {
+        if (isGame)
+        {
+
+            score += 1;
         }
     }
 }

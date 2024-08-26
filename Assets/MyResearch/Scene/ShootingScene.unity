@@ -2960,6 +2960,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0.25, y: -0.1}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &894980889 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3369614077975304767, guid: 250da731e30c3b44d987e6bd3c8e37a3, type: 3}
+  m_PrefabInstance: {fileID: 1455109302119068166}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c7045b11e18bd4aa1568d2bd490e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &901513405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2992,6 +3003,7 @@ MonoBehaviour:
   countDownPanel: {fileID: 1579937055}
   countDownText: {fileID: 1709217408}
   countText: {fileID: 2018863396}
+  scoreText: {fileID: 1150208924}
 --- !u!4 &901513407
 Transform:
   m_ObjectHideFlags: 0
@@ -7323,10 +7335,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2383225705660346010, guid: 250da731e30c3b44d987e6bd3c8e37a3, type: 3}
+      propertyPath: shotTargetController
+      value: 
+      objectReference: {fileID: 894980889}
     - target: {fileID: 3369614077975304767, guid: 250da731e30c3b44d987e6bd3c8e37a3, type: 3}
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1150208924}
+    - target: {fileID: 3369614077975304767, guid: 250da731e30c3b44d987e6bd3c8e37a3, type: 3}
+      propertyPath: shootingExpController
+      value: 
+      objectReference: {fileID: 901513406}
     - target: {fileID: 8632485209053060111, guid: 250da731e30c3b44d987e6bd3c8e37a3, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

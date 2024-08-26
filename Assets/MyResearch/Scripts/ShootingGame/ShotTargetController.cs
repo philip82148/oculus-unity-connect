@@ -6,8 +6,8 @@ using TMPro;
 public class ShotTargetController : MonoBehaviour
 {
     [SerializeField] private Renderer targetRenderer;
-    [SerializeField] private TextMeshProUGUI scoreText;
-    private int score = 0;
+    [SerializeField] private ShootingExpController shootingExpController;
+    //    private static int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class ShotTargetController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = "score:" + score.ToString();
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -34,6 +34,7 @@ public class ShotTargetController : MonoBehaviour
 
     public void CallShot()
     {
-        score += 1;
+        // score += 1;
+        shootingExpController.CallAddScore();
     }
 }
