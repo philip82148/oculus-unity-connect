@@ -15,9 +15,11 @@ public class DrawPictureController : MonoBehaviour
 
     [Header("Controller Setting")]
     [SerializeField] private AudioController audioController;
+    [SerializeField] private FingerPaintController fingerPaintController;
     [SerializeField] private DataLoggerController dataLoggerController;
+    [Header("OVR Input Information")]
+    [SerializeField] private GameObject indexFinger;
 
-    [SerializeField]
     private Vector3
           rightControllerPosition;
 
@@ -35,11 +37,19 @@ public class DrawPictureController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Three))
+        rightControllerPosition = indexFinger.transform.position;
+        if (OVRInput.GetDown(OVRInput.Button.Three) || (OVRInput.GetDown(OVRInput.Button.One)))
         {
+
             if (isMeasuring == false)
             {
                 isMeasuring = true;
+                fingerPaintController.StartDrawing();
+            }
+            else
+            {
+                isMeasuring = false;
+                fingerPaintController.StopDrawing();
             }
         }
         if (isMeasuring)
@@ -54,7 +64,8 @@ public class DrawPictureController : MonoBehaviour
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-        string folder = $"C:\\Users\\takaharayota\\Research\\Exp-Draw-Picture\\";
+        string folder = $"C:\\Users\\takaharayota\\Research\\Exp-Draw-Picture";
+        Directory.CreateDirectory(folder);
         string fileName = $"{dateTime}.txt";
         return System.IO.Path.Combine(folder, fileName);
     }
@@ -65,5 +76,13 @@ public class DrawPictureController : MonoBehaviour
         dataLoggerController.WriteInformation(rightControllerPosition);
 
     }
+
+    private Vector3 GetRightIndexFingerPosition()
+    {
+
+        return indexFinger.transform.position;
+
+    }
+
 
 }
