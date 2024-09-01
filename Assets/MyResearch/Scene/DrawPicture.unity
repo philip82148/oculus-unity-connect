@@ -955,7 +955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioController: {fileID: 271575628}
-  fingerPaintController: {fileID: 0}
+  fingerPaintController: {fileID: 1588889831}
   dataLoggerController: {fileID: 1027268700}
   indexFinger: {fileID: 108570599}
 --- !u!1 &196309980
@@ -5961,9 +5961,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e59e8ecbf8f24d54ca0a979696f6d105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayText: {fileID: 0}
-  indexFinger: {fileID: 0}
-  drawingMaterial: {fileID: 0}
+  displayText: {fileID: 957016401}
+  indexFinger: {fileID: 108570599}
+  drawingMaterial: {fileID: 2100000, guid: 669025377795b574da66d9bb2472fcab, type: 2}
   penWidth: 0.001
   penColors:
   - {r: 0, g: 0, b: 0, a: 1}
