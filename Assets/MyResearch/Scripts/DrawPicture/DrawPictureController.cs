@@ -38,7 +38,7 @@ public class DrawPictureController : MonoBehaviour
     void Update()
     {
         rightControllerPosition = indexFinger.transform.position;
-        if (OVRInput.GetDown(OVRInput.Button.Three) || (OVRInput.GetDown(OVRInput.Button.One)))
+        if (OVRInput.Get(OVRInput.Button.One))
         {
 
             if (isMeasuring == false)
@@ -46,15 +46,16 @@ public class DrawPictureController : MonoBehaviour
                 isMeasuring = true;
                 fingerPaintController.StartDrawing();
             }
-            else
+            WriteInformation();
+
+        }
+        else
+        {
+            if (isMeasuring)
             {
                 isMeasuring = false;
                 fingerPaintController.StopDrawing();
             }
-        }
-        if (isMeasuring)
-        {
-            WriteInformation();
         }
 
 

@@ -51,9 +51,12 @@ public class AudioController : MonoBehaviour
     public void SetContinuousAudioSetting(Vector3 targetDiff)
     {
 
-        amplitude = initialAmplitude * (1 - amplitudeScalingFactor * targetDiff.z);
-        frequency = 1.0f + frequencyScalingFactor * targetDiff.y;
-        pan = 10 * targetDiff.x;
+        amplitude = initialAmplitude * (1 + amplitudeScalingFactor * targetDiff.z);
+        frequency = 1.0f;
+        pan = 0;
+        // amplitude = initialAmplitude * (1 - amplitudeScalingFactor * targetDiff.z);
+        // frequency = 1.0f + frequencyScalingFactor * targetDiff.y;
+        // pan = 10 * targetDiff.x;
 
         ReflectAudioSettings();
 
