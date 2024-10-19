@@ -17,6 +17,7 @@ public class PlayerKatanaController : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
+        this.transform.Rotate(0, horizontal * Time.deltaTime * rotateSpeed, 0);
 
         if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight, OVRInput.Controller.LTouch))
         {
