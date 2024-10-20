@@ -16,7 +16,7 @@ public class SoundDesignSettingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = createSoundController.GetTmpFrequency().ToString();
+        text.text = createSoundController.GetTmpFrequency().ToString("f2");
 
     }
 }

@@ -19,6 +19,10 @@ public class CreateSoundController : MonoBehaviour
     [SerializeField] private float harmonic1Coefficient = 0.5f;
     [SerializeField] private float harmonic2Coefficient = 0.3f;
 
+    // 波形の種類を指定
+    public enum WaveType { Sine, Triangle, Sawtooth, Square }
+    public WaveType waveType = WaveType.Sine;
+
     // 倍音用の位相
     private double phaseHarmonic1;
     private double phaseHarmonic2;
@@ -55,13 +59,13 @@ public class CreateSoundController : MonoBehaviour
             phaseHarmonic2 += incrementHarmonic2;
 
             // 基本音
-            double sample = gain * Math.Sin(phase);
+            double sample = gain * GenerateWave(phase, waveType);
 
             // 第1倍音 (50%の振幅で加算)
-            sample += gain * harmonic1Coefficient * Math.Sin(phaseHarmonic1);
+            sample += gain * harmonic1Coefficient * GenerateWave(phaseHarmonic1, waveType);
 
             // 第2倍音 (30%の振幅で加算)
-            sample += gain * harmonic2Coefficient * Math.Sin(phaseHarmonic2);
+            sample += gain * harmonic2Coefficient * GenerateWave(phaseHarmonic2, waveType);
 
             float panLeft = 1.0f - (float)pan; // 左チャンネルのゲイン計算
             float panRight = 1.0f + (float)pan; // 右チャンネルのゲイン計算
@@ -81,6 +85,24 @@ public class CreateSoundController : MonoBehaviour
             if (phase > 2 * Math.PI) phase -= 2 * Math.PI;
             if (phaseHarmonic1 > 2 * Math.PI) phaseHarmonic1 -= 2 * Math.PI;
             if (phaseHarmonic2 > 2 * Math.PI) phaseHarmonic2 -= 2 * Math.PI;
+        }
+    }
+
+    // 波形を生成する関数
+    private double GenerateWave(double phase, WaveType waveType)
+    {
+        switch (waveType)
+        {
+            case WaveType.Sine:
+                return Math.Sin(phase); // サイン波
+            case WaveType.Triangle:
+                return 2.0 * Math.Asin(Math.Sin(phase)) / Math.PI; // 三角波
+            case WaveType.Sawtooth:
+                return 2.0 * (phase / (2 * Math.PI) - Math.Floor(phase / (2 * Math.PI) + 0.5)); // ノコギリ波
+            case WaveType.Square:
+                return Math.Sign(Math.Sin(phase)); // 矩形波
+            default:
+                return Math.Sin(phase); // デフォルトはサイン波
         }
     }
 
@@ -117,5 +139,15 @@ public class CreateSoundController : MonoBehaviour
     public void SetPan(double pan)
     {
         this.pan = pan;
+    }
+
+    public void SetFrequencyCoefficient(double nextFrequencyCoefficient)
+    {
+        this.frequencyCoefficient = nextFrequencyCoefficient;
+    }
+
+    public void SetWaveType(WaveType nextWaveType)
+    {
+        this.waveType = nextWaveType;
     }
 }
