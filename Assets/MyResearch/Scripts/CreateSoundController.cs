@@ -18,6 +18,7 @@ public class CreateSoundController : MonoBehaviour
     private const double SAMPLING_FREQUENCY = 48000;
     [SerializeField] private float harmonic1Coefficient = 0.5f;
     [SerializeField] private float harmonic2Coefficient = 0.3f;
+    [SerializeField] private bool isChangedByCoefficient = true;
 
     // 波形の種類を指定
     public enum WaveType { Sine, Triangle, Sawtooth, Square }
@@ -29,12 +30,12 @@ public class CreateSoundController : MonoBehaviour
 
     private void Start()
     {
-        frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
+        if (isChangedByCoefficient) frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
     }
 
     private void Update()
     {
-        frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
+        if (isChangedByCoefficient) frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
 
         if (!isSound)
         {
@@ -149,5 +150,10 @@ public class CreateSoundController : MonoBehaviour
     public void SetWaveType(WaveType nextWaveType)
     {
         this.waveType = nextWaveType;
+    }
+
+    public void SetFrequencySelf(float frequencySelf)
+    {
+        frequency = frequencySelf;
     }
 }
