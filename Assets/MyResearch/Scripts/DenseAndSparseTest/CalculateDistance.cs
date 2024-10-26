@@ -11,7 +11,10 @@ public class CalculateDistance : MonoBehaviour
     [SerializeField] private CalculateSound calculateSound;
 
     [SerializeField] private List<GameObject> targetSoundObjects;
-    private const double requiredLength = 0.015f;
+    private GameObject centralObject;
+    private const double requiredLength = 0.015;
+    private const double depthRequiredLength = 0.05;
+    private const double centralRequiredLength = 0.1;
 
     // Start is called before the first frame update
     void Start()
@@ -41,13 +44,30 @@ public class CalculateDistance : MonoBehaviour
         return diff;
 
     }
+
+    private bool IsInCentralTerritory()
+    {
+
+        Vector3 rightControllerPosition = GetRightIndexFingerPosition();
+        Vector3 targetPosition = centralObject.transform.position;
+        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < centralRequiredLength) &&
+        (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < centralRequiredLength)
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < depthRequiredLength))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     private bool IsInSoundTerritory(int index)
     {
         Vector3 rightControllerPosition = GetRightIndexFingerPosition();
         Vector3 targetPosition = targetSoundObjects[index].transform.position;
         if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
         (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
-    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < depthRequiredLength))
         {
             return true;
         }
