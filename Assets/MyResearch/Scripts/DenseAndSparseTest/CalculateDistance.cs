@@ -6,6 +6,8 @@ public class CalculateDistance : MonoBehaviour
 {
     [Header("OVR Input Information")]
     [SerializeField] private GameObject indexFinger;
+    [Header("Controller Setting")]
+    [SerializeField] private DenseSparseExpController denseSparseExpController;
 
     [Header("Calculate Sound")]
     [SerializeField] private CalculateSound calculateSound;
@@ -26,11 +28,25 @@ public class CalculateDistance : MonoBehaviour
     void Update()
     {
         bool isSound = false;
-        for (int i = 0; i < targetSoundObjects.Count; i++)
+        DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
+        if (denseOrSparse == DenseOrSparse.Sparse)
         {
-            if (IsInSoundTerritory(i))
+            for (int i = 0; i < targetSoundObjects.Count; i++)
             {
-                float diff = CalculateControllerPositionAndObjectDiff(i);
+                if (IsInSoundTerritory(i))
+                {
+                    float diff = CalculateControllerPositionAndObjectDiff(targetSoundObjects[i]);
+                    calculateSound.SetYDiff(diff);
+                    isSound = true;
+                }
+            }
+        }
+        else if (denseOrSparse == DenseOrSparse.Dense)
+        {
+            if (IsInCentralTerritory())
+            {
+
+                float diff = CalculateControllerPositionAndObjectDiff(centralObject);
                 calculateSound.SetYDiff(diff);
                 isSound = true;
             }
@@ -38,9 +54,13 @@ public class CalculateDistance : MonoBehaviour
         if (!isSound) calculateSound.SetInitial();
     }
 
-    private float CalculateControllerPositionAndObjectDiff(int index)
+
+
+
+
+    private float CalculateControllerPositionAndObjectDiff(GameObject target)
     {
-        float diff = indexFinger.transform.position.y - targetSoundObjects[index].transform.position.y;
+        float diff = indexFinger.transform.position.y - target.transform.position.y;
         return diff;
 
     }
@@ -84,6 +104,10 @@ public class CalculateDistance : MonoBehaviour
     public void SetTargetObject(GameObject gameObject)
     {
         targetSoundObjects.Add(gameObject);
+    }
+    public void SetCentralObject(GameObject gameObject)
+    {
+        centralObject = gameObject;
     }
 
 
