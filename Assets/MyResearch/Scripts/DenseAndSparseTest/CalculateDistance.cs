@@ -14,9 +14,9 @@ public class CalculateDistance : MonoBehaviour
 
     [SerializeField] private List<GameObject> targetSoundObjects;
     private GameObject centralObject;
-    private const double requiredLength = 0.015;
+    private const double requiredLength = 0.03;
     private const double depthRequiredLength = 0.05;
-    private const double centralRequiredLength = 0.1;
+    private const double centralRequiredLength = 0.15;
 
     // Start is called before the first frame update
     void Start()

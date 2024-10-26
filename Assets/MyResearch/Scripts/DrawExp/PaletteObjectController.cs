@@ -31,6 +31,10 @@ public class PaletteObjectController : MonoBehaviour
     {
         return index;
     }
+    public void SetIndex(int index)
+    {
+        this.index = index;
+    }
     public bool IsMove()
     {
         return isMove;

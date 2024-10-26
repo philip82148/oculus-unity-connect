@@ -22,7 +22,7 @@ public class DisplayTargetPlaceColorController : MonoBehaviour
 
     public void ChangeIndexDisplay()
     {
-        targetNumDisplayText.text = targetPlaceIndex.ToString();
+        targetNumDisplayText.text = (targetPlaceIndex + 1).ToString();
 
     }
 
@@ -39,7 +39,8 @@ public class DisplayTargetPlaceColorController : MonoBehaviour
             {
                 Debug.Log("called" + targetPlaceIndex);
 
-                targetPlaceDisplays[targetPlaceIndex].color = DecideColor();
+                // targetPlaceDisplays[targetPlaceIndex].color = DecideColor();
+                targetPlaceDisplays[targetPlaceIndex].color = Color.red;
             }
             else
             {

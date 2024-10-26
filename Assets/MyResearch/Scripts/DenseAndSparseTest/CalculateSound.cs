@@ -56,4 +56,9 @@ public class CalculateSound : MonoBehaviour
         createSoundController.SetAmplitude(0.5f);
 
     }
+
+    private void CalculateSoundLength()
+    {
+
+    }
 }
