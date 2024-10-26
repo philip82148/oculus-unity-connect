@@ -6,10 +6,16 @@ using TMPro;
 
 public class FingerPaintController : MonoBehaviour
 {
+    [Header("Controller Setting")]
+    [SerializeField] private AudioController audioController;
+    [SerializeField] private CreateSoundController createSoundController;
+    [SerializeField] private GameObject targetPlace;
     [Header("UI display")]
     [SerializeField] private TextMeshProUGUI displayText;
     [Header("OVR Input Information")]
     [SerializeField] private GameObject indexFinger;
+    [SerializeField]
+    private double requiredLength = 0.2;
 
     [Header("Pen Properties")]
     public Material drawingMaterial;
@@ -24,6 +30,8 @@ public class FingerPaintController : MonoBehaviour
     private int currentColorIndex = 1;
 
     private bool isDrawing = false;
+    private int whichAudioParameter = 2;
+    private bool isSound = true;
 
     public void StartDrawing()
     {
@@ -41,6 +49,11 @@ public class FingerPaintController : MonoBehaviour
 
     private void Update()
     {
+        if (isSound)
+        {
+
+            CheckIfAudioEnabled();
+        }
         if (isDrawing)
         {
             Debug.Log("start drawing here");
@@ -71,6 +84,69 @@ public class FingerPaintController : MonoBehaviour
     {
 
         return indexFinger.transform.position;
+
+    }
+    private Vector3 CalculateControllerPositionAndTextDiff(int index)
+    {
+
+        Vector3 diff = GetRightIndexFingerPosition() - targetPlace.transform.position;
+        return diff;
+    }
+    private void CheckIfAudioEnabled()
+    {
+
+        bool isAudioFlag = false;
+
+        Vector3 rightControllerPosition = GetRightIndexFingerPosition();
+
+        Vector3 targetPosition = targetPlace.transform.position;
+        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
+        (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
+        {
+            isAudioFlag = true;
+            AudioSetting(2);
+
+
+        }
+
+        if (isAudioFlag)
+        {
+            createSoundController.EnableAudio();
+        }
+        else
+        {
+            createSoundController.DisableAudio();
+        }
+    }
+    private void AudioSetting(int index)
+    {
+
+        if (whichAudioParameter == 0)
+        {
+
+            audioController.SetDiscreteExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
+
+        }
+        else if (whichAudioParameter == 1)
+        {
+
+            audioController.SetContinuousExponentAudioSettingWithTargetText(CalculateControllerPositionAndTextDiff(index));
+        }
+        else if (whichAudioParameter == 2)
+        {
+            audioController.SetContinuousAudioSetting(CalculateControllerPositionAndTextDiff(index));
+        }
+        else if (whichAudioParameter == 3)
+        {
+            audioController.SetDiscreteAudioSetting(CalculateControllerPositionAndTextDiff(index));
+        }
+        else if (whichAudioParameter == -1)
+        {
+            isSound = false;
+        }
+
+
 
     }
 

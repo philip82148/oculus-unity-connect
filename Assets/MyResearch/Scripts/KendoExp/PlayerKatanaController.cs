@@ -19,8 +19,16 @@ public class PlayerKatanaController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         this.transform.Rotate(0, horizontal * Time.deltaTime * rotateSpeed, 0);
 
+        if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight, OVRInput.Controller.LTouch))
+        {
+            this.transform.Rotate(0, Time.deltaTime * rotateSpeed, 0);
+        }
+        if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft, OVRInput.Controller.LTouch))
+        {
+            this.transform.Rotate(0, -Time.deltaTime * rotateSpeed, 0);
+        }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || OVRInput.Get(OVRInput.Button.One))
         {
             // this.transform.Rotate(Time.deltaTime * koteSpeed, 0, 0);
             this.transform.Translate(0, 0, Time.deltaTime * koteMoveSpeed, Space.World);
