@@ -1577,8 +1577,8 @@ MonoBehaviour:
   calculateDistance: {fileID: 993637233}
   displayTargetPlaceColorController: {fileID: 816950487}
   scoreText: {fileID: 1100770328}
-  frequencyRangeVisualizer: {fileID: 0}
-  denseOrSparse: 0
+  frequencyRangeVisualizer: {fileID: 1152413242}
+  denseOrSparse: 1
 --- !u!4 &586591635
 Transform:
   m_ObjectHideFlags: 0

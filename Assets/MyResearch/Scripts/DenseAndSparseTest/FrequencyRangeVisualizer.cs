@@ -15,7 +15,19 @@ public class FrequencyRangeVisualizer : MonoBehaviour
     {
         cubePosition = denseSparseExpController.GetStartCoordinate();
         SetCubeSize();
-        CreateFrequencyCube();
+        DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
+        if (denseOrSparse == DenseOrSparse.Dense)
+        { CreateFrequencyCube(cubePosition); }
+        else if (denseOrSparse == DenseOrSparse.Sparse)
+        {
+            List<Vector3> cubePositions = denseSparseExpController.GetTargetCoordinates();
+            for (int i = 0; i < cubePositions.Count; i++)
+            {
+                CreateFrequencyCube(cubePositions[i]);
+            }
+
+        }
+
     }
 
     void Update()
@@ -36,12 +48,15 @@ public class FrequencyRangeVisualizer : MonoBehaviour
         }
         else if (denseOrSparse == DenseOrSparse.Sparse)
         {
+            float xYLength = (float)calculateDistance.GetRequiredLength() * 2;
+            float zLength = (float)calculateDistance.GetDepthRequiredLength() * 2;
+            cubeSize = new Vector3(xYLength, xYLength, zLength);
             // soundLength = (denseSparseExpController.GetObjectCount() - 1) * denseSparseExpController.GetInterval() + 2 *
             // calculateDistance.GetRequiredLength();
         }
     }
 
-    public void CreateFrequencyCube()
+    public void CreateFrequencyCube(Vector3 cubePosition)
     {
         frequencyCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         frequencyCube.transform.localScale = cubeSize;

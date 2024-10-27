@@ -12,7 +12,7 @@ public class CalculateDistance : MonoBehaviour
     [Header("Calculate Sound")]
     [SerializeField] private CalculateSound calculateSound;
 
-    [SerializeField] private List<GameObject> targetSoundObjects;
+    [SerializeField] private List<GameObject> targetSoundObjects = new List<GameObject>();
     private GameObject centralObject;
     private const double requiredLength = 0.03;
     private const double depthRequiredLength = 0.05;

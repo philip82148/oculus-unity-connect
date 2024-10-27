@@ -24,6 +24,8 @@ public class DenseSparseExpController : MonoBehaviour
 
     [SerializeField] private DenseOrSparse denseOrSparse;
 
+    private List<Vector3> targetCoordinates = new List<Vector3>();
+
     private int objectCount = 5;
     private int score = 0;
     private bool isGame = false;
@@ -66,6 +68,7 @@ public class DenseSparseExpController : MonoBehaviour
         int count = (int)objectCount / 2;
 
         GameObject gameObject = Instantiate(baseObject, startCoordinate, Quaternion.Euler(0, 0, 0));
+        targetCoordinates.Add(startCoordinate);
         TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
         if (text == null)
         {
@@ -87,6 +90,7 @@ public class DenseSparseExpController : MonoBehaviour
     private void CreateTargetObject(int index)
     {
         GameObject gameObject = Instantiate(baseObject, new Vector3(startCoordinate.x, startCoordinate.y + (index + 1) * interval, startCoordinate.z), Quaternion.Euler(0, 0, 0));
+        targetCoordinates.Add(new Vector3(startCoordinate.x, startCoordinate.y + (index + 1) * interval, startCoordinate.z));
         TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
         if (text == null)
         {
@@ -101,6 +105,7 @@ public class DenseSparseExpController : MonoBehaviour
 
 
         gameObject = Instantiate(baseObject, new Vector3(startCoordinate.x, startCoordinate.y - (index + 1) * interval, startCoordinate.z), Quaternion.Euler(0, 0, 0));
+        targetCoordinates.Add(new Vector3(startCoordinate.x, startCoordinate.y - (index + 1) * interval, startCoordinate.z));
         text = gameObject.GetComponentInChildren<TextMeshPro>();
         paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
         paletteObjectController.SetIndex(countDecide + index);
@@ -150,6 +155,11 @@ public class DenseSparseExpController : MonoBehaviour
     public Vector3 GetStartCoordinate()
     {
         return startCoordinate;
+    }
+
+    public List<Vector3> GetTargetCoordinates()
+    {
+        return targetCoordinates;
     }
 
     public float GetInterval()
