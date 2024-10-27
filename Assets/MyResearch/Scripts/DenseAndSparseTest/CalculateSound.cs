@@ -6,14 +6,16 @@ using UnityEngine;
 public class CalculateSound : MonoBehaviour
 {
     [SerializeField] private CreateSoundController createSoundController;
+    [SerializeField] private DenseSparseExpController denseSparseExpController;
+    [SerializeField] private CalculateDistance calculateDistance;
 
 
 
     private float minFrequency = 660f;
     private float maxFrequency = 220f;
-    private float centralFrequency;
-    private float calculatedFrequency;
-    [SerializeField] private float soundLength = 1.0f;
+    private double centralFrequency;
+    private double calculatedFrequency;
+    [SerializeField] private double soundLength = 1.0f;
     [SerializeField]
     private TextMeshProUGUI debugText;
 
@@ -24,7 +26,8 @@ public class CalculateSound : MonoBehaviour
     {
         centralFrequency = (minFrequency + maxFrequency) / 2;
         // createSoundController.SetAmplitude(0);
-
+        CalculateSoundLength();
+        Debug.Log("sound length:" + soundLength);
     }
 
     void Update()
@@ -52,13 +55,22 @@ public class CalculateSound : MonoBehaviour
     }
     private void SetFrequency()
     {
-        createSoundController.SetFrequencySelf(calculatedFrequency);
+        createSoundController.SetFrequencySelf((float)calculatedFrequency);
         createSoundController.SetAmplitude(0.5f);
 
     }
 
     private void CalculateSoundLength()
     {
-
+        DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
+        if (denseOrSparse == DenseOrSparse.Dense)
+        {
+            soundLength = calculateDistance.GetCentralRequiredLength();
+        }
+        else if (denseOrSparse == DenseOrSparse.Sparse)
+        {
+            soundLength = (denseSparseExpController.GetObjectCount() - 1) * denseSparseExpController.GetInterval() + 2 *
+            calculateDistance.GetRequiredLength();
+        }
     }
 }

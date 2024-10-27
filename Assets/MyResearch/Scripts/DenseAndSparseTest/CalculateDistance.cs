@@ -110,6 +110,21 @@ public class CalculateDistance : MonoBehaviour
         centralObject = gameObject;
     }
 
+    public double GetCentralRequiredLength()
+    {
+        return centralRequiredLength;
+    }
+
+    public double GetRequiredLength()
+    {
+        return requiredLength;
+    }
+
+    public double GetDepthRequiredLength()
+    {
+        return depthRequiredLength;
+    }
+
 
 
 }

@@ -14,10 +14,13 @@ public class DenseSparseExpController : MonoBehaviour
     [SerializeField] private CalculateDistance calculateDistance;
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
 
+
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI scoreText;
     // [SerializeField] private TextMeshProUGUI targetIndexText;
 
+    [Header("Visualizer")]
+    [SerializeField] private FrequencyRangeVisualizer frequencyRangeVisualizer;
 
     [SerializeField] private DenseOrSparse denseOrSparse;
 
@@ -141,6 +144,21 @@ public class DenseSparseExpController : MonoBehaviour
     public void ChangeDisplayColor()
     {
         displayTargetPlaceColorController.ChangeIndexAndReflect(targetCorrectIndex);
+    }
+
+
+    public Vector3 GetStartCoordinate()
+    {
+        return startCoordinate;
+    }
+
+    public float GetInterval()
+    {
+        return interval;
+    }
+    public int GetObjectCount()
+    {
+        return objectCount;
     }
 
 }
