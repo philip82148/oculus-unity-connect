@@ -31,19 +31,22 @@ public class CalculateDistance : MonoBehaviour
         DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
         if (denseOrSparse == DenseOrSparse.Sparse)
         {
-            for (int i = 0; i < targetSoundObjects.Count; i++)
+            if (targetSoundObjects.Count > 0)
             {
-                if (IsInSoundTerritory(i))
+                for (int i = 0; i < targetSoundObjects.Count; i++)
                 {
-                    float diff = CalculateControllerPositionAndObjectDiff(targetSoundObjects[i]);
-                    calculateSound.SetYDiff(diff);
-                    isSound = true;
+                    if (IsInSoundTerritory(i))
+                    {
+                        float diff = CalculateControllerPositionAndObjectDiff(targetSoundObjects[i]);
+                        calculateSound.SetYDiff(diff);
+                        isSound = true;
+                    }
                 }
             }
         }
         else if (denseOrSparse == DenseOrSparse.Dense)
         {
-            if (IsInCentralTerritory())
+            if (centralObject != null && IsInCentralTerritory())
             {
 
                 float diff = CalculateControllerPositionAndObjectDiff(centralObject);

@@ -53,6 +53,12 @@ public class CalculateSound : MonoBehaviour
     {
         calculatedFrequency = centralFrequency - yDiff / soundLength * (maxFrequency - minFrequency) / 2;
     }
+    private void CalculateExponentialFrequency()
+    {
+        float t = yDiff / (float)soundLength;
+        float frequencyRatio = minFrequency / (float)centralFrequency;
+        calculatedFrequency = centralFrequency * Mathf.Pow(frequencyRatio, t);
+    }
     private void SetFrequency()
     {
         createSoundController.SetFrequencySelf((float)calculatedFrequency);

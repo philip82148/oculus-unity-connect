@@ -2769,8 +2769,7 @@ MonoBehaviour:
   indexFinger: {fileID: 1911472834}
   denseSparseExpController: {fileID: 586591634}
   calculateSound: {fileID: 1095047856}
-  targetSoundObjects:
-  - {fileID: 0}
+  targetSoundObjects: []
 --- !u!4 &993637234
 Transform:
   m_ObjectHideFlags: 0

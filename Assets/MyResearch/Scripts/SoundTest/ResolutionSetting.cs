@@ -6,15 +6,17 @@ public class ResolutionSetting : MonoBehaviour
 {
     [SerializeField] private CreateSoundController createSoundController;
     private float minFrequency = 220;
-    private float maxFrequency = 440;
-    private int frequencyCount = 5;
+    private float maxFrequency = 660;
+    private int frequencyCount = 4;
 
-    private float minAmplitude = 0.5f;
+    private float minAmplitude = 0.2f;
     private float maxAmplitude = 1f;
     private int amplitudeCount = 3;
 
     private int tmpFrequencyIndex = 0;
     private int tmpAmplitudeIndex = 0;
+
+    [SerializeField] private bool isExp = false;
 
 
     // Start is called before the first frame update
@@ -28,13 +30,74 @@ public class ResolutionSetting : MonoBehaviour
     {
 
     }
-    public void ReflectAudioSetting(int frequencyIndex, int amplitudeIndex)
+    public void ReflectAudioSetting(int frequencyIndex, int amplitudeIndex, ExpSetting expSetting)
     {
+
+
         tmpFrequencyIndex = frequencyIndex;
         tmpAmplitudeIndex = amplitudeIndex;
-        float frequency = minFrequency + (maxFrequency - minFrequency) * tmpFrequencyIndex / frequencyCount;
-        createSoundController.SetFrequencySelf(frequency);
-        float amplitude = minAmplitude + (maxAmplitude - minAmplitude) * tmpAmplitudeIndex / amplitudeCount;
-        createSoundController.SetAmplitude(amplitude);
+        if (expSetting == ExpSetting.Both)
+        {
+            FrequencySetting();
+            AmplitudeSetting();
+        }
+        else if (expSetting == ExpSetting.Amplitude)
+        {
+            AmplitudeSetting();
+            createSoundController.SetFrequencySelf((minFrequency + maxFrequency) / 2);
+
+        }
+        else if (expSetting == ExpSetting.Frequency)
+        {
+            FrequencySetting();
+            createSoundController.SetAmplitude(0.5f);
+        }
+
+
+    }
+
+
+    private void FrequencySetting()
+    {
+        float frequency = 0;
+        if (isExp == false)
+        {
+            frequency = minFrequency + (maxFrequency - minFrequency) * tmpFrequencyIndex / frequencyCount;
+            createSoundController.SetFrequencySelf(frequency);
+        }
+        else
+        {
+            // 周波数を指数的に変化させる
+            float frequencyRatio = maxFrequency / minFrequency;
+            float frequencyExponent = tmpFrequencyIndex / (float)frequencyCount;
+            frequency = minFrequency * Mathf.Pow(frequencyRatio, frequencyExponent);
+            createSoundController.SetFrequencySelf(frequency);
+        }
+    }
+
+    private void AmplitudeSetting()
+    {
+        float amplitude = 0;
+        if (isExp == false)
+        {
+
+            amplitude = minAmplitude + (maxAmplitude - minAmplitude) * tmpAmplitudeIndex / amplitudeCount;
+            createSoundController.SetAmplitude(amplitude);
+        }
+        else
+        {
+            // 振幅を指数的に変化させる
+            float amplitudeRatio = maxAmplitude / minAmplitude;
+            float amplitudeExponent = tmpAmplitudeIndex / (float)amplitudeCount;
+            amplitude = minAmplitude * Mathf.Pow(amplitudeRatio, amplitudeExponent);
+            createSoundController.SetAmplitude(amplitude);
+        }
+    }
+
+
+    public void SetCount(int frequencyCount, int amplitudeCount)
+    {
+        this.frequencyCount = frequencyCount - 1;
+        this.amplitudeCount = amplitudeCount - 1;
     }
 }
