@@ -12,11 +12,11 @@ public class CalculateDistance : MonoBehaviour
     [Header("Calculate Sound")]
     [SerializeField] private CalculateSound calculateSound;
 
-    [SerializeField] private List<GameObject> targetSoundObjects;
+    [SerializeField] private List<GameObject> targetSoundObjects = new List<GameObject>();
     private GameObject centralObject;
-    private const double requiredLength = 0.015;
+    private const double requiredLength = 0.03;
     private const double depthRequiredLength = 0.05;
-    private const double centralRequiredLength = 0.1;
+    private const double centralRequiredLength = 0.15;
 
     // Start is called before the first frame update
     void Start()
@@ -31,19 +31,22 @@ public class CalculateDistance : MonoBehaviour
         DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
         if (denseOrSparse == DenseOrSparse.Sparse)
         {
-            for (int i = 0; i < targetSoundObjects.Count; i++)
+            if (targetSoundObjects.Count > 0)
             {
-                if (IsInSoundTerritory(i))
+                for (int i = 0; i < targetSoundObjects.Count; i++)
                 {
-                    float diff = CalculateControllerPositionAndObjectDiff(targetSoundObjects[i]);
-                    calculateSound.SetYDiff(diff);
-                    isSound = true;
+                    if (IsInSoundTerritory(i))
+                    {
+                        float diff = CalculateControllerPositionAndObjectDiff(targetSoundObjects[i]);
+                        calculateSound.SetYDiff(diff);
+                        isSound = true;
+                    }
                 }
             }
         }
         else if (denseOrSparse == DenseOrSparse.Dense)
         {
-            if (IsInCentralTerritory())
+            if (centralObject != null && IsInCentralTerritory())
             {
 
                 float diff = CalculateControllerPositionAndObjectDiff(centralObject);
@@ -108,6 +111,21 @@ public class CalculateDistance : MonoBehaviour
     public void SetCentralObject(GameObject gameObject)
     {
         centralObject = gameObject;
+    }
+
+    public double GetCentralRequiredLength()
+    {
+        return centralRequiredLength;
+    }
+
+    public double GetRequiredLength()
+    {
+        return requiredLength;
+    }
+
+    public double GetDepthRequiredLength()
+    {
+        return depthRequiredLength;
     }
 
 

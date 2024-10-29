@@ -13,7 +13,7 @@ public class HandController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        debugText.text = "shine";
     }
 
     // Update is called once per frame
@@ -26,29 +26,35 @@ public class HandController : MonoBehaviour
         }
         else
         {
-            debugText.text = "";
+            // debugText.text = "";
         }
     }
     private void OnTriggerStay(Collider otherObject)
     {
+        // debugText.text = "Grabbed";
         PaletteObjectController paletteObjectController =
         otherObject.GetComponent<PaletteObjectController>();
         if (paletteObjectController == null)
         {
             return;
         }
-        if (!paletteObjectController.IsMove())
-        {
-            return;
-        }
+        // if (!paletteObjectController.IsMove())
+        // {
+        //     return;
+        // }
+
 
         // index fingerボタンにすると人差し指の位置が変わってしまうことがあるので変更するようにした
-        if (OVRInput.Get(OVRInput.Button.One))
+        if (OVRInput.GetDown(OVRInput.Button.One))
         {
 
             int index = paletteObjectController.GetIndex();
             denseSparseExpController.SetRejoinedIndex(index);
-
+            isGrabbed = true;
+        }
+        else
+        {
+            isGrabbed = false;
         }
 
     }
