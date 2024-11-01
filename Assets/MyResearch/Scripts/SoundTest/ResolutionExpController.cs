@@ -39,7 +39,7 @@ public class ResolutionExpController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        debugText.text = soundController.GetTmpAmplitude().ToString("f2");
+        debugText.text = soundController.GetTmpAmplitude().ToString("f2") + ":" + soundController.GetTmpFrequency().ToString("f2");
         scoreText.text = "score:" + score.ToString();
     }
     public void ReflectClickedIndex(int index, ResolutionType resolutionType)
@@ -108,11 +108,11 @@ public class ResolutionExpController : MonoBehaviour
         {
             score += 1;
         }
-        else if (expSetting == ExpSetting.Amplitude && frequencyResolutionIndex == ansAmplitudeIndex)
+        else if (expSetting == ExpSetting.Amplitude && amplitudeResolutionIndex == ansAmplitudeIndex)
         {
             score += 1;
         }
-        else if (expSetting == ExpSetting.Frequency && frequencyResolutionIndex == ansFrequencyIndex && expSetting == ExpSetting.Amplitude && frequencyResolutionIndex == ansAmplitudeIndex)
+        else if (expSetting == ExpSetting.Both && frequencyResolutionIndex == ansFrequencyIndex && amplitudeResolutionIndex == ansAmplitudeIndex)
         {
             score += 1;
         }
