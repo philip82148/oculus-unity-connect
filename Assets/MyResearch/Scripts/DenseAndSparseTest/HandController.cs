@@ -8,20 +8,24 @@ public class HandController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI debugText;
 
     [SerializeField] private DenseSparseExpController denseSparseExpController;
-    private bool isGrabbed = false;
+    private bool isTouched = false;
+
+    private int tmpIndex = 0;
+
+
 
     // Start is called before the first frame update
-    void Start()
-    {
-        debugText.text = "shine";
-    }
+    // void Start()
+    // {
+    //     debugText.text = "shine";
+    // }
 
     // Update is called once per frame
     void Update()
     {
-        if (isGrabbed)
+        if (isTouched)
         {
-            debugText.text = "Grabbed";
+            // debugText.text = "Grabbed";
 
         }
         else
@@ -42,23 +46,42 @@ public class HandController : MonoBehaviour
         // {
         //     return;
         // }
+        tmpIndex = paletteObjectController.GetIndex();
+        isTouched = true;
 
+        // // index fingerボタンにすると人差し指の位置が変わってしまうことがあるので変更するようにした
+        // if (OVRInput.GetDown(OVRInput.Button.One))
+        // {
 
-        // index fingerボタンにすると人差し指の位置が変わってしまうことがあるので変更するようにした
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        //     int index = paletteObjectController.GetIndex();
+        //     denseSparseExpController.SetRejoinedIndex(index);
+        //     isGrabbed = true;
+        // }
+        // else
+        // {
+        //     isGrabbed = false;
+        // }
+
+    }
+    // private void OnTriggerStay(Collider other)
+    // {
+    //     isTouched = true;
+    // }
+    private void OnTriggerExit(Collider other)
+    {
+        isTouched = false;
+    }
+    public int GetIndex()
+    {
+        if (isTouched)
         {
-
-            int index = paletteObjectController.GetIndex();
-            denseSparseExpController.SetRejoinedIndex(index);
-            isGrabbed = true;
+            return tmpIndex;
         }
         else
         {
-            isGrabbed = false;
+            return -1;
         }
-
     }
-
 }
 
 

@@ -714,6 +714,14 @@ PrefabInstance:
       value: TargetObject2
       objectReference: {fileID: 0}
     - target: {fileID: 6226570809647174306, guid: 9236f633abf63a74fa6afcbbc00f092e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6226570809647174306, guid: 9236f633abf63a74fa6afcbbc00f092e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6226570809647174306, guid: 9236f633abf63a74fa6afcbbc00f092e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1572,10 +1580,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseObject: {fileID: 53451026094502471, guid: 9236f633abf63a74fa6afcbbc00f092e, type: 3}
-  startCoordinate: {x: 0.1, y: 0.1, z: 0}
-  interval: 0.05
+  startCoordinate: {x: 0.2, y: 0, z: 0.05}
+  interval: 0.1
   calculateDistance: {fileID: 993637233}
   displayTargetPlaceColorController: {fileID: 816950487}
+  handController: {fileID: 1911472839}
   scoreText: {fileID: 1100770328}
   frequencyRangeVisualizer: {fileID: 1152413242}
   denseOrSparse: 1
@@ -6875,8 +6884,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278928632
-  m_fontColor: {r: 0.9716981, g: 0.26474774, b: 0.041251317, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

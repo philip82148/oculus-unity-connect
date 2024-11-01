@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Oculus.Interaction.Body.Input;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DenseSparseExpController : MonoBehaviour
@@ -12,9 +13,11 @@ public class DenseSparseExpController : MonoBehaviour
     [Header("Setting")]
     [SerializeField] private CalculateDistance calculateDistance;
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
+    [SerializeField] private HandController handController;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI restCountText;
 
     [Header("Visualizer")]
     [SerializeField] private FrequencyRangeVisualizer frequencyRangeVisualizer;
@@ -27,6 +30,7 @@ public class DenseSparseExpController : MonoBehaviour
     private int objectCount = 5;
     private int score = 0;
     private bool isGame = false;
+    private int restCount = 10;
 
     private int targetCorrectIndex = 0;
     private float previousInterval;
@@ -46,20 +50,33 @@ public class DenseSparseExpController : MonoBehaviour
             UpdateObjectPositions();
             previousInterval = interval;
         }
+        if (restCount <= 0)
+        {
+            isGame = false;
+            restCountText.text = "game finished";
+        }
 
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
             isGame = true;
+
             SetNextTarget();
+        }
+        if (OVRInput.GetDown(OVRInput.Button.One))
+        {
+            int tmpIndex = handController.GetIndex();
+            SetRejoinedIndex(tmpIndex);
         }
         if (isGame)
         {
             scoreText.text = "score:" + score.ToString();
+            restCountText.text = "rest:" + restCount.ToString();
         }
     }
 
     public void SetNextTarget()
     {
+        restCount -= 1;
         DecideTargetIndex();
         ChangeDisplayColor();
     }
@@ -73,13 +90,13 @@ public class DenseSparseExpController : MonoBehaviour
             {
                 // Odd number of objects
                 int midIndex = objectCount / 2;
-                positionOffset = (i - midIndex) * interval;
+                positionOffset = -(i - midIndex) * interval; // Reversed the sign
             }
             else
             {
                 // Even number of objects
                 int midIndex = objectCount / 2;
-                positionOffset = (i - midIndex + 0.5f) * interval;
+                positionOffset = -(i - midIndex + 0.5f) * interval; // Reversed the sign
             }
 
             Vector3 newPosition = new Vector3(startCoordinate.x, startCoordinate.y + positionOffset, startCoordinate.z);
@@ -118,13 +135,13 @@ public class DenseSparseExpController : MonoBehaviour
             {
                 // Odd number of objects
                 int midIndex = objectCount / 2;
-                positionOffset = (i - midIndex) * interval;
+                positionOffset = -(i - midIndex) * interval; // Reversed the sign
             }
             else
             {
                 // Even number of objects
                 int midIndex = objectCount / 2;
-                positionOffset = (i - midIndex + 0.5f) * interval;
+                positionOffset = -(i - midIndex + 0.5f) * interval; // Reversed the sign
             }
 
             Vector3 newPosition = new Vector3(startCoordinate.x, startCoordinate.y + positionOffset, startCoordinate.z);
