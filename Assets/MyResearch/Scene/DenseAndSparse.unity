@@ -1586,8 +1586,9 @@ MonoBehaviour:
   displayTargetPlaceColorController: {fileID: 816950487}
   handController: {fileID: 1911472839}
   scoreText: {fileID: 1100770328}
+  restCountText: {fileID: 2129005748}
   frequencyRangeVisualizer: {fileID: 1152413242}
-  denseOrSparse: 1
+  denseOrSparse: 0
 --- !u!4 &586591635
 Transform:
   m_ObjectHideFlags: 0
@@ -6830,7 +6831,7 @@ GameObject:
   - component: {fileID: 2129005749}
   - component: {fileID: 2129005748}
   m_Layer: 5
-  m_Name: grabbedText
+  m_Name: RestCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

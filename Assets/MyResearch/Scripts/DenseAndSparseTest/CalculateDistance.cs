@@ -16,12 +16,13 @@ public class CalculateDistance : MonoBehaviour
     private GameObject centralObject;
     private const double requiredLength = 0.03;
     private const double depthRequiredLength = 0.05;
-    private const double centralRequiredLength = 0.15;
+    private double centralRequiredLength = 0.15;
+    private double xRequiredLength = 0.04;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        CalculateCentralRequiredLength();
     }
 
     // Update is called once per frame
@@ -73,7 +74,7 @@ public class CalculateDistance : MonoBehaviour
 
         Vector3 rightControllerPosition = GetRightIndexFingerPosition();
         Vector3 targetPosition = centralObject.transform.position;
-        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < centralRequiredLength) &&
+        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < xRequiredLength) &&
         (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < centralRequiredLength)
     && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < depthRequiredLength))
         {
@@ -88,7 +89,7 @@ public class CalculateDistance : MonoBehaviour
     {
         Vector3 rightControllerPosition = GetRightIndexFingerPosition();
         Vector3 targetPosition = targetSoundObjects[index].transform.position;
-        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
+        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < xRequiredLength) &&
         (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
     && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < depthRequiredLength))
         {
@@ -103,7 +104,11 @@ public class CalculateDistance : MonoBehaviour
     {
         return indexFinger.transform.position;
     }
-
+    private void CalculateCentralRequiredLength()
+    {
+        centralRequiredLength = (denseSparseExpController.GetInterval() * (
+            denseSparseExpController.GetObjectCount() - 1) + 2 * requiredLength) / 2;
+    }
     public void SetTargetObject(GameObject gameObject)
     {
         targetSoundObjects.Add(gameObject);
@@ -111,6 +116,10 @@ public class CalculateDistance : MonoBehaviour
     public void SetCentralObject(GameObject gameObject)
     {
         centralObject = gameObject;
+    }
+    public double GetXRequiredLength()
+    {
+        return xRequiredLength;
     }
 
     public double GetCentralRequiredLength()
