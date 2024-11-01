@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class DenseSparseExpController : MonoBehaviour
 {
-
     [SerializeField] private GameObject baseObject;
     [SerializeField] private Vector3 startCoordinate;
     [SerializeField] private float interval = 0.05f;
@@ -14,10 +13,8 @@ public class DenseSparseExpController : MonoBehaviour
     [SerializeField] private CalculateDistance calculateDistance;
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
 
-
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI scoreText;
-    // [SerializeField] private TextMeshProUGUI targetIndexText;
 
     [Header("Visualizer")]
     [SerializeField] private FrequencyRangeVisualizer frequencyRangeVisualizer;
@@ -25,22 +22,31 @@ public class DenseSparseExpController : MonoBehaviour
     [SerializeField] private DenseOrSparse denseOrSparse;
 
     private List<Vector3> targetCoordinates = new List<Vector3>();
+    private List<GameObject> targetObjects = new List<GameObject>();
 
     private int objectCount = 5;
     private int score = 0;
     private bool isGame = false;
 
-
     private int targetCorrectIndex = 0;
+    private float previousInterval;
+
     // Start is called before the first frame update
     void Start()
     {
+        previousInterval = interval;
         CreateTargetObjects();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (interval != previousInterval)
+        {
+            UpdateObjectPositions();
+            previousInterval = interval;
+        }
+
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
             isGame = true;
@@ -50,75 +56,86 @@ public class DenseSparseExpController : MonoBehaviour
         {
             scoreText.text = "score:" + score.ToString();
         }
-        // if (OVRInput.GetDown(OVRInput.Button.One))
-        // {
-        //     SetNextTarget();
-        // }
-        // targetIndexText.text = "index:" + (targetCorrectIndex + 1).ToString();
     }
 
     public void SetNextTarget()
     {
         DecideTargetIndex();
-
         ChangeDisplayColor();
     }
+
     private void CreateTargetObjects()
     {
-        int count = (int)objectCount / 2;
-
-        GameObject gameObject = Instantiate(baseObject, startCoordinate, Quaternion.Euler(0, 0, 0));
-        targetCoordinates.Add(startCoordinate);
-        TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
-        if (text == null)
+        for (int i = 0; i < objectCount; i++)
         {
-            Debug.Log("text null");
-        }
+            float positionOffset = 0f;
+            if (objectCount % 2 == 1)
+            {
+                // Odd number of objects
+                int midIndex = objectCount / 2;
+                positionOffset = (i - midIndex) * interval;
+            }
+            else
+            {
+                // Even number of objects
+                int midIndex = objectCount / 2;
+                positionOffset = (i - midIndex + 0.5f) * interval;
+            }
 
-        text.text = (count + 1).ToString();
-        PaletteObjectController paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
-        paletteObjectController.SetIndex(count);
-        calculateDistance.SetTargetObject(gameObject);
-        calculateDistance.SetCentralObject(gameObject);
+            Vector3 newPosition = new Vector3(startCoordinate.x, startCoordinate.y + positionOffset, startCoordinate.z);
+            GameObject gameObject = Instantiate(baseObject, newPosition, Quaternion.identity);
+            targetObjects.Add(gameObject);
+            targetCoordinates.Add(newPosition);
 
-        for (int i = 0; i < count; i++)
-        {
-            CreateTargetObject(i);
+            // Additional setup
+            TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
+            if (text != null)
+            {
+                text.text = (i + 1).ToString();
+            }
+            else
+            {
+                Debug.Log("text null");
+            }
 
+            PaletteObjectController paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
+            paletteObjectController.SetIndex(i);
+
+            calculateDistance.SetTargetObject(gameObject);
+            if (i == objectCount / 2)
+            {
+                calculateDistance.SetCentralObject(gameObject);
+            }
         }
     }
-    private void CreateTargetObject(int index)
+
+    private void UpdateObjectPositions()
     {
-        GameObject gameObject = Instantiate(baseObject, new Vector3(startCoordinate.x, startCoordinate.y + (index + 1) * interval, startCoordinate.z), Quaternion.Euler(0, 0, 0));
-        targetCoordinates.Add(new Vector3(startCoordinate.x, startCoordinate.y + (index + 1) * interval, startCoordinate.z));
-        TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
-        if (text == null)
+        for (int i = 0; i < targetObjects.Count; i++)
         {
-            Debug.Log("text null");
+            float positionOffset = 0f;
+            if (objectCount % 2 == 1)
+            {
+                // Odd number of objects
+                int midIndex = objectCount / 2;
+                positionOffset = (i - midIndex) * interval;
+            }
+            else
+            {
+                // Even number of objects
+                int midIndex = objectCount / 2;
+                positionOffset = (i - midIndex + 0.5f) * interval;
+            }
+
+            Vector3 newPosition = new Vector3(startCoordinate.x, startCoordinate.y + positionOffset, startCoordinate.z);
+            targetObjects[i].transform.position = newPosition;
+            targetCoordinates[i] = newPosition;
         }
-        int countDecide = (int)objectCount / 2 + 1;
-        PaletteObjectController paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
-        paletteObjectController.SetIndex(countDecide - index - 1 - 1);
-        text.text = (countDecide - index - 1).ToString();
-        calculateDistance.SetTargetObject(gameObject);
-
-
-
-        gameObject = Instantiate(baseObject, new Vector3(startCoordinate.x, startCoordinate.y - (index + 1) * interval, startCoordinate.z), Quaternion.Euler(0, 0, 0));
-        targetCoordinates.Add(new Vector3(startCoordinate.x, startCoordinate.y - (index + 1) * interval, startCoordinate.z));
-        text = gameObject.GetComponentInChildren<TextMeshPro>();
-        paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
-        paletteObjectController.SetIndex(countDecide + index);
-        text.text = (countDecide + index + 1).ToString();
-        calculateDistance.SetTargetObject(gameObject);
     }
-
-
 
     public DenseOrSparse GetDenseOrSparse()
     {
         return denseOrSparse;
-
     }
 
     public bool GetIsGame()
@@ -126,10 +143,8 @@ public class DenseSparseExpController : MonoBehaviour
         return isGame;
     }
 
-
     private void DecideTargetIndex()
     {
-
         targetCorrectIndex = Random.Range(0, objectCount);
     }
 
@@ -139,6 +154,7 @@ public class DenseSparseExpController : MonoBehaviour
         DecideTargetIndex();
         SetNextTarget();
     }
+
     private void CheckCorrectAnswer(int rejoinedIndex)
     {
         if (targetCorrectIndex == rejoinedIndex)
@@ -146,11 +162,11 @@ public class DenseSparseExpController : MonoBehaviour
             score += 1;
         }
     }
+
     public void ChangeDisplayColor()
     {
         displayTargetPlaceColorController.ChangeIndexAndReflect(targetCorrectIndex);
     }
-
 
     public Vector3 GetStartCoordinate()
     {
@@ -170,9 +186,7 @@ public class DenseSparseExpController : MonoBehaviour
     {
         return objectCount;
     }
-
 }
-
 
 public enum DenseOrSparse
 {

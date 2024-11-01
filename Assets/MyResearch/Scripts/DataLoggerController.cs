@@ -29,6 +29,10 @@ public class DataLoggerController : MonoBehaviour
         writer.WriteLine($"{controllerPosition.x},{controllerPosition.y},{controllerPosition.z}");
 
     }
+    public void WriteAnswer(int ansFrequencyIndex, int ansAmplitudeIndex, int frequencyResolutionIndex, int amplitudeResolutionIndex)
+    {
+        writer.WriteLine($"ansFrequencyIndex:{ansFrequencyIndex},frequencyResolutionIndex:{frequencyResolutionIndex},ansAmplitudeIndex:{ansAmplitudeIndex},amplitudeResolutionIndex:{amplitudeResolutionIndex}");
+    }
     public void ReflectPlaceChange(
         int placeIndex
     )

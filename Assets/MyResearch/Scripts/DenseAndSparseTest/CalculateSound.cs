@@ -32,7 +32,7 @@ public class CalculateSound : MonoBehaviour
 
     void Update()
     {
-
+        CalculateSoundLength();
         debugText.text = calculatedFrequency.ToString("f2");
 
     }
