@@ -11,8 +11,8 @@ public class CalculateSound : MonoBehaviour
 
 
 
-    private float minFrequency = 660f;
-    private float maxFrequency = 220f;
+    private float minFrequency = 220f;
+    private float maxFrequency = 660f;
     private double centralFrequency;
     private double calculatedFrequency;
     [SerializeField] private double soundLength = 1.0f;
@@ -32,7 +32,7 @@ public class CalculateSound : MonoBehaviour
 
     void Update()
     {
-
+        CalculateSoundLength();
         debugText.text = calculatedFrequency.ToString("f2");
 
     }
@@ -51,13 +51,14 @@ public class CalculateSound : MonoBehaviour
 
     private void CalculateFrequency()
     {
-        calculatedFrequency = centralFrequency - yDiff / soundLength * (maxFrequency - minFrequency) / 2;
+        // calculatedFrequency = centralFrequency - yDiff / soundLength * (maxFrequency - minFrequency) / 2;
+        calculatedFrequency = minFrequency + (maxFrequency - minFrequency) / soundLength * (yDiff + soundLength / 2);
     }
     private void CalculateExponentialFrequency()
     {
         float t = yDiff / (float)soundLength;
-        float frequencyRatio = minFrequency / (float)centralFrequency;
-        calculatedFrequency = centralFrequency * Mathf.Pow(frequencyRatio, t);
+        float frequencyRatio = minFrequency / (float)maxFrequency;
+        calculatedFrequency = minFrequency * Mathf.Pow(frequencyRatio, t);
     }
     private void SetFrequency()
     {
@@ -75,8 +76,8 @@ public class CalculateSound : MonoBehaviour
         }
         else if (denseOrSparse == DenseOrSparse.Sparse)
         {
-            soundLength = (denseSparseExpController.GetObjectCount() - 1) * denseSparseExpController.GetInterval() + 2 *
-            calculateDistance.GetRequiredLength();
+            soundLength = ((denseSparseExpController.GetObjectCount() - 1) * denseSparseExpController.GetInterval() + 2 *
+            calculateDistance.GetRequiredLength()) / 2;
         }
     }
 }

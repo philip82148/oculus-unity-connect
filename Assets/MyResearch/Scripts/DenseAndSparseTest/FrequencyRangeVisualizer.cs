@@ -9,15 +9,19 @@ public class FrequencyRangeVisualizer : MonoBehaviour
     [SerializeField] private CalculateDistance calculateDistance;
     private Vector3 cubePosition;
 
-    private GameObject frequencyCube;
+    private List<GameObject> frequencyCubes = new List<GameObject>();
+    private float previousInterval;
 
     void Start()
     {
+        previousInterval = denseSparseExpController.GetInterval();
         cubePosition = denseSparseExpController.GetStartCoordinate();
         SetCubeSize();
         DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
         if (denseOrSparse == DenseOrSparse.Dense)
-        { CreateFrequencyCube(cubePosition); }
+        {
+            CreateFrequencyCube(cubePosition);
+        }
         else if (denseOrSparse == DenseOrSparse.Sparse)
         {
             List<Vector3> cubePositions = denseSparseExpController.GetTargetCoordinates();
@@ -25,56 +29,83 @@ public class FrequencyRangeVisualizer : MonoBehaviour
             {
                 CreateFrequencyCube(cubePositions[i]);
             }
-
         }
-
     }
 
     void Update()
     {
-
+        float currentInterval = denseSparseExpController.GetInterval();
+        if (currentInterval != previousInterval)
+        {
+            SetCubeSize();
+            UpdateCubePositions();
+            previousInterval = currentInterval;
+        }
     }
-
 
     private void SetCubeSize()
     {
         DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
         if (denseOrSparse == DenseOrSparse.Dense)
         {
-            float xYLength = (float)calculateDistance.GetCentralRequiredLength() * 2;
+            float xLength = (float)calculateDistance.GetXRequiredLength() * 2;
+            float yLength = (float)calculateDistance.GetCentralRequiredLength() * 2;
             float zLength = (float)calculateDistance.GetDepthRequiredLength() * 2;
-            cubeSize = new Vector3(xYLength, xYLength, zLength);
-
+            cubeSize = new Vector3(xLength, yLength, zLength);
         }
         else if (denseOrSparse == DenseOrSparse.Sparse)
         {
-            float xYLength = (float)calculateDistance.GetRequiredLength() * 2;
+            float xLength = (float)calculateDistance.GetXRequiredLength() * 2;
+            float yLength = (float)calculateDistance.GetRequiredLength() * 2;
             float zLength = (float)calculateDistance.GetDepthRequiredLength() * 2;
-            cubeSize = new Vector3(xYLength, xYLength, zLength);
-            // soundLength = (denseSparseExpController.GetObjectCount() - 1) * denseSparseExpController.GetInterval() + 2 *
-            // calculateDistance.GetRequiredLength();
+            cubeSize = new Vector3(xLength, yLength, zLength);
         }
     }
 
     public void CreateFrequencyCube(Vector3 cubePosition)
     {
-        frequencyCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject frequencyCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         frequencyCube.transform.localScale = cubeSize;
         frequencyCube.transform.position = cubePosition;
 
-        // キューブのRendererを取得
+        // Get the Renderer of the cube
         Renderer cubeRenderer = frequencyCube.GetComponent<Renderer>();
 
-        // 透過をサポートする新しいマテリアルを作成
+        // Create a new material that supports transparency
         Material transparentMaterial = new Material(Shader.Find("Standard"));
         ChangeRenderMode(transparentMaterial, BlendMode.Fade);
 
-        // アルファ値を0.5に設定（半透明）
-        Color cubeColor = new Color(1f, 1f, 1f, 0.5f); // 白色、透明度50%
+        // Set alpha value to 0.5 for semi-transparency
+        Color cubeColor = new Color(1f, 1f, 1f, 0.5f); // White color, 50% transparency
         transparentMaterial.color = cubeColor;
 
-        // マテリアルをキューブに適用
+        // Apply the material to the cube
         cubeRenderer.material = transparentMaterial;
+
+        // Add the cube to the list for later updates
+        frequencyCubes.Add(frequencyCube);
+    }
+
+    private void UpdateCubePositions()
+    {
+        DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
+        if (denseOrSparse == DenseOrSparse.Dense)
+        {
+            if (frequencyCubes.Count > 0)
+            {
+                frequencyCubes[0].transform.position = denseSparseExpController.GetStartCoordinate();
+                frequencyCubes[0].transform.localScale = cubeSize;
+            }
+        }
+        else if (denseOrSparse == DenseOrSparse.Sparse)
+        {
+            List<Vector3> cubePositions = denseSparseExpController.GetTargetCoordinates();
+            for (int i = 0; i < frequencyCubes.Count; i++)
+            {
+                frequencyCubes[i].transform.position = cubePositions[i];
+                frequencyCubes[i].transform.localScale = cubeSize;
+            }
+        }
     }
 
     public enum BlendMode

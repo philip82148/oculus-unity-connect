@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,11 +17,13 @@ public class ResolutionExpController : MonoBehaviour
     [Header("Exp Setting")]
     [SerializeField]
     private ExpSetting expSetting = ExpSetting.Both;
+    [SerializeField] private DataLoggerController dataLoggerController;
 
 
     [Header("UI Setting")]
     [SerializeField] private GameObject[] frequencyButtons;
     [SerializeField] private GameObject[] amplitudeButtons;
+    [SerializeField] private string subjectName;
     private int frequencyResolutionIndex = 0;
     private int amplitudeResolutionIndex = 2;
 
@@ -28,18 +31,22 @@ public class ResolutionExpController : MonoBehaviour
     private int score = 0;
     private int restCount = 10;
     private int frequencyResolutionCount = 5;
-    private int amplitudeResolutionCount = 3;
+    private int amplitudeResolutionCount = 5;
 
     void Start()
     {
         InitializeButtonSetting();
         resolutionSetting.SetCount(frequencyResolutionCount, amplitudeResolutionCount);
+        string folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\times";
+        Directory.CreateDirectory(folder);
+        string fileName = $"time_{frequencyResolutionCount}_{amplitudeResolutionCount}_{expSetting}.txt";
+        dataLoggerController.Initialize(System.IO.Path.Combine(folder, fileName));
     }
 
     // Update is called once per frame
     void Update()
     {
-        debugText.text = soundController.GetTmpAmplitude().ToString("f2") + ":" + soundController.GetTmpFrequency().ToString("f2");
+        debugText.text = restCount.ToString();
         scoreText.text = "score:" + score.ToString();
     }
     public void ReflectClickedIndex(int index, ResolutionType resolutionType)
@@ -103,6 +110,7 @@ public class ResolutionExpController : MonoBehaviour
 
     public void AnswerSetting(int ansFrequencyIndex, int ansAmplitudeIndex)
     {
+        dataLoggerController.WriteAnswer(ansFrequencyIndex, ansAmplitudeIndex, frequencyResolutionIndex, amplitudeResolutionIndex);
         if (!isGameStart) return;
         if (expSetting == ExpSetting.Frequency && frequencyResolutionIndex == ansFrequencyIndex)
         {
@@ -150,6 +158,11 @@ public class ResolutionExpController : MonoBehaviour
     public int GetFrequencyResolutionCount()
     {
         return frequencyResolutionCount;
+    }
+
+    private void OnDestroy()
+    {
+        dataLoggerController.Close();
     }
 }
 
