@@ -8,8 +8,8 @@ public class CreateSoundController : MonoBehaviour
     private const double DEFAULT_FREQUENCY = 440;
     public double frequencyCoefficient;
 
-    private double frequency;
-    private double gain = 1.0f;
+    [SerializeField] private double frequency;
+    [SerializeField] private double gain = 1.0f;
     private double pan = 0;
     private bool isSound = true;
 

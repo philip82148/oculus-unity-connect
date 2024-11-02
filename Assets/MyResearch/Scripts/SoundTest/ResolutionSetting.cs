@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ResolutionSetting : MonoBehaviour
 {
     [SerializeField] private CreateSoundController createSoundController;
+    [SerializeField] private ResolutionExpController resolutionExpController;
     private float minFrequency = 220;
     private float maxFrequency = 660;
-    private int frequencyCount = 4;
+    private int frequencyCount;
 
     private float minAmplitude = 0.2f;
     private float maxAmplitude = 1f;
-    private int amplitudeCount = 3;
+    private int amplitudeCount;
 
-    private int panCount = 3;
+    private int panCount;
 
     private int tmpFrequencyIndex = 0;
     private int tmpAmplitudeIndex = 0;
@@ -25,6 +27,9 @@ public class ResolutionSetting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        frequencyCount = resolutionExpController.GetFrequencyResolutionCount() - 1;
+        amplitudeCount = resolutionExpController.GetAmplitudeResolutionCount() - 1;
+        panCount = resolutionExpController.GetPanResolutionCount() - 1;
 
     }
 
@@ -60,6 +65,12 @@ public class ResolutionSetting : MonoBehaviour
         {
             createSoundController.SetFrequencySelf((minFrequency + maxFrequency) / 2);
             createSoundController.SetAmplitude(0.5f);
+            PanSetting();
+        }
+        else if (expSetting == ExpSetting.All)
+        {
+            FrequencySetting();
+            AmplitudeSetting();
             PanSetting();
         }
 
@@ -105,11 +116,9 @@ public class ResolutionSetting : MonoBehaviour
     }
     private void PanSetting()
     {
-        float index = 0;
-        if (tmpPanIndex == 0) index = -1;
-        else if (tmpPanIndex == 1) index = 0;
-        else if (tmpPanIndex == 2) index = 1;
-        createSoundController.SetPan(index);
+
+        float pan = (float)2 / panCount * tmpPanIndex - 1;
+        createSoundController.SetPan(pan);
     }
 
 

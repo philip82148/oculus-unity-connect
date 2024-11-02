@@ -33,16 +33,17 @@ public class ResolutionExpController : MonoBehaviour
     private int score = 0;
     private int restCount = 10;
     private int frequencyResolutionCount = 5;
-    private int amplitudeResolutionCount = 5;
+    private int amplitudeResolutionCount = 3;
     private int panResolutionCount = 3;
 
     void Start()
     {
+        string dateTime = System.DateTime.Now.ToString("yyyyMMddHHmmss");
         InitializeButtonSetting();
         resolutionSetting.SetCount(frequencyResolutionCount, amplitudeResolutionCount);
         string folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\times";
         Directory.CreateDirectory(folder);
-        string fileName = $"time_{frequencyResolutionCount}_{amplitudeResolutionCount}_{expSetting}.txt";
+        string fileName = $"{frequencyResolutionCount}_{amplitudeResolutionCount}_{panResolutionCount}_{expSetting}_{dateTime}.txt";
         dataLoggerController.Initialize(System.IO.Path.Combine(folder, fileName));
     }
 
@@ -90,6 +91,10 @@ public class ResolutionExpController : MonoBehaviour
             {
                 frequencyButtons[i].SetActive(false);
             }
+            else if (expSetting == ExpSetting.All)
+            {
+                if (frequencyResolutionCount <= i) { frequencyButtons[i].SetActive(false); }
+            }
 
         }
         for (int i = 0; i < amplitudeButtons.Length; i++)
@@ -113,6 +118,10 @@ public class ResolutionExpController : MonoBehaviour
             else if (expSetting == ExpSetting.Pan)
             {
                 amplitudeButtons[i].SetActive(false);
+            }
+            else if (expSetting == ExpSetting.All)
+            {
+                if (amplitudeResolutionCount <= i) amplitudeButtons[i].SetActive(false);
             }
         }
         for (int i = 0; i < panButtons.Length; i++)
@@ -138,15 +147,16 @@ public class ResolutionExpController : MonoBehaviour
             {
                 panButtons[i].SetActive(false);
             }
+            else if (expSetting == ExpSetting.All && panResolutionCount <= i) { panButtons[i].SetActive(false); }
         }
 
 
     }
 
 
-    public void AnswerSetting(int ansFrequencyIndex, int ansAmplitudeIndex)
+    public void AnswerSetting(int ansFrequencyIndex, int ansAmplitudeIndex, int ansPanIndex)
     {
-        dataLoggerController.WriteAnswer(ansFrequencyIndex, ansAmplitudeIndex, frequencyResolutionIndex, amplitudeResolutionIndex);
+        dataLoggerController.WriteAnswer(ansFrequencyIndex, ansAmplitudeIndex, ansPanIndex, frequencyResolutionIndex, amplitudeResolutionIndex, panResolutionIndex);
         if (!isGameStart) return;
         if (expSetting == ExpSetting.Frequency && frequencyResolutionIndex == ansFrequencyIndex)
         {
@@ -157,6 +167,14 @@ public class ResolutionExpController : MonoBehaviour
             score += 1;
         }
         else if (expSetting == ExpSetting.Both && frequencyResolutionIndex == ansFrequencyIndex && amplitudeResolutionIndex == ansAmplitudeIndex)
+        {
+            score += 1;
+        }
+        else if (expSetting == ExpSetting.Pan && panResolutionIndex == ansPanIndex)
+        {
+            score += 1;
+        }
+        else if (expSetting == ExpSetting.All && frequencyResolutionIndex == ansFrequencyIndex && amplitudeResolutionIndex == ansAmplitudeIndex && panResolutionIndex == ansPanIndex)
         {
             score += 1;
         }
@@ -197,7 +215,14 @@ public class ResolutionExpController : MonoBehaviour
     {
         return frequencyResolutionCount;
     }
-
+    public int GetAmplitudeResolutionCount()
+    {
+        return amplitudeResolutionCount;
+    }
+    public int GetPanResolutionCount()
+    {
+        return panResolutionCount;
+    }
     private void OnDestroy()
     {
         dataLoggerController.Close();
@@ -218,5 +243,6 @@ public enum ExpSetting
     Amplitude,
     Frequency,
     Both,
-    Pan
+    Pan,
+    All
 }

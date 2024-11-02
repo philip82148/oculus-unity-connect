@@ -10,9 +10,11 @@ public class AnsButton : MonoBehaviour
     private ResolutionExpController resolutionExpController;
     [SerializeField] private GameObject[] frequencyButtons;
     [SerializeField] private GameObject[] amplitudeButtons;
+    [SerializeField] private GameObject[] panButtons;
 
     private int tmpFrequencyIndex;
     private int tmpAmplitudeIndex;
+    private int tmpPanIndex;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,12 +43,20 @@ public class AnsButton : MonoBehaviour
 
             amplitudeButtons[tmpAmplitudeIndex].GetComponent<Image>().color = Color.green;
         }
+        else if (resolutionType == ResolutionType.Pan)
+        {
+            panButtons[tmpPanIndex].GetComponent<Image>().color = Color.white;
+            tmpPanIndex = index;
+
+            panButtons[tmpPanIndex].GetComponent<Image>().color = Color.green;
+        }
     }
     public void OnClicked()
     {
-        resolutionExpController.AnswerSetting(tmpFrequencyIndex, tmpAmplitudeIndex);
+        resolutionExpController.AnswerSetting(tmpFrequencyIndex, tmpAmplitudeIndex, tmpPanIndex);
         frequencyButtons[tmpFrequencyIndex].GetComponent<Image>().color = Color.white;
         amplitudeButtons[tmpAmplitudeIndex].GetComponent<Image>().color = Color.white;
+        panButtons[tmpPanIndex].GetComponent<Image>().color = Color.white;
 
     }
 }

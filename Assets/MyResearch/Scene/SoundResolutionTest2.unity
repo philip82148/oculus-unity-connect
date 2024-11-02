@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionIndex: 1
-  resolutionType: 1
+  resolutionType: 3
   resolutionExpController: {fileID: 2050762695}
   ansButton: {fileID: 1787442052}
 --- !u!114 &142711427
@@ -896,7 +896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionIndex: 0
-  resolutionType: 1
+  resolutionType: 3
   resolutionExpController: {fileID: 2050762695}
   ansButton: {fileID: 1787442052}
 --- !u!114 &211289296
@@ -2103,6 +2103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createSoundController: {fileID: 1537406208}
+  resolutionExpController: {fileID: 2050762695}
   isExp: 1
 --- !u!4 &285819130
 Transform:
@@ -4878,6 +4879,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequencyCoefficient: 1
+  frequency: 0
+  gain: 1
   increment: 0
   phase: 0
   harmonic1Coefficient: 0
@@ -5568,6 +5571,12 @@ MonoBehaviour:
   - {fileID: 1653893215}
   - {fileID: 244678151}
   - {fileID: 771606713}
+  panButtons:
+  - {fileID: 211289293}
+  - {fileID: 142711424}
+  - {fileID: 1897772033}
+  - {fileID: 1906875664}
+  - {fileID: 1910628362}
 --- !u!1 &1896376298
 GameObject:
   m_ObjectHideFlags: 0
@@ -5713,7 +5722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionIndex: 2
-  resolutionType: 1
+  resolutionType: 3
   resolutionExpController: {fileID: 2050762695}
   ansButton: {fileID: 1787442052}
 --- !u!114 &1897772036
@@ -5863,7 +5872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionIndex: 3
-  resolutionType: 1
+  resolutionType: 3
   resolutionExpController: {fileID: 2050762695}
   ansButton: {fileID: 1787442052}
 --- !u!114 &1906875667
@@ -6013,7 +6022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionIndex: 4
-  resolutionType: 1
+  resolutionType: 3
   resolutionExpController: {fileID: 2050762695}
   ansButton: {fileID: 1787442052}
 --- !u!114 &1910628365
@@ -6277,7 +6286,7 @@ MonoBehaviour:
   scoreText: {fileID: 1464892014}
   gameText: {fileID: 1243809166}
   soundController: {fileID: 1537406208}
-  expSetting: 2
+  expSetting: 4
   dataLoggerController: {fileID: 1296847070}
   frequencyButtons:
   - {fileID: 653309777}
@@ -6291,8 +6300,13 @@ MonoBehaviour:
   - {fileID: 1653893215}
   - {fileID: 244678151}
   - {fileID: 771606713}
-  panButtons: []
-  subjectName: yotta
+  panButtons:
+  - {fileID: 211289293}
+  - {fileID: 142711424}
+  - {fileID: 1897772033}
+  - {fileID: 1906875664}
+  - {fileID: 1910628362}
+  subjectName: rina
 --- !u!4 &2050762696
 Transform:
   m_ObjectHideFlags: 0
