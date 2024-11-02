@@ -16,8 +16,8 @@ public class CreateSoundController : MonoBehaviour
     public double increment;
     public double phase;
     private const double SAMPLING_FREQUENCY = 48000;
-    [SerializeField] private float harmonic1Coefficient = 0.5f;
-    [SerializeField] private float harmonic2Coefficient = 0.3f;
+    [SerializeField] private float harmonic1Coefficient = 0f;
+    [SerializeField] private float harmonic2Coefficient = 0f;
     [SerializeField] private bool isChangedByCoefficient = true;
 
     // 波形の種類を指定

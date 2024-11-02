@@ -9,7 +9,7 @@ public class DenseSparseExpController : MonoBehaviour
 {
     [SerializeField] private GameObject baseObject;
     [SerializeField] private Vector3 startCoordinate;
-    [SerializeField] private float interval = 0.05f;
+    [SerializeField] private float interval = 0.03f;
     [Header("Setting")]
     [SerializeField] private CalculateDistance calculateDistance;
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;

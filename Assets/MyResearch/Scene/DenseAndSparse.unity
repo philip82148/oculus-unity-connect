@@ -1588,7 +1588,7 @@ MonoBehaviour:
   scoreText: {fileID: 1100770328}
   restCountText: {fileID: 2129005748}
   frequencyRangeVisualizer: {fileID: 1152413242}
-  denseOrSparse: 1
+  denseOrSparse: 0
 --- !u!4 &586591635
 Transform:
   m_ObjectHideFlags: 0
@@ -2780,6 +2780,7 @@ MonoBehaviour:
   denseSparseExpController: {fileID: 586591634}
   calculateSound: {fileID: 1095047856}
   targetSoundObjects: []
+  centralRequiredLength: 0.15
 --- !u!4 &993637234
 Transform:
   m_ObjectHideFlags: 0
@@ -3193,7 +3194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1152413242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6473,10 +6474,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequencyCoefficient: 1
+  frequency: 0
+  gain: 1
   increment: 0
   phase: 0
-  harmonic1Coefficient: 0.5
-  harmonic2Coefficient: 0.3
+  harmonic1Coefficient: 0
+  harmonic2Coefficient: 0
   isChangedByCoefficient: 0
   waveType: 0
 --- !u!114 &2061141768
