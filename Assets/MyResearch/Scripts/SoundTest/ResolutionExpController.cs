@@ -23,6 +23,7 @@ public class ResolutionExpController : MonoBehaviour
     [Header("UI Setting")]
     [SerializeField] private GameObject[] frequencyButtons;
     [SerializeField] private GameObject[] amplitudeButtons;
+    [SerializeField] private GameObject[] panButtons;
     [SerializeField] private string subjectName;
     private int frequencyResolutionIndex = 0;
     private int amplitudeResolutionIndex = 2;
@@ -32,6 +33,7 @@ public class ResolutionExpController : MonoBehaviour
     private int restCount = 10;
     private int frequencyResolutionCount = 5;
     private int amplitudeResolutionCount = 5;
+    private int panResolutionCount = 3;
 
     void Start()
     {
@@ -103,6 +105,25 @@ public class ResolutionExpController : MonoBehaviour
                 if (amplitudeResolutionCount <= i) amplitudeButtons[i].SetActive(false);
             }
         }
+        for (int i = 0; i < amplitudeButtons.Length; i++)
+        {
+            if (expSetting == ExpSetting.Both && amplitudeResolutionCount <= i)
+            {
+
+
+                amplitudeButtons[i].SetActive(false);
+            }
+            else if (expSetting == ExpSetting.Frequency)
+            {
+                amplitudeButtons[i].SetActive(false);
+
+            }
+            else if (expSetting == ExpSetting.Amplitude)
+            {
+                frequencyButtons[i].SetActive(false);
+                if (amplitudeResolutionCount <= i) amplitudeButtons[i].SetActive(false);
+            }
+        }
 
 
     }
@@ -145,6 +166,7 @@ public class ResolutionExpController : MonoBehaviour
     {
         frequencyResolutionIndex = Random.Range(0, frequencyResolutionCount);
         amplitudeResolutionIndex = Random.Range(0, amplitudeResolutionCount);
+
         // gameText.text = "next index:" + frequencyResolutionIndex.ToString("") + "";
         ReflectAudioSetting();
     }
@@ -172,11 +194,13 @@ public enum ResolutionType
 {
     None,
     Frequency,
-    Amplitude
+    Amplitude,
+    Pan
 }
 public enum ExpSetting
 {
     Amplitude,
     Frequency,
-    Both
+    Both,
+    Pan
 }
