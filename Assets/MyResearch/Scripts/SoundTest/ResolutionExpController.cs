@@ -27,6 +27,7 @@ public class ResolutionExpController : MonoBehaviour
     [SerializeField] private string subjectName;
     private int frequencyResolutionIndex = 0;
     private int amplitudeResolutionIndex = 2;
+    private int panResolutionIndex = 0;
 
     private bool isGameStart = false;
     private int score = 0;
@@ -58,6 +59,7 @@ public class ResolutionExpController : MonoBehaviour
         {
             if (resolutionType == ResolutionType.Frequency) frequencyResolutionIndex = index;
             else if (resolutionType == ResolutionType.Amplitude) amplitudeResolutionIndex = index;
+            else if (resolutionType == ResolutionType.Pan) panResolutionIndex = index;
             ReflectAudioSetting();
         }
 
@@ -84,6 +86,10 @@ public class ResolutionExpController : MonoBehaviour
                 frequencyButtons[i].SetActive(false);
 
             }
+            else if (expSetting == ExpSetting.Pan)
+            {
+                frequencyButtons[i].SetActive(false);
+            }
 
         }
         for (int i = 0; i < amplitudeButtons.Length; i++)
@@ -104,24 +110,33 @@ public class ResolutionExpController : MonoBehaviour
                 frequencyButtons[i].SetActive(false);
                 if (amplitudeResolutionCount <= i) amplitudeButtons[i].SetActive(false);
             }
+            else if (expSetting == ExpSetting.Pan)
+            {
+                amplitudeButtons[i].SetActive(false);
+            }
         }
-        for (int i = 0; i < amplitudeButtons.Length; i++)
+        for (int i = 0; i < panButtons.Length; i++)
         {
-            if (expSetting == ExpSetting.Both && amplitudeResolutionCount <= i)
+            if (expSetting == ExpSetting.Both)
             {
 
 
-                amplitudeButtons[i].SetActive(false);
+                panButtons[i].SetActive(false);
             }
             else if (expSetting == ExpSetting.Frequency)
             {
-                amplitudeButtons[i].SetActive(false);
+                panButtons[i].SetActive(false);
 
             }
             else if (expSetting == ExpSetting.Amplitude)
             {
-                frequencyButtons[i].SetActive(false);
-                if (amplitudeResolutionCount <= i) amplitudeButtons[i].SetActive(false);
+                panButtons[i].SetActive(false);
+                // frequencyButtons[i].SetActive(false);
+                // if (amplitudeResolutionCount <= i) amplitudeButtons[i].SetActive(false);
+            }
+            else if (expSetting == ExpSetting.Pan && panResolutionCount <= i)
+            {
+                panButtons[i].SetActive(false);
             }
         }
 
@@ -159,13 +174,14 @@ public class ResolutionExpController : MonoBehaviour
 
     private void ReflectAudioSetting()
     {
-        resolutionSetting.ReflectAudioSetting(frequencyResolutionIndex, amplitudeResolutionIndex, expSetting);
+        resolutionSetting.ReflectAudioSetting(frequencyResolutionIndex, amplitudeResolutionIndex, panResolutionIndex, expSetting);
         // resolutionSetting.ReflectExponentialAudioSetting(frequencyResolutionIndex, frequencyResolutionIndex);
     }
     private void SetNext()
     {
         frequencyResolutionIndex = Random.Range(0, frequencyResolutionCount);
         amplitudeResolutionIndex = Random.Range(0, amplitudeResolutionCount);
+        panResolutionIndex = Random.Range(0, panResolutionCount);
 
         // gameText.text = "next index:" + frequencyResolutionIndex.ToString("") + "";
         ReflectAudioSetting();

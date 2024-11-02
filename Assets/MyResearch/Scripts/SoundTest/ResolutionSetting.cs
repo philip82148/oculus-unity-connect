@@ -33,12 +33,13 @@ public class ResolutionSetting : MonoBehaviour
     {
 
     }
-    public void ReflectAudioSetting(int frequencyIndex, int amplitudeIndex, ExpSetting expSetting)
+    public void ReflectAudioSetting(int frequencyIndex, int amplitudeIndex, int panIndex, ExpSetting expSetting)
     {
 
 
         tmpFrequencyIndex = frequencyIndex;
         tmpAmplitudeIndex = amplitudeIndex;
+        tmpPanIndex = panIndex;
         if (expSetting == ExpSetting.Both)
         {
             FrequencySetting();
@@ -104,7 +105,11 @@ public class ResolutionSetting : MonoBehaviour
     }
     private void PanSetting()
     {
-        createSoundController.SetPan(1.0f);
+        float index = 0;
+        if (tmpPanIndex == 0) index = -1;
+        else if (tmpPanIndex == 1) index = 0;
+        else if (tmpPanIndex == 2) index = 1;
+        createSoundController.SetPan(index);
     }
 
 
