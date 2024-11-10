@@ -59,7 +59,11 @@ public class CalculateDistance : MonoBehaviour
     }
 
 
-
+    private Vector3 CalculateControllerPositionAndObjectDiffIn3D(GameObject target)
+    {
+        Vector3 diff = indexFinger.transform.position - target.transform.position;
+        return diff;
+    }
 
 
     private float CalculateControllerPositionAndObjectDiff(GameObject target)

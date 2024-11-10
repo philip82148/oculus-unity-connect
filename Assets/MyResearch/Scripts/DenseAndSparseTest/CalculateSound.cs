@@ -13,21 +13,27 @@ public class CalculateSound : MonoBehaviour
 
     private float minFrequency = 220f;
     private float maxFrequency = 660f;
-    private double centralFrequency;
+
+    private float minAmplitude = 0.2f;
+    private float maxAmplitude = 1.0f;
+    private double calculatedAmplitude;
     private double calculatedFrequency;
     [SerializeField] private double soundLength = 1.0f;
     [SerializeField]
     private TextMeshProUGUI debugText;
 
+    private float xDiff = 0;
     private float yDiff = 0;
+    private float zDiff = 0;
 
 
     void Start()
     {
-        centralFrequency = (minFrequency + maxFrequency) / 2;
+        // centralFrequency = (minFrequency + maxFrequency) / 2;
         // createSoundController.SetAmplitude(0);
         // CalculateSoundLength();
         CalculateExponentialFrequency();
+        CalculateExponentialAmplitude();
         Debug.Log("sound length:" + soundLength);
     }
 
@@ -37,11 +43,25 @@ public class CalculateSound : MonoBehaviour
         debugText.text = calculatedFrequency.ToString("f2");
 
     }
+    public void SetCoordinateDiff(Vector3 diff)
+    {
+        this.yDiff = diff.y;
+        this.zDiff = diff.z;
+        this.xDiff = diff.x;
+
+    }
     public void SetYDiff(float yDiff)
     {
         this.yDiff = yDiff;
-        CalculateFrequency();
+        CalculateExponentialFrequency();
+
         SetFrequency();
+    }
+    public void SetZDiff(float zDiff)
+    {
+        this.zDiff = zDiff;
+        CalculateExponentialAmplitude();
+
     }
     public void SetInitial()
     {
@@ -61,11 +81,23 @@ public class CalculateSound : MonoBehaviour
         float frequencyRatio = minFrequency / (float)maxFrequency;
         calculatedFrequency = minFrequency * Mathf.Pow(frequencyRatio, (float)t);
     }
+    private void CalculateExponentialAmplitude()
+    {
+        double t = (zDiff + soundLength) / (2 * soundLength);
+        float amplitudeRatio = minAmplitude / (float)maxAmplitude;
+        calculatedAmplitude = minAmplitude * Mathf.Pow(amplitudeRatio, (float)t);
+
+    }
     private void SetFrequency()
     {
         createSoundController.SetFrequencySelf((float)calculatedFrequency);
         createSoundController.SetAmplitude(0.5f);
 
+    }
+    private void SetAudio()
+    {
+        createSoundController.SetFrequencySelf((float)calculatedFrequency);
+        createSoundController.SetAmplitude(0.5f);
     }
 
     private void CalculateSoundLength()

@@ -4,12 +4,13 @@ using Oculus.Interaction.Body.Input;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class DenseSparseExpController : MonoBehaviour
 {
     [SerializeField] private GameObject baseObject;
     [SerializeField] private Vector3 startCoordinate;
-    [SerializeField] private float interval = 0.03f;
+    [SerializeField] private float interval = 0.07f;
     [Header("Setting")]
     [SerializeField] private CalculateDistance calculateDistance;
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
@@ -27,6 +28,8 @@ public class DenseSparseExpController : MonoBehaviour
     private List<Vector3> targetCoordinates = new List<Vector3>();
     private List<GameObject> targetObjects = new List<GameObject>();
 
+    private int gridSize = 3;
+
     private int objectCount = 5;
     private int score = 0;
     private bool isGame = false;
@@ -38,8 +41,9 @@ public class DenseSparseExpController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        objectCount = gridSize * gridSize * gridSize;
         previousInterval = interval;
-        CreateTargetObjects();
+        CreateTargetObjectsIn3D();
     }
 
     // Update is called once per frame
@@ -47,7 +51,8 @@ public class DenseSparseExpController : MonoBehaviour
     {
         if (interval != previousInterval)
         {
-            UpdateObjectPositions();
+            UpdateObjectPositionsIn3D();
+            // UpdateObjectPositions();
             previousInterval = interval;
         }
         if (restCount <= 0)
@@ -79,6 +84,54 @@ public class DenseSparseExpController : MonoBehaviour
         restCount -= 1;
         DecideTargetIndex();
         ChangeDisplayColor();
+    }
+
+    private void CreateTargetObjectsIn3D()
+    {
+        int midIndex = gridSize / 2;
+
+
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                for (int z = 0; z < gridSize; z++)
+                {
+
+                    float positionOffsetX = (x - midIndex) * interval;
+                    float positionOffsetY = (y - midIndex) * interval;
+                    float positionOffsetZ = (z - midIndex) * interval;
+                    Vector3 newPosition = new Vector3(
+                                        startCoordinate.x + positionOffsetX,
+                                        startCoordinate.y + positionOffsetY,
+                                        startCoordinate.z + positionOffsetZ);
+                    GameObject gameObject = Instantiate(baseObject, newPosition, Quaternion.identity);
+                    targetObjects.Add(gameObject);
+                    targetCoordinates.Add(newPosition);
+
+                    // 追加のセットアップ
+                    TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
+                    if (text != null)
+                    {
+                        text.text = (targetObjects.Count).ToString();
+                    }
+                    else
+                    {
+                        Debug.Log("text null");
+                    }
+
+                    int index = targetObjects.Count - 1;
+                    PaletteObjectController paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
+                    paletteObjectController.SetIndex(index);
+
+                    calculateDistance.SetTargetObject(gameObject);
+                    if (x == midIndex && y == midIndex && z == midIndex)
+                    {
+                        calculateDistance.SetCentralObject(gameObject);
+                    }
+                }
+            }
+        }
     }
 
     private void CreateTargetObjects()
@@ -125,7 +178,34 @@ public class DenseSparseExpController : MonoBehaviour
             }
         }
     }
+    private void UpdateObjectPositionsIn3D()
+    {
+        int gridSize = 3; // グリッドのサイズ（3×3×3）
+        int midIndex = gridSize / 2; // 中央のインデックス（1）
+        int index = 0;
 
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                for (int z = 0; z < gridSize; z++)
+                {
+                    float positionOffsetX = (x - midIndex) * interval;
+                    float positionOffsetY = (y - midIndex) * interval;
+                    float positionOffsetZ = (z - midIndex) * interval;
+
+                    Vector3 newPosition = new Vector3(
+                        startCoordinate.x + positionOffsetX,
+                        startCoordinate.y + positionOffsetY,
+                        startCoordinate.z + positionOffsetZ);
+
+                    targetObjects[index].transform.position = newPosition;
+                    targetCoordinates[index] = newPosition;
+                    index++;
+                }
+            }
+        }
+    }
     private void UpdateObjectPositions()
     {
         for (int i = 0; i < targetObjects.Count; i++)
