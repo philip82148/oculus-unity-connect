@@ -48,16 +48,16 @@ public class FrequencyRangeVisualizer : MonoBehaviour
         DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
         if (denseOrSparse == DenseOrSparse.Dense)
         {
-            float xLength = (float)calculateDistance.GetXRequiredLength() * 2;
+            float xLength = (float)calculateDistance.GetCentralRequiredLength() * 2;
             float yLength = (float)calculateDistance.GetCentralRequiredLength() * 2;
-            float zLength = (float)calculateDistance.GetDepthRequiredLength() * 2;
+            float zLength = (float)calculateDistance.GetCentralRequiredLength() * 2;
             cubeSize = new Vector3(xLength, yLength, zLength);
         }
         else if (denseOrSparse == DenseOrSparse.Sparse)
         {
-            float xLength = (float)calculateDistance.GetXRequiredLength() * 2;
+            float xLength = (float)calculateDistance.GetRequiredLength() * 2;
             float yLength = (float)calculateDistance.GetRequiredLength() * 2;
-            float zLength = (float)calculateDistance.GetDepthRequiredLength() * 2;
+            float zLength = (float)calculateDistance.GetRequiredLength() * 2;
             cubeSize = new Vector3(xLength, yLength, zLength);
         }
     }

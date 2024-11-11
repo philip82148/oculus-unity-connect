@@ -283,6 +283,10 @@ public class DenseSparseExpController : MonoBehaviour
     {
         return objectCount;
     }
+    public int GetGridSize()
+    {
+        return gridSize;
+    }
 }
 
 public enum DenseOrSparse
