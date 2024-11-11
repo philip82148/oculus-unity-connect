@@ -84,18 +84,21 @@ public class CalculateSound : MonoBehaviour
     private void CalculateExponentialFrequency()
     {
         double t = (yDiff + soundLength) / (2 * soundLength);
+        double convertedT = ConvertToDiscrete(t);
         float frequencyRatio = maxFrequency / (float)minFrequency;
-        calculatedFrequency = minFrequency * Mathf.Pow(frequencyRatio, (float)t);
+        calculatedFrequency = minFrequency * Mathf.Pow(frequencyRatio, (float)convertedT);
     }
     private void CalculateExponentialAmplitude()
     {
         tZ = (zDiff + soundLength) / (2 * soundLength);
+        double convertedT = ConvertToDiscrete(tZ);
         float amplitudeRatio = maxAmplitude / (float)minAmplitude;
-        calculatedAmplitude = minAmplitude * Mathf.Pow(amplitudeRatio, 1 - (float)tZ);
+        calculatedAmplitude = minAmplitude * Mathf.Pow(amplitudeRatio, 1 - (float)convertedT);
 
     }
     private void CalculateExponentialPan()
     {
+
 
         if (-soundLength < xDiff && xDiff < -objectLength) calculatedPan = -1;
         else if (-objectLength <= xDiff && xDiff <= objectLength) calculatedPan = 0;
@@ -103,6 +106,15 @@ public class CalculateSound : MonoBehaviour
         else calculatedPan = 0;
 
     }
+
+    private double ConvertToDiscrete(double t)
+    {
+        if (0 <= t && t < 1.0 / 3.0) return 0;
+        else if (1.0 / 3.0 <= t && t <= 2.0 / 3.0) return 0.5;
+        else if (2.0 / 3.0 < t && t <= 1.0) return 1;
+        else return 0;
+    }
+
     private void SetFrequency()
     {
         createSoundController.SetFrequencySelf((float)calculatedFrequency);

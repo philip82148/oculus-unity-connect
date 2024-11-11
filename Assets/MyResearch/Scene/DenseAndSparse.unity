@@ -1588,7 +1588,7 @@ MonoBehaviour:
   scoreText: {fileID: 1100770328}
   restCountText: {fileID: 2129005748}
   frequencyRangeVisualizer: {fileID: 1152413242}
-  denseOrSparse: 1
+  denseOrSparse: 0
 --- !u!4 &586591635
 Transform:
   m_ObjectHideFlags: 0
