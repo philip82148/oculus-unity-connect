@@ -40,8 +40,12 @@ public class CalculateDistance : MonoBehaviour
                 {
                     if (IsInSoundTerritory(i))
                     {
-                        float diff = CalculateControllerPositionAndObjectDiff(targetSoundObjects[i]);
-                        calculateSound.SetYDiff(diff);
+                        // float diff = CalculateControllerPositionAndObjectDiff(targetSoundObjects[i]);
+                        // calculateSound.SetYDiff(diff);
+
+
+                        Vector3 diff = CalculateControllerPositionAndObjectDiffIn3D(targetSoundObjects[i]);
+                        calculateSound.SetCoordinateDiff(diff);
                         isSound = true;
                     }
                 }
@@ -52,8 +56,10 @@ public class CalculateDistance : MonoBehaviour
             if (centralObject != null && IsInCentralTerritory())
             {
 
-                float diff = CalculateControllerPositionAndObjectDiff(centralObject);
-                calculateSound.SetYDiff(diff);
+                // float diff = CalculateControllerPositionAndObjectDiff(centralObject);
+                // calculateSound.SetYDiff(diff);
+                Vector3 diff = CalculateControllerPositionAndObjectDiffIn3D(centralObject);
+                calculateSound.SetCoordinateDiff(diff);
                 isSound = true;
             }
         }
