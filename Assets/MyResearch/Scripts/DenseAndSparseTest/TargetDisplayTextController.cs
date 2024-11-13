@@ -20,6 +20,6 @@ public class TargetDisplayTextController : MonoBehaviour
 
     public void SetTargetXYZ(int x, int y, int z)
     {
-        indexText.text = "x:" + x.ToString() + "y:" + y.ToString() + "z:" + z.ToString();
+        indexText.text = ":" + x.ToString() + "height:" + (y + 1).ToString() + "depth:" + (z + 1).ToString();
     }
 }
