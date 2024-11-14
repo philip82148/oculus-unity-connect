@@ -12,14 +12,6 @@ public class HandController : MonoBehaviour
 
     private int tmpIndex = 0;
 
-
-
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     debugText.text = "shine";
-    // }
-
     // Update is called once per frame
     void Update()
     {

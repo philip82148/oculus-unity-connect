@@ -32,6 +32,7 @@ public class CalculateDistance : MonoBehaviour
     {
         bool isSound = false;
         DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
+        List<Vector3> diffs = new List<Vector3>();
         if (denseOrSparse == DenseOrSparse.Sparse)
         {
             if (targetSoundObjects.Count > 0)
@@ -45,7 +46,8 @@ public class CalculateDistance : MonoBehaviour
 
 
                         Vector3 diff = CalculateControllerPositionAndObjectDiffIn3D(targetSoundObjects[i]);
-                        calculateSound.SetCoordinateDiff(diff);
+                        diffs.Add(diff);
+                        // calculateSound.SetCoordinateDiff(diff);
                         isSound = true;
                     }
                 }
@@ -59,11 +61,16 @@ public class CalculateDistance : MonoBehaviour
                 // float diff = CalculateControllerPositionAndObjectDiff(centralObject);
                 // calculateSound.SetYDiff(diff);
                 Vector3 diff = CalculateControllerPositionAndObjectDiffIn3D(centralObject);
-                calculateSound.SetCoordinateDiff(diff);
+                diffs.Add(diff);
+                // calculateSound.SetCoordinateDiff(diff);
                 isSound = true;
             }
         }
-        if (!isSound) calculateSound.SetInitial();
+        if (isSound)
+        {
+            calculateSound.SetCoordinateDiffs(diffs);
+        }
+        else { calculateSound.SetInitial(); }
     }
 
 

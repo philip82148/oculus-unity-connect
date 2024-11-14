@@ -126,6 +126,7 @@ public class DenseSparseExpController : MonoBehaviour
                     int index = targetObjects.Count - 1;
                     PaletteObjectController paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
                     paletteObjectController.SetIndexes(x, y, z);
+                    paletteObjectController.SetIndex(index);
 
                     calculateDistance.SetTargetObject(gameObject);
                     if (x == midIndex && y == midIndex && z == midIndex)

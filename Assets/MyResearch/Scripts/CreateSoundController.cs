@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -13,79 +12,101 @@ public class CreateSoundController : MonoBehaviour
     private double pan = 0;
     private bool isSound = true;
 
-    public double increment;
-    public double phase;
     private const double SAMPLING_FREQUENCY = 48000;
-    [SerializeField] private float harmonic1Coefficient = 0f;
-    [SerializeField] private float harmonic2Coefficient = 0f;
-    [SerializeField] private bool isChangedByCoefficient = true;
+    private bool isChangedByCoefficient = true;
 
     // 波形の種類を指定
     public enum WaveType { Sine, Triangle, Sawtooth, Square }
-    public WaveType waveType = WaveType.Sine;
+    private WaveType waveType = WaveType.Sine;
 
-    // 倍音用の位相
-    private double phaseHarmonic1;
-    private double phaseHarmonic2;
+    private List<double> frequencies = new List<double>();
+    private List<double> gains = new List<double>();
+    private List<double> pans = new List<double>();
+    private List<double> phases = new List<double>();
+
+    private bool isOverlapped = false;
 
     private void Start()
     {
-        if (isChangedByCoefficient) frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
+        if (isChangedByCoefficient)
+            frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
     }
 
     private void Update()
     {
-        if (isChangedByCoefficient) frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
+        if (isChangedByCoefficient)
+            frequency = DEFAULT_FREQUENCY * frequencyCoefficient;
 
         if (!isSound)
         {
             gain = 0;
+            for (int i = 0; i < gains.Count; i++)
+                gains[i] = 0;
         }
     }
 
     private void OnAudioFilterRead(float[] data, int channels)
     {
-        increment = frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
-
-        double harmonic1Frequency = frequency * 2; // 第1倍音 (2倍の周波数)
-        double harmonic2Frequency = frequency * 3; // 第2倍音 (3倍の周波数)
-
-        double incrementHarmonic1 = harmonic1Frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
-        double incrementHarmonic2 = harmonic2Frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
-
-        for (int i = 0; i < data.Length; i = i + channels)
+        // 合計ゲインを計算
+        double totalGain = 0;
+        for (int i = 0; i < gains.Count; i++)
         {
-            phase += increment;
-            phaseHarmonic1 += incrementHarmonic1;
-            phaseHarmonic2 += incrementHarmonic2;
+            totalGain += gains[i];
+        }
 
-            // 基本音
-            double sample = gain * GenerateWave(phase, waveType);
+        // 合計ゲインが1.0を超える場合、ゲインをスケールダウン
+        if (totalGain > 1.0)
+        {
+            double scale = 1.0 / totalGain;
+            for (int i = 0; i < gains.Count; i++)
+            {
+                gains[i] *= scale;
+            }
+        }
 
-            // 第1倍音 (50%の振幅で加算)
-            sample += gain * harmonic1Coefficient * GenerateWave(phaseHarmonic1, waveType);
+        for (int i = 0; i < data.Length; i += channels)
+        {
+            double sampleLeft = 0;
+            double sampleRight = 0;
 
-            // 第2倍音 (30%の振幅で加算)
-            sample += gain * harmonic2Coefficient * GenerateWave(phaseHarmonic2, waveType);
+            for (int j = 0; j < frequencies.Count; j++)
+            {
+                double freq = frequencies[j];
+                double increment = freq * 2 * Math.PI / SAMPLING_FREQUENCY;
 
-            float panLeft = 1.0f - (float)pan; // 左チャンネルのゲイン計算
-            float panRight = 1.0f + (float)pan; // 右チャンネルのゲイン計算
+                // フェーズの更新
+                phases[j] += increment;
 
-            // パンニングを適用
+                // 波形の生成
+                double waveSample = gains[j] * GenerateWave(phases[j], waveType);
+
+                // パンニングの適用（標準的な計算方法）
+                // double panValue = (pans[j] + 1) / 2; // -1から1を0から1に変換
+                double panLeft = 1.0 - pans[j];
+                double panRight = 1.0 + pans[j];
+
+                sampleLeft += waveSample * panLeft;
+                sampleRight += waveSample * panRight;
+
+                // フェーズのリセット
+                if (phases[j] > 2 * Math.PI)
+                    phases[j] -= 2 * Math.PI;
+            }
+
+            // サンプル値のクリッピング処理
+            sampleLeft = Math.Max(-1.0, Math.Min(1.0, sampleLeft));
+            sampleRight = Math.Max(-1.0, Math.Min(1.0, sampleRight));
+
+            // data配列への書き込み
             if (channels == 2)
             {
-                data[i] = (float)(sample * panLeft * 0.5); // 左チャンネル
-                data[i + 1] = (float)(sample * panRight * 0.5); // 右チャンネル
+                data[i] = (float)sampleLeft;
+                data[i + 1] = (float)sampleRight;
             }
             else
             {
-                data[i] = (float)sample; // モノラルの場合
+                data[i] = (float)((sampleLeft + sampleRight) * 0.5);
             }
-
-            // 位相をリセット
-            if (phase > 2 * Math.PI) phase -= 2 * Math.PI;
-            if (phaseHarmonic1 > 2 * Math.PI) phaseHarmonic1 -= 2 * Math.PI;
-            if (phaseHarmonic2 > 2 * Math.PI) phaseHarmonic2 -= 2 * Math.PI;
         }
     }
 
@@ -119,17 +140,26 @@ public class CreateSoundController : MonoBehaviour
 
     public double GetTmpAmplitude()
     {
-        return this.gain;
+        if (isOverlapped && gains.Count > 0)
+            return this.gains[0];
+        else
+            return this.gain;
     }
 
     public double GetTmpFrequency()
     {
-        return this.frequency;
+        if (isOverlapped && frequencies.Count > 0)
+            return this.frequencies[0];
+        else
+            return this.frequency;
     }
 
     public double GetTmpPan()
     {
-        return this.pan;
+        if (isOverlapped && pans.Count > 0)
+            return this.pans[0];
+        else
+            return this.pan;
     }
 
     public void SetAmplitude(double amplitude)
@@ -140,6 +170,47 @@ public class CreateSoundController : MonoBehaviour
     public void SetPan(double pan)
     {
         this.pan = pan;
+    }
+
+    public void SetFrequencies(List<double> frequencies)
+    {
+        this.frequencies = frequencies;
+        EnsureListSizes();
+    }
+
+    public void SetAmplitudes(List<double> amplitudes)
+    {
+        this.gains = amplitudes;
+        EnsureListSizes();
+    }
+
+    public void SetPans(List<double> pans)
+    {
+        this.pans = pans;
+        EnsureListSizes();
+    }
+
+    private void EnsureListSizes()
+    {
+        int targetCount = frequencies.Count;
+
+        // phasesリストの調整
+        while (phases.Count < targetCount)
+            phases.Add(0);
+        while (phases.Count > targetCount)
+            phases.RemoveAt(phases.Count - 1);
+
+        // gainsリストの調整
+        while (gains.Count < targetCount)
+            gains.Add(0);
+        while (gains.Count > targetCount)
+            gains.RemoveAt(gains.Count - 1);
+
+        // pansリストの調整
+        while (pans.Count < targetCount)
+            pans.Add(0);
+        while (pans.Count > targetCount)
+            pans.RemoveAt(pans.Count - 1);
     }
 
     public void SetFrequencyCoefficient(double nextFrequencyCoefficient)

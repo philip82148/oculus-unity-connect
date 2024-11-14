@@ -1716,7 +1716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseObject: {fileID: 53451026094502471, guid: 9236f633abf63a74fa6afcbbc00f092e, type: 3}
   startCoordinate: {x: 0.2, y: 0, z: 0.05}
-  interval: 0.1
+  interval: 0.04
   calculateDistance: {fileID: 993637233}
   displayTargetPlaceColorController: {fileID: 816950487}
   targetDisplayTextController: {fileID: 2089820211}
@@ -6612,12 +6612,6 @@ MonoBehaviour:
   frequencyCoefficient: 1
   frequency: 0
   gain: 1
-  increment: 0
-  phase: 0
-  harmonic1Coefficient: 0
-  harmonic2Coefficient: 0
-  isChangedByCoefficient: 0
-  waveType: 0
 --- !u!114 &2061141768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6625,7 +6619,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061141766}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 408af4f6a9693014ea2ca5615c745fa9, type: 3}
   m_Name: 
