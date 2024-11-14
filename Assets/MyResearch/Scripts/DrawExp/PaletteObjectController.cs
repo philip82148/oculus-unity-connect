@@ -9,11 +9,16 @@ public class PaletteObjectController : MonoBehaviour
     [SerializeField] private Renderer thisRenderer;
     [SerializeField] private int index = 0;
     [SerializeField] private bool isMove = false;
+
+    private int xIndex = 0;
+    private int yIndex = 0;
+    private int zIndex = 0;
     // Start is called before the first frame update
+
     void Start()
     {
         defaultPosition = this.transform.position;
-        thisRenderer.material.color = defaultColor;
+        // thisRenderer.material.color = defaultColor;
     }
 
 
@@ -40,4 +45,25 @@ public class PaletteObjectController : MonoBehaviour
         return isMove;
     }
 
+    public void SetIndexes(int xIndex, int yIndex, int zIndex)
+    {
+        this.xIndex = xIndex;
+        this.yIndex = yIndex;
+        this.zIndex = zIndex;
+
+
+        if (zIndex == 0)
+        {
+            thisRenderer.material.color = Color.red;
+        }
+        else if (zIndex == 1)
+        {
+            thisRenderer.material.color = Color.black;
+        }
+        else if (zIndex == 2)
+        {
+
+            thisRenderer.material.color = Color.green;
+        }
+    }
 }

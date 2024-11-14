@@ -14,6 +14,7 @@ public class DenseSparseExpController : MonoBehaviour
     [Header("Setting")]
     [SerializeField] private CalculateDistance calculateDistance;
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
+    [SerializeField] private TargetDisplayTextController targetDisplayTextController;
     [SerializeField] private HandController handController;
 
     [Header("UI")]
@@ -37,6 +38,8 @@ public class DenseSparseExpController : MonoBehaviour
 
     private int targetCorrectIndex = 0;
     private float previousInterval;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -122,7 +125,7 @@ public class DenseSparseExpController : MonoBehaviour
 
                     int index = targetObjects.Count - 1;
                     PaletteObjectController paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
-                    paletteObjectController.SetIndex(index);
+                    paletteObjectController.SetIndexes(x, y, z);
 
                     calculateDistance.SetTargetObject(gameObject);
                     if (x == midIndex && y == midIndex && z == midIndex)
@@ -243,6 +246,8 @@ public class DenseSparseExpController : MonoBehaviour
     private void DecideTargetIndex()
     {
         targetCorrectIndex = Random.Range(0, objectCount);
+        GetXYZIndexesForTargetCorrectIndex();
+        ChangeDisplayText();
     }
 
     public void SetRejoinedIndex(int rejoinedIndex)
@@ -264,6 +269,24 @@ public class DenseSparseExpController : MonoBehaviour
     {
         displayTargetPlaceColorController.ChangeIndexAndReflect(targetCorrectIndex);
     }
+    private void GetXYZIndexesForTargetCorrectIndex()
+    {
+        int xIndex = targetCorrectIndex / (gridSize * gridSize);
+        int yIndex = (targetCorrectIndex / gridSize) % gridSize;
+        int zIndex = targetCorrectIndex % gridSize;
+
+        Debug.Log($"TargetCorrectIndex: {targetCorrectIndex}, x: {xIndex}, y: {yIndex}, z: {zIndex}");
+    }
+
+    public void ChangeDisplayText()
+    {
+        int xIndex = targetCorrectIndex / (gridSize * gridSize);
+        int yIndex = (targetCorrectIndex / gridSize) % gridSize;
+        int zIndex = targetCorrectIndex % gridSize;
+
+        targetDisplayTextController.SetTargetXYZ(xIndex, yIndex, zIndex);
+
+    }
 
     public Vector3 GetStartCoordinate()
     {
@@ -282,6 +305,10 @@ public class DenseSparseExpController : MonoBehaviour
     public int GetObjectCount()
     {
         return objectCount;
+    }
+    public int GetGridSize()
+    {
+        return gridSize;
     }
 }
 

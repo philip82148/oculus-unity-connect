@@ -15,14 +15,16 @@ public class CalculateDistance : MonoBehaviour
     [SerializeField] private List<GameObject> targetSoundObjects = new List<GameObject>();
     private GameObject centralObject;
     private const double requiredLength = 0.03;
-    private const double depthRequiredLength = 0.05;
+    // private const double depthRequiredLength = 0.05;
     [SerializeField] private double centralRequiredLength;
-    private double xRequiredLength = 0.04;
+    // private double xRequiredLength = 0.04;
 
     // Start is called before the first frame update
     void Start()
     {
+
         CalculateCentralRequiredLength();
+
     }
 
     // Update is called once per frame
@@ -38,8 +40,12 @@ public class CalculateDistance : MonoBehaviour
                 {
                     if (IsInSoundTerritory(i))
                     {
-                        float diff = CalculateControllerPositionAndObjectDiff(targetSoundObjects[i]);
-                        calculateSound.SetYDiff(diff);
+                        // float diff = CalculateControllerPositionAndObjectDiff(targetSoundObjects[i]);
+                        // calculateSound.SetYDiff(diff);
+
+
+                        Vector3 diff = CalculateControllerPositionAndObjectDiffIn3D(targetSoundObjects[i]);
+                        calculateSound.SetCoordinateDiff(diff);
                         isSound = true;
                     }
                 }
@@ -50,8 +56,10 @@ public class CalculateDistance : MonoBehaviour
             if (centralObject != null && IsInCentralTerritory())
             {
 
-                float diff = CalculateControllerPositionAndObjectDiff(centralObject);
-                calculateSound.SetYDiff(diff);
+                // float diff = CalculateControllerPositionAndObjectDiff(centralObject);
+                // calculateSound.SetYDiff(diff);
+                Vector3 diff = CalculateControllerPositionAndObjectDiffIn3D(centralObject);
+                calculateSound.SetCoordinateDiff(diff);
                 isSound = true;
             }
         }
@@ -78,9 +86,9 @@ public class CalculateDistance : MonoBehaviour
 
         Vector3 rightControllerPosition = GetRightIndexFingerPosition();
         Vector3 targetPosition = centralObject.transform.position;
-        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < xRequiredLength) &&
+        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < centralRequiredLength) &&
         (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < centralRequiredLength)
-    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < depthRequiredLength))
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < centralRequiredLength))
         {
             return true;
         }
@@ -93,9 +101,9 @@ public class CalculateDistance : MonoBehaviour
     {
         Vector3 rightControllerPosition = GetRightIndexFingerPosition();
         Vector3 targetPosition = targetSoundObjects[index].transform.position;
-        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < xRequiredLength) &&
+        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < requiredLength) &&
         (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < requiredLength)
-    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < depthRequiredLength))
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < requiredLength))
         {
             return true;
         }
@@ -111,7 +119,7 @@ public class CalculateDistance : MonoBehaviour
     private void CalculateCentralRequiredLength()
     {
         centralRequiredLength = (denseSparseExpController.GetInterval() * (
-            denseSparseExpController.GetObjectCount() - 1) + 2 * requiredLength) / 2;
+            denseSparseExpController.GetGridSize() - 1) + 2 * requiredLength) / 2;
     }
     public void SetTargetObject(GameObject gameObject)
     {
@@ -121,10 +129,10 @@ public class CalculateDistance : MonoBehaviour
     {
         centralObject = gameObject;
     }
-    public double GetXRequiredLength()
-    {
-        return xRequiredLength;
-    }
+    // public double GetXRequiredLength()
+    // {
+    //     return xRequiredLength;
+    // }
 
     public double GetCentralRequiredLength()
     {
@@ -138,7 +146,10 @@ public class CalculateDistance : MonoBehaviour
 
     public double GetDepthRequiredLength()
     {
-        return depthRequiredLength;
+        DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
+        if (denseOrSparse == DenseOrSparse.Sparse) return requiredLength;
+        else if (denseOrSparse == DenseOrSparse.Dense) return centralRequiredLength;
+        else return 0;
     }
 
 

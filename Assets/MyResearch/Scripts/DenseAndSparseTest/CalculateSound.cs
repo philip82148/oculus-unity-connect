@@ -18,6 +18,7 @@ public class CalculateSound : MonoBehaviour
     private float maxAmplitude = 1.0f;
     private double calculatedAmplitude;
     private double calculatedFrequency;
+    private double calculatedPan;
     [SerializeField] private double soundLength = 1.0f;
     [SerializeField]
     private TextMeshProUGUI debugText;
@@ -25,6 +26,8 @@ public class CalculateSound : MonoBehaviour
     private float xDiff = 0;
     private float yDiff = 0;
     private float zDiff = 0;
+    private double tZ = 0;
+    private float objectLength = 0.01f;
 
 
     void Start()
@@ -40,7 +43,7 @@ public class CalculateSound : MonoBehaviour
     void Update()
     {
         CalculateSoundLength();
-        debugText.text = calculatedFrequency.ToString("f2");
+        debugText.text = "fre:" + calculatedFrequency.ToString("f2") + "\n" + "amp:" + calculatedAmplitude + "\n" + "amp coe:" + tZ.ToString();
 
     }
     public void SetCoordinateDiff(Vector3 diff)
@@ -48,7 +51,10 @@ public class CalculateSound : MonoBehaviour
         this.yDiff = diff.y;
         this.zDiff = diff.z;
         this.xDiff = diff.x;
-
+        CalculateExponentialFrequency();
+        CalculateExponentialAmplitude();
+        CalculateExponentialPan();
+        SetAudio();
     }
     public void SetYDiff(float yDiff)
     {
@@ -78,16 +84,37 @@ public class CalculateSound : MonoBehaviour
     private void CalculateExponentialFrequency()
     {
         double t = (yDiff + soundLength) / (2 * soundLength);
-        float frequencyRatio = minFrequency / (float)maxFrequency;
-        calculatedFrequency = minFrequency * Mathf.Pow(frequencyRatio, (float)t);
+        double convertedT = ConvertToDiscrete(t);
+        float frequencyRatio = maxFrequency / (float)minFrequency;
+        calculatedFrequency = minFrequency * Mathf.Pow(frequencyRatio, (float)convertedT);
     }
     private void CalculateExponentialAmplitude()
     {
-        double t = (zDiff + soundLength) / (2 * soundLength);
-        float amplitudeRatio = minAmplitude / (float)maxAmplitude;
-        calculatedAmplitude = minAmplitude * Mathf.Pow(amplitudeRatio, (float)t);
+        tZ = (zDiff + soundLength) / (2 * soundLength);
+        double convertedT = ConvertToDiscrete(tZ);
+        float amplitudeRatio = maxAmplitude / (float)minAmplitude;
+        calculatedAmplitude = minAmplitude * Mathf.Pow(amplitudeRatio, 1 - (float)convertedT);
 
     }
+    private void CalculateExponentialPan()
+    {
+
+
+        if (-soundLength < xDiff && xDiff < -objectLength) calculatedPan = -1;
+        else if (-objectLength <= xDiff && xDiff <= objectLength) calculatedPan = 0;
+        else if (objectLength < xDiff && xDiff < soundLength) calculatedPan = 1;
+        else calculatedPan = 0;
+
+    }
+
+    private double ConvertToDiscrete(double t)
+    {
+        if (0 <= t && t < 1.0 / 3.0) return 0;
+        else if (1.0 / 3.0 <= t && t <= 2.0 / 3.0) return 0.5;
+        else if (2.0 / 3.0 < t && t <= 1.0) return 1;
+        else return 0;
+    }
+
     private void SetFrequency()
     {
         createSoundController.SetFrequencySelf((float)calculatedFrequency);
@@ -97,7 +124,8 @@ public class CalculateSound : MonoBehaviour
     private void SetAudio()
     {
         createSoundController.SetFrequencySelf((float)calculatedFrequency);
-        createSoundController.SetAmplitude(0.5f);
+        createSoundController.SetAmplitude((float)calculatedAmplitude);
+        createSoundController.SetPan((float)calculatedPan);
     }
 
     private void CalculateSoundLength()
