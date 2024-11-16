@@ -11,8 +11,9 @@ public class ResolutionSetting : MonoBehaviour
     private float maxFrequency = 660;
     private int frequencyCount;
 
-    private float minAmplitude = 0.2f;
-    private float maxAmplitude = 1f;
+    private float minAmplitude;
+    private float maxAmplitude = 1.0f;
+    private float amplitudeRange = 5.0f;
     private int amplitudeCount;
 
     private int panCount;
@@ -27,6 +28,8 @@ public class ResolutionSetting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        minAmplitude = maxAmplitude * Mathf.Pow(10.0f, -amplitudeRange / 20.0f);
+        Debug.Log("min amplitude:" + minAmplitude);
         frequencyCount = resolutionExpController.GetFrequencyResolutionCount() - 1;
         amplitudeCount = resolutionExpController.GetAmplitudeResolutionCount() - 1;
         panCount = resolutionExpController.GetPanResolutionCount() - 1;
@@ -92,6 +95,7 @@ public class ResolutionSetting : MonoBehaviour
             float frequencyRatio = maxFrequency / minFrequency;
             float frequencyExponent = tmpFrequencyIndex / (float)frequencyCount;
             frequency = minFrequency * Mathf.Pow(frequencyRatio, frequencyExponent);
+            createSoundController.SetFrequencySelf(440);
             createSoundController.SetFrequencySelf(frequency);
         }
     }

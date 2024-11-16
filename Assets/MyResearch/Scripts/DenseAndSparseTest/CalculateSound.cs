@@ -13,8 +13,9 @@ public class CalculateSound : MonoBehaviour
 
     private float minFrequency = 220f;
     private float maxFrequency = 660f;
+    private float amplitudeRange = 5.0f;
 
-    private float minAmplitude = 0.2f;
+    private float minAmplitude;
     private float maxAmplitude = 1.0f;
     private double calculatedAmplitude;
     private double calculatedFrequency;
@@ -38,12 +39,14 @@ public class CalculateSound : MonoBehaviour
 
     void Start()
     {
+        minAmplitude = maxAmplitude * Mathf.Pow(10.0f, -amplitudeRange / 20.0f);
+        Debug.Log("min amplitude:" + minAmplitude);
         // centralFrequency = (minFrequency + maxFrequency) / 2;
         // createSoundController.SetAmplitude(0);
         // CalculateSoundLength();
         // CalculateExponentialFrequency();
         // CalculateExponentialAmplitude();
-        Debug.Log("sound length:" + soundLength);
+        // Debug.Log("sound length:" + soundLength);
     }
 
     void Update()
