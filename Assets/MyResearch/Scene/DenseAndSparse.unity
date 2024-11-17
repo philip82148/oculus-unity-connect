@@ -1715,7 +1715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseObject: {fileID: 53451026094502471, guid: 9236f633abf63a74fa6afcbbc00f092e, type: 3}
-  startCoordinate: {x: 0.2, y: 0, z: 0.05}
+  startCoordinate: {x: 0.3, y: 0, z: 0.05}
   interval: 0.04
   calculateDistance: {fileID: 993637233}
   displayTargetPlaceColorController: {fileID: 816950487}
@@ -1724,7 +1724,7 @@ MonoBehaviour:
   scoreText: {fileID: 1100770328}
   restCountText: {fileID: 2129005748}
   frequencyRangeVisualizer: {fileID: 1152413242}
-  denseOrSparse: 1
+  denseOrSparse: 0
 --- !u!4 &586591635
 Transform:
   m_ObjectHideFlags: 0
@@ -2251,7 +2251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &816950486
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6612,6 +6612,7 @@ MonoBehaviour:
   frequencyCoefficient: 1
   frequency: 0
   gain: 1
+  useOverlappedMethod: 1
 --- !u!114 &2061141768
 MonoBehaviour:
   m_ObjectHideFlags: 0

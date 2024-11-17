@@ -7,13 +7,13 @@ public class ResolutionSetting : MonoBehaviour
 {
     [SerializeField] private CreateSoundController createSoundController;
     [SerializeField] private ResolutionExpController resolutionExpController;
-    private float minFrequency = 220;
-    private float maxFrequency = 660;
+    private float minFrequency = 200;
+    private float maxFrequency = 900;
     private int frequencyCount;
 
     private float minAmplitude;
     private float maxAmplitude = 1.0f;
-    private float amplitudeRange = 5.0f;
+    private float amplitudeRange = 6.5f;
     private int amplitudeCount;
 
     private int panCount;
@@ -78,6 +78,15 @@ public class ResolutionSetting : MonoBehaviour
         }
 
 
+
+    }
+
+
+    public void SetFrequencyOnly(float frequency)
+    {
+        createSoundController.SetAmplitude(1.0f);
+        // createSoundController.SetPan(1.0f);
+        createSoundController.SetFrequencySelf(frequency);
     }
 
 
@@ -95,7 +104,7 @@ public class ResolutionSetting : MonoBehaviour
             float frequencyRatio = maxFrequency / minFrequency;
             float frequencyExponent = tmpFrequencyIndex / (float)frequencyCount;
             frequency = minFrequency * Mathf.Pow(frequencyRatio, frequencyExponent);
-            createSoundController.SetFrequencySelf(440);
+            // createSoundController.SetFrequencySelf(440);
             createSoundController.SetFrequencySelf(frequency);
         }
     }

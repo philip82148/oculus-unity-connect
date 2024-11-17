@@ -4,6 +4,8 @@ using System.IO;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class ResolutionExpController : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class ResolutionExpController : MonoBehaviour
     [SerializeField]
     private ExpSetting expSetting = ExpSetting.Both;
     [SerializeField] private DataLoggerController dataLoggerController;
-
+    [SerializeField] private Slider frequencySlider; // 周波数調整用のスライダー
 
     [Header("UI Setting")]
     [SerializeField] private GameObject[] frequencyButtons;
@@ -32,16 +34,16 @@ public class ResolutionExpController : MonoBehaviour
     private bool isGameStart = false;
     private int score = 0;
     private int restCount = 10;
-    private int frequencyResolutionCount = 5;
-    private int amplitudeResolutionCount = 3;
-    private int panResolutionCount = 3;
+    [SerializeField] private int frequencyResolutionCount = 5;
+    [SerializeField] private int amplitudeResolutionCount = 5;
+    [SerializeField] private int panResolutionCount = 5;
 
     void Start()
     {
         string dateTime = System.DateTime.Now.ToString("yyyyMMddHHmmss");
         InitializeButtonSetting();
         resolutionSetting.SetCount(frequencyResolutionCount, amplitudeResolutionCount);
-        string folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\times";
+        string folder = $"C:\\Users\\takaharayota\\Research\\本予備実験\\{subjectName}\\times";
         Directory.CreateDirectory(folder);
         string fileName = $"{frequencyResolutionCount}_{amplitudeResolutionCount}_{panResolutionCount}_{expSetting}_{dateTime}.txt";
         dataLoggerController.Initialize(System.IO.Path.Combine(folder, fileName));
@@ -52,6 +54,12 @@ public class ResolutionExpController : MonoBehaviour
     {
         debugText.text = restCount.ToString();
         scoreText.text = "score:" + score.ToString();
+
+
+        if (expSetting == ExpSetting.ManualFrequency)
+        {
+            ReflectFrequencyFromSlider();
+        }
     }
     public void ReflectClickedIndex(int index, ResolutionType resolutionType)
     {
@@ -75,25 +83,46 @@ public class ResolutionExpController : MonoBehaviour
             {
 
                 frequencyButtons[i].SetActive(false);
+                frequencySlider.gameObject.SetActive(false);
 
             }
             else if (expSetting == ExpSetting.Frequency)
             {
 
                 if (frequencyResolutionCount <= i) { frequencyButtons[i].SetActive(false); }
+                frequencySlider.gameObject.SetActive(false);
             }
             else if (expSetting == ExpSetting.Amplitude)
             {
                 frequencyButtons[i].SetActive(false);
+                frequencySlider.gameObject.SetActive(false);
 
             }
             else if (expSetting == ExpSetting.Pan)
             {
                 frequencyButtons[i].SetActive(false);
+                frequencySlider.gameObject.SetActive(false);
             }
             else if (expSetting == ExpSetting.All)
             {
                 if (frequencyResolutionCount <= i) { frequencyButtons[i].SetActive(false); }
+                frequencySlider.gameObject.SetActive(false);
+            }
+            else if (expSetting == ExpSetting.ManualFrequency)
+            {
+                foreach (var button in frequencyButtons)
+                {
+                    button.SetActive(false);
+                }
+                foreach (var button in amplitudeButtons)
+                {
+                    button.SetActive(false);
+                }
+                foreach (var button in panButtons)
+                {
+                    button.SetActive(false);
+                }
+                frequencySlider.gameObject.SetActive(true); // スライダーを表示
             }
 
         }
@@ -211,6 +240,13 @@ public class ResolutionExpController : MonoBehaviour
         Debug.Log("start game");
         gameText.text = "start game"; SetNext();
     }
+
+    public void ReflectFrequencyFromSlider()
+    {
+        float frequency = frequencySlider.value;
+        resolutionSetting.SetFrequencyOnly(frequency);
+    }
+
     public int GetFrequencyResolutionCount()
     {
         return frequencyResolutionCount;
@@ -229,7 +265,10 @@ public class ResolutionExpController : MonoBehaviour
     }
 }
 
+public enum ResokutionCount
+{
 
+}
 
 public enum ResolutionType
 {
@@ -244,5 +283,6 @@ public enum ExpSetting
     Frequency,
     Both,
     Pan,
-    All
+    All,
+    ManualFrequency
 }

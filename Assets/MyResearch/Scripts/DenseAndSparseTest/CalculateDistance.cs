@@ -37,6 +37,7 @@ public class CalculateDistance : MonoBehaviour
         {
             if (targetSoundObjects.Count > 0)
             {
+                bool isInTerritory = false;
                 for (int i = 0; i < targetSoundObjects.Count; i++)
                 {
                     if (IsInSoundTerritory(i))
@@ -48,9 +49,10 @@ public class CalculateDistance : MonoBehaviour
                         Vector3 diff = CalculateControllerPositionAndObjectDiffIn3D(targetSoundObjects[i]);
                         diffs.Add(diff);
                         // calculateSound.SetCoordinateDiff(diff);
-                        isSound = true;
+                        isInTerritory = true;
                     }
                 }
+                isSound = isInTerritory;
             }
         }
         else if (denseOrSparse == DenseOrSparse.Dense)
@@ -70,7 +72,7 @@ public class CalculateDistance : MonoBehaviour
         {
             calculateSound.SetCoordinateDiffs(diffs);
         }
-        else { calculateSound.SetInitial(); }
+        calculateSound.SetInitial(isSound);
     }
 
 

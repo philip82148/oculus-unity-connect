@@ -78,10 +78,14 @@ public class CalculateSound : MonoBehaviour
     //     CalculateExponentialAmplitude();
 
     // }
-    public void SetInitial()
+    public void SetInitial(bool isSound)
     {
-        createSoundController.SetFrequencySelf(0);
-        createSoundController.SetAmplitude(0);
+        if (isSound) { createSoundController.EnableAudio(); }
+        else
+        {
+            createSoundController.DisableAudio();
+        }
+
     }
 
     public void SetCoordinateDiffs(List<Vector3> diffs)

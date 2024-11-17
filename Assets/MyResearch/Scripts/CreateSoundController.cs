@@ -13,7 +13,7 @@ public class CreateSoundController : MonoBehaviour
     private bool isSound = true;
 
     private const double SAMPLING_FREQUENCY = 48000;
-    private bool isChangedByCoefficient = true;
+    private bool isChangedByCoefficient = false;
 
     // 波形の種類を指定
     public enum WaveType { Sine, Triangle, Sawtooth, Square }
@@ -24,7 +24,7 @@ public class CreateSoundController : MonoBehaviour
     private List<double> pans = new List<double>();
     private List<double> phases = new List<double>();
 
-    private bool isOverlapped = false;
+    // private bool isOverlapped = false;
 
     // フラグを追加して、使用するOnAudioFilterReadのバージョンを切り替える
     [SerializeField] private bool useOverlappedMethod = false;
@@ -34,8 +34,8 @@ public class CreateSoundController : MonoBehaviour
     private double phaseHarmonic1 = 0.0;
     private double phaseHarmonic2 = 0.0;
     private double increment = 0.0;
-    [SerializeField] private float harmonic1Coefficient = 0f;
-    [SerializeField] private float harmonic2Coefficient = 0f;
+    private float harmonic1Coefficient = 0f;
+    private float harmonic2Coefficient = 0f;
 
     private void Start()
     {
