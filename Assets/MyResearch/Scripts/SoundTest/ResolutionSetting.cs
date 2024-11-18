@@ -8,19 +8,19 @@ public class ResolutionSetting : MonoBehaviour
     [SerializeField] private CreateSoundController createSoundController;
     [SerializeField] private ResolutionExpController resolutionExpController;
     private float minFrequency = 200;
-    private float maxFrequency = 900;
+    private float maxFrequency = 730;
     private int frequencyCount;
 
-    private float minAmplitude;
+    private float minAmplitude = 1 / 16f;
     private float maxAmplitude = 1.0f;
-    private float amplitudeRange = 6.5f;
+    private float amplitudeRange = 11f;
     private int amplitudeCount;
 
     private int panCount;
 
     private int tmpFrequencyIndex = 0;
     private int tmpAmplitudeIndex = 0;
-    private int tmpPanIndex = 0;
+    private int tmpPanIndex = 1;
 
     [SerializeField] private bool isExp = false;
 
@@ -28,7 +28,7 @@ public class ResolutionSetting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        minAmplitude = maxAmplitude * Mathf.Pow(10.0f, -amplitudeRange / 20.0f);
+        // minAmplitude = maxAmplitude * Mathf.Pow(10.0f, -amplitudeRange / 20.0f);
         Debug.Log("min amplitude:" + minAmplitude);
         frequencyCount = resolutionExpController.GetFrequencyResolutionCount() - 1;
         amplitudeCount = resolutionExpController.GetAmplitudeResolutionCount() - 1;
@@ -39,6 +39,14 @@ public class ResolutionSetting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void ReflectPacksan()
+    {
+        createSoundController.SetFrequencySelf(440f);
+        createSoundController.SetAmplitude(1.0f);
+        createSoundController.SetPan(0);
 
     }
     public void ReflectAudioSetting(int frequencyIndex, int amplitudeIndex, int panIndex, ExpSetting expSetting)
@@ -84,7 +92,7 @@ public class ResolutionSetting : MonoBehaviour
 
     public void SetFrequencyOnly(float frequency)
     {
-        createSoundController.SetAmplitude(1.0f);
+        createSoundController.SetAmplitude(1 / 4f);
         // createSoundController.SetPan(1.0f);
         createSoundController.SetFrequencySelf(frequency);
     }

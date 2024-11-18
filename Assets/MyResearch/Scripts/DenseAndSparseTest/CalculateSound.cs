@@ -11,9 +11,9 @@ public class CalculateSound : MonoBehaviour
 
 
 
-    private float minFrequency = 220f;
-    private float maxFrequency = 660f;
-    private float amplitudeRange = 5.0f;
+    private float minFrequency = 200f;
+    private float maxFrequency = 900f;
+    private float amplitudeRange = 11.0f;
 
     private float minAmplitude;
     private float maxAmplitude = 1.0f;

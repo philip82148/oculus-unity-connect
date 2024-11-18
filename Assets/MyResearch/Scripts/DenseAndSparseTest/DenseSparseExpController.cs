@@ -34,7 +34,7 @@ public class DenseSparseExpController : MonoBehaviour
     private int objectCount = 5;
     private int score = 0;
     private bool isGame = false;
-    private int restCount = 10;
+    private int restCount = 11;
 
     private int targetCorrectIndex = 0;
     private float previousInterval;

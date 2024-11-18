@@ -28,7 +28,7 @@ public class ResolutionExpController : MonoBehaviour
     [SerializeField] private GameObject[] panButtons;
     [SerializeField] private string subjectName;
     private int frequencyResolutionIndex = 0;
-    private int amplitudeResolutionIndex = 2;
+    private int amplitudeResolutionIndex = 0;
     private int panResolutionIndex = 0;
 
     private bool isGameStart = false;
@@ -59,6 +59,10 @@ public class ResolutionExpController : MonoBehaviour
         if (expSetting == ExpSetting.ManualFrequency)
         {
             ReflectFrequencyFromSlider();
+        }
+        else if (expSetting == ExpSetting.ManualAmplitude)
+        {
+            resolutionSetting.ReflectPacksan();
         }
     }
     public void ReflectClickedIndex(int index, ResolutionType resolutionType)
@@ -124,6 +128,22 @@ public class ResolutionExpController : MonoBehaviour
                 }
                 frequencySlider.gameObject.SetActive(true); // スライダーを表示
             }
+            // else if (expSetting == ExpSetting.ManualAmplitude)
+            // {
+            //     foreach (var button in frequencyButtons)
+            //     {
+            //         button.SetActive(false);
+            //     }
+            //     foreach (var button in amplitudeButtons)
+            //     {
+            //         button.SetActive(false);
+            //     }
+            //     foreach (var button in panButtons)
+            //     {
+            //         button.SetActive(false);
+            //     }
+            //     frequencySlider.gameObject.SetActive(false); // スライダーを表示
+            // }
 
         }
         for (int i = 0; i < amplitudeButtons.Length; i++)
@@ -224,13 +244,32 @@ public class ResolutionExpController : MonoBehaviour
         resolutionSetting.ReflectAudioSetting(frequencyResolutionIndex, amplitudeResolutionIndex, panResolutionIndex, expSetting);
         // resolutionSetting.ReflectExponentialAudioSetting(frequencyResolutionIndex, frequencyResolutionIndex);
     }
+    private int previousFrequencyResolutionIndex = -1;
+    private int previousAmplitudeResolutionIndex = -1;
+    private int previousPanResolutionIndex = -1;
+
     private void SetNext()
     {
-        frequencyResolutionIndex = Random.Range(0, frequencyResolutionCount);
-        amplitudeResolutionIndex = Random.Range(0, amplitudeResolutionCount);
-        panResolutionIndex = Random.Range(0, panResolutionCount);
+        do
+        {
+            frequencyResolutionIndex = Random.Range(0, frequencyResolutionCount);
+        } while (frequencyResolutionIndex == previousFrequencyResolutionIndex);
 
-        // gameText.text = "next index:" + frequencyResolutionIndex.ToString("") + "";
+        do
+        {
+            amplitudeResolutionIndex = Random.Range(0, amplitudeResolutionCount);
+        } while (amplitudeResolutionIndex == previousAmplitudeResolutionIndex);
+
+        do
+        {
+            panResolutionIndex = Random.Range(0, panResolutionCount);
+        } while (panResolutionIndex == previousPanResolutionIndex);
+
+        // 前回のインデックスを更新
+        previousFrequencyResolutionIndex = frequencyResolutionIndex;
+        previousAmplitudeResolutionIndex = amplitudeResolutionIndex;
+        previousPanResolutionIndex = panResolutionIndex;
+
         ReflectAudioSetting();
     }
     public void StartGame()
@@ -284,5 +323,6 @@ public enum ExpSetting
     Both,
     Pan,
     All,
-    ManualFrequency
+    ManualFrequency,
+    ManualAmplitude
 }
