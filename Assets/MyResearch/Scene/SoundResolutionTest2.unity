@@ -6690,10 +6690,10 @@ MonoBehaviour:
   - {fileID: 1897772033}
   - {fileID: 1906875664}
   - {fileID: 1910628362}
-  subjectName: "\u6734\u3055\u3093"
-  frequencyResolutionCount: 5
-  amplitudeResolutionCount: 5
-  panResolutionCount: 5
+  subjectName: yota
+  frequencyResolutionCount: 3
+  amplitudeResolutionCount: 3
+  panResolutionCount: 3
 --- !u!4 &2050762696
 Transform:
   m_ObjectHideFlags: 0
