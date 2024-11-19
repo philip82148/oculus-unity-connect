@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public class DenseSparseExpController : MonoBehaviour
+public class VRKeyboardExpController : MonoBehaviour
 {
     [SerializeField] private GameObject baseObject;
     [SerializeField] private Vector3 startCoordinate;
@@ -96,12 +96,11 @@ public class DenseSparseExpController : MonoBehaviour
     {
         int midIndex = gridSize / 2;
 
-
-        for (int x = 0; x < gridSize; x++)
+        for (int z = 0; z < gridSize; z++) // Zループを外側に
         {
             for (int y = 0; y < gridSize; y++)
             {
-                for (int z = 0; z < gridSize; z++)
+                for (int x = 0; x < gridSize; x++) // Xループを内側に
                 {
 
                     float positionOffsetX = (x - midIndex) * interval;
@@ -141,50 +140,8 @@ public class DenseSparseExpController : MonoBehaviour
         }
     }
 
-    private void CreateTargetObjects()
-    {
-        for (int i = 0; i < objectCount; i++)
-        {
-            float positionOffset = 0f;
-            if (objectCount % 2 == 1)
-            {
-                // Odd number of objects
-                int midIndex = objectCount / 2;
-                positionOffset = -(i - midIndex) * interval; // Reversed the sign
-            }
-            else
-            {
-                // Even number of objects
-                int midIndex = objectCount / 2;
-                positionOffset = -(i - midIndex + 0.5f) * interval; // Reversed the sign
-            }
 
-            Vector3 newPosition = new Vector3(startCoordinate.x, startCoordinate.y + positionOffset, startCoordinate.z);
-            GameObject gameObject = Instantiate(baseObject, newPosition, Quaternion.identity);
-            targetObjects.Add(gameObject);
-            targetCoordinates.Add(newPosition);
 
-            // Additional setup
-            TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
-            if (text != null)
-            {
-                text.text = (i + 1).ToString();
-            }
-            else
-            {
-                Debug.Log("text null");
-            }
-
-            PaletteObjectController paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
-            paletteObjectController.SetIndex(i);
-
-            calculateDistance.SetTargetObject(gameObject);
-            if (i == objectCount / 2)
-            {
-                calculateDistance.SetCentralObject(gameObject);
-            }
-        }
-    }
     private void UpdateObjectPositionsIn3D()
     {
         int gridSize = 3; // グリッドのサイズ（3×3×3）
@@ -211,29 +168,6 @@ public class DenseSparseExpController : MonoBehaviour
                     index++;
                 }
             }
-        }
-    }
-    private void UpdateObjectPositions()
-    {
-        for (int i = 0; i < targetObjects.Count; i++)
-        {
-            float positionOffset = 0f;
-            if (objectCount % 2 == 1)
-            {
-                // Odd number of objects
-                int midIndex = objectCount / 2;
-                positionOffset = -(i - midIndex) * interval; // Reversed the sign
-            }
-            else
-            {
-                // Even number of objects
-                int midIndex = objectCount / 2;
-                positionOffset = -(i - midIndex + 0.5f) * interval; // Reversed the sign
-            }
-
-            Vector3 newPosition = new Vector3(startCoordinate.x, startCoordinate.y + positionOffset, startCoordinate.z);
-            targetObjects[i].transform.position = newPosition;
-            targetCoordinates[i] = newPosition;
         }
     }
 
@@ -316,14 +250,3 @@ public class DenseSparseExpController : MonoBehaviour
     }
 }
 
-public enum DenseOrSparse
-{
-    Dense,
-    Sparse
-}
-
-public enum ExpScene
-{
-    DenseOrSparse,
-    VRKeyboard
-}

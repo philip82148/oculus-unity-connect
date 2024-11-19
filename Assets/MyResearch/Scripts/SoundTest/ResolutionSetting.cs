@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,6 +24,7 @@ public class ResolutionSetting : MonoBehaviour
     private int tmpPanIndex = 1;
 
     [SerializeField] private bool isExp = false;
+    [SerializeField] private float frequencyExponent = 0;
 
 
     // Start is called before the first frame update
@@ -110,11 +112,25 @@ public class ResolutionSetting : MonoBehaviour
         {
             // 周波数を指数的に変化させる
             float frequencyRatio = maxFrequency / minFrequency;
-            float frequencyExponent = tmpFrequencyIndex / (float)frequencyCount;
+            frequencyExponent = tmpFrequencyIndex / (float)frequencyCount;
             frequency = minFrequency * Mathf.Pow(frequencyRatio, frequencyExponent);
             // createSoundController.SetFrequencySelf(440);
             createSoundController.SetFrequencySelf(frequency);
         }
+    }
+
+    private float CorrectLoudness(float originalAmplitude)
+    {
+        float dBReduction = 0;
+        if (frequencyExponent == 1) dBReduction = 2;
+        else if (frequencyExponent == 0.75) dBReduction = 0;
+        else if (frequencyExponent == 0.5) dBReduction = -3;
+        else if (frequencyExponent == 0.25) dBReduction = -8;
+        else if (frequencyExponent == 0) dBReduction = -13;
+        float newAmplitude = originalAmplitude * Mathf.Pow(10, -dBReduction / 20f);
+        return newAmplitude;
+
+        // return amplitude;
     }
 
     private void AmplitudeSetting()
@@ -132,7 +148,9 @@ public class ResolutionSetting : MonoBehaviour
             float amplitudeRatio = maxAmplitude / minAmplitude;
             float amplitudeExponent = tmpAmplitudeIndex / (float)amplitudeCount;
             amplitude = minAmplitude * Mathf.Pow(amplitudeRatio, amplitudeExponent);
-            createSoundController.SetAmplitude(amplitude);
+            float fixedAmplitude = CorrectLoudness(amplitude);
+            createSoundController.SetAmplitude(fixedAmplitude);
+            // createSoundController.SetAmplitude(amplitude);
         }
     }
     private void PanSetting()

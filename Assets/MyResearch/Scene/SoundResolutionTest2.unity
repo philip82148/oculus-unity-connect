@@ -2251,9 +2251,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createSoundController: {fileID: 1537406208}
   resolutionExpController: {fileID: 2050762695}
-  minFrequency: 200
-  maxFrequency: 900
+  minFrequency: 150
+  maxFrequency: 700
   isExp: 1
+  frequencyExponent: 0
 --- !u!4 &285819130
 Transform:
   m_ObjectHideFlags: 0
@@ -6500,7 +6501,7 @@ MonoBehaviour:
   m_MinValue: 20
   m_MaxValue: 1000
   m_WholeNumbers: 0
-  m_Value: 110
+  m_Value: 440
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6693,9 +6694,9 @@ MonoBehaviour:
   - {fileID: 1906875664}
   - {fileID: 1910628362}
   subjectName: yota
-  frequencyResolutionCount: 3
-  amplitudeResolutionCount: 3
-  panResolutionCount: 3
+  frequencyResolutionCount: 5
+  amplitudeResolutionCount: 5
+  panResolutionCount: 5
 --- !u!4 &2050762696
 Transform:
   m_ObjectHideFlags: 0
