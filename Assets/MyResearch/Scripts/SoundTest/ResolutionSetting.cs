@@ -7,8 +7,8 @@ public class ResolutionSetting : MonoBehaviour
 {
     [SerializeField] private CreateSoundController createSoundController;
     [SerializeField] private ResolutionExpController resolutionExpController;
-    private float minFrequency = 200;
-    private float maxFrequency = 730;
+    [SerializeField] private float minFrequency;
+    [SerializeField] private float maxFrequency;
     private int frequencyCount;
 
     private float minAmplitude = 1 / 16f;

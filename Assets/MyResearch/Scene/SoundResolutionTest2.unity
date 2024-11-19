@@ -2251,6 +2251,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createSoundController: {fileID: 1537406208}
   resolutionExpController: {fileID: 2050762695}
+  minFrequency: 200
+  maxFrequency: 900
   isExp: 1
 --- !u!4 &285819130
 Transform:
@@ -6669,7 +6671,7 @@ MonoBehaviour:
   scoreText: {fileID: 1464892014}
   gameText: {fileID: 1243809166}
   soundController: {fileID: 1537406208}
-  expSetting: 5
+  expSetting: 4
   dataLoggerController: {fileID: 1296847070}
   frequencySlider: {fileID: 1932632219}
   frequencyButtons:
