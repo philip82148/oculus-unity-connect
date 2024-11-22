@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class DenseDataLoggerController : MonoBehaviour
 {
+    [SerializeField] private DenseSparseExpController denseSparseExpController;
     private StreamWriter writer;
     private string folder;
 
@@ -20,7 +21,9 @@ public class DenseDataLoggerController : MonoBehaviour
 
     public void Initialize(float interval, DenseOrSparse denseOrSparse)
     {
-        folder = $"C:\\Users\\takaharayota\\Research\\Semi-Exp3\\{subjectName}";
+        subjectName = denseSparseExpController.GetSubjectName();
+
+        folder = $"C:\\Users\\takaharayota\\Research\\Semi-Exp3\\{denseOrSparse}\\{subjectName}";
         Directory.CreateDirectory(folder);
 
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");

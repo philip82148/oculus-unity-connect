@@ -47,7 +47,9 @@ public class ResolutionSetting : MonoBehaviour
     public void ReflectPacksan()
     {
         createSoundController.SetFrequencySelf(440f);
-        createSoundController.SetAmplitude(1.0f);
+        frequencyExponent = -1;
+        float fixedAmplitude = CorrectLoudness(1f);
+        createSoundController.SetAmplitude(fixedAmplitude);
         createSoundController.SetPan(0);
 
     }
@@ -94,7 +96,7 @@ public class ResolutionSetting : MonoBehaviour
 
     public void SetFrequencyOnly(float frequency)
     {
-        createSoundController.SetAmplitude(1 / 4f);
+        createSoundController.SetAmplitude(1f);
         // createSoundController.SetPan(1.0f);
         createSoundController.SetFrequencySelf(frequency);
     }
@@ -121,12 +123,13 @@ public class ResolutionSetting : MonoBehaviour
 
     private float CorrectLoudness(float originalAmplitude)
     {
-        float dBReduction = 0;
-        if (frequencyExponent == 1) dBReduction = 2;
-        else if (frequencyExponent == 0.75) dBReduction = 0;
-        else if (frequencyExponent == 0.5) dBReduction = -3;
-        else if (frequencyExponent == 0.25) dBReduction = -8;
-        else if (frequencyExponent == 0) dBReduction = -13;
+        float naze = 6;
+        float dBReduction = naze + 8;
+        if (frequencyExponent == 1) dBReduction += 2;
+        else if (frequencyExponent == 0.75) dBReduction += 1;
+        else if (frequencyExponent == 0.5) dBReduction += -3;
+        else if (frequencyExponent == 0.25) dBReduction += -8;
+        else if (frequencyExponent == 0) dBReduction += -12;
         float newAmplitude = originalAmplitude * Mathf.Pow(10, -dBReduction / 20f);
         return newAmplitude;
 

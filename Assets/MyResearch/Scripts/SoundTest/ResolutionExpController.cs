@@ -33,7 +33,7 @@ public class ResolutionExpController : MonoBehaviour
 
     private bool isGameStart = false;
     private int score = 0;
-    private int restCount = 10;
+    private int restCount = 30;
     [SerializeField] private int frequencyResolutionCount = 5;
     [SerializeField] private int amplitudeResolutionCount = 5;
     [SerializeField] private int panResolutionCount = 5;
@@ -43,7 +43,7 @@ public class ResolutionExpController : MonoBehaviour
         string dateTime = System.DateTime.Now.ToString("yyyyMMddHHmmss");
         InitializeButtonSetting();
         resolutionSetting.SetCount(frequencyResolutionCount, amplitudeResolutionCount);
-        string folder = $"C:\\Users\\takaharayota\\Research\\本予備実験\\{subjectName}\\times";
+        string folder = $"C:\\Users\\takaharayota\\Research\\Semi-Exp2\\{subjectName}";
         Directory.CreateDirectory(folder);
         string fileName = $"{frequencyResolutionCount}_{amplitudeResolutionCount}_{panResolutionCount}_{expSetting}_{dateTime}.txt";
         dataLoggerController.Initialize(System.IO.Path.Combine(folder, fileName));

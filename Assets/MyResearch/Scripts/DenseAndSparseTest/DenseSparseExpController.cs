@@ -13,6 +13,7 @@ public class DenseSparseExpController : MonoBehaviour
     [SerializeField] private Vector3 startCoordinate;
     [SerializeField] private float interval = 0.07f;
     [Header("Setting")]
+    [SerializeField] private string subjectName;
     [SerializeField] private CalculateDistance calculateDistance;
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
     [SerializeField] private TargetDisplayTextController targetDisplayTextController;
@@ -41,7 +42,7 @@ public class DenseSparseExpController : MonoBehaviour
     private int objectCount = 5;
     private int score = 0;
     private bool isGame = false;
-    private int restCount = 11;
+    private int restCount = 31;
 
     private int targetCorrectIndex = 0;
     private float previousInterval;
@@ -98,7 +99,7 @@ public class DenseSparseExpController : MonoBehaviour
     {
         restCount -= 1;
         DecideTargetIndex();
-        ChangeDisplayColor();
+        // ChangeDisplayColor();
     }
 
     private void CreateTargetObjectsIn3D()
@@ -259,7 +260,10 @@ public class DenseSparseExpController : MonoBehaviour
     private void DecideTargetIndex()
     {
         targetCorrectIndex = Random.Range(0, objectCount);
-        dataLoggerController.ReflectPlaceChange(targetCorrectIndex);
+        if (isGame)
+        {
+            dataLoggerController.ReflectPlaceChange(targetCorrectIndex);
+        }
         GetXYZIndexesForTargetCorrectIndex();
         ChangeDisplayText();
     }
@@ -267,7 +271,7 @@ public class DenseSparseExpController : MonoBehaviour
     public void SetRejoinedIndex(int rejoinedIndex)
     {
         CheckCorrectAnswer(rejoinedIndex);
-        DecideTargetIndex();
+        // DecideTargetIndex();
         SetNextTarget();
     }
 
@@ -332,12 +336,17 @@ public class DenseSparseExpController : MonoBehaviour
     {
         dataLoggerController.Close();
     }
+    public string GetSubjectName()
+    {
+        return this.subjectName;
+    }
 }
 
 public enum DenseOrSparse
 {
     Dense,
-    Sparse
+    Sparse,
+    NoSound
 }
 
 public enum ExpScene

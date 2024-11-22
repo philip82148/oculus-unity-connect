@@ -68,6 +68,10 @@ public class CalculateDistance : MonoBehaviour
                 isSound = true;
             }
         }
+        else if (denseOrSparse == DenseOrSparse.NoSound)
+        {
+            isSound = false;
+        }
         if (isSound)
         {
             calculateSound.SetCoordinateDiffs(diffs);
