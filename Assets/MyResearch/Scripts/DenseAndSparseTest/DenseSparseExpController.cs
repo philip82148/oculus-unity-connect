@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Interaction;
 using Oculus.Interaction.Body.Input;
 using TMPro;
 using Unity.VisualScripting;
@@ -16,10 +17,13 @@ public class DenseSparseExpController : MonoBehaviour
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
     [SerializeField] private TargetDisplayTextController targetDisplayTextController;
     [SerializeField] private HandController handController;
+    [SerializeField] private DenseDataLoggerController dataLoggerController;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI restCountText;
+    [Header("Hand object")]
+    [SerializeField] private GameObject targetHand;
 
     [Header("Visualizer")]
     [SerializeField] private FrequencyRangeVisualizer frequencyRangeVisualizer;
@@ -50,6 +54,7 @@ public class DenseSparseExpController : MonoBehaviour
         objectCount = gridSize * gridSize * gridSize;
         previousInterval = interval;
         CreateTargetObjectsIn3D();
+        dataLoggerController.Initialize(interval, denseOrSparse);
     }
 
     // Update is called once per frame
@@ -76,6 +81,10 @@ public class DenseSparseExpController : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             int tmpIndex = handController.GetIndex();
+            if (isGame)
+            {
+                dataLoggerController.WriteInformation(GetRightIndexFingderPosition());
+            }
             SetRejoinedIndex(tmpIndex);
         }
         if (isGame)
@@ -250,6 +259,7 @@ public class DenseSparseExpController : MonoBehaviour
     private void DecideTargetIndex()
     {
         targetCorrectIndex = Random.Range(0, objectCount);
+        dataLoggerController.ReflectPlaceChange(targetCorrectIndex);
         GetXYZIndexesForTargetCorrectIndex();
         ChangeDisplayText();
     }
@@ -313,6 +323,14 @@ public class DenseSparseExpController : MonoBehaviour
     public int GetGridSize()
     {
         return gridSize;
+    }
+    private Vector3 GetRightIndexFingderPosition()
+    {
+        return targetHand.transform.position;
+    }
+    private void OnDestroy()
+    {
+        dataLoggerController.Close();
     }
 }
 
