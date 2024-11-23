@@ -1659,7 +1659,7 @@ MonoBehaviour:
   restCountText: {fileID: 2129005748}
   targetHand: {fileID: 1911472834}
   frequencyRangeVisualizer: {fileID: 1152413242}
-  denseOrSparse: 2
+  denseOrSparse: 0
   expScene: 0
 --- !u!4 &586591635
 Transform:

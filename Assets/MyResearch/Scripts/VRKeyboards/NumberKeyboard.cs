@@ -1,11 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NumberKeyboard : MonoBehaviour
 {
     [SerializeField]
-    private KeyboardKey[] keyboardKeys;
+    private List<KeyboardKey> keyboardKeys;
+    [SerializeField] private TextMeshProUGUI problemText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+
+    private int score = 0;
+    private int tmpTargetIndex = -1;
+
+
 
     private string[] textStrings = {
         "バナナ2本とオレンジ3個を足す式を書いてください。",
@@ -14,18 +23,48 @@ public class NumberKeyboard : MonoBehaviour
         "りんご5個からバナナ2本を引く式を書いてください。",
         "みかん6個からレモン1個を引く式を書いてください。"
     };
-    private string[] correctAnswers = {
+    private string[] correctAnswers ={
         "2+3=",
         "4+1=",
         "3+2=",
         "5-2=",
-        "6-1="
+        "6-1",
+    };
+    private string[] convertToAnswers = {
+        "1+",
+        "2+",
+        "3+",
+        "4+",
+        "5+",
+        "6+",
+        "7+",
+        "8+",
+        "9+",
+        "1-",
+        "2-",
+        "3-",
+        "4-",
+        "5-",
+        "6-",
+        "7-",
+        "8-",
+        "9-",
+        "1=",
+        "2=",
+        "3=",
+        "4=",
+        "5=",
+        "6=",
+        "7=",
+        "8=",
+        "9=",
+
     };
 
 
     void Start()
     {
-
+        problemText.text = textStrings[0];
     }
 
 
@@ -33,11 +72,40 @@ public class NumberKeyboard : MonoBehaviour
 
     void Update()
     {
+        scoreText.text = "Score:" + score.ToString();
 
     }
 
-    public void SetNumberKeyboard()
+    public void SetNumberKeyboard(KeyboardKey keyboardKey)
+    {
+        keyboardKeys.Add(keyboardKey);
+
+    }
+    public void SetNextTargetText(int tmpIndex)
+    {
+        tmpTargetIndex = tmpIndex;
+        problemText.text = textStrings[tmpTargetIndex];
+    }
+
+
+    public bool CheckCorrectAnswer(int ansFirstIndex, int ansSecondIndex)
     {
 
+        string ans = convertToAnswers[ansFirstIndex] + convertToAnswers[ansSecondIndex];
+        string correctAnswer = correctAnswers[tmpTargetIndex];
+        if (ans.Equals(correctAnswer))
+        {
+            score += 1;
+            return true;
+        }
+        else return false;
     }
+
+    public int GetProblemCount()
+    {
+        return this.textStrings.Length;
+    }
+
+
+
 }

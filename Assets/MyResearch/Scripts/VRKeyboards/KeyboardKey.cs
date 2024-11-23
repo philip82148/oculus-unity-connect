@@ -44,6 +44,11 @@ public class KeyboardKey : MonoBehaviour
 
         SetText();
     }
+
+    public int GetNumIndex()
+    {
+        return this.numIndex;
+    }
 }
 
 

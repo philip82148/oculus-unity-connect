@@ -125,6 +125,8 @@ MonoBehaviour:
   thisRenderer: {fileID: 1369791613293574646}
   index: 4
   isMove: 0
+  expScene: 0
+  numberingText: {fileID: 8476371159556703215}
 --- !u!54 &613765646248614992
 Rigidbody:
   m_ObjectHideFlags: 0

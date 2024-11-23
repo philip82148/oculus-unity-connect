@@ -13,9 +13,8 @@ public class VRKeyboardExpController : MonoBehaviour
     [SerializeField] private float interval = 0.07f;
     [Header("Setting")]
     [SerializeField] private CalculateDistance calculateDistance;
-    [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
-    [SerializeField] private TargetDisplayTextController targetDisplayTextController;
-    [SerializeField] private HandController handController;
+
+    [SerializeField] private KeyboardHandController handController;
     [SerializeField] private NumberKeyboard numberKeyboard;
 
     [Header("UI")]
@@ -36,7 +35,14 @@ public class VRKeyboardExpController : MonoBehaviour
     private int restCount = 11;
 
     private int targetCorrectIndex = 0;
+    private int problemCount = 0;
     private float previousInterval;
+
+
+    private int ansFirstIndex = -1;
+    private int ansSecondIndex = -1;
+
+    private const int FIXED_NON_ANSWER_INDEX = -1;
 
 
 
@@ -44,6 +50,7 @@ public class VRKeyboardExpController : MonoBehaviour
     void Start()
     {
         objectCount = gridSize * gridSize * gridSize;
+        problemCount = numberKeyboard.GetProblemCount();
         previousInterval = interval;
         CreateTargetObjectsIn3D();
     }
@@ -70,8 +77,19 @@ public class VRKeyboardExpController : MonoBehaviour
         }
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
-            int tmpIndex = handController.GetIndex();
-            SetRejoinedIndex(tmpIndex);
+            if (ansFirstIndex == FIXED_NON_ANSWER_INDEX)
+            {
+                ansFirstIndex = handController.GetIndex();
+            }
+            if (ansFirstIndex != FIXED_NON_ANSWER_INDEX)
+            {
+                ansSecondIndex = handController.GetIndex();
+            }
+            if (ansFirstIndex != FIXED_NON_ANSWER_INDEX && ansSecondIndex != FIXED_NON_ANSWER_INDEX)
+            {
+                SetRejoinedIndex();
+            }
+
         }
         if (isGame)
         {
@@ -82,9 +100,10 @@ public class VRKeyboardExpController : MonoBehaviour
 
     public void SetNextTarget()
     {
-        restCount -= 1;
-        DecideTargetIndex();
-        ChangeDisplayColor();
+        targetCorrectIndex = Random.Range(0, problemCount);
+        GetXYZIndexesForTargetCorrectIndex();
+        numberKeyboard.SetNextTargetText(targetCorrectIndex);
+        // ChangeDisplayText();
     }
 
     private void CreateTargetObjectsIn3D()
@@ -108,16 +127,6 @@ public class VRKeyboardExpController : MonoBehaviour
                     targetObjects.Add(gameObject);
                     targetCoordinates.Add(newPosition);
 
-                    // // 追加のセットアップ
-                    // TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
-                    // if (text != null)
-                    // {
-                    //     text.text = targetObjects.Count.ToString();
-                    // }
-                    // else
-                    // {
-                    //     Debug.Log("text null");
-                    // }
 
                     int index = targetObjects.Count - 1;
                     KeyboardKey keyboardKey = gameObject.GetComponent<KeyboardKey>();
@@ -174,32 +183,22 @@ public class VRKeyboardExpController : MonoBehaviour
 
     }
 
-    private void DecideTargetIndex()
-    {
-        targetCorrectIndex = Random.Range(0, objectCount);
-        GetXYZIndexesForTargetCorrectIndex();
-        ChangeDisplayText();
-    }
 
-    public void SetRejoinedIndex(int rejoinedIndex)
+
+    public void SetRejoinedIndex()
     {
-        CheckCorrectAnswer(rejoinedIndex);
-        DecideTargetIndex();
+        CheckCorrectAnswer();
+
         SetNextTarget();
     }
 
-    private void CheckCorrectAnswer(int rejoinedIndex)
+    private void CheckCorrectAnswer()
     {
-        if (targetCorrectIndex == rejoinedIndex)
-        {
-            score += 1;
-        }
+        bool isCorrect = numberKeyboard.CheckCorrectAnswer(ansFirstIndex, ansSecondIndex);
+
     }
 
-    public void ChangeDisplayColor()
-    {
-        displayTargetPlaceColorController.ChangeIndexAndReflect(targetCorrectIndex);
-    }
+
 
     private void GetXYZIndexesForTargetCorrectIndex()
     {
@@ -210,14 +209,14 @@ public class VRKeyboardExpController : MonoBehaviour
         Debug.Log($"TargetCorrectIndex: {targetCorrectIndex}, x: {xIndex}, y: {yIndex}, z: {zIndex}");
     }
 
-    public void ChangeDisplayText()
-    {
-        int xIndex = gridSize - 1 - (targetCorrectIndex % gridSize);
-        int yIndex = gridSize - 1 - ((targetCorrectIndex / gridSize) % gridSize);
-        int zIndex = targetCorrectIndex / (gridSize * gridSize);
 
-        targetDisplayTextController.SetTargetXYZ(xIndex, yIndex, zIndex);
-    }
+
+
+
+    /// <summary>
+    /// ここから下はいったんいらない
+    /// </summary>
+    /// <returns></returns>
 
     public Vector3 GetStartCoordinate()
     {
