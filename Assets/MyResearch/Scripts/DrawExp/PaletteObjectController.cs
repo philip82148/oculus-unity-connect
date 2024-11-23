@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using TMPro;
 using UnityEngine;
 
 public class PaletteObjectController : MonoBehaviour
@@ -13,7 +15,6 @@ public class PaletteObjectController : MonoBehaviour
     private int xIndex = 0;
     private int yIndex = 0;
     private int zIndex = 0;
-    // Start is called before the first frame update
 
     void Start()
     {
@@ -65,5 +66,7 @@ public class PaletteObjectController : MonoBehaviour
 
             thisRenderer.material.color = Color.green;
         }
+
+
     }
 }

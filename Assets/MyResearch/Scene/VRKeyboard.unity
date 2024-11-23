@@ -613,6 +613,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99640453}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &106728067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 106728069}
+  - component: {fileID: 106728068}
+  m_Layer: 0
+  m_Name: VRKeyboardExpController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &106728068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106728067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4199c27b573509f45bc67c27f2cca629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObject: {fileID: 6020332538773331638, guid: 42549eef13e20e14fb5e3dd5ff5448d7, type: 3}
+  startCoordinate: {x: 0, y: 0, z: 0.05}
+  interval: 0.07
+  calculateDistance: {fileID: 498381302}
+  displayTargetPlaceColorController: {fileID: 0}
+  targetDisplayTextController: {fileID: 0}
+  handController: {fileID: 0}
+  numberKeyboard: {fileID: 0}
+  scoreText: {fileID: 0}
+  restCountText: {fileID: 0}
+  frequencyRangeVisualizer: {fileID: 0}
+--- !u!4 &106728069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106728067}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.015499999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &137201952
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,12 +1809,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28216ea005b445468e6531352bdf88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlaceDisplays:
-  - {fileID: 2095529123}
-  - {fileID: 148604090}
-  - {fileID: 1548489617}
-  - {fileID: 90039006}
-  - {fileID: 1803807093}
   targetNumDisplayText: {fileID: 1975742075}
 --- !u!1001 &481771508
 PrefabInstance:
@@ -2082,7 +2131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &516570760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2098,12 +2147,15 @@ MonoBehaviour:
   baseObject: {fileID: 6020332538773331638, guid: 42549eef13e20e14fb5e3dd5ff5448d7, type: 3}
   startCoordinate: {x: 0, y: 0.1, z: 0.25}
   interval: 0.1
+  subjectName: 
   calculateDistance: {fileID: 498381302}
   displayTargetPlaceColorController: {fileID: 382102245}
   targetDisplayTextController: {fileID: 2113597276}
   handController: {fileID: 240472516}
+  dataLoggerController: {fileID: 0}
   scoreText: {fileID: 1479586392}
   restCountText: {fileID: 914118628}
+  targetHand: {fileID: 0}
   frequencyRangeVisualizer: {fileID: 289241263}
   denseOrSparse: 1
   expScene: 0
@@ -2691,6 +2743,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707445727}
   m_CullTransparentMesh: 1
+--- !u!1 &726300071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 726300073}
+  - component: {fileID: 726300072}
+  m_Layer: 0
+  m_Name: NumberKeyboard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &726300072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726300071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd5d693225948f64ca44e39d9e3fb1f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyboardKeys: []
+--- !u!4 &726300073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726300071}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.29890817, y: -0.050742034, z: 0.40416166}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &777829602
 GameObject:
   m_ObjectHideFlags: 0
@@ -7143,4 +7240,6 @@ SceneRoots:
   - {fileID: 1691592832}
   - {fileID: 2072771671}
   - {fileID: 1085027974}
+  - {fileID: 106728069}
   - {fileID: 1849694282}
+  - {fileID: 726300073}

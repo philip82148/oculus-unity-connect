@@ -35,4 +35,9 @@ public class NumberKeyboard : MonoBehaviour
     {
 
     }
+
+    public void SetNumberKeyboard()
+    {
+
+    }
 }

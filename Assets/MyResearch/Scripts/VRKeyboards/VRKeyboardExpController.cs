@@ -16,6 +16,7 @@ public class VRKeyboardExpController : MonoBehaviour
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
     [SerializeField] private TargetDisplayTextController targetDisplayTextController;
     [SerializeField] private HandController handController;
+    [SerializeField] private NumberKeyboard numberKeyboard;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -23,11 +24,6 @@ public class VRKeyboardExpController : MonoBehaviour
 
     [Header("Visualizer")]
     [SerializeField] private FrequencyRangeVisualizer frequencyRangeVisualizer;
-
-    [SerializeField] private DenseOrSparse denseOrSparse;
-    [SerializeField]
-    private ExpScene expScene = ExpScene.DenseOrSparse;
-
 
     private List<Vector3> targetCoordinates = new List<Vector3>();
     private List<GameObject> targetObjects = new List<GameObject>();
@@ -58,7 +54,6 @@ public class VRKeyboardExpController : MonoBehaviour
         if (interval != previousInterval)
         {
             UpdateObjectPositionsIn3D();
-            // UpdateObjectPositions();
             previousInterval = interval;
         }
         if (restCount <= 0)
@@ -98,11 +93,10 @@ public class VRKeyboardExpController : MonoBehaviour
 
         for (int z = 0; z < gridSize; z++) // Zループを外側に
         {
-            for (int y = 0; y < gridSize; y++)
+            for (int y = gridSize - 1; y >= 0; y--) // yループを逆順に
             {
-                for (int x = 0; x < gridSize; x++) // Xループを内側に
+                for (int x = gridSize - 1; x >= 0; x--) // xループを逆順に
                 {
-
                     float positionOffsetX = (x - midIndex) * interval;
                     float positionOffsetY = (y - midIndex) * interval;
                     float positionOffsetZ = (z - midIndex) * interval;
@@ -114,21 +108,21 @@ public class VRKeyboardExpController : MonoBehaviour
                     targetObjects.Add(gameObject);
                     targetCoordinates.Add(newPosition);
 
-                    // 追加のセットアップ
-                    TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
-                    if (text != null)
-                    {
-                        text.text = (targetObjects.Count).ToString();
-                    }
-                    else
-                    {
-                        Debug.Log("text null");
-                    }
+                    // // 追加のセットアップ
+                    // TextMeshPro text = gameObject.GetComponentInChildren<TextMeshPro>();
+                    // if (text != null)
+                    // {
+                    //     text.text = targetObjects.Count.ToString();
+                    // }
+                    // else
+                    // {
+                    //     Debug.Log("text null");
+                    // }
 
                     int index = targetObjects.Count - 1;
-                    PaletteObjectController paletteObjectController = gameObject.GetComponent<PaletteObjectController>();
-                    paletteObjectController.SetIndexes(x, y, z);
-                    paletteObjectController.SetIndex(index);
+                    KeyboardKey keyboardKey = gameObject.GetComponent<KeyboardKey>();
+                    keyboardKey.SetIndexes(x, y, z);
+                    // keyboardKey.SetIndex(index);
 
                     calculateDistance.SetTargetObject(gameObject);
                     if (x == midIndex && y == midIndex && z == midIndex)
@@ -140,19 +134,16 @@ public class VRKeyboardExpController : MonoBehaviour
         }
     }
 
-
-
     private void UpdateObjectPositionsIn3D()
     {
-        int gridSize = 3; // グリッドのサイズ（3×3×3）
-        int midIndex = gridSize / 2; // 中央のインデックス（1）
+        int midIndex = gridSize / 2;
         int index = 0;
 
-        for (int x = 0; x < gridSize; x++)
+        for (int z = 0; z < gridSize; z++)
         {
-            for (int y = 0; y < gridSize; y++)
+            for (int y = gridSize - 1; y >= 0; y--)
             {
-                for (int z = 0; z < gridSize; z++)
+                for (int x = gridSize - 1; x >= 0; x--)
                 {
                     float positionOffsetX = (x - midIndex) * interval;
                     float positionOffsetY = (y - midIndex) * interval;
@@ -171,14 +162,16 @@ public class VRKeyboardExpController : MonoBehaviour
         }
     }
 
-    public DenseOrSparse GetDenseOrSparse()
-    {
-        return denseOrSparse;
-    }
 
     public bool GetIsGame()
     {
         return isGame;
+    }
+
+
+    private void SetNumberKeyboard()
+    {
+
     }
 
     private void DecideTargetIndex()
@@ -207,23 +200,23 @@ public class VRKeyboardExpController : MonoBehaviour
     {
         displayTargetPlaceColorController.ChangeIndexAndReflect(targetCorrectIndex);
     }
+
     private void GetXYZIndexesForTargetCorrectIndex()
     {
-        int xIndex = targetCorrectIndex / (gridSize * gridSize);
-        int yIndex = (targetCorrectIndex / gridSize) % gridSize;
-        int zIndex = targetCorrectIndex % gridSize;
+        int xIndex = gridSize - 1 - (targetCorrectIndex % gridSize);
+        int yIndex = gridSize - 1 - ((targetCorrectIndex / gridSize) % gridSize);
+        int zIndex = targetCorrectIndex / (gridSize * gridSize);
 
         Debug.Log($"TargetCorrectIndex: {targetCorrectIndex}, x: {xIndex}, y: {yIndex}, z: {zIndex}");
     }
 
     public void ChangeDisplayText()
     {
-        int xIndex = targetCorrectIndex / (gridSize * gridSize);
-        int yIndex = (targetCorrectIndex / gridSize) % gridSize;
-        int zIndex = targetCorrectIndex % gridSize;
+        int xIndex = gridSize - 1 - (targetCorrectIndex % gridSize);
+        int yIndex = gridSize - 1 - ((targetCorrectIndex / gridSize) % gridSize);
+        int zIndex = targetCorrectIndex / (gridSize * gridSize);
 
         targetDisplayTextController.SetTargetXYZ(xIndex, yIndex, zIndex);
-
     }
 
     public Vector3 GetStartCoordinate()
@@ -240,13 +233,14 @@ public class VRKeyboardExpController : MonoBehaviour
     {
         return interval;
     }
+
     public int GetObjectCount()
     {
         return objectCount;
     }
+
     public int GetGridSize()
     {
         return gridSize;
     }
 }
-
