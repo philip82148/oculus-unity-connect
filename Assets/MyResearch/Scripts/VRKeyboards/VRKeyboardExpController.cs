@@ -18,8 +18,11 @@ public class VRKeyboardExpController : MonoBehaviour
     [SerializeField] private NumberKeyboard numberKeyboard;
 
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI restCountText;
+
+    // [SerializeField] private TextMeshProUGUI restCountText;
+    [SerializeField]
+    private TextMeshProUGUI ansFirstText;
+    [SerializeField] private TextMeshProUGUI ansSecondText;
 
     [Header("Visualizer")]
     [SerializeField] private FrequencyRangeVisualizer frequencyRangeVisualizer;
@@ -30,7 +33,7 @@ public class VRKeyboardExpController : MonoBehaviour
     private int gridSize = 3;
 
     private int objectCount = 5;
-    private int score = 0;
+    // private int score = 0;
     private bool isGame = false;
     private int restCount = 11;
 
@@ -42,7 +45,7 @@ public class VRKeyboardExpController : MonoBehaviour
     private int ansFirstIndex = -1;
     private int ansSecondIndex = -1;
 
-    private const int FIXED_NON_ANSWER_INDEX = -1;
+    private const int FIXED_NON_ANSWER_INDEX = -2;
 
 
 
@@ -66,13 +69,13 @@ public class VRKeyboardExpController : MonoBehaviour
         if (restCount <= 0)
         {
             isGame = false;
-            restCountText.text = "game finished";
+            // restCountText.text = "game finished";
         }
 
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
             isGame = true;
-
+            ResetIndex();
             SetNextTarget();
         }
         if (OVRInput.GetDown(OVRInput.Button.One))
@@ -81,21 +84,22 @@ public class VRKeyboardExpController : MonoBehaviour
             {
                 ansFirstIndex = handController.GetIndex();
             }
-            if (ansFirstIndex != FIXED_NON_ANSWER_INDEX)
+            else if (ansSecondIndex == FIXED_NON_ANSWER_INDEX)
             {
                 ansSecondIndex = handController.GetIndex();
-            }
-            if (ansFirstIndex != FIXED_NON_ANSWER_INDEX && ansSecondIndex != FIXED_NON_ANSWER_INDEX)
-            {
+
+                // 二つの選択肢が揃ったので、答えをチェック
                 SetRejoinedIndex();
             }
 
         }
         if (isGame)
         {
-            scoreText.text = "score:" + score.ToString();
-            restCountText.text = "rest:" + restCount.ToString();
+            // restCountText.text = "rest:" + restCount.ToString();
         }
+
+        ansFirstText.text = "first:" + ansFirstIndex.ToString();
+        ansSecondText.text = "sec:" + ansSecondIndex.ToString();
     }
 
     public void SetNextTarget()
@@ -114,7 +118,7 @@ public class VRKeyboardExpController : MonoBehaviour
         {
             for (int y = gridSize - 1; y >= 0; y--) // yループを逆順に
             {
-                for (int x = gridSize - 1; x >= 0; x--) // xループを逆順に
+                for (int x = 0; x < gridSize; x++) // xループを逆順に
                 {
                     float positionOffsetX = (x - midIndex) * interval;
                     float positionOffsetY = (y - midIndex) * interval;
@@ -131,7 +135,7 @@ public class VRKeyboardExpController : MonoBehaviour
                     int index = targetObjects.Count - 1;
                     KeyboardKey keyboardKey = gameObject.GetComponent<KeyboardKey>();
                     keyboardKey.SetIndexes(x, y, z);
-                    // keyboardKey.SetIndex(index);
+                    keyboardKey.SetIndex(index);
 
                     calculateDistance.SetTargetObject(gameObject);
                     if (x == midIndex && y == midIndex && z == midIndex)
@@ -188,8 +192,13 @@ public class VRKeyboardExpController : MonoBehaviour
     public void SetRejoinedIndex()
     {
         CheckCorrectAnswer();
-
+        ResetIndex();
         SetNextTarget();
+    }
+    private void ResetIndex()
+    {
+        ansFirstIndex = FIXED_NON_ANSWER_INDEX;
+        ansSecondIndex = FIXED_NON_ANSWER_INDEX;
     }
 
     private void CheckCorrectAnswer()

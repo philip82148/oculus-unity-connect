@@ -9,6 +9,7 @@ public class KeyboardKey : MonoBehaviour
     [SerializeField]
     private TextMeshPro numberingText;
     private int numIndex = 0;
+    private int index = -1;
     private KeyboardPosition keyboardPosition;
     private int gridSize = 3;
 
@@ -32,22 +33,35 @@ public class KeyboardKey : MonoBehaviour
         //     numberingText.text = (index + 1).ToString();
         // }
 
-        numberingText.text = (numIndex).ToString() + keyboardPosition.ToString();
+        numberingText.text = (numIndex + 1).ToString() + keyboardPosition.ToString();
 
     }
     public void SetIndexes(int xIndex, int yIndex, int zIndex)
     {
-        numIndex = xIndex + gridSize * yIndex;
+        numIndex = xIndex + gridSize * (gridSize - 1 - yIndex);
         if (zIndex == 0) keyboardPosition = KeyboardPosition.Plus;
         else if (zIndex == 1) keyboardPosition = KeyboardPosition.Minus;
         else if (zIndex == 2) keyboardPosition = KeyboardPosition.Equal;
 
         SetText();
     }
-
-    public int GetNumIndex()
+    public void SetIndex(int tmpIndex)
     {
-        return this.numIndex;
+        index = tmpIndex;
+    }
+
+
+    // public int GetNumIndex()
+    // {
+    //     return this.numIndex;
+    // }
+    public int GetIndex()
+    {
+        return this.index;
+    }
+    public void SetColor()
+    {
+
     }
 }
 

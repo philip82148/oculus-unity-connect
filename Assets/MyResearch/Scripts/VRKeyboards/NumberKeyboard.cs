@@ -93,6 +93,8 @@ public class NumberKeyboard : MonoBehaviour
 
         string ans = convertToAnswers[ansFirstIndex] + convertToAnswers[ansSecondIndex];
         string correctAnswer = correctAnswers[tmpTargetIndex];
+        Debug.Log(ans + "correct:" + correctAnswer + "text:" + textStrings[tmpTargetIndex]);
+        // Debug.Log);
         if (ans.Equals(correctAnswer))
         {
             score += 1;

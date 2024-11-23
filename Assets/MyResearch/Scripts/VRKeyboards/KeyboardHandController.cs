@@ -21,8 +21,12 @@ public class KeyboardHandController : MonoBehaviour
             return;
         }
 
-        tmpIndex = keyboardKey.GetNumIndex();
+        tmpIndex = keyboardKey.GetIndex();
         isTouched = true;
+        if (OVRInput.GetDown(OVRInput.Button.One))
+        {
+            keyboardKey.SetColor();
+        }
 
 
 
