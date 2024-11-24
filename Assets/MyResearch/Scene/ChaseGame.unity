@@ -108,7 +108,7 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
+    agentSlope: 48.4
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
@@ -2444,9 +2444,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1489010112}
+  escapePoint: {fileID: 539243827}
   fleeDistance: 5
-  safeDistance: 10
   agent: {fileID: 517734448}
+  speed: 2
+  flag: 0
 --- !u!195 &517734448
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2465,10 +2467,15 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!4 &539243827 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8832126067532086055, guid: dc06c9404c4d15c43ac58cb24c235df5, type: 3}
+  m_PrefabInstance: {fileID: 1982349606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &561690451
 GameObject:
   m_ObjectHideFlags: 0
@@ -4712,7 +4719,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.85
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6459,7 +6466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1977287627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6643,6 +6650,10 @@ PrefabInstance:
     - target: {fileID: 773256428013599458, guid: dc06c9404c4d15c43ac58cb24c235df5, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 773256428013599458, guid: dc06c9404c4d15c43ac58cb24c235df5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 786276695432139849, guid: dc06c9404c4d15c43ac58cb24c235df5, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -7673,6 +7684,10 @@ PrefabInstance:
       value: MazePrefab
       objectReference: {fileID: 0}
     - target: {fileID: 5882916365004839563, guid: dc06c9404c4d15c43ac58cb24c235df5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5882916365004839563, guid: dc06c9404c4d15c43ac58cb24c235df5, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -7795,6 +7810,10 @@ PrefabInstance:
     - target: {fileID: 6391720631479758888, guid: dc06c9404c4d15c43ac58cb24c235df5, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6391720631479758888, guid: dc06c9404c4d15c43ac58cb24c235df5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6397718632629454719, guid: dc06c9404c4d15c43ac58cb24c235df5, type: 3}
       propertyPath: m_StaticEditorFlags
