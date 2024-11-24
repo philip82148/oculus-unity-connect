@@ -568,7 +568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseObject: {fileID: 6020332538773331638, guid: 42549eef13e20e14fb5e3dd5ff5448d7, type: 3}
-  startCoordinate: {x: 0, y: 0, z: 0.05}
+  startCoordinate: {x: 0, y: -0.2, z: 0.05}
   interval: 0.07
   calculateDistance: {fileID: 498381302}
   handController: {fileID: 240472520}
@@ -2038,8 +2038,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.1
-  m_fontSizeBase: 13.1
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
