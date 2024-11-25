@@ -8,6 +8,7 @@ public class KeyboardKey : MonoBehaviour
     [Header("UI Setting")]
     [SerializeField]
     private TextMeshPro numberingText;
+    [SerializeField] private string alphabet = "A";
     private int numIndex = 0;
     private int index = -1;
     private KeyboardPosition keyboardPosition;
@@ -16,7 +17,7 @@ public class KeyboardKey : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        numberingText.text = alphabet;
     }
 
     // Update is called once per frame
@@ -43,7 +44,7 @@ public class KeyboardKey : MonoBehaviour
         else if (zIndex == 1) keyboardPosition = KeyboardPosition.Minus;
         else if (zIndex == 2) keyboardPosition = KeyboardPosition.Equal;
 
-        SetText();
+        // SetText();
     }
     public void SetIndex(int tmpIndex)
     {
@@ -58,6 +59,10 @@ public class KeyboardKey : MonoBehaviour
     public int GetIndex()
     {
         return this.index;
+    }
+    public string GetAlphabet()
+    {
+        return this.alphabet;
     }
     public void SetColor()
     {

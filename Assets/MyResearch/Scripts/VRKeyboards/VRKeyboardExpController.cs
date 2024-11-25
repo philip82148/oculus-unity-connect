@@ -110,7 +110,7 @@ public class VRKeyboardExpController : MonoBehaviour
         // ChangeDisplayText();
     }
 
-    private void CreateTargetObjectsIn3D()
+    public void CreateTargetObjectsIn3D()
     {
         int midIndex = gridSize / 2;
 
@@ -250,5 +250,12 @@ public class VRKeyboardExpController : MonoBehaviour
     public int GetGridSize()
     {
         return gridSize;
+    }
+
+    public void DestoryKeyboard()
+    {
+        for (int i = 0; i < targetObjects.Count; i++)
+            Destroy(targetObjects[i]);
+
     }
 }
