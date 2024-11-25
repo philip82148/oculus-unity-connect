@@ -145,11 +145,11 @@ public class CreateSoundController : MonoBehaviour
                 // 基本音
                 double sample = gain * GenerateWave(phase, waveType);
 
-                // 第1倍音
-                sample += gain * harmonic1Coefficient * GenerateWave(phaseHarmonic1, waveType);
+                // // 第1倍音
+                // sample += gain * harmonic1Coefficient * GenerateWave(phaseHarmonic1, waveType);
 
-                // 第2倍音
-                sample += gain * harmonic2Coefficient * GenerateWave(phaseHarmonic2, waveType);
+                // // 第2倍音
+                // sample += gain * harmonic2Coefficient * GenerateWave(phaseHarmonic2, waveType);
 
                 // パンニングの適用（標準的な計算方法）
                 double panValue = (pan + 1) / 2; // -1から1を0から1に変換

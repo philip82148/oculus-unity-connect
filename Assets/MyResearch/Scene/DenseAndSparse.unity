@@ -1649,7 +1649,7 @@ MonoBehaviour:
   baseObject: {fileID: 53451026094502471, guid: 9236f633abf63a74fa6afcbbc00f092e, type: 3}
   startCoordinate: {x: 0.35, y: 0, z: 0.075}
   interval: 0.1
-  subjectName: "\u5EE3\u91CE\u91CC\u5948"
+  subjectName: "\u6C34\u4E0A"
   calculateDistance: {fileID: 993637233}
   displayTargetPlaceColorController: {fileID: 816950487}
   targetDisplayTextController: {fileID: 2089820211}

@@ -141,7 +141,7 @@ public class CalculateSound : MonoBehaviour
     private float CorrectLoudness(float originalAmplitude)
     {
         float naze = 6;
-        float dBReduction = naze + 8;
+        float dBReduction = naze + 6;
         if (frequencyExponent == 1) dBReduction += 2;
         else if (frequencyExponent == 0.75) dBReduction += 1;
         else if (frequencyExponent == 0.5) dBReduction += -3;

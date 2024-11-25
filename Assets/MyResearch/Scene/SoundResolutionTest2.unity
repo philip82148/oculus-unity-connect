@@ -2255,6 +2255,8 @@ MonoBehaviour:
   maxFrequency: 700
   isExp: 1
   frequencyExponent: 0
+  dBReduction: 0
+  newAmplitude: 0
 --- !u!4 &285819130
 Transform:
   m_ObjectHideFlags: 0
@@ -6693,10 +6695,10 @@ MonoBehaviour:
   - {fileID: 1897772033}
   - {fileID: 1906875664}
   - {fileID: 1910628362}
-  subjectName: "\u6CB3\u5408"
-  frequencyResolutionCount: 5
-  amplitudeResolutionCount: 5
-  panResolutionCount: 5
+  subjectName: "\u6C34\u4E0A"
+  frequencyResolutionCount: 3
+  amplitudeResolutionCount: 3
+  panResolutionCount: 3
 --- !u!4 &2050762696
 Transform:
   m_ObjectHideFlags: 0
