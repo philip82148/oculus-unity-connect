@@ -6696,9 +6696,9 @@ MonoBehaviour:
   - {fileID: 1906875664}
   - {fileID: 1910628362}
   subjectName: "\u6C34\u4E0A"
-  frequencyResolutionCount: 3
-  amplitudeResolutionCount: 3
-  panResolutionCount: 3
+  frequencyResolutionCount: 5
+  amplitudeResolutionCount: 5
+  panResolutionCount: 5
 --- !u!4 &2050762696
 Transform:
   m_ObjectHideFlags: 0
