@@ -25,5 +25,6 @@ public class ChaseGameController : MonoBehaviour
     public void AddScore()
     {
         score += 1;
+        scoreText.text = "score:" + score.ToString();
     }
 }
