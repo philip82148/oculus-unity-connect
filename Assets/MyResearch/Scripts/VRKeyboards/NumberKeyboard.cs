@@ -24,11 +24,10 @@ public class NumberKeyboard : MonoBehaviour
         "みかん6個からレモン1個を引く式を書いてください。"
     };
     private string[] correctAnswers ={
-        "2+3=",
-        "4+1=",
-        "3+2=",
-        "5-2=",
-        "6-1",
+         "Type the word: hello",
+        "Type the word: world",
+          "Type the word: DCC",
+        "Type the word: world",
     };
     private string[] convertToAnswers = {
         "1+",
