@@ -13,15 +13,15 @@ public class NumberKeyboard : MonoBehaviour
 
     private int score = 0;
     private int tmpTargetIndex = -1;
+    private string userInput = "";
 
 
 
     private string[] textStrings = {
-        "バナナ2本とオレンジ3個を足す式を書いてください。",
-        "ぶどう4房とりんご1個を足す式を書いてください。",
-        "梨3個と桃2個を足す式を書いてください。",
-        "りんご5個からバナナ2本を引く式を書いてください。",
-        "みかん6個からレモン1個を引く式を書いてください。"
+         "Type the word: hello",
+        "Type the word: world",
+          "Type the word: DCC",
+        "Type the word: world",
     };
     private string[] correctAnswers ={
          "Type the word: hello",
@@ -75,11 +75,16 @@ public class NumberKeyboard : MonoBehaviour
 
     }
 
-    public void SetNumberKeyboard(KeyboardKey keyboardKey)
+    public void OnKeyPressed(string key)
     {
-        keyboardKeys.Add(keyboardKey);
-
+        userInput += key;
     }
+
+    // public void SetNumberKeyboard(KeyboardKey keyboardKey)
+    // {
+    //     keyboardKeys.Add(keyboardKey);
+
+    // }
     public void SetNextTargetText(int tmpIndex)
     {
         tmpTargetIndex = tmpIndex;

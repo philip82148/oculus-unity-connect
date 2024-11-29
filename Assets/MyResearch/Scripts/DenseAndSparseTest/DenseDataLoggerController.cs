@@ -23,7 +23,7 @@ public class DenseDataLoggerController : MonoBehaviour
     {
         subjectName = denseSparseExpController.GetSubjectName();
 
-        folder = $"C:\\Users\\takaharayota\\Research\\Semi-Exp3\\{denseOrSparse}\\{subjectName}";
+        folder = $"C:\\Users\\takaharayota\\Research\\Semi-Exp3\\{subjectName}\\{denseOrSparse}";
         Directory.CreateDirectory(folder);
 
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");

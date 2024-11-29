@@ -2304,9 +2304,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 370405462}
   - {fileID: 1438077350}
   - {fileID: 49490829}
-  - {fileID: 370405462}
   - {fileID: 2002466864}
   - {fileID: 761049841}
   - {fileID: 18046762}
@@ -5833,7 +5833,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5d693225948f64ca44e39d9e3fb1f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboardKeys: []
+  keyboardKeys:
+  - {fileID: 370405463}
+  - {fileID: 1438077351}
+  - {fileID: 49490830}
+  - {fileID: 2002466865}
+  - {fileID: 761049842}
+  - {fileID: 18046763}
+  - {fileID: 1117305449}
+  - {fileID: 1824978873}
+  - {fileID: 1704147630}
+  - {fileID: 706915408}
+  - {fileID: 1183869725}
+  - {fileID: 1398377615}
+  - {fileID: 1392742305}
+  - {fileID: 2102503497}
+  - {fileID: 1378294338}
+  - {fileID: 488106560}
+  - {fileID: 1533965520}
+  - {fileID: 2051092277}
+  - {fileID: 743162823}
+  - {fileID: 676986704}
+  - {fileID: 1314500059}
+  - {fileID: 279426237}
+  - {fileID: 1771681587}
+  - {fileID: 334686031}
+  - {fileID: 1313012085}
+  - {fileID: 686985930}
+  - {fileID: 1534793971}
   problemText: {fileID: 514435824}
   scoreText: {fileID: 209836354}
 --- !u!4 &726300073

@@ -7,9 +7,11 @@ public class KeyboardHandController : MonoBehaviour
 {
     [SerializeField]
     private VRKeyboardExpController vRKeyboardExpController;
+    [SerializeField] private NumberKeyboard numberKeyboard;
 
     private bool isTouched = false;
     private int tmpIndex = 0;
+    private string tmpAlphabet;
 
 
 
@@ -21,11 +23,14 @@ public class KeyboardHandController : MonoBehaviour
             return;
         }
 
-        tmpIndex = keyboardKey.GetIndex();
+        // tmpIndex = keyboardKey.GetIndex();
+        tmpAlphabet = keyboardKey.GetAlphabet();
         isTouched = true;
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             keyboardKey.SetColor();
+            numberKeyboard.OnKeyPressed(tmpAlphabet);
+
         }
 
 
@@ -45,6 +50,15 @@ public class KeyboardHandController : MonoBehaviour
         {
             return -1;
         }
+    }
+
+    public string GetAlphabet()
+    {
+        if (isTouched)
+        {
+            return tmpAlphabet;
+        }
+        else return "";
     }
 
 }
