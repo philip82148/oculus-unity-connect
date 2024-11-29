@@ -4813,9 +4813,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1217421958681002, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1374267811619562, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1625221395402176, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
       propertyPath: m_Name
       value: Monster_Bat_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625221395402176, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4085869397129016, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4929,7 +4941,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!135 &1756171635
@@ -5016,7 +5028,7 @@ MonoBehaviour:
   targetEnemy: {fileID: 1756171631}
   bulletObject: {fileID: 3625235177993269370, guid: d284484686a8ea6459160014c2fabe6f, type: 3}
   weaponSpawnPoint: {fileID: 300016078}
-  weaponSpeed: 1.5
+  weaponSpeed: 3
 --- !u!4 &1831650544
 Transform:
   m_ObjectHideFlags: 0
