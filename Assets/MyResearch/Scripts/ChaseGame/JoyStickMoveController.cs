@@ -8,6 +8,7 @@ public class JoyStickMoveController : MonoBehaviour
 {
     [SerializeField] private float speed = 0.05f;
     [SerializeField] Vector3 changeRotation;
+    [SerializeField] private List<GameObject> cornerObjects;
     // Start is called before the first frame update
     void Start()
     {
@@ -85,6 +86,20 @@ public class JoyStickMoveController : MonoBehaviour
         {
             this.transform.Rotate(0, angle, 0);
         }
+    }
+
+    private bool IsAtCorner()
+    {
+        foreach (GameObject corner in cornerObjects)
+        {
+            float distance = Mathf.Abs()
+            if (distance < 0.5f) // 許容範囲を0.5メートルとする
+            {
+                return true;
+            }
+        }
+        return false;
+
     }
 
     void Move4()
