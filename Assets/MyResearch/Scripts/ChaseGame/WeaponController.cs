@@ -28,7 +28,7 @@ public class WeaponController : MonoBehaviour
     private void FireWeapon()
     {
         // 前方にオフセットする距離
-        float offsetDistance = 1.0f;
+        float offsetDistance = 0.05f;
 
         // 弾を生成する位置を計算
         Vector3 spawnPosition = weaponSpawnPoint.position + weaponSpawnPoint.forward * offsetDistance;

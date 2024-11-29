@@ -6695,10 +6695,10 @@ MonoBehaviour:
   - {fileID: 1897772033}
   - {fileID: 1906875664}
   - {fileID: 1910628362}
-  subjectName: "\u5E73\u5CA1"
-  frequencyResolutionCount: 3
-  amplitudeResolutionCount: 3
-  panResolutionCount: 3
+  subjectName: "\u6D66\u897F"
+  frequencyResolutionCount: 5
+  amplitudeResolutionCount: 5
+  panResolutionCount: 5
 --- !u!4 &2050762696
 Transform:
   m_ObjectHideFlags: 0

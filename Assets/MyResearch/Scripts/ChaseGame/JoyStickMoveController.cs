@@ -18,20 +18,22 @@ public class JoyStickMoveController : MonoBehaviour
 
     void Update()
     {
-        Move3();
+        // Move3();
+        ChangeDirection();
+        Move4();
     }
 
 
-    private void Move()
-    {
-        Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-        Vector3 changePosition = new Vector3(stickR.x, 0, stickR.y);
-        //HMDのY軸の角度取得
-        changeRotation = new Vector3(0, InputTracking.GetLocalRotation(XRNode.Head).eulerAngles.y, 0);
-        //OVRCameraRigの位置変更
-        this.transform.position += this.transform.rotation * (Quaternion.Euler(changeRotation) * changePosition) * speed;
+    // private void Move()
+    // {
+    //     Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+    //     Vector3 changePosition = new Vector3(stickR.x, 0, stickR.y);
+    //     //HMDのY軸の角度取得
+    //     changeRotation = new Vector3(0, InputTracking.GetLocalRotation(XRNode.Head).eulerAngles.y, 0);
+    //     //OVRCameraRigの位置変更
+    //     this.transform.position += this.transform.rotation * (Quaternion.Euler(changeRotation) * changePosition) * speed;
 
-    }
+    // }
     private void Move2()
     {
         Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
@@ -70,5 +72,29 @@ public class JoyStickMoveController : MonoBehaviour
         // 移動
         Vector3 moveDirection = rotation * direction.normalized * speed;
         transform.position += moveDirection;
+    } //OVRCameraRigの角度変更
+    void ChangeDirection()
+    {
+
+        float angle = 90f;
+        if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickLeft))
+        {
+            this.transform.Rotate(0, -angle, 0);
+        }
+        else if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickRight))
+        {
+            this.transform.Rotate(0, angle, 0);
+        }
+    }
+
+    void Move4()
+    {
+        //右ジョイスティックの情報取得
+        Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+        // プレイヤーの体の向きを取得
+        float yRotation = transform.eulerAngles.y;
+        Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
+        //OVRCameraRigの位置変更
+        this.transform.position += rotation * (new Vector3((stickR.x), 0, (stickR.y)).normalized) * speed;
     }
 }
