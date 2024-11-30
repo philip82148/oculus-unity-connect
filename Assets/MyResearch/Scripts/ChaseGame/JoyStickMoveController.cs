@@ -63,7 +63,7 @@ public class JoyStickMoveController : MonoBehaviour
         Vector2 stickInput = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
         float moveValue = stickInput.y;
 
-        if (Mathf.Abs(moveValue) < 0.1f)
+        if (Mathf.Abs(moveValue) < 0.5f)
             return;
 
         Vector3 position = transform.position;

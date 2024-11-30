@@ -8,7 +8,10 @@ public class ChaseGameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
 
     private int score = 0;
+    [Header("Controller Setting")]
     [SerializeField] private HandController handController;
+    [SerializeField] private WeaponController weaponController;
+    private int tmpIndex = 0;
 
 
 
@@ -21,7 +24,11 @@ public class ChaseGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (OVRInput.GetDown(OVRInput.Button.One))
+        {
+            tmpIndex = handController.GetIndex();
+            SetWeapon();
+        }
     }
 
     public void AddScore()
@@ -32,5 +39,9 @@ public class ChaseGameController : MonoBehaviour
     public void SetHP(int hp)
     {
         scoreText.text = "HP:" + hp.ToString();
+    }
+    private void SetWeapon()
+    {
+        weaponController.SetWeapon(tmpIndex);
     }
 }

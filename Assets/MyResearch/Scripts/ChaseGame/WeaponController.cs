@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
     [SerializeField] private GameObject targetEnemy;
     [SerializeField] private GameObject bulletObject;
+    [SerializeField] private GameObject bombObject;
+    [SerializeField] private GameObject ropeObject;
 
     [SerializeField] private Transform weaponSpawnPoint;
-    [SerializeField] private float weaponSpeed;
+    // [SerializeField] private float weaponSpeed;
+    [SerializeField] private float bombSpeed;
+    [SerializeField] private float bulletSpeed;
+    private int selectedIndex = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +27,12 @@ public class WeaponController : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.Button.Two))
         {
-            FireWeapon();
+            InstantiateWeapon();
         }
 
     }
 
-    private void FireWeapon()
+    private void InstantiateWeapon()
     {
         // 前方にオフセットする距離
         float offsetDistance = 0.05f;
@@ -33,17 +40,21 @@ public class WeaponController : MonoBehaviour
         // 弾を生成する位置を計算
         Vector3 spawnPosition = weaponSpawnPoint.position + weaponSpawnPoint.forward * offsetDistance;
 
+        GameObject targetObject;
+        if (selectedIndex == 0) targetObject = bulletObject;
+        else if (selectedIndex == 1) targetObject = bombObject;
+        else if (selectedIndex == 2) targetObject = ropeObject;
+        else return;
+
+
         // 弾を生成
-        GameObject weaponObject = Instantiate(bulletObject, spawnPosition, Quaternion.identity);
+        GameObject weaponObject = Instantiate(targetObject, spawnPosition, Quaternion.identity);
 
         // ターゲット方向を計算
         Vector3 direction = (targetEnemy.transform.position - spawnPosition).normalized;
 
-        Bullet bullet = weaponObject.GetComponent<Bullet>();
-        if (bullet != null)
-        {
-            bullet.Initialize(direction, weaponSpeed);
-        }
+
+        FireWeapon(weaponObject, direction);
 
         // Rigidbody に速度を設定
         // Rigidbody rb = weaponObject.GetComponent<Rigidbody>();
@@ -51,6 +62,36 @@ public class WeaponController : MonoBehaviour
         // {
         //     rb.velocity = direction * weaponSpeed;
         // }
+
+    }
+
+
+    private void FireWeapon(GameObject weaponObject, Vector3 direction)
+    {
+        if (selectedIndex == 0)
+        {
+            Bullet bullet = weaponObject.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                bullet.Initialize(direction, bulletSpeed);
+            }
+        }
+        else if (selectedIndex == 1)
+        {
+            Bomb bomb = weaponObject.GetComponent<Bomb>();
+            if (bomb != null)
+            {
+                bomb.Initialize(direction, bombSpeed);
+            }
+        }
+
+
+    }
+
+
+    public void SetWeapon(int index)
+    {
+        selectedIndex = index;
     }
 
 }
