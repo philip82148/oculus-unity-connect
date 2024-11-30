@@ -11,7 +11,7 @@ public class ChaseGameController : MonoBehaviour
     [Header("Controller Setting")]
     [SerializeField] private HandController handController;
     [SerializeField] private WeaponController weaponController;
-    private int tmpIndex = 0;
+    private int weaponIndex = 0;
 
 
 
@@ -26,7 +26,9 @@ public class ChaseGameController : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
-            tmpIndex = handController.GetIndex();
+            int tmpIndex = handController.GetIndex();
+            if (tmpIndex == -1) return;
+            weaponIndex = tmpIndex;
             SetWeapon();
         }
     }
@@ -42,6 +44,6 @@ public class ChaseGameController : MonoBehaviour
     }
     private void SetWeapon()
     {
-        weaponController.SetWeapon(tmpIndex);
+        weaponController.SetWeapon(weaponIndex);
     }
 }

@@ -22,25 +22,9 @@ public class HandController : MonoBehaviour
         {
             return;
         }
-        // if (!paletteObjectController.IsMove())
-        // {
-        //     return;
-        // }
+
         tmpIndex = paletteObjectController.GetIndex();
         isTouched = true;
-
-        // // index fingerボタンにすると人差し指の位置が変わってしまうことがあるので変更するようにした
-        // if (OVRInput.GetDown(OVRInput.Button.One))
-        // {
-
-        //     int index = paletteObjectController.GetIndex();
-        //     denseSparseExpController.SetRejoinedIndex(index);
-        //     isGrabbed = true;
-        // }
-        // else
-        // {
-        //     isGrabbed = false;
-        // }
 
     }
     // private void OnTriggerStay(Collider other)
