@@ -8,6 +8,8 @@ public class ChaseGameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
 
     private int score = 0;
+    [SerializeField] private HandController handController;
+
 
 
     // Start is called before the first frame update
@@ -26,5 +28,9 @@ public class ChaseGameController : MonoBehaviour
     {
         score += 1;
         scoreText.text = "score:" + score.ToString();
+    }
+    public void SetHP(int hp)
+    {
+        scoreText.text = "HP:" + hp.ToString();
     }
 }

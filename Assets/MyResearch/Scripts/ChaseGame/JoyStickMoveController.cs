@@ -7,84 +7,39 @@ using UnityEngine.XR;
 public class JoyStickMoveController : MonoBehaviour
 {
     [SerializeField] private float speed = 0.05f;
-    [SerializeField] Vector3 changeRotation;
+    private Vector3 changeRotation;
     [SerializeField] private List<GameObject> cornerObjects;
-    // Start is called before the first frame update
+    private enum Direction { North, East, South, West }
+    private Direction currentDirection;
+    private int floorLength = 4;
+
     void Start()
     {
-
+        currentDirection = Direction.North;
+        AlignToCornerCenter(); // 最初に交差点の中心に位置を合わせる
     }
-
-    // Update is called once per frame
 
     void Update()
     {
-        // Move3();
         ChangeDirection();
-        Move4();
+        MoveForward();
     }
 
-
-    // private void Move()
-    // {
-    //     Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-    //     Vector3 changePosition = new Vector3(stickR.x, 0, stickR.y);
-    //     //HMDのY軸の角度取得
-    //     changeRotation = new Vector3(0, InputTracking.GetLocalRotation(XRNode.Head).eulerAngles.y, 0);
-    //     //OVRCameraRigの位置変更
-    //     this.transform.position += this.transform.rotation * (Quaternion.Euler(changeRotation) * changePosition) * speed;
-
-    // }
-    private void Move2()
-    {
-        Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-        Vector3 changePosition = new Vector3(stickR.x, 0, stickR.y);
-
-        // HMDのY軸の角度取得（新しいAPIを使用）
-        InputDevice headDevice = InputDevices.GetDeviceAtXRNode(XRNode.Head);
-        Quaternion headRotation;
-        if (headDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out headRotation))
-        {
-            changeRotation = new Vector3(0, headRotation.eulerAngles.y, 0);
-        }
-        else
-        {
-            // 取得に失敗した場合の処理
-            changeRotation = Vector3.zero;
-        }
-
-        // OVRCameraRigの位置変更
-        this.transform.position += this.transform.rotation * (Quaternion.Euler(changeRotation) * changePosition) * speed;
-    }
-    private void Move3()
-    {
-        // 左スティックの入力を取得
-        Vector2 stickInput = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
-        Vector3 direction = new Vector3(stickInput.x, 0, stickInput.y);
-
-        // 入力がない場合は何もしない
-        if (direction.magnitude < 0.1f)
-            return;
-
-        // プレイヤーの体の向きを取得
-        float yRotation = transform.eulerAngles.y;
-        Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
-
-        // 移動
-        Vector3 moveDirection = rotation * direction.normalized * speed;
-        transform.position += moveDirection;
-    } //OVRCameraRigの角度変更
     void ChangeDirection()
     {
-
+        if (!IsAtCorner()) return;
         float angle = 90f;
         if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickLeft))
         {
             this.transform.Rotate(0, -angle, 0);
+            UpdateDirection(-angle);
+            AlignToCornerCenter(); // 回転時に交差点の中心に位置を合わせる
         }
         else if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickRight))
         {
             this.transform.Rotate(0, angle, 0);
+            UpdateDirection(angle);
+            AlignToCornerCenter(); // 回転時に交差点の中心に位置を合わせる
         }
     }
 
@@ -92,24 +47,97 @@ public class JoyStickMoveController : MonoBehaviour
     {
         foreach (GameObject corner in cornerObjects)
         {
-            float distance = Mathf.Abs()
-            if (distance < 0.5f) // 許容範囲を0.5メートルとする
+            float withinLength = (float)4 / Mathf.Sqrt(2); // 許容範囲を小さく設定
+            float distanceX = Mathf.Abs(this.transform.position.x - corner.transform.position.x);
+            float distanceZ = Mathf.Abs(this.transform.position.z - corner.transform.position.z);
+            if (distanceX < withinLength && distanceZ < withinLength)
             {
                 return true;
             }
         }
         return false;
-
     }
 
-    void Move4()
+    void MoveForward()
     {
-        //右ジョイスティックの情報取得
-        Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
-        // プレイヤーの体の向きを取得
-        float yRotation = transform.eulerAngles.y;
-        Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
-        //OVRCameraRigの位置変更
-        this.transform.position += rotation * (new Vector3((stickR.x), 0, (stickR.y)).normalized) * speed;
+        Vector2 stickInput = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+        float moveValue = stickInput.y;
+
+        if (Mathf.Abs(moveValue) < 0.1f)
+            return;
+
+        Vector3 position = transform.position;
+
+        Vector3 moveDirection = Vector3.zero;
+
+        switch (currentDirection)
+        {
+            case Direction.North:
+                moveDirection = Vector3.forward;
+                break;
+            case Direction.South:
+                moveDirection = Vector3.back;
+                break;
+            case Direction.East:
+                moveDirection = Vector3.right;
+                break;
+            case Direction.West:
+                moveDirection = Vector3.left;
+                break;
+        }
+
+        position += moveDirection * moveValue * speed;
+
+        transform.position = position;
+
+        AlignToCenter(); // 移動後に位置を補正
+    }
+
+    void AlignToCenter()
+    {
+        Vector3 position = transform.position;
+
+        float remainderX = position.x % floorLength;
+        float remainderZ = position.z % floorLength;
+
+        float centerX = position.x - remainderX + floorLength / 2;
+        float centerZ = position.z - remainderZ + floorLength / 2;
+
+        if (currentDirection == Direction.North || currentDirection == Direction.South)
+        {
+            position.x = centerX;
+        }
+        else if (currentDirection == Direction.East || currentDirection == Direction.West)
+        {
+            position.z = centerZ;
+        }
+
+        transform.position = position;
+    }
+
+    void AlignToCornerCenter()
+    {
+        Vector3 position = transform.position;
+
+        float remainderX = position.x % floorLength;
+        float remainderZ = position.z % floorLength;
+
+        float centerX = position.x - remainderX + floorLength / 2;
+        float centerZ = position.z - remainderZ + floorLength / 2;
+
+        // 交差点の中心に位置を合わせる
+        position.x = centerX;
+        position.z = centerZ;
+
+        transform.position = position;
+    }
+
+    void UpdateDirection(float angle)
+    {
+        int dir = (int)currentDirection;
+        dir += (int)(angle / 90);
+
+        dir = (dir + 4) % 4;
+        currentDirection = (Direction)dir;
     }
 }

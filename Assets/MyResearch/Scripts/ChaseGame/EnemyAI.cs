@@ -9,14 +9,16 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Transform player;       // プレイヤーのTransform
     [SerializeField] private Transform escapePoint;  // 逃げる目的地
     [SerializeField] private float fleeDistance = 0.5f; // 逃げ始める距離
+    [SerializeField] private EnemyController enemyController;
 
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private float speed = 2.0f;
+    private float speed = 4.0f;
     [SerializeField] private int flag = 0;
 
     void Start()
     {
         // NavMeshAgentの速度を設定
+        speed = enemyController.GetSpeed();
         agent.speed = speed;
     }
 
