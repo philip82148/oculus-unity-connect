@@ -54,14 +54,17 @@ public class DenseSparseExpController : MonoBehaviour
     {
         objectCount = gridSize * gridSize * gridSize;
         previousInterval = interval;
-        CreateTargetObjectsIn3D();
+        if (expScene == ExpScene.DenseOrSparse)
+        {
+            CreateTargetObjectsIn3D();
+        }
         dataLoggerController.Initialize(interval, denseOrSparse);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (interval != previousInterval)
+        if (interval != previousInterval && expScene == ExpScene.DenseOrSparse)
         {
             UpdateObjectPositionsIn3D();
             // UpdateObjectPositions();
@@ -339,6 +342,10 @@ public class DenseSparseExpController : MonoBehaviour
     public string GetSubjectName()
     {
         return this.subjectName;
+    }
+    public ExpScene GetExpScene()
+    {
+        return expScene;
     }
 }
 

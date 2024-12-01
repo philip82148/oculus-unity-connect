@@ -7,16 +7,22 @@ public class CalculateDistance : MonoBehaviour
     [Header("OVR Input Information")]
     [SerializeField] private GameObject indexFinger;
     [Header("Controller Setting")]
-    [SerializeField] private DenseSparseExpController denseSparseExpController;
+    [SerializeField] private DenseSparseExpController experimentController;
+    [SerializeField] private VRKeyboardExpController vRKeyboardExpController;
+
+
 
     [Header("Calculate Sound")]
     [SerializeField] private CalculateSound calculateSound;
 
     [SerializeField] private List<GameObject> targetSoundObjects = new List<GameObject>();
-    private GameObject centralObject;
+    [SerializeField] private GameObject centralObject;
     private const double requiredLength = 0.03;
     // private const double depthRequiredLength = 0.05;
     [SerializeField] private double centralRequiredLength;
+
+    private ExpScene expScene;
+    private DenseOrSparse denseOrSparse;
     // private double xRequiredLength = 0.04;
 
     // Start is called before the first frame update
@@ -25,13 +31,15 @@ public class CalculateDistance : MonoBehaviour
 
         CalculateCentralRequiredLength();
 
+        denseOrSparse = experimentController.GetDenseOrSparse();
+        expScene = experimentController.GetExpScene();
     }
 
     // Update is called once per frame
     void Update()
     {
         bool isSound = false;
-        DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
+
         List<Vector3> diffs = new List<Vector3>();
         if (denseOrSparse == DenseOrSparse.Sparse)
         {
@@ -131,8 +139,16 @@ public class CalculateDistance : MonoBehaviour
     }
     private void CalculateCentralRequiredLength()
     {
-        centralRequiredLength = (denseSparseExpController.GetInterval() * (
-            denseSparseExpController.GetGridSize() - 1) + 2 * requiredLength) / 2;
+        if (expScene == ExpScene.DenseOrSparse)
+        {
+            centralRequiredLength = (experimentController.GetInterval() * (
+                experimentController.GetGridSize() - 1) + 2 * requiredLength) / 2;
+        }
+        else if (expScene == ExpScene.VRKeyboard)
+        {
+            centralRequiredLength = (vRKeyboardExpController.GetInterval() * (
+               vRKeyboardExpController.GetGridSize() - 1) + 2 * requiredLength) / 2;
+        }
     }
     public void SetTargetObject(GameObject gameObject)
     {
@@ -159,7 +175,7 @@ public class CalculateDistance : MonoBehaviour
 
     public double GetDepthRequiredLength()
     {
-        DenseOrSparse denseOrSparse = denseSparseExpController.GetDenseOrSparse();
+        // DenseOrSparse denseOrSparse = experimentController.GetDenseOrSparse();
         if (denseOrSparse == DenseOrSparse.Sparse) return requiredLength;
         else if (denseOrSparse == DenseOrSparse.Dense) return centralRequiredLength;
         else return 0;

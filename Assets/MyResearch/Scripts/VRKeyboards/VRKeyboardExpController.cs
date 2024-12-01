@@ -42,8 +42,8 @@ public class VRKeyboardExpController : MonoBehaviour
     private float previousInterval;
 
 
-    private int ansFirstIndex = -1;
-    private int ansSecondIndex = -1;
+    // private int ansFirstIndex = -1;
+    // private int ansSecondIndex = -1;
 
     private const int FIXED_NON_ANSWER_INDEX = -2;
 
@@ -55,7 +55,7 @@ public class VRKeyboardExpController : MonoBehaviour
         objectCount = gridSize * gridSize * gridSize;
         problemCount = numberKeyboard.GetProblemCount();
         previousInterval = interval;
-        CreateTargetObjectsIn3D();
+        // CreateTargetObjectsIn3D();
     }
 
     // Update is called once per frame
@@ -80,17 +80,22 @@ public class VRKeyboardExpController : MonoBehaviour
         }
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
-            if (ansFirstIndex == FIXED_NON_ANSWER_INDEX)
-            {
-                ansFirstIndex = handController.GetIndex();
-            }
-            else if (ansSecondIndex == FIXED_NON_ANSWER_INDEX)
-            {
-                ansSecondIndex = handController.GetIndex();
+            // if (ansFirstIndex == FIXED_NON_ANSWER_INDEX)
+            // {
+            //     ansFirstIndex = handController.GetIndex();
+            // }
+            // else if (ansSecondIndex == FIXED_NON_ANSWER_INDEX)
+            // {
+            //     ansSecondIndex = handController.GetIndex();
 
-                // 二つの選択肢が揃ったので、答えをチェック
-                SetRejoinedIndex();
-            }
+            //     // 二つの選択肢が揃ったので、答えをチェック
+            //     // SetRejoinedIndex();
+            // }
+
+            // string
+
+            // ansFirstText.text = "first:" + ansFirstIndex.ToString();
+            // ansSecondText.text = "sec:" + ansSecondIndex.ToString();
 
         }
         if (isGame)
@@ -98,8 +103,7 @@ public class VRKeyboardExpController : MonoBehaviour
             // restCountText.text = "rest:" + restCount.ToString();
         }
 
-        ansFirstText.text = "first:" + ansFirstIndex.ToString();
-        ansSecondText.text = "sec:" + ansSecondIndex.ToString();
+
     }
 
     public void SetNextTarget()
@@ -197,13 +201,13 @@ public class VRKeyboardExpController : MonoBehaviour
     }
     private void ResetIndex()
     {
-        ansFirstIndex = FIXED_NON_ANSWER_INDEX;
-        ansSecondIndex = FIXED_NON_ANSWER_INDEX;
+        // ansFirstIndex = FIXED_NON_ANSWER_INDEX;
+        // ansSecondIndex = FIXED_NON_ANSWER_INDEX;
     }
 
     private void CheckCorrectAnswer()
     {
-        bool isCorrect = numberKeyboard.CheckCorrectAnswer(ansFirstIndex, ansSecondIndex);
+        // bool isCorrect = numberKeyboard.CheckCorrectAnswer(ansFirstIndex, ansSecondIndex);
 
     }
 

@@ -54,7 +54,7 @@ public class CalculateSound : MonoBehaviour
     void Update()
     {
         CalculateSoundLength();
-        debugText.text = "fre:" + calculatedFrequency.ToString() + "\n" + "amp:" + fixedAmplitude.ToString("f2");
+        // debugText.text = "fre:" + calculatedFrequency.ToString() + "\n" + "amp:" + fixedAmplitude.ToString("f2");
 
     }
     public void SetCoordinateDiff(Vector3 diff)

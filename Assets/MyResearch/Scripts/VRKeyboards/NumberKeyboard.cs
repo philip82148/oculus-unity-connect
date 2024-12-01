@@ -10,24 +10,30 @@ public class NumberKeyboard : MonoBehaviour
     private List<KeyboardKey> keyboardKeys;
     [SerializeField] private TextMeshProUGUI problemText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI tmpText;
+
+    [SerializeField] private VRKeyboardExpController vRKeyboardExpController;
 
     private int score = 0;
-    private int tmpTargetIndex = -1;
+    private int tmpTargetIndex = 0;
     private string userInput = "";
+    private int objectCount = 27;
 
 
 
     private string[] textStrings = {
-         "Type the word: hello",
-        "Type the word: world",
+         "Type the word: HELLO",
+        "Type the word: WORLD",
           "Type the word: DCC",
-        "Type the word: world",
+        "Type the word: UIST",
+         "Type the word:AUGMENTEDHUMANS",
     };
     private string[] correctAnswers ={
-         "Type the word: hello",
-        "Type the word: world",
-          "Type the word: DCC",
-        "Type the word: world",
+        "HELLO",
+        "WORLD",
+        "DCC",
+        "UIST",
+        "AUGMENTEDHUMANS"
     };
     private string[] convertToAnswers = {
         "1+",
@@ -63,8 +69,10 @@ public class NumberKeyboard : MonoBehaviour
 
     void Start()
     {
-        problemText.text = textStrings[0];
+        objectCount = vRKeyboardExpController.GetObjectCount();
+        problemText.text = textStrings[tmpTargetIndex];
     }
+
 
 
 
@@ -72,6 +80,13 @@ public class NumberKeyboard : MonoBehaviour
     void Update()
     {
         scoreText.text = "Score:" + score.ToString();
+        tmpText.text = userInput;
+        problemText.text = textStrings[tmpTargetIndex];
+        if (userInput.Length == correctAnswers[tmpTargetIndex].Length)
+        {
+            CheckCorrectTextAnswer();
+            userInput = "";
+        }
 
     }
 
@@ -105,6 +120,20 @@ public class NumberKeyboard : MonoBehaviour
             return true;
         }
         else return false;
+    }
+
+    private void CheckCorrectTextAnswer()
+    {
+        if (userInput.Equals(correctAnswers[tmpTargetIndex]))
+        {
+            score += 1;
+        }
+        SetNextTarget();
+    }
+
+    private void SetNextTarget()
+    {
+        tmpTargetIndex = Random.Range(0, textStrings.Length);
     }
 
     public int GetProblemCount()

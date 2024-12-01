@@ -40,17 +40,17 @@ public class KeyboardHandController : MonoBehaviour
     {
         isTouched = false;
     }
-    public int GetIndex()
-    {
-        if (isTouched)
-        {
-            return tmpIndex;
-        }
-        else
-        {
-            return -1;
-        }
-    }
+    // public int GetIndex()
+    // {
+    //     if (isTouched)
+    //     {
+    //         return tmpIndex;
+    //     }
+    //     else
+    //     {
+    //         return -1;
+    //     }
+    // }
 
     public string GetAlphabet()
     {
