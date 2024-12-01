@@ -5214,6 +5214,7 @@ MonoBehaviour:
   weaponSpawnPoint: {fileID: 300016078}
   bombSpeed: 6
   bulletSpeed: 4
+  trackingSpace: {fileID: 1489010115}
 --- !u!4 &1831650544
 Transform:
   m_ObjectHideFlags: 0
@@ -9030,7 +9031,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5787469712968670191, guid: 0fd818ca81fa4684a9ac52991b296f85, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

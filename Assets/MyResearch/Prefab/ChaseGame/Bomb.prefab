@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 9008147738302613669}
   - component: {fileID: 2523259519882326183}
   - component: {fileID: 8729378690960217354}
-  - component: {fileID: 5787469712968670191}
   - component: {fileID: 4283782363800218428}
+  - component: {fileID: 8101521615491401471}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -107,19 +107,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5787469712968670191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898322744536314443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec10f49aa2ac86e4dbd9a708d0e364e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionEffect: {fileID: 8330720524214524311, guid: 6243349c33464c844ba9b4830a6e0a33, type: 3}
 --- !u!54 &4283782363800218428
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -147,3 +134,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8101521615491401471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898322744536314443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c31fe5a87be8841adb6412bb98ea30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

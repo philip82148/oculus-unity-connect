@@ -16,6 +16,9 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     private int selectedIndex = 0;
 
+    [Header("OVR Setting")]
+    [SerializeField] private GameObject trackingSpace;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,11 +37,16 @@ public class WeaponController : MonoBehaviour
 
     private void InstantiateWeapon()
     {
+        Vector3 rightHandPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+        Quaternion rightHandRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
+
+        Vector3 spawnPosition = trackingSpace.transform.TransformPoint(rightHandPosition);
+        Quaternion spawnRotation = trackingSpace.transform.rotation * rightHandRotation;
         // 前方にオフセットする距離
         float offsetDistance = 0.05f;
 
         // 弾を生成する位置を計算
-        Vector3 spawnPosition = weaponSpawnPoint.position + weaponSpawnPoint.forward * offsetDistance;
+        // Vector3 spawnPosition = weaponSpawnPoint.position + weaponSpawnPoint.forward * offsetDistance;
 
         GameObject targetObject;
         if (selectedIndex == 0) targetObject = bulletObject;
@@ -53,7 +61,7 @@ public class WeaponController : MonoBehaviour
         // ターゲット方向を計算
         Vector3 direction = (targetEnemy.transform.position - spawnPosition).normalized;
 
-
+        direction = spawnRotation * Vector3.forward;
         FireWeapon(weaponObject, direction);
 
         // Rigidbody に速度を設定

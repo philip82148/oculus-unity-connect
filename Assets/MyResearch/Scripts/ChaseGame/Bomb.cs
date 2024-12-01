@@ -6,7 +6,7 @@ public class Bomb : MonoBehaviour
 {
     private Vector3 moveDirection;
     private float speed;
-    private float gravity = -9.81f; // 重力加速度
+    private float gravity = -0.981f / 3; // 重力加速度
     private float verticalSpeed = 0f; // 垂直方向の速度
 
     // Start is called before the first frame update
