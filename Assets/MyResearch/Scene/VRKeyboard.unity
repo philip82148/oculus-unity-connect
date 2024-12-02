@@ -16207,6 +16207,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KeyboardObject
       objectReference: {fileID: 0}
+    - target: {fileID: 6020332538773331638, guid: 42549eef13e20e14fb5e3dd5ff5448d7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
