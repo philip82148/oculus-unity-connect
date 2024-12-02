@@ -23,6 +23,7 @@ public class VRKeyboardExpController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI ansFirstText;
     [SerializeField] private TextMeshProUGUI ansSecondText;
+    [SerializeField] private TextMeshProUGUI timerText;
 
     [Header("Visualizer")]
     [SerializeField] private FrequencyRangeVisualizer frequencyRangeVisualizer;
@@ -35,7 +36,7 @@ public class VRKeyboardExpController : MonoBehaviour
     private int objectCount = 5;
     // private int score = 0;
     private bool isGame = false;
-    private int restCount = 11;
+    // private int restCount = 11;
 
     private int targetCorrectIndex = 0;
     private int problemCount = 0;
@@ -46,7 +47,7 @@ public class VRKeyboardExpController : MonoBehaviour
     // private int ansSecondIndex = -1;
 
     private const int FIXED_NON_ANSWER_INDEX = -2;
-
+    private float gameTime = 60f;
 
 
     // Start is called before the first frame update
@@ -66,15 +67,16 @@ public class VRKeyboardExpController : MonoBehaviour
             UpdateObjectPositionsIn3D();
             previousInterval = interval;
         }
-        if (restCount <= 0)
-        {
-            isGame = false;
-            // restCountText.text = "game finished";
-        }
+        // if (restCount <= 0)
+        // {
+        //     isGame = false;
+        //     // restCountText.text = "game finished";
+        // }
 
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
             isGame = true;
+            numberKeyboard.ResetScore(); // スコアのリセット
             ResetIndex();
             SetNextTarget();
         }
@@ -100,12 +102,36 @@ public class VRKeyboardExpController : MonoBehaviour
         }
         if (isGame)
         {
+            UpdateTimer();
             // restCountText.text = "rest:" + restCount.ToString();
         }
 
 
     }
 
+    private void UpdateTimer()
+    {
+        if (!isGame) return;
+        gameTime -= Time.deltaTime;
+
+        // タイマー表示の更新
+        timerText.text = "Time: " + Mathf.Clamp(gameTime, 0, 999).ToString("F2");
+
+        if (gameTime <= 0)
+        {
+            gameTime = 0;
+            isGame = false;
+            EndGame();
+        }
+    }
+    private void EndGame()
+    {
+        isGame = false;
+        // ゲームオーバーの表示やスコアの表示など
+        timerText.text = "Time: 0.00";
+        // Debug.Log("Game Over! Final Score: " + numberKeyboard.GetScore());
+        // 必要に応じて他のUIを更新
+    }
     public void SetNextTarget()
     {
         targetCorrectIndex = Random.Range(0, problemCount);

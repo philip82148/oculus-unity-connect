@@ -130,7 +130,10 @@ public class NumberKeyboard : MonoBehaviour
         }
         SetNextTarget();
     }
-
+    public void ResetScore()
+    {
+        score = 0;
+    }
     private void SetNextTarget()
     {
         tmpTargetIndex = Random.Range(0, textStrings.Length);

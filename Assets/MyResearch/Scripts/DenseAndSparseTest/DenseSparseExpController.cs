@@ -359,5 +359,6 @@ public enum DenseOrSparse
 public enum ExpScene
 {
     DenseOrSparse,
-    VRKeyboard
+    VRKeyboard,
+    Surgery
 }
