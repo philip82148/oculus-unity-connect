@@ -19,11 +19,27 @@ public class DenseDataLoggerController : MonoBehaviour
 
     }
 
-    public void Initialize(float interval, DenseOrSparse denseOrSparse)
+    public void Initialize(float interval, DenseOrSparse denseOrSparse, ExpScene expScene)
     {
         subjectName = denseSparseExpController.GetSubjectName();
 
-        folder = $"C:\\Users\\takaharayota\\Research\\Semi-Exp3\\{subjectName}\\{denseOrSparse}";
+        folder = $"C:\\Users\\takaharayota\\Research\\Semi-Exp3\\{expScene}\\{subjectName}\\{denseOrSparse}";
+        Directory.CreateDirectory(folder);
+
+        string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+        string fileName = $"{subjectName}_{denseOrSparse}_{interval}_{dateTime}.txt";
+        string filePath = System.IO.Path.Combine(folder, fileName);
+        FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+        writer = new StreamWriter(fileStream, Encoding.UTF8);
+
+    }
+
+    public void InitializeAsSurgeryExp(float interval, DenseOrSparse denseOrSparse)
+    {
+        subjectName = denseSparseExpController.GetSubjectName();
+
+        folder = $"C:\\Users\\takaharayota\\Research\\Surgery-Exp\\{subjectName}\\{denseOrSparse}";
         Directory.CreateDirectory(folder);
 
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
