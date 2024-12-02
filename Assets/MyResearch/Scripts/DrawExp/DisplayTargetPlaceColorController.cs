@@ -6,11 +6,20 @@ using UnityEngine.UI;
 
 public class DisplayTargetPlaceColorController : MonoBehaviour
 {
-    [SerializeField] private Image[] targetPlaceDisplays;
+    [SerializeField] private Image[,,] targetPlaceDisplays; // 三次元配列に変更
     [SerializeField] private TextMeshProUGUI targetNumDisplayText;
-    // Start is called before the first frame update
     private int targetPlaceIndex = 0;
 
+    private int gridSize = 3; // デフォルトのグリッドサイズ
+
+    /// <summary>
+    /// 三次元ディスプレイの設定。外部から設定可能にする。
+    /// </summary>
+    public void InitializeDisplays(int size, Image[,,] displays)
+    {
+        gridSize = size;
+        targetPlaceDisplays = displays;
+    }
 
     public void ChangeIndexAndReflect(int index)
     {
@@ -19,36 +28,34 @@ public class DisplayTargetPlaceColorController : MonoBehaviour
         ChangeColors();
     }
 
-
     public void ChangeIndexDisplay()
     {
         targetNumDisplayText.text = (targetPlaceIndex + 1).ToString();
-
     }
-
 
     public void ChangeColors()
     {
+        int xIndex = targetPlaceIndex / (gridSize * gridSize);
+        int yIndex = (targetPlaceIndex / gridSize) % gridSize;
+        int zIndex = targetPlaceIndex % gridSize;
 
-
-
-
-        for (int i = 0; i < targetPlaceDisplays.Length; i++)
+        // すべてのディスプレイを白にリセット
+        foreach (var display in targetPlaceDisplays)
         {
-            if (i == targetPlaceIndex)
-            {
-                Debug.Log("called" + targetPlaceIndex);
+            display.color = Color.white;
+        }
 
-                // targetPlaceDisplays[targetPlaceIndex].color = DecideColor();
-                targetPlaceDisplays[targetPlaceIndex].color = Color.red;
-            }
-            else
-            {
-                targetPlaceDisplays[i].color = Color.white;
-            }
+        // ターゲットインデックスのディスプレイに色を付ける
+        if (xIndex < gridSize && yIndex < gridSize && zIndex < gridSize)
+        {
+            Debug.Log($"Highlighting Display at Index: x={xIndex}, y={yIndex}, z={zIndex}");
+            targetPlaceDisplays[xIndex, yIndex, zIndex].color = Color.red;
+        }
+        else
+        {
+            Debug.LogWarning("Target index out of bounds!");
         }
     }
-
 
     private Color DecideColor()
     {
@@ -69,6 +76,5 @@ public class DisplayTargetPlaceColorController : MonoBehaviour
             return Color.black;
         }
         return Color.white;
-
     }
 }

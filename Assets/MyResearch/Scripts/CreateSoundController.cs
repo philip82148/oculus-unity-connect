@@ -13,7 +13,7 @@ public class CreateSoundController : MonoBehaviour
     private bool isSound = true;
 
     private const double SAMPLING_FREQUENCY = 48000;
-    private bool isChangedByCoefficient = true;
+    private bool isChangedByCoefficient = false;
 
     // 波形の種類を指定
     public enum WaveType { Sine, Triangle, Sawtooth, Square }
@@ -24,7 +24,18 @@ public class CreateSoundController : MonoBehaviour
     private List<double> pans = new List<double>();
     private List<double> phases = new List<double>();
 
-    private bool isOverlapped = false;
+    // private bool isOverlapped = false;
+
+    // フラグを追加して、使用するOnAudioFilterReadのバージョンを切り替える
+    [SerializeField] private bool useOverlappedMethod = false;
+
+    // 倍音用の変数（元の単一音声処理で使用）
+    private double phase = 0.0;
+    private double phaseHarmonic1 = 0.0;
+    private double phaseHarmonic2 = 0.0;
+    private double increment = 0.0;
+    private float harmonic1Coefficient = 0f;
+    private float harmonic2Coefficient = 0f;
 
     private void Start()
     {
@@ -47,65 +58,126 @@ public class CreateSoundController : MonoBehaviour
 
     private void OnAudioFilterRead(float[] data, int channels)
     {
-        // 合計ゲインを計算
-        double totalGain = 0;
-        for (int i = 0; i < gains.Count; i++)
+        if (useOverlappedMethod)
         {
-            totalGain += gains[i];
-        }
+            // オーバーラップした音声処理の実装
 
-        // 合計ゲインが1.0を超える場合、ゲインをスケールダウン
-        if (totalGain > 1.0)
-        {
-            double scale = 1.0 / totalGain;
+            // 合計ゲインを計算
+            double totalGain = 0;
             for (int i = 0; i < gains.Count; i++)
             {
-                gains[i] *= scale;
+                totalGain += gains[i];
+            }
+
+            // 合計ゲインが1.0を超える場合、ゲインをスケールダウン
+            if (totalGain > 1.0)
+            {
+                double scale = 1.0 / totalGain;
+                for (int i = 0; i < gains.Count; i++)
+                {
+                    gains[i] *= scale;
+                }
+            }
+
+            for (int i = 0; i < data.Length; i += channels)
+            {
+                double sampleLeft = 0;
+                double sampleRight = 0;
+
+                for (int j = 0; j < frequencies.Count; j++)
+                {
+                    double freq = frequencies[j];
+                    double increment = freq * 2 * Math.PI / SAMPLING_FREQUENCY;
+
+                    // フェーズの更新
+                    phases[j] += increment;
+
+                    // 波形の生成
+                    double waveSample = gains[j] * GenerateWave(phases[j], waveType);
+
+                    // パンニングの適用（標準的な計算方法）
+                    double panValue = (pans[j] + 1) / 2; // -1から1を0から1に変換
+                    double panLeft = Math.Cos(panValue * 0.5 * Math.PI);
+                    double panRight = Math.Sin(panValue * 0.5 * Math.PI);
+
+                    sampleLeft += waveSample * panLeft;
+                    sampleRight += waveSample * panRight;
+
+                    // フェーズのリセット
+                    if (phases[j] > 2 * Math.PI)
+                        phases[j] -= 2 * Math.PI;
+                }
+
+                // サンプル値のクリッピング処理
+                sampleLeft = Math.Max(-1.0, Math.Min(1.0, sampleLeft));
+                sampleRight = Math.Max(-1.0, Math.Min(1.0, sampleRight));
+
+                // data配列への書き込み
+                if (channels == 2)
+                {
+                    data[i] = (float)sampleLeft;
+                    data[i + 1] = (float)sampleRight;
+                }
+                else
+                {
+                    data[i] = (float)((sampleLeft + sampleRight) * 0.5);
+                }
             }
         }
-
-        for (int i = 0; i < data.Length; i += channels)
+        else
         {
-            double sampleLeft = 0;
-            double sampleRight = 0;
+            // 元の単一音声処理の実装
 
-            for (int j = 0; j < frequencies.Count; j++)
+            increment = frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
+
+            double harmonic1Frequency = frequency * 2; // 第1倍音 (2倍の周波数)
+            double harmonic2Frequency = frequency * 3; // 第2倍音 (3倍の周波数)
+
+            double incrementHarmonic1 = harmonic1Frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
+            double incrementHarmonic2 = harmonic2Frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
+
+            for (int i = 0; i < data.Length; i += channels)
             {
-                double freq = frequencies[j];
-                double increment = freq * 2 * Math.PI / SAMPLING_FREQUENCY;
+                phase += increment;
+                phaseHarmonic1 += incrementHarmonic1;
+                phaseHarmonic2 += incrementHarmonic2;
 
-                // フェーズの更新
-                phases[j] += increment;
+                // 基本音
+                double sample = gain * GenerateWave(phase, waveType);
 
-                // 波形の生成
-                double waveSample = gains[j] * GenerateWave(phases[j], waveType);
+                // // 第1倍音
+                // sample += gain * harmonic1Coefficient * GenerateWave(phaseHarmonic1, waveType);
+
+                // // 第2倍音
+                // sample += gain * harmonic2Coefficient * GenerateWave(phaseHarmonic2, waveType);
 
                 // パンニングの適用（標準的な計算方法）
-                // double panValue = (pans[j] + 1) / 2; // -1から1を0から1に変換
-                double panLeft = 1.0 - pans[j];
-                double panRight = 1.0 + pans[j];
+                double panValue = (pan + 1) / 2; // -1から1を0から1に変換
+                double panLeft = Math.Cos(panValue * 0.5 * Math.PI);
+                double panRight = Math.Sin(panValue * 0.5 * Math.PI);
 
-                sampleLeft += waveSample * panLeft;
-                sampleRight += waveSample * panRight;
+                double sampleLeft = sample * panLeft;
+                double sampleRight = sample * panRight;
+
+                // サンプル値のクリッピング処理
+                sampleLeft = Math.Max(-1.0, Math.Min(1.0, sampleLeft));
+                sampleRight = Math.Max(-1.0, Math.Min(1.0, sampleRight));
+
+                // data配列への書き込み
+                if (channels == 2)
+                {
+                    data[i] = (float)sampleLeft;
+                    data[i + 1] = (float)sampleRight;
+                }
+                else
+                {
+                    data[i] = (float)((sampleLeft + sampleRight) * 0.5);
+                }
 
                 // フェーズのリセット
-                if (phases[j] > 2 * Math.PI)
-                    phases[j] -= 2 * Math.PI;
-            }
-
-            // サンプル値のクリッピング処理
-            sampleLeft = Math.Max(-1.0, Math.Min(1.0, sampleLeft));
-            sampleRight = Math.Max(-1.0, Math.Min(1.0, sampleRight));
-
-            // data配列への書き込み
-            if (channels == 2)
-            {
-                data[i] = (float)sampleLeft;
-                data[i + 1] = (float)sampleRight;
-            }
-            else
-            {
-                data[i] = (float)((sampleLeft + sampleRight) * 0.5);
+                if (phase > 2 * Math.PI) phase -= 2 * Math.PI;
+                if (phaseHarmonic1 > 2 * Math.PI) phaseHarmonic1 -= 2 * Math.PI;
+                if (phaseHarmonic2 > 2 * Math.PI) phaseHarmonic2 -= 2 * Math.PI;
             }
         }
     }
@@ -140,7 +212,7 @@ public class CreateSoundController : MonoBehaviour
 
     public double GetTmpAmplitude()
     {
-        if (isOverlapped && gains.Count > 0)
+        if (useOverlappedMethod && gains.Count > 0)
             return this.gains[0];
         else
             return this.gain;
@@ -148,7 +220,7 @@ public class CreateSoundController : MonoBehaviour
 
     public double GetTmpFrequency()
     {
-        if (isOverlapped && frequencies.Count > 0)
+        if (useOverlappedMethod && frequencies.Count > 0)
             return this.frequencies[0];
         else
             return this.frequency;
@@ -156,7 +228,7 @@ public class CreateSoundController : MonoBehaviour
 
     public double GetTmpPan()
     {
-        if (isOverlapped && pans.Count > 0)
+        if (useOverlappedMethod && pans.Count > 0)
             return this.pans[0];
         else
             return this.pan;

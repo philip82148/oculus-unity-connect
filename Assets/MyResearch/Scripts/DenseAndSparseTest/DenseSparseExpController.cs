@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Interaction;
 using Oculus.Interaction.Body.Input;
 using TMPro;
 using Unity.VisualScripting;
@@ -12,19 +13,26 @@ public class DenseSparseExpController : MonoBehaviour
     [SerializeField] private Vector3 startCoordinate;
     [SerializeField] private float interval = 0.07f;
     [Header("Setting")]
+    [SerializeField] private string subjectName;
     [SerializeField] private CalculateDistance calculateDistance;
     [SerializeField] private DisplayTargetPlaceColorController displayTargetPlaceColorController;
     [SerializeField] private TargetDisplayTextController targetDisplayTextController;
     [SerializeField] private HandController handController;
+    [SerializeField] private DenseDataLoggerController dataLoggerController;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI restCountText;
+    [Header("Hand object")]
+    [SerializeField] private GameObject targetHand;
 
     [Header("Visualizer")]
     [SerializeField] private FrequencyRangeVisualizer frequencyRangeVisualizer;
 
     [SerializeField] private DenseOrSparse denseOrSparse;
+    [SerializeField]
+    private ExpScene expScene = ExpScene.DenseOrSparse;
+
 
     private List<Vector3> targetCoordinates = new List<Vector3>();
     private List<GameObject> targetObjects = new List<GameObject>();
@@ -34,7 +42,7 @@ public class DenseSparseExpController : MonoBehaviour
     private int objectCount = 5;
     private int score = 0;
     private bool isGame = false;
-    private int restCount = 10;
+    private int restCount = 31;
 
     private int targetCorrectIndex = 0;
     private float previousInterval;
@@ -46,13 +54,17 @@ public class DenseSparseExpController : MonoBehaviour
     {
         objectCount = gridSize * gridSize * gridSize;
         previousInterval = interval;
-        CreateTargetObjectsIn3D();
+        if (expScene == ExpScene.DenseOrSparse)
+        {
+            CreateTargetObjectsIn3D();
+        }
+        dataLoggerController.Initialize(interval, denseOrSparse);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (interval != previousInterval)
+        if (interval != previousInterval && expScene == ExpScene.DenseOrSparse)
         {
             UpdateObjectPositionsIn3D();
             // UpdateObjectPositions();
@@ -73,6 +85,10 @@ public class DenseSparseExpController : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             int tmpIndex = handController.GetIndex();
+            if (isGame)
+            {
+                dataLoggerController.WriteInformation(GetRightIndexFingderPosition());
+            }
             SetRejoinedIndex(tmpIndex);
         }
         if (isGame)
@@ -86,7 +102,7 @@ public class DenseSparseExpController : MonoBehaviour
     {
         restCount -= 1;
         DecideTargetIndex();
-        ChangeDisplayColor();
+        // ChangeDisplayColor();
     }
 
     private void CreateTargetObjectsIn3D()
@@ -247,6 +263,10 @@ public class DenseSparseExpController : MonoBehaviour
     private void DecideTargetIndex()
     {
         targetCorrectIndex = Random.Range(0, objectCount);
+        if (isGame)
+        {
+            dataLoggerController.ReflectPlaceChange(targetCorrectIndex);
+        }
         GetXYZIndexesForTargetCorrectIndex();
         ChangeDisplayText();
     }
@@ -254,7 +274,7 @@ public class DenseSparseExpController : MonoBehaviour
     public void SetRejoinedIndex(int rejoinedIndex)
     {
         CheckCorrectAnswer(rejoinedIndex);
-        DecideTargetIndex();
+        // DecideTargetIndex();
         SetNextTarget();
     }
 
@@ -311,10 +331,34 @@ public class DenseSparseExpController : MonoBehaviour
     {
         return gridSize;
     }
+    private Vector3 GetRightIndexFingderPosition()
+    {
+        return targetHand.transform.position;
+    }
+    private void OnDestroy()
+    {
+        dataLoggerController.Close();
+    }
+    public string GetSubjectName()
+    {
+        return this.subjectName;
+    }
+    public ExpScene GetExpScene()
+    {
+        return expScene;
+    }
 }
 
 public enum DenseOrSparse
 {
     Dense,
-    Sparse
+    Sparse,
+    NoSound
+}
+
+public enum ExpScene
+{
+    DenseOrSparse,
+    VRKeyboard,
+    Surgery
 }

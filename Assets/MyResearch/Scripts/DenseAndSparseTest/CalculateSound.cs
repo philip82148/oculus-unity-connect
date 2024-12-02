@@ -11,12 +11,14 @@ public class CalculateSound : MonoBehaviour
 
 
 
-    private float minFrequency = 220f;
-    private float maxFrequency = 660f;
+    private float minFrequency = 200f;
+    private float maxFrequency = 900f;
+    private float amplitudeRange = 16.0f;
 
-    private float minAmplitude = 0.2f;
+    private float minAmplitude = 1 / 16f;
     private float maxAmplitude = 1.0f;
     private double calculatedAmplitude;
+    float fixedAmplitude;
     private double calculatedFrequency;
     private double calculatedPan;
 
@@ -34,22 +36,25 @@ public class CalculateSound : MonoBehaviour
     // private float zDiff = 0;
     private double tZ = 0;
     private float objectLength = 0.01f;
+    double frequencyExponent;
 
 
     void Start()
     {
+        // minAmplitude = maxAmplitude * Mathf.Pow(10.0f, -amplitudeRange / 20.0f);
+        Debug.Log("min amplitude:" + minAmplitude);
         // centralFrequency = (minFrequency + maxFrequency) / 2;
         // createSoundController.SetAmplitude(0);
         // CalculateSoundLength();
         // CalculateExponentialFrequency();
         // CalculateExponentialAmplitude();
-        Debug.Log("sound length:" + soundLength);
+        // Debug.Log("sound length:" + soundLength);
     }
 
     void Update()
     {
         CalculateSoundLength();
-        debugText.text = "fre:" + calculatedFrequency.ToString("f2") + "\n" + "amp:" + calculatedAmplitude + "\n" + "amp coe:" + tZ.ToString();
+        // debugText.text = "fre:" + calculatedFrequency.ToString() + "\n" + "amp:" + fixedAmplitude.ToString("f2");
 
     }
     public void SetCoordinateDiff(Vector3 diff)
@@ -75,10 +80,14 @@ public class CalculateSound : MonoBehaviour
     //     CalculateExponentialAmplitude();
 
     // }
-    public void SetInitial()
+    public void SetInitial(bool isSound)
     {
-        createSoundController.SetFrequencySelf(0);
-        createSoundController.SetAmplitude(0);
+        if (isSound) { createSoundController.EnableAudio(); }
+        else
+        {
+            createSoundController.DisableAudio();
+        }
+
     }
 
     public void SetCoordinateDiffs(List<Vector3> diffs)
@@ -113,9 +122,9 @@ public class CalculateSound : MonoBehaviour
         double calculatedFrequency;
 
         double t = (yDiff + soundLength) / (2 * soundLength);
-        double convertedT = ConvertToDiscrete(t);
+        frequencyExponent = ConvertToDiscrete(t);
         float frequencyRatio = maxFrequency / (float)minFrequency;
-        calculatedFrequency = minFrequency * Mathf.Pow(frequencyRatio, (float)convertedT);
+        calculatedFrequency = minFrequency * Mathf.Pow(frequencyRatio, (float)frequencyExponent);
 
         return calculatedFrequency;
     }
@@ -125,8 +134,23 @@ public class CalculateSound : MonoBehaviour
         double convertedT = ConvertToDiscrete(tZ);
         float amplitudeRatio = maxAmplitude / (float)minAmplitude;
         calculatedAmplitude = minAmplitude * Mathf.Pow(amplitudeRatio, 1 - (float)convertedT);
-        return calculatedAmplitude;
+        fixedAmplitude = CorrectLoudness((float)calculatedAmplitude);
+        return fixedAmplitude;
 
+    }
+    private float CorrectLoudness(float originalAmplitude)
+    {
+        float naze = 6;
+        float dBReduction = naze + 6;
+        if (frequencyExponent == 1) dBReduction += 2;
+        else if (frequencyExponent == 0.75) dBReduction += 1;
+        else if (frequencyExponent == 0.5) dBReduction += -3;
+        else if (frequencyExponent == 0.25) dBReduction += -8;
+        else if (frequencyExponent == 0) dBReduction += -12;
+        float newAmplitude = originalAmplitude * Mathf.Pow(10, -dBReduction / 20f);
+        return newAmplitude;
+
+        // return amplitude;
     }
     private double CalculateExponentialPan(float xDiff)
     {
@@ -143,6 +167,13 @@ public class CalculateSound : MonoBehaviour
     }
 
     private double ConvertToDiscrete(double t)
+    {
+        if (0 <= t && t < 1.0 / 3.0) return 0;
+        else if (1.0 / 3.0 <= t && t <= 2.0 / 3.0) return 0.5;
+        else if (2.0 / 3.0 < t && t <= 1.0) return 1;
+        else return 0;
+    }
+    private double ConvertToDiscreteAmp(double t)
     {
         if (0 <= t && t < 1.0 / 3.0) return 0;
         else if (1.0 / 3.0 <= t && t <= 2.0 / 3.0) return 0.5;

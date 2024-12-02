@@ -4,6 +4,8 @@ using System.IO;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class ResolutionExpController : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class ResolutionExpController : MonoBehaviour
     [SerializeField]
     private ExpSetting expSetting = ExpSetting.Both;
     [SerializeField] private DataLoggerController dataLoggerController;
-
+    [SerializeField] private Slider frequencySlider; // 周波数調整用のスライダー
 
     [Header("UI Setting")]
     [SerializeField] private GameObject[] frequencyButtons;
@@ -26,22 +28,22 @@ public class ResolutionExpController : MonoBehaviour
     [SerializeField] private GameObject[] panButtons;
     [SerializeField] private string subjectName;
     private int frequencyResolutionIndex = 0;
-    private int amplitudeResolutionIndex = 2;
+    private int amplitudeResolutionIndex = 0;
     private int panResolutionIndex = 0;
 
     private bool isGameStart = false;
     private int score = 0;
-    private int restCount = 10;
-    private int frequencyResolutionCount = 5;
-    private int amplitudeResolutionCount = 3;
-    private int panResolutionCount = 3;
+    private int restCount = 30;
+    [SerializeField] private int frequencyResolutionCount = 5;
+    [SerializeField] private int amplitudeResolutionCount = 5;
+    [SerializeField] private int panResolutionCount = 5;
 
     void Start()
     {
         string dateTime = System.DateTime.Now.ToString("yyyyMMddHHmmss");
         InitializeButtonSetting();
         resolutionSetting.SetCount(frequencyResolutionCount, amplitudeResolutionCount);
-        string folder = $"C:\\Users\\takaharayota\\Research\\Exp1-data\\{subjectName}\\times";
+        string folder = $"C:\\Users\\takaharayota\\Research\\Semi-Exp2\\{subjectName}";
         Directory.CreateDirectory(folder);
         string fileName = $"{frequencyResolutionCount}_{amplitudeResolutionCount}_{panResolutionCount}_{expSetting}_{dateTime}.txt";
         dataLoggerController.Initialize(System.IO.Path.Combine(folder, fileName));
@@ -52,6 +54,16 @@ public class ResolutionExpController : MonoBehaviour
     {
         debugText.text = restCount.ToString();
         scoreText.text = "score:" + score.ToString();
+
+
+        if (expSetting == ExpSetting.ManualFrequency)
+        {
+            ReflectFrequencyFromSlider();
+        }
+        else if (expSetting == ExpSetting.ManualAmplitude)
+        {
+            resolutionSetting.ReflectPacksan();
+        }
     }
     public void ReflectClickedIndex(int index, ResolutionType resolutionType)
     {
@@ -75,26 +87,63 @@ public class ResolutionExpController : MonoBehaviour
             {
 
                 frequencyButtons[i].SetActive(false);
+                frequencySlider.gameObject.SetActive(false);
 
             }
             else if (expSetting == ExpSetting.Frequency)
             {
 
                 if (frequencyResolutionCount <= i) { frequencyButtons[i].SetActive(false); }
+                frequencySlider.gameObject.SetActive(false);
             }
             else if (expSetting == ExpSetting.Amplitude)
             {
                 frequencyButtons[i].SetActive(false);
+                frequencySlider.gameObject.SetActive(false);
 
             }
             else if (expSetting == ExpSetting.Pan)
             {
                 frequencyButtons[i].SetActive(false);
+                frequencySlider.gameObject.SetActive(false);
             }
             else if (expSetting == ExpSetting.All)
             {
                 if (frequencyResolutionCount <= i) { frequencyButtons[i].SetActive(false); }
+                frequencySlider.gameObject.SetActive(false);
             }
+            else if (expSetting == ExpSetting.ManualFrequency)
+            {
+                foreach (var button in frequencyButtons)
+                {
+                    button.SetActive(false);
+                }
+                foreach (var button in amplitudeButtons)
+                {
+                    button.SetActive(false);
+                }
+                foreach (var button in panButtons)
+                {
+                    button.SetActive(false);
+                }
+                frequencySlider.gameObject.SetActive(true); // スライダーを表示
+            }
+            // else if (expSetting == ExpSetting.ManualAmplitude)
+            // {
+            //     foreach (var button in frequencyButtons)
+            //     {
+            //         button.SetActive(false);
+            //     }
+            //     foreach (var button in amplitudeButtons)
+            //     {
+            //         button.SetActive(false);
+            //     }
+            //     foreach (var button in panButtons)
+            //     {
+            //         button.SetActive(false);
+            //     }
+            //     frequencySlider.gameObject.SetActive(false); // スライダーを表示
+            // }
 
         }
         for (int i = 0; i < amplitudeButtons.Length; i++)
@@ -195,13 +244,32 @@ public class ResolutionExpController : MonoBehaviour
         resolutionSetting.ReflectAudioSetting(frequencyResolutionIndex, amplitudeResolutionIndex, panResolutionIndex, expSetting);
         // resolutionSetting.ReflectExponentialAudioSetting(frequencyResolutionIndex, frequencyResolutionIndex);
     }
+    private int previousFrequencyResolutionIndex = -1;
+    private int previousAmplitudeResolutionIndex = -1;
+    private int previousPanResolutionIndex = -1;
+
     private void SetNext()
     {
-        frequencyResolutionIndex = Random.Range(0, frequencyResolutionCount);
-        amplitudeResolutionIndex = Random.Range(0, amplitudeResolutionCount);
-        panResolutionIndex = Random.Range(0, panResolutionCount);
+        do
+        {
+            frequencyResolutionIndex = Random.Range(0, frequencyResolutionCount);
+        } while (frequencyResolutionIndex == previousFrequencyResolutionIndex);
 
-        // gameText.text = "next index:" + frequencyResolutionIndex.ToString("") + "";
+        do
+        {
+            amplitudeResolutionIndex = Random.Range(0, amplitudeResolutionCount);
+        } while (amplitudeResolutionIndex == previousAmplitudeResolutionIndex);
+
+        do
+        {
+            panResolutionIndex = Random.Range(0, panResolutionCount);
+        } while (panResolutionIndex == previousPanResolutionIndex);
+
+        // 前回のインデックスを更新
+        previousFrequencyResolutionIndex = frequencyResolutionIndex;
+        previousAmplitudeResolutionIndex = amplitudeResolutionIndex;
+        previousPanResolutionIndex = panResolutionIndex;
+
         ReflectAudioSetting();
     }
     public void StartGame()
@@ -211,6 +279,13 @@ public class ResolutionExpController : MonoBehaviour
         Debug.Log("start game");
         gameText.text = "start game"; SetNext();
     }
+
+    public void ReflectFrequencyFromSlider()
+    {
+        float frequency = frequencySlider.value;
+        resolutionSetting.SetFrequencyOnly(frequency);
+    }
+
     public int GetFrequencyResolutionCount()
     {
         return frequencyResolutionCount;
@@ -229,7 +304,10 @@ public class ResolutionExpController : MonoBehaviour
     }
 }
 
+public enum ResokutionCount
+{
 
+}
 
 public enum ResolutionType
 {
@@ -244,5 +322,7 @@ public enum ExpSetting
     Frequency,
     Both,
     Pan,
-    All
+    All,
+    ManualFrequency,
+    ManualAmplitude
 }
