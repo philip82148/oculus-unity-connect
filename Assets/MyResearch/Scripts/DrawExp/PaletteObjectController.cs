@@ -19,7 +19,7 @@ public class PaletteObjectController : MonoBehaviour
     void Start()
     {
         defaultPosition = this.transform.position;
-        // thisRenderer.material.color = defaultColor;
+        thisRenderer.material.color = defaultColor;
     }
 
 

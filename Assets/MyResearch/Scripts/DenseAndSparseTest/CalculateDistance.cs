@@ -21,8 +21,8 @@ public class CalculateDistance : MonoBehaviour
     // private const double depthRequiredLength = 0.05;
     [SerializeField] private double centralRequiredLength;
 
-    private ExpScene expScene;
-    private DenseOrSparse denseOrSparse;
+    [SerializeField] private ExpScene expScene;
+    [SerializeField] private DenseOrSparse denseOrSparse;
     // private double xRequiredLength = 0.04;
 
     // Start is called before the first frame update
@@ -31,8 +31,8 @@ public class CalculateDistance : MonoBehaviour
 
         CalculateCentralRequiredLength();
 
-        denseOrSparse = experimentController.GetDenseOrSparse();
-        expScene = experimentController.GetExpScene();
+        // denseOrSparse = experimentController.GetDenseOrSparse();
+        // expScene = experimentController.GetExpScene();
     }
 
     // Update is called once per frame

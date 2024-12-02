@@ -6,6 +6,11 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     [SerializeField] private GameObject targetEnemy;
+    [Header("Weapon")]
+    [SerializeField] private List<GameObject> weaponObjects;
+    [SerializeField] private List<GameObject> spawnPositions;
+    [Header("Bullet Object")]
+
     [SerializeField] private GameObject bulletObject;
     [SerializeField] private GameObject bombObject;
     [SerializeField] private GameObject ropeObject;
@@ -22,7 +27,10 @@ public class WeaponController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        for (int i = 1; i < weaponObjects.Count; i++)
+        {
+            weaponObjects[i].SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -40,7 +48,8 @@ public class WeaponController : MonoBehaviour
         Vector3 rightHandPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
         Quaternion rightHandRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
 
-        Vector3 spawnPosition = trackingSpace.transform.TransformPoint(rightHandPosition);
+        // Vector3 spawnPosition = trackingSpace.transform.TransformPoint(rightHandPosition);
+        Vector3 spawnPosition = spawnPositions[selectedIndex].transform.position;
         Quaternion spawnRotation = trackingSpace.transform.rotation * rightHandRotation;
         // 前方にオフセットする距離
         float offsetDistance = 0.05f;
@@ -49,7 +58,11 @@ public class WeaponController : MonoBehaviour
         // Vector3 spawnPosition = weaponSpawnPoint.position + weaponSpawnPoint.forward * offsetDistance;
 
         GameObject targetObject;
-        if (selectedIndex == 0) targetObject = bulletObject;
+        if (selectedIndex == 0)
+        {
+            targetObject = bulletObject;
+            // weaponObjects[se]
+        }
         else if (selectedIndex == 1) targetObject = bombObject;
         else if (selectedIndex == 2) targetObject = ropeObject;
         else return;
@@ -99,7 +112,9 @@ public class WeaponController : MonoBehaviour
 
     public void SetWeapon(int index)
     {
+        weaponObjects[selectedIndex].SetActive(false);
         selectedIndex = index;
+        weaponObjects[selectedIndex].SetActive(true);
     }
 
 }

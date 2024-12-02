@@ -58,7 +58,7 @@ public class DenseSparseExpController : MonoBehaviour
         {
             CreateTargetObjectsIn3D();
         }
-        dataLoggerController.Initialize(interval, denseOrSparse);
+        dataLoggerController.Initialize(interval, denseOrSparse, expScene);
     }
 
     // Update is called once per frame
@@ -79,17 +79,22 @@ public class DenseSparseExpController : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
             isGame = true;
-
-            SetNextTarget();
+            if (expScene == ExpScene.DenseOrSparse)
+            {
+                SetNextTarget();
+            }
         }
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             int tmpIndex = handController.GetIndex();
             if (isGame)
             {
-                dataLoggerController.WriteInformation(GetRightIndexFingderPosition());
+                dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
             }
-            SetRejoinedIndex(tmpIndex);
+            if (expScene == ExpScene.DenseOrSparse)
+            {
+                SetRejoinedIndex(tmpIndex);
+            }
         }
         if (isGame)
         {
@@ -331,7 +336,7 @@ public class DenseSparseExpController : MonoBehaviour
     {
         return gridSize;
     }
-    private Vector3 GetRightIndexFingderPosition()
+    private Vector3 GetRightIndexFingerPosition()
     {
         return targetHand.transform.position;
     }
