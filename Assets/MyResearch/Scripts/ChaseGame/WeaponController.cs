@@ -23,6 +23,8 @@ public class WeaponController : MonoBehaviour
 
     [Header("OVR Setting")]
     [SerializeField] private GameObject trackingSpace;
+    private float bombCooldown = 5f; // クールダウン時間（秒）
+    private float lastBombTime = -5f; // 最後に手りゅう弾を発射した時間
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,7 @@ public class WeaponController : MonoBehaviour
         {
             weaponObjects[i].SetActive(false);
         }
+        lastBombTime = -bombCooldown; // ゲーム開始時にすぐ発射できるように初期化
     }
 
     // Update is called once per frame
@@ -63,10 +66,30 @@ public class WeaponController : MonoBehaviour
             targetObject = bulletObject;
             // weaponObjects[se]
         }
-        else if (selectedIndex == 1) targetObject = bombObject;
-        else if (selectedIndex == 2) targetObject = ropeObject;
-        else return;
-
+        else if (selectedIndex == 1)
+        {
+            // 手りゅう弾のクールダウンをチェック
+            if (Time.time - lastBombTime < bombCooldown)
+            {
+                // クールダウン中は発射できない
+                Debug.Log("手りゅう弾はクールダウン中です！");
+                return;
+            }
+            else
+            {
+                // 発射可能なので、最後に発射した時間を更新
+                lastBombTime = Time.time;
+                targetObject = bombObject;
+            }
+        }
+        else if (selectedIndex == 2)
+        {
+            targetObject = ropeObject;
+        }
+        else
+        {
+            return;
+        }
 
         // 弾を生成
         GameObject weaponObject = Instantiate(targetObject, spawnPosition, Quaternion.identity);

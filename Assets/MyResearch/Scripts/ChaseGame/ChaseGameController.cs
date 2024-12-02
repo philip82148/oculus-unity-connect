@@ -19,7 +19,7 @@ public class ChaseGameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        weaponDisplayText.text = "score:" + weaponIndex.ToString();
+        weaponDisplayText.text = "weapon:" + weaponIndex.ToString();
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class ChaseGameController : MonoBehaviour
             if (tmpIndex == -1) return;
             weaponIndex = tmpIndex;
             SetWeapon();
-            weaponDisplayText.text = "score:" + weaponIndex.ToString();
+            weaponDisplayText.text = "weapon:" + weaponIndex.ToString();
         }
     }
 
