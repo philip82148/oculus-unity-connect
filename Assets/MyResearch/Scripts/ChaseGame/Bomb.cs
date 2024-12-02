@@ -8,6 +8,7 @@ public class Bomb : MonoBehaviour
     private float speed;
     private float gravity = -0.981f / 3; // 重力加速度
     private float verticalSpeed = 0f; // 垂直方向の速度
+    [SerializeField] private GameObject explosionEffect; // 爆発エフェクトのプレハブ
 
     // Start is called before the first frame update
     void Start()
@@ -31,5 +32,16 @@ public class Bomb : MonoBehaviour
 
         // 毎フレーム移動する
         transform.Translate(currentDirection * speed * Time.deltaTime, Space.World);
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+
+        Destroy(this.gameObject);
+        if (explosionEffect != null)
+        {
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(explosionEffect, 1f);
+        }
+        Debug.Log("当たった!");
     }
 }
