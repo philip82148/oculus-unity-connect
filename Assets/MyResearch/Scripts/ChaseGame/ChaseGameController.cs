@@ -6,6 +6,7 @@ using UnityEngine;
 public class ChaseGameController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI weaponDisplayText;
 
     private int score = 0;
     [Header("Controller Setting")]
