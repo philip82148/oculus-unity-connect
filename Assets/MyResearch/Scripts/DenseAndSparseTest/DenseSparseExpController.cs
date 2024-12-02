@@ -79,8 +79,10 @@ public class DenseSparseExpController : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
             isGame = true;
-
-            SetNextTarget();
+            if (expScene == ExpScene.DenseOrSparse)
+            {
+                SetNextTarget();
+            }
         }
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
@@ -89,7 +91,10 @@ public class DenseSparseExpController : MonoBehaviour
             {
                 dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
             }
-            SetRejoinedIndex(tmpIndex);
+            if (expScene == ExpScene.DenseOrSparse)
+            {
+                SetRejoinedIndex(tmpIndex);
+            }
         }
         if (isGame)
         {
