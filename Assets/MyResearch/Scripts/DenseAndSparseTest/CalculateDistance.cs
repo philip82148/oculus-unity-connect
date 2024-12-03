@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CalculateDistance : MonoBehaviour
@@ -74,6 +75,10 @@ public class CalculateDistance : MonoBehaviour
                 // diffs.Add(diff);
                 calculateSound.SetCoordinateDiff(diff);
                 isSound = true;
+            }
+            else
+            {
+                isSound = false;
             }
         }
         else if (denseOrSparse == DenseOrSparse.NoSound)
