@@ -28,12 +28,18 @@ public class CreateSoundController : MonoBehaviour
 
     // フラグを追加して、使用するOnAudioFilterReadのバージョンを切り替える
     [SerializeField] private bool useOverlappedMethod = false;
+    // 単一音声処理用の現在のパラメータ
+    private double currentFrequency;
+    private double currentAmplitude;
+    private double currentPan;
 
     // 倍音用の変数（元の単一音声処理で使用）
     private double phase = 0.0;
-    // private double phaseHarmonic1 = 0.0;
-    // private double phaseHarmonic2 = 0.0;
     private double increment = 0.0;
+    // 補間速度（値は適宜調整してください）
+    private double frequencyChangeSpeed = 0.05;
+    private double amplitudeChangeSpeed = 0.05;
+    private double panChangeSpeed = 0.05;
 
 
     private void Start()
@@ -125,18 +131,22 @@ public class CreateSoundController : MonoBehaviour
         }
         else
         {
-            // 元の単一音声処理の実装
-            increment = frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
+
 
             for (int i = 0; i < data.Length; i += channels)
             {
+                currentFrequency = Mathf.Lerp((float)currentFrequency, (float)frequency, (float)frequencyChangeSpeed);
+                currentAmplitude = Mathf.Lerp((float)currentAmplitude, (float)gain, (float)amplitudeChangeSpeed);
+                currentPan = Mathf.Lerp((float)currentPan, (float)pan, (float)panChangeSpeed);
+                // 元の単一音声処理の実装
+                increment = currentFrequency * 2 * Math.PI / SAMPLING_FREQUENCY;
                 phase += increment;
 
                 // 基本音
-                double sample = gain * GenerateWave(phase, waveType);
+                double sample = currentAmplitude * GenerateWave(phase, waveType);
 
                 // パンニングの適用（標準的な計算方法）
-                double panValue = (pan + 1) / 2; // -1から1を0から1に変換
+                double panValue = (currentPan + 1) / 2; // -1から1を0から1に変換
                 double panLeft = Math.Cos(panValue * 0.5 * Math.PI);
                 double panRight = Math.Sin(panValue * 0.5 * Math.PI);
 

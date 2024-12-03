@@ -68,4 +68,9 @@ public class EnemyAI : MonoBehaviour
             agent.SetDestination(transform.position);
         }
     }
+    public void SetSpeed(float speed)
+    {
+        agent.speed = speed;
+        this.speed = speed;
+    }
 }

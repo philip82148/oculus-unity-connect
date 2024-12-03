@@ -14872,7 +14872,7 @@ MonoBehaviour:
   frequencyCoefficient: 1
   frequency: 0
   gain: 1
-  useOverlappedMethod: 1
+  useOverlappedMethod: 0
 --- !u!82 &1702490127
 AudioSource:
   m_ObjectHideFlags: 0

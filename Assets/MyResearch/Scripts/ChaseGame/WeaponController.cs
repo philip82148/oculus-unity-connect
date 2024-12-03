@@ -128,6 +128,14 @@ public class WeaponController : MonoBehaviour
                 bomb.Initialize(direction, bombSpeed);
             }
         }
+        else if (selectedIndex == 2)
+        {
+            Rope rope = weaponObject.GetComponent<Rope>();
+            if (rope != null)
+            {
+                rope.Initialize(direction, bombSpeed);
+            }
+        }
 
 
     }

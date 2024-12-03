@@ -40,7 +40,7 @@ public class Bomb : MonoBehaviour
         if (explosionEffect != null)
         {
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
-            Destroy(explosionEffect, 1f);
+            Destroy(explosionEffect, 0.5f);
         }
         Debug.Log("当たった!");
     }
