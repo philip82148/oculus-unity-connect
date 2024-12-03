@@ -68,7 +68,7 @@ public class CalculateDistance : MonoBehaviour
             if (centralObject != null && IsInCentralTerritory())
             {
 
-                // float diff = CalculateControllerPositionAndObjectDiff(centralObject);
+                // Vector3 diff = CalculateControllerPositionAndObjectDiff(centralObject);
                 // calculateSound.SetYDiff(diff);
                 Vector3 diff = CalculateControllerPositionAndObjectDiffIn3D(centralObject);
                 diffs.Add(diff);

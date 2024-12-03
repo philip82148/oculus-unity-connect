@@ -31,11 +31,10 @@ public class CreateSoundController : MonoBehaviour
 
     // 倍音用の変数（元の単一音声処理で使用）
     private double phase = 0.0;
-    private double phaseHarmonic1 = 0.0;
-    private double phaseHarmonic2 = 0.0;
+    // private double phaseHarmonic1 = 0.0;
+    // private double phaseHarmonic2 = 0.0;
     private double increment = 0.0;
-    private float harmonic1Coefficient = 0f;
-    private float harmonic2Coefficient = 0f;
+
 
     private void Start()
     {
@@ -127,29 +126,14 @@ public class CreateSoundController : MonoBehaviour
         else
         {
             // 元の単一音声処理の実装
-
             increment = frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
-
-            double harmonic1Frequency = frequency * 2; // 第1倍音 (2倍の周波数)
-            double harmonic2Frequency = frequency * 3; // 第2倍音 (3倍の周波数)
-
-            double incrementHarmonic1 = harmonic1Frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
-            double incrementHarmonic2 = harmonic2Frequency * 2 * Math.PI / SAMPLING_FREQUENCY;
 
             for (int i = 0; i < data.Length; i += channels)
             {
                 phase += increment;
-                phaseHarmonic1 += incrementHarmonic1;
-                phaseHarmonic2 += incrementHarmonic2;
 
                 // 基本音
                 double sample = gain * GenerateWave(phase, waveType);
-
-                // // 第1倍音
-                // sample += gain * harmonic1Coefficient * GenerateWave(phaseHarmonic1, waveType);
-
-                // // 第2倍音
-                // sample += gain * harmonic2Coefficient * GenerateWave(phaseHarmonic2, waveType);
 
                 // パンニングの適用（標準的な計算方法）
                 double panValue = (pan + 1) / 2; // -1から1を0から1に変換
@@ -173,11 +157,11 @@ public class CreateSoundController : MonoBehaviour
                 {
                     data[i] = (float)((sampleLeft + sampleRight) * 0.5);
                 }
-
+                // フェーズの更新
+                // phase += increment;
                 // フェーズのリセット
                 if (phase > 2 * Math.PI) phase -= 2 * Math.PI;
-                if (phaseHarmonic1 > 2 * Math.PI) phaseHarmonic1 -= 2 * Math.PI;
-                if (phaseHarmonic2 > 2 * Math.PI) phaseHarmonic2 -= 2 * Math.PI;
+
             }
         }
     }
