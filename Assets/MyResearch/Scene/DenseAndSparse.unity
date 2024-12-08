@@ -1659,7 +1659,7 @@ MonoBehaviour:
   restCountText: {fileID: 2129005748}
   targetHand: {fileID: 1911472834}
   frequencyRangeVisualizer: {fileID: 1152413242}
-  denseOrSparse: 1
+  denseOrSparse: 0
   expScene: 0
 --- !u!4 &586591635
 Transform:
@@ -2843,10 +2843,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indexFinger: {fileID: 1911472834}
-  denseSparseExpController: {fileID: 586591634}
+  experimentController: {fileID: 0}
+  vRKeyboardExpController: {fileID: 0}
   calculateSound: {fileID: 1095047856}
   targetSoundObjects: []
+  centralObject: {fileID: 0}
   centralRequiredLength: 0.15
+  expScene: 0
+  denseOrSparse: 0
 --- !u!4 &993637234
 Transform:
   m_ObjectHideFlags: 0

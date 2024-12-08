@@ -29,4 +29,17 @@ public class Bullet : MonoBehaviour
         }
         Debug.Log("当たった!");
     }
+    void OnCollisionEnter2D(Collision2D collision) // 2D用に変更
+    {
+        // 衝突時に自身を破壊
+        Destroy(this.gameObject);
+
+        if (explosionEffect != null)
+        {
+            // 爆発エフェクトを生成
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        }
+
+        Debug.Log("circle当たった!");
+    }
 }
