@@ -10,7 +10,7 @@ public class VRKeyboardExpController : MonoBehaviour
 {
     [SerializeField] private GameObject baseObject;
     [SerializeField] private Vector3 startCoordinate;
-    [SerializeField] private float interval = 0.07f;
+    [SerializeField] private float centralRequiredLength = 0.06f;
     [Header("Setting")]
     [SerializeField] private CalculateDistance calculateDistance;
 
@@ -55,17 +55,17 @@ public class VRKeyboardExpController : MonoBehaviour
     {
         objectCount = gridSize * gridSize * gridSize;
         problemCount = numberKeyboard.GetProblemCount();
-        previousInterval = interval;
+        previousInterval = centralRequiredLength;
         // CreateTargetObjectsIn3D();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (interval != previousInterval)
+        if (centralRequiredLength != previousInterval)
         {
             UpdateObjectPositionsIn3D();
-            previousInterval = interval;
+            previousInterval = centralRequiredLength;
         }
         // if (restCount <= 0)
         // {
@@ -150,9 +150,9 @@ public class VRKeyboardExpController : MonoBehaviour
             {
                 for (int x = 0; x < gridSize; x++) // xループを逆順に
                 {
-                    float positionOffsetX = (x - midIndex) * interval;
-                    float positionOffsetY = (y - midIndex) * interval;
-                    float positionOffsetZ = (z - midIndex) * interval;
+                    float positionOffsetX = (x - midIndex) * centralRequiredLength;
+                    float positionOffsetY = (y - midIndex) * centralRequiredLength;
+                    float positionOffsetZ = (z - midIndex) * centralRequiredLength;
                     Vector3 newPosition = new Vector3(
                                         startCoordinate.x + positionOffsetX,
                                         startCoordinate.y + positionOffsetY,
@@ -188,9 +188,9 @@ public class VRKeyboardExpController : MonoBehaviour
             {
                 for (int x = gridSize - 1; x >= 0; x--)
                 {
-                    float positionOffsetX = (x - midIndex) * interval;
-                    float positionOffsetY = (y - midIndex) * interval;
-                    float positionOffsetZ = (z - midIndex) * interval;
+                    float positionOffsetX = (x - midIndex) * centralRequiredLength;
+                    float positionOffsetY = (y - midIndex) * centralRequiredLength;
+                    float positionOffsetZ = (z - midIndex) * centralRequiredLength;
 
                     Vector3 newPosition = new Vector3(
                         startCoordinate.x + positionOffsetX,
@@ -267,9 +267,9 @@ public class VRKeyboardExpController : MonoBehaviour
         return targetCoordinates;
     }
 
-    public float GetInterval()
+    public float GetCentralRequiredLength()
     {
-        return interval;
+        return centralRequiredLength;
     }
 
     public int GetObjectCount()

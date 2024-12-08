@@ -19,13 +19,18 @@ public class ChaseCalculateDistance : MonoBehaviour
     [SerializeField] private GameObject centralObject;
     private const double requiredLength = 0.03;
     // private const double depthRequiredLength = 0.05;
-    [SerializeField] private double centralRequiredLength;
+
+    [SerializeField] private float xRequiredLength;
+    [SerializeField] private float yRequiredLength;
+    [SerializeField] private float zRequiredLength;
     bool isSound = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        xRequiredLength = centralObject.transform.localScale.x / 2;
+        yRequiredLength = centralObject.transform.localScale.y / 2 * 3;
+        zRequiredLength = centralObject.transform.localScale.z / 2;
     }
 
     // Update is called once per frame
@@ -42,6 +47,10 @@ public class ChaseCalculateDistance : MonoBehaviour
             calculateSound.SetCoordinateDiff(diff);
             isSound = true;
         }
+        else
+        {
+            isSound = false;
+        }
     }
 
 
@@ -50,9 +59,9 @@ public class ChaseCalculateDistance : MonoBehaviour
 
         Vector3 rightControllerPosition = GetRightIndexFingerPosition();
         Vector3 targetPosition = centralObject.transform.position;
-        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < centralRequiredLength) &&
-        (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < centralRequiredLength)
-    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < centralRequiredLength))
+        if ((Mathf.Abs(rightControllerPosition.x - targetPosition.x) < xRequiredLength) &&
+        (Mathf.Abs(rightControllerPosition.y - targetPosition.y) < yRequiredLength)
+    && (Mathf.Abs(rightControllerPosition.z - targetPosition.z) < zRequiredLength))
         {
             return true;
         }
