@@ -82,7 +82,7 @@ public class NumberKeyboard : MonoBehaviour
         scoreText.text = "Score:" + score.ToString();
         tmpText.text = userInput;
         problemText.text = textStrings[tmpTargetIndex];
-        if (userInput.Length == correctAnswers[tmpTargetIndex].Length)
+        if (correctAnswers[tmpTargetIndex].Length <= userInput.Length)
         {
             CheckCorrectTextAnswer();
             userInput = "";
@@ -92,7 +92,15 @@ public class NumberKeyboard : MonoBehaviour
 
     public void OnKeyPressed(string key)
     {
-        userInput += key;
+        if (!key.Equals("ERASE"))
+        {
+            userInput += key;
+
+        }
+        else
+        {
+            userInput = userInput.Remove(userInput.Length - 1);
+        }
     }
 
     // public void SetNumberKeyboard(KeyboardKey keyboardKey)

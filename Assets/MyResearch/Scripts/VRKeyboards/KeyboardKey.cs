@@ -13,6 +13,7 @@ public class KeyboardKey : MonoBehaviour
     private int index = -1;
     private KeyboardPosition keyboardPosition;
     private int gridSize = 3;
+    [SerializeField] private bool isErasable = false;
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +63,12 @@ public class KeyboardKey : MonoBehaviour
     }
     public string GetAlphabet()
     {
-        return this.alphabet;
+        if (!isErasable) return this.alphabet;
+        else return "ERASE";
+    }
+    public bool GetIsErasable()
+    {
+        return isErasable;
     }
     public void SetColor()
     {
