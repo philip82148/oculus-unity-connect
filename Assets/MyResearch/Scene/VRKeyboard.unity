@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 18046767}
   index: 4
   isMove: 0
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 49490834}
   index: 4
   isMove: 0
@@ -976,13 +976,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1457,13 +1457,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3888,7 +3888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 279426241}
   index: 4
   isMove: 0
@@ -3978,7 +3978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &280734861
 Transform:
   m_ObjectHideFlags: 0
@@ -4841,7 +4841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 334686035}
   index: 4
   isMove: 0
@@ -5167,13 +5167,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -5517,7 +5517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 370405467}
   index: 4
   isMove: 0
@@ -6088,13 +6088,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -6267,7 +6267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 488106564}
   index: 4
   isMove: 0
@@ -7291,13 +7291,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -8719,13 +8719,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -8823,7 +8823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &605081339
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9244,7 +9244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 676986708}
   index: 4
   isMove: 0
@@ -9411,7 +9411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 686985934}
   index: 4
   isMove: 0
@@ -9570,13 +9570,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -9741,13 +9741,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -9920,7 +9920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 706915412}
   index: 4
   isMove: 0
@@ -10231,13 +10231,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -10410,7 +10410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 743162827}
   index: 4
   isMove: 0
@@ -10577,7 +10577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 761049846}
   index: 4
   isMove: 0
@@ -11221,13 +11221,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -11563,13 +11563,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -12124,13 +12124,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -12838,13 +12838,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -13211,13 +13211,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -14747,13 +14747,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -15205,7 +15205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1117305453}
   index: 4
   isMove: 0
@@ -15364,13 +15364,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -15694,7 +15694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1155181379
 Transform:
   m_ObjectHideFlags: 0
@@ -16150,7 +16150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1183869729}
   index: 4
   isMove: 0
@@ -16873,13 +16873,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -17052,7 +17052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1313012089}
   index: 4
   isMove: 0
@@ -17219,7 +17219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1314500063}
   index: 4
   isMove: 0
@@ -17895,7 +17895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1378294342}
   index: 4
   isMove: 0
@@ -18062,7 +18062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1392742309}
   index: 4
   isMove: 0
@@ -18154,7 +18154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1396900007
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18363,7 +18363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1398377619}
   index: 4
   isMove: 0
@@ -18522,13 +18522,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -18868,7 +18868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1438077355}
   index: 4
   isMove: 0
@@ -19742,13 +19742,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -20092,7 +20092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1533965524}
   index: 4
   isMove: 0
@@ -20259,7 +20259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1534793975}
   index: 4
   isMove: 0
@@ -20589,13 +20589,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -20791,13 +20791,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -21587,13 +21587,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -22919,7 +22919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1704147634}
   index: 4
   isMove: 0
@@ -23245,13 +23245,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -23904,7 +23904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1771681591}
   index: 4
   isMove: 0
@@ -24063,13 +24063,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -24234,13 +24234,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -24413,7 +24413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 1824978877}
   index: 4
   isMove: 0
@@ -24633,13 +24633,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -26144,7 +26144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 2002466869}
   index: 4
   isMove: 0
@@ -26586,7 +26586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 2051092281}
   index: 4
   isMove: 0
@@ -26745,13 +26745,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -27042,7 +27042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPosition: {x: -0.25, y: -0.1, z: 0}
-  defaultColor: {r: 0.7924528, g: 0.21181901, b: 0.715385, a: 1}
+  defaultColor: {r: 0.72955966, g: 0.0344131, b: 0.6356209, a: 0.4627451}
   thisRenderer: {fileID: 2102503501}
   index: 4
   isMove: 0

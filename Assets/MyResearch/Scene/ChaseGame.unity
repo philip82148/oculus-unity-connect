@@ -500,6 +500,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 32252237}
   index: 5
   isMove: 0
+  isSetColor: 0
 --- !u!65 &32252236
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -758,6 +759,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 85826159}
   index: 3
   isMove: 0
+  isSetColor: 0
 --- !u!65 &85826158
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2238,6 +2240,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 401923985}
   index: 0
   isMove: 0
+  isSetColor: 1
 --- !u!1 &423611874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2793,6 +2796,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 507725526}
   index: 8
   isMove: 1
+  isSetColor: 0
 --- !u!65 &507725525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3922,6 +3926,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 743606569}
   index: 0
   isMove: 1
+  isSetColor: 0
 --- !u!65 &743606568
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4177,6 +4182,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 855496740}
   index: 1
   isMove: 0
+  isSetColor: 1
 --- !u!1 &864897372
 GameObject:
   m_ObjectHideFlags: 0
@@ -4580,6 +4586,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 935183088}
   index: 2
   isMove: 0
+  isSetColor: 1
 --- !u!1001 &969832329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5383,6 +5390,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1288963996}
   index: 1
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1288963995
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6688,6 +6696,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1868820388}
   index: 7
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1868820387
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7187,6 +7196,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1970438726}
   index: 2
   isMove: 1
+  isSetColor: 0
 --- !u!65 &1970438725
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10494,6 +10504,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 2050516225}
   index: 6
   isMove: 1
+  isSetColor: 0
 --- !u!65 &2050516224
 BoxCollider:
   m_ObjectHideFlags: 0

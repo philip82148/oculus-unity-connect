@@ -11,6 +11,7 @@ public class PaletteObjectController : MonoBehaviour
     [SerializeField] private Renderer thisRenderer;
     [SerializeField] private int index = 0;
     [SerializeField] private bool isMove = false;
+    [SerializeField] private bool isSetColor = false;
 
     private int xIndex = 0;
     private int yIndex = 0;
@@ -19,7 +20,10 @@ public class PaletteObjectController : MonoBehaviour
     void Start()
     {
         defaultPosition = this.transform.position;
-        thisRenderer.material.color = defaultColor;
+        if (isSetColor)
+        {
+            thisRenderer.material.color = defaultColor;
+        }
     }
 
 
