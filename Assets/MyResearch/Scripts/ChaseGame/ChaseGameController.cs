@@ -6,6 +6,8 @@ using UnityEngine;
 public class ChaseGameController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField]
+    private TextMeshPro hitPointAboveText;
     [SerializeField] private TextMeshProUGUI weaponDisplayText;
 
     private int score = 0;
@@ -43,6 +45,7 @@ public class ChaseGameController : MonoBehaviour
     public void SetHP(int hp)
     {
         scoreText.text = "HP:" + hp.ToString();
+        hitPointAboveText.text = "HP:" + hp.ToString();
     }
     private void SetWeapon()
     {

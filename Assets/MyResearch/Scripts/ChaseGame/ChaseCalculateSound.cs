@@ -26,6 +26,15 @@ public class ChaseCalculateSound : MonoBehaviour
     {
 
     }
+    public void SetInitial(bool isSound)
+    {
+        if (isSound) { createSoundController.EnableAudio(); }
+        else
+        {
+            createSoundController.DisableAudio();
+        }
+
+    }
 
     // Update is called once per frame
     void Update()

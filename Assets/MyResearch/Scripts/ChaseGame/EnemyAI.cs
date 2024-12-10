@@ -20,11 +20,13 @@ public class EnemyAI : MonoBehaviour
         // NavMeshAgentの速度を設定
         speed = enemyController.GetSpeed();
         agent.speed = speed;
+        agent.updateRotation = false;
     }
 
     void Update()
     {
         float distance = Vector3.Distance(transform.position, player.position);
+        transform.LookAt(player);
 
         if (distance < fleeDistance)
         {
