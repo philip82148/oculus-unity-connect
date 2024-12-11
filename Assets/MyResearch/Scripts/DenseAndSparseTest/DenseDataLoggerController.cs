@@ -34,6 +34,21 @@ public class DenseDataLoggerController : MonoBehaviour
         writer = new StreamWriter(fileStream, Encoding.UTF8);
 
     }
+    public void InitializeAsVRKeyboard(float interval)
+    {
+        subjectName = denseSparseExpController.GetSubjectName();
+
+        folder = $"C:\\Users\\takaharayota\\Research\\VRKeyboard\\{subjectName}";
+        Directory.CreateDirectory(folder);
+
+        string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+        string fileName = $"{dateTime}.txt";
+        string filePath = System.IO.Path.Combine(folder, fileName);
+        FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+        writer = new StreamWriter(fileStream, Encoding.UTF8);
+
+    }
 
     public void InitializeAsSurgeryExp(float interval, DenseOrSparse denseOrSparse)
     {
@@ -62,6 +77,13 @@ public class DenseDataLoggerController : MonoBehaviour
     {
         writer.WriteLine("place index:" + placeIndex);
     }
+    public void ReflectAlphabetChange(
+        string alphabet
+    )
+    {
+        writer.WriteLine("alphabet index:" + alphabet);
+    }
+
 
     // Update is called once per frame
     void Update()

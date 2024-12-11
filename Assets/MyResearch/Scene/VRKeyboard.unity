@@ -346,6 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1521709193}
   alphabet: F
+  isErasable: 0
 --- !u!54 &18046764
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -390,6 +391,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 18046767}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &18046766
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -606,6 +608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 742909037}
   alphabet: B
+  isErasable: 0
 --- !u!54 &49490831
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -650,6 +653,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 49490834}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &49490833
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1143,6 +1147,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 99640458}
   index: 8
   isMove: 1
+  isSetColor: 0
 --- !u!65 &99640457
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1247,8 +1252,10 @@ MonoBehaviour:
   startCoordinate: {x: 0, y: -0.2, z: 0.05}
   centralRequiredLength: 0.06
   calculateDistance: {fileID: 498381302}
+  targetHand: {fileID: 240472515}
   handController: {fileID: 240472520}
   numberKeyboard: {fileID: 726300072}
+  dataLoggerController: {fileID: 1162506460}
   ansFirstText: {fileID: 605081340}
   ansSecondText: {fileID: 1396900008}
   timerText: {fileID: 1020334366}
@@ -1596,6 +1603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1023112303}
   alphabet: R
+  isErasable: 0
 --- !u!54 &164099896
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1640,6 +1648,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 164099899}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &164099898
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1791,6 +1800,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 168922168}
   index: 5
   isMove: 0
+  isSetColor: 0
 --- !u!65 &168922167
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2256,6 +2266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 557337044}
   alphabet: T
+  isErasable: 0
 --- !u!54 &199740893
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2300,6 +2311,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 199740896}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &199740895
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2423,6 +2435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1327263679}
   alphabet: G
+  isErasable: 0
 --- !u!54 &204032810
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2467,6 +2480,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 204032813}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &204032812
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2618,6 +2632,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 205718973}
   index: 3
   isMove: 0
+  isSetColor: 0
 --- !u!65 &205718972
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2741,6 +2756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1756410148}
   alphabet: W
+  isErasable: 0
 --- !u!54 &205898540
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2785,6 +2801,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 205898543}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &205898542
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3393,6 +3410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 949738403}
   alphabet: P
+  isErasable: 0
 --- !u!54 &248770011
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3437,6 +3455,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 248770014}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &248770013
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3681,6 +3700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1159047920}
   alphabet: F
+  isErasable: 0
 --- !u!54 &266709637
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3725,6 +3745,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 266709640}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &266709639
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3848,6 +3869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 351003110}
   alphabet: V
+  isErasable: 0
 --- !u!54 &279426238
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3892,6 +3914,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 279426241}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &279426240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4801,6 +4824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 799691940}
   alphabet: X
+  isErasable: 0
 --- !u!54 &334686032
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4845,6 +4869,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 334686035}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &334686034
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4968,6 +4993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1852243948}
   alphabet: K
+  isErasable: 0
 --- !u!54 &339721185
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5012,6 +5038,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 339721188}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &339721187
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5477,6 +5504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1578107479}
   alphabet: C
+  isErasable: 0
 --- !u!54 &370405464
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5521,6 +5549,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 370405467}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &370405466
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5815,6 +5844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 185148483}
   alphabet: Z
+  isErasable: 0
 --- !u!54 &446176988
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5859,6 +5889,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 446176991}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &446176990
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6227,6 +6258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1851549811}
   alphabet: P
+  isErasable: 0
 --- !u!54 &488106561
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6271,6 +6303,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 488106564}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &488106563
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6394,6 +6427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1948483509}
   alphabet: I
+  isErasable: 0
 --- !u!54 &497798053
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6438,6 +6472,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 497798056}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &497798055
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6541,6 +6576,7 @@ MonoBehaviour:
   indexFinger: {fileID: 240472515}
   experimentController: {fileID: 516570760}
   vRKeyboardExpController: {fileID: 106728068}
+  surgeryExpController: {fileID: 0}
   calculateSound: {fileID: 585063183}
   targetSoundObjects: []
   centralObject: {fileID: 2102503495}
@@ -7430,6 +7466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 387698123}
   alphabet: H
+  isErasable: 0
 --- !u!54 &539837167
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7474,6 +7511,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 539837170}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &539837169
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7768,6 +7806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 171666382}
   alphabet: C
+  isErasable: 0
 --- !u!54 &562629400
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7812,6 +7851,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 562629403}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &562629402
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8097,6 +8137,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 570438558}
   index: 7
   isMove: 0
+  isSetColor: 0
 --- !u!65 &570438557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9204,6 +9245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 91656505}
   alphabet: T
+  isErasable: 0
 --- !u!54 &676986705
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9248,6 +9290,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 676986708}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &676986707
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9371,6 +9414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1709215030}
   alphabet: Z
+  isErasable: 0
 --- !u!54 &686985931
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9415,6 +9459,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 686985934}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &686985933
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9880,6 +9925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 897606553}
   alphabet: J
+  isErasable: 0
 --- !u!54 &706915409
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9924,6 +9970,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 706915412}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &706915411
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10370,6 +10417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 796890264}
   alphabet: S
+  isErasable: 0
 --- !u!54 &743162824
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10414,6 +10462,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 743162827}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &743162826
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10537,6 +10586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 705723993}
   alphabet: E
+  isErasable: 0
 --- !u!54 &761049843
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10581,6 +10631,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 761049846}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &761049845
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10704,6 +10755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 58795891}
   alphabet: J
+  isErasable: 0
 --- !u!54 &761482333
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10748,6 +10800,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 761482336}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &761482335
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10899,6 +10952,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 777829607}
   index: 6
   isMove: 1
+  isSetColor: 0
 --- !u!65 &777829606
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11022,6 +11076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 229953268}
   alphabet: D
+  isErasable: 0
 --- !u!54 &791135359
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11066,6 +11121,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 791135362}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &791135361
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11835,6 +11891,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 805069655}
   index: 2
   isMove: 1
+  isSetColor: 0
 --- !u!65 &805069654
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12505,6 +12562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 970317713}
   alphabet: L
+  isErasable: 0
 --- !u!54 &888358911
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12549,6 +12607,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 888358914}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &888358913
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13758,6 +13817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1203436619}
   alphabet: O
+  isErasable: 0
 --- !u!54 &1019532609
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13802,6 +13862,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1019532612}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1019532611
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14059,6 +14120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 512734004}
   alphabet: U
+  isErasable: 0
 --- !u!54 &1022457668
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14103,6 +14165,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1022457671}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1022457670
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14998,6 +15061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1535125995}
   alphabet: M
+  isErasable: 0
 --- !u!54 &1098345093
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15042,6 +15106,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1098345096}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1098345095
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15165,6 +15230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1042456919}
   alphabet: G
+  isErasable: 0
 --- !u!54 &1117305450
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15209,6 +15275,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1117305453}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1117305452
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16110,6 +16177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 153117401}
   alphabet: K
+  isErasable: 0
 --- !u!54 &1183869726
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16154,6 +16222,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1183869729}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1183869728
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16448,6 +16517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1524914134}
   alphabet: N
+  isErasable: 0
 --- !u!54 &1263066240
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16492,6 +16562,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1263066243}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1263066242
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17012,6 +17083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1308482735}
   alphabet: Y
+  isErasable: 0
 --- !u!54 &1313012086
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17056,6 +17128,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1313012089}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1313012088
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17179,6 +17252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1784524702}
   alphabet: U
+  isErasable: 0
 --- !u!54 &1314500060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17223,6 +17297,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1314500063}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1314500062
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17688,6 +17763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 357530492}
   alphabet: X
+  isErasable: 0
 --- !u!54 &1341899231
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17732,6 +17808,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1341899234}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1341899233
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17855,6 +17932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 2051525060}
   alphabet: O
+  isErasable: 0
 --- !u!54 &1378294339
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17899,6 +17977,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1378294342}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1378294341
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18022,6 +18101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 966555640}
   alphabet: M
+  isErasable: 0
 --- !u!54 &1392742306
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18066,6 +18146,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1392742309}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1392742308
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18323,6 +18404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 599399215}
   alphabet: L
+  isErasable: 0
 --- !u!54 &1398377616
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18367,6 +18449,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1398377619}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1398377618
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18661,6 +18744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 799205464}
   alphabet: A
+  isErasable: 0
 --- !u!54 &1433668862
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18705,6 +18789,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1433668865}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1433668864
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18828,6 +18913,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1546621743}
   alphabet: A
+  isErasable: 0
 --- !u!54 &1438077352
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18872,6 +18958,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1438077355}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1438077354
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19166,6 +19253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 583050630}
   alphabet: Y
+  isErasable: 0
 --- !u!54 &1462138614
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19210,6 +19298,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1462138617}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1462138616
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19504,6 +19593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1317334707}
   alphabet: B
+  isErasable: 0
 --- !u!54 &1499351273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19548,6 +19638,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1499351276}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1499351275
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20052,6 +20143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 692707275}
   alphabet: Q
+  isErasable: 0
 --- !u!54 &1533965521
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -20096,6 +20188,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1533965524}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1533965523
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20219,6 +20312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1122296268}
   alphabet: A
+  isErasable: 0
 --- !u!54 &1534793972
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -20263,6 +20357,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1534793975}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1534793974
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21221,6 +21316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1746069945}
   alphabet: S
+  isErasable: 0
 --- !u!54 &1601097870
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21265,6 +21361,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1601097873}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1601097872
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21388,6 +21485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1986525421}
   alphabet: Q
+  isErasable: 0
 --- !u!54 &1604617255
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21432,6 +21530,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1604617258}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1604617257
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21983,6 +22082,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1652169034}
   index: 0
   isMove: 1
+  isSetColor: 0
 --- !u!65 &1652169033
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22277,6 +22377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1916198499}
   alphabet: A
+  isErasable: 0
 --- !u!54 &1663295618
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -22321,6 +22422,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1663295621}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1663295620
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22472,6 +22574,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1678537192}
   index: 1
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1678537191
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22879,6 +22982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 538854665}
   alphabet: I
+  isErasable: 0
 --- !u!54 &1704147631
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -22923,6 +23027,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1704147634}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1704147633
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23046,6 +23151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 589843782}
   alphabet: E
+  isErasable: 0
 --- !u!54 &1704876664
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -23090,6 +23196,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1704876667}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1704876666
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23864,6 +23971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 810109228}
   alphabet: W
+  isErasable: 0
 --- !u!54 &1771681588
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -23908,6 +24016,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1771681591}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1771681590
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24373,6 +24482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1404662100}
   alphabet: H
+  isErasable: 0
 --- !u!54 &1824978874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24417,6 +24527,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1824978877}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1824978876
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25248,6 +25359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1656749426}
   alphabet: V
+  isErasable: 0
 --- !u!54 &1935353309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -25292,6 +25404,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1935353312}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1935353311
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26104,6 +26217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1814743190}
   alphabet: D
+  isErasable: 0
 --- !u!54 &2002466866
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -26148,6 +26262,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 2002466869}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &2002466868
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26546,6 +26661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 486871124}
   alphabet: R
+  isErasable: 0
 --- !u!54 &2051092278
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -26590,6 +26706,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 2051092281}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &2051092280
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27002,6 +27119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberingText: {fileID: 1605758871}
   alphabet: N
+  isErasable: 0
 --- !u!54 &2102503498
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27046,6 +27164,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 2102503501}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &2102503500
 BoxCollider:
   m_ObjectHideFlags: 0

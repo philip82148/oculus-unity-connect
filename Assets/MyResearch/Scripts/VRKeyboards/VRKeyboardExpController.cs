@@ -13,9 +13,11 @@ public class VRKeyboardExpController : MonoBehaviour
     [SerializeField] private float centralRequiredLength = 0.06f;
     [Header("Setting")]
     [SerializeField] private CalculateDistance calculateDistance;
+    [SerializeField] private GameObject targetHand;
 
     [SerializeField] private KeyboardHandController handController;
     [SerializeField] private NumberKeyboard numberKeyboard;
+    [SerializeField] private DenseDataLoggerController dataLoggerController;
 
     [Header("UI")]
 
@@ -57,6 +59,7 @@ public class VRKeyboardExpController : MonoBehaviour
         problemCount = numberKeyboard.GetProblemCount();
         previousInterval = centralRequiredLength;
         // CreateTargetObjectsIn3D();
+        dataLoggerController.InitializeAsVRKeyboard(centralRequiredLength);
     }
 
     // Update is called once per frame
@@ -82,6 +85,12 @@ public class VRKeyboardExpController : MonoBehaviour
         }
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
+            if (isGame)
+            {
+                string tmpAlphabet = handController.GetAlphabet();
+                dataLoggerController.ReflectAlphabetChange(tmpAlphabet);
+                dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
+            }
             // if (ansFirstIndex == FIXED_NON_ANSWER_INDEX)
             // {
             //     ansFirstIndex = handController.GetIndex();
@@ -134,6 +143,10 @@ public class VRKeyboardExpController : MonoBehaviour
     }
     public void SetNextTarget()
     {
+        // if (isGame)
+        // {
+        //     dataLoggerController.ReflectAlphabetChange(targetCorrectIndex);
+        // }
         targetCorrectIndex = Random.Range(0, problemCount);
         GetXYZIndexesForTargetCorrectIndex();
         numberKeyboard.SetNextTargetText(targetCorrectIndex);
@@ -216,6 +229,10 @@ public class VRKeyboardExpController : MonoBehaviour
     public int GetGridSize()
     {
         return gridSize;
+    }
+    private Vector3 GetRightIndexFingerPosition()
+    {
+        return targetHand.transform.position;
     }
 
     public void DestoryKeyboard()
