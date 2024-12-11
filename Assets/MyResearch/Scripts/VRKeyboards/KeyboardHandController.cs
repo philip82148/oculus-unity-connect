@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using OVR.OpenVR;
 using UnityEngine;
 
 public class KeyboardHandController : MonoBehaviour
@@ -10,10 +9,31 @@ public class KeyboardHandController : MonoBehaviour
     [SerializeField] private NumberKeyboard numberKeyboard;
 
     private bool isTouched = false;
-    private int tmpIndex = 0;
     private string tmpAlphabet;
 
+    // 今のフレームで最も近かったKeyboardKey
+    private KeyboardKey closestKey = null;
+    private GameObject closestObject = null;
+    private float closestDistance = Mathf.Infinity;
 
+    void Update()
+    {
+        // フレームごとにclosestKeyをリセット
+        // 毎フレームOnTriggerStayが呼ばれるので、その中で判定
+
+
+        // OVRInputのチェックはUpdateで行う
+        if (OVRInput.GetDown(OVRInput.Button.One))
+        {
+            // ボタンが押されたタイミングで、前フレームまでの衝突情報を使い
+            // 最も近いキーが決まっている場合は入力を行う
+            if (closestKey != null)
+            {
+                closestKey.SetColor();
+                numberKeyboard.OnKeyPressed(closestKey.GetAlphabet());
+            }
+        }
+    }
 
     private void OnTriggerStay(Collider otherObject)
     {
@@ -23,34 +43,31 @@ public class KeyboardHandController : MonoBehaviour
             return;
         }
 
-        // tmpIndex = keyboardKey.GetIndex();
-        tmpAlphabet = keyboardKey.GetAlphabet();
         isTouched = true;
-        if (OVRInput.GetDown(OVRInput.Button.One))
+
+        // このキーまでの距離を計算して、最も近いものを記録
+        float dist = Vector3.Distance(transform.position, otherObject.transform.position);
+        if (dist < closestDistance)
         {
-            keyboardKey.SetColor();
-            numberKeyboard.OnKeyPressed(tmpAlphabet);
-
+            closestDistance = dist;
+            closestObject = otherObject.gameObject;
+            closestKey = keyboardKey;
+            tmpAlphabet = keyboardKey.GetAlphabet();
         }
-
-
-
     }
+
     private void OnTriggerExit(Collider other)
     {
-        isTouched = false;
+        // オブジェクトが離れた場合、もう一度ClosestKeyを求め直す必要がある
+        // ただしOnTriggerStayが毎フレーム呼ばれるため、次フレームで再計算される
+        // ここでは特に何もせず、Updateで再判定させる
+        // オブジェクトが減ってclosestKeyがなくなる場合は、Updateの最初でリセットされる
+        if (other.gameObject == closestObject)
+        {
+            closestObject = null;
+            closestDistance = Mathf.Infinity;
+        }
     }
-    // public int GetIndex()
-    // {
-    //     if (isTouched)
-    //     {
-    //         return tmpIndex;
-    //     }
-    //     else
-    //     {
-    //         return -1;
-    //     }
-    // }
 
     public string GetAlphabet()
     {
@@ -60,5 +77,4 @@ public class KeyboardHandController : MonoBehaviour
         }
         else return "";
     }
-
 }
