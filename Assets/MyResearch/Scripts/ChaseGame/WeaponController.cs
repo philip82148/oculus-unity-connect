@@ -23,8 +23,8 @@ public class WeaponController : MonoBehaviour
 
     [Header("OVR Setting")]
     [SerializeField] private GameObject trackingSpace;
-    private float bombCooldown = 5f; // クールダウン時間（秒）
-    private float lastBombTime = -5f; // 最後に手りゅう弾を発射した時間
+    private float bombCooldown = 1f; // クールダウン時間（秒）
+    private float lastBombTime = -1f; // 最後に手りゅう弾を発射した時間
 
     // Start is called before the first frame update
     void Start()

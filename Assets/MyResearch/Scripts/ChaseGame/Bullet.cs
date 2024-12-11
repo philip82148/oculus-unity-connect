@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     private Vector3 moveDirection;
     private float speed;
     [SerializeField] private GameObject explosionEffect; // 爆発エフェクトのプレハブ
+    [SerializeField] private Renderer thisRenderer;
     public void Initialize(Vector3 direction, float speed)
     {
         this.moveDirection = direction;
@@ -41,5 +42,10 @@ public class Bullet : MonoBehaviour
         }
 
         Debug.Log("circle当たった!");
+    }
+
+    public void SetColor(Color color)
+    {
+        thisRenderer.material.color = color;
     }
 }
