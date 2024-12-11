@@ -64,7 +64,7 @@ public class VRKeyboardExpController : MonoBehaviour
     {
         if (centralRequiredLength != previousInterval)
         {
-            UpdateObjectPositionsIn3D();
+            // UpdateObjectPositionsIn3D();
             previousInterval = centralRequiredLength;
         }
         // if (restCount <= 0)
@@ -140,70 +140,6 @@ public class VRKeyboardExpController : MonoBehaviour
         // ChangeDisplayText();
     }
 
-    public void CreateTargetObjectsIn3D()
-    {
-        int midIndex = gridSize / 2;
-
-        for (int z = 0; z < gridSize; z++) // Zループを外側に
-        {
-            for (int y = gridSize - 1; y >= 0; y--) // yループを逆順に
-            {
-                for (int x = 0; x < gridSize; x++) // xループを逆順に
-                {
-                    float positionOffsetX = (x - midIndex) * centralRequiredLength;
-                    float positionOffsetY = (y - midIndex) * centralRequiredLength;
-                    float positionOffsetZ = (z - midIndex) * centralRequiredLength;
-                    Vector3 newPosition = new Vector3(
-                                        startCoordinate.x + positionOffsetX,
-                                        startCoordinate.y + positionOffsetY,
-                                        startCoordinate.z + positionOffsetZ);
-                    GameObject gameObject = Instantiate(baseObject, newPosition, Quaternion.identity);
-                    targetObjects.Add(gameObject);
-                    targetCoordinates.Add(newPosition);
-
-
-                    int index = targetObjects.Count - 1;
-                    KeyboardKey keyboardKey = gameObject.GetComponent<KeyboardKey>();
-                    keyboardKey.SetIndexes(x, y, z);
-                    keyboardKey.SetIndex(index);
-
-                    calculateDistance.SetTargetObject(gameObject);
-                    if (x == midIndex && y == midIndex && z == midIndex)
-                    {
-                        calculateDistance.SetCentralObject(gameObject);
-                    }
-                }
-            }
-        }
-    }
-
-    private void UpdateObjectPositionsIn3D()
-    {
-        int midIndex = gridSize / 2;
-        int index = 0;
-
-        for (int z = 0; z < gridSize; z++)
-        {
-            for (int y = gridSize - 1; y >= 0; y--)
-            {
-                for (int x = gridSize - 1; x >= 0; x--)
-                {
-                    float positionOffsetX = (x - midIndex) * centralRequiredLength;
-                    float positionOffsetY = (y - midIndex) * centralRequiredLength;
-                    float positionOffsetZ = (z - midIndex) * centralRequiredLength;
-
-                    Vector3 newPosition = new Vector3(
-                        startCoordinate.x + positionOffsetX,
-                        startCoordinate.y + positionOffsetY,
-                        startCoordinate.z + positionOffsetZ);
-
-                    targetObjects[index].transform.position = newPosition;
-                    targetCoordinates[index] = newPosition;
-                    index++;
-                }
-            }
-        }
-    }
 
 
     public bool GetIsGame()

@@ -504,9 +504,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1857178881256730, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 37048721}
-    - targetCorrespondingSourceObject: {fileID: 1857178881256730, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 37048720}
     - targetCorrespondingSourceObject: {fileID: 1857178881256730, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       insertIndex: -1
@@ -572,19 +569,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.006
   m_Center: {x: -0.0058, y: -0.001, z: -0.001}
---- !u!114 &37048721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 37048717}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e27e0303ae173584a91de8dc7c2fd584, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugText: {fileID: 0}
 --- !u!1 &47437651
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.03773582, g: 0.03773582, b: 0.03773582, a: 1}
+  m_Color: {r: 0.83137256, g: 0.54901963, b: 0.41568628, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -872,6 +856,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 172042416}
   index: 8
   isMove: 1
+  isSetColor: 0
 --- !u!65 &172042415
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2031,6 +2016,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 512325534}
   index: 2
   isMove: 1
+  isSetColor: 0
 --- !u!65 &512325533
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2807,6 +2793,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale_Character_Surgery
       objectReference: {fileID: 0}
+    - target: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3671890786779363153, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3347,7 +3337,7 @@ GameObject:
   - component: {fileID: 824695803}
   - component: {fileID: 824695802}
   - component: {fileID: 824695805}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sphere (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3457,6 +3447,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 824695803}
   index: 1
   isMove: 0
+  isSetColor: 0
 --- !u!1 &896174242
 GameObject:
   m_ObjectHideFlags: 0
@@ -4576,7 +4567,7 @@ GameObject:
   - component: {fileID: 1008480578}
   - component: {fileID: 1008480577}
   - component: {fileID: 1008480576}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sphere (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4615,6 +4606,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 824695803}
   index: 3
   isMove: 0
+  isSetColor: 0
 --- !u!135 &1008480577
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4946,6 +4938,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1085298929}
   index: 0
   isMove: 1
+  isSetColor: 0
 --- !u!65 &1085298928
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5336,6 +5329,7 @@ MonoBehaviour:
   indexFinger: {fileID: 37048717}
   experimentController: {fileID: 1927431659}
   vRKeyboardExpController: {fileID: 0}
+  surgeryExpController: {fileID: 0}
   calculateSound: {fileID: 1716480236}
   targetSoundObjects: []
   centralObject: {fileID: 0}
@@ -5445,7 +5439,7 @@ GameObject:
   - component: {fileID: 1161392831}
   - component: {fileID: 1161392830}
   - component: {fileID: 1161392833}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5555,6 +5549,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1161392831}
   index: 0
   isMove: 0
+  isSetColor: 0
 --- !u!1 &1221433053
 GameObject:
   m_ObjectHideFlags: 0
@@ -5864,13 +5859,13 @@ GameObject:
   - component: {fileID: 1283171413}
   - component: {fileID: 1283171412}
   - component: {fileID: 1283171411}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1283171410
 Transform:
   m_ObjectHideFlags: 0
@@ -5880,7 +5875,7 @@ Transform:
   m_GameObject: {fileID: 1283171409}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.58, y: 0.04, z: 0}
+  m_LocalPosition: {x: -0.58, y: 0.04, z: 0.42}
   m_LocalScale: {x: 0.12, y: 0.2, z: 0.12}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6098,11 +6093,13 @@ MonoBehaviour:
   - {fileID: 1161392828}
   - {fileID: 824695800}
   - {fileID: 1374872988}
+  - {fileID: 1008480574}
   handController: {fileID: 37048718}
   targetHand: {fileID: 37048717}
   scoreText: {fileID: 2146495198}
   targetDisplayText: {fileID: 1467670680}
   dataLoggerController: {fileID: 582857021}
+  requiredLength: 0.02
 --- !u!4 &1342265702
 Transform:
   m_ObjectHideFlags: 0
@@ -6131,7 +6128,7 @@ GameObject:
   - component: {fileID: 1374872991}
   - component: {fileID: 1374872990}
   - component: {fileID: 1374872993}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sphere (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6241,6 +6238,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 824695803}
   index: 2
   isMove: 0
+  isSetColor: 0
 --- !u!1 &1410519781
 GameObject:
   m_ObjectHideFlags: 0
@@ -6668,6 +6666,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1465042043}
   index: 1
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1465042042
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6954,6 +6953,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1479142280}
   index: 5
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1479142279
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7441,6 +7441,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1534313008}
   index: 7
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1534313007
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7592,6 +7593,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1538163810}
   index: 3
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1538163809
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7890,8 +7892,8 @@ Camera:
   m_GameObject: {fileID: 1692861093}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.83137256, g: 0.54901963, b: 0.41568628, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -7914,13 +7916,13 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 13.5
+  field of view: 12
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 6947eeb3cad8cf6429090c901cad644b, type: 2}
   m_TargetDisplay: 0
@@ -7940,13 +7942,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1692861093}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.014, y: 0.04000002, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.577, y: 0.04000002, z: -1.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2023681030}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1699275991
 GameObject:
   m_ObjectHideFlags: 0
@@ -9378,8 +9380,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023681029}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.26, z: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9388,7 +9390,7 @@ Transform:
   - {fileID: 1283171410}
   - {fileID: 1692861096}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2051218878
 GameObject:
   m_ObjectHideFlags: 0
@@ -9544,6 +9546,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 2064007841}
   index: 6
   isMove: 1
+  isSetColor: 0
 --- !u!65 &2064007840
 BoxCollider:
   m_ObjectHideFlags: 0

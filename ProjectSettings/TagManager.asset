@@ -6,11 +6,13 @@ TagManager:
   tags:
   - UMAKeepChain
   - UMAIgnore
+  - Floor
+  - Coin
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Surgery
   - Water
   - UI
   - 

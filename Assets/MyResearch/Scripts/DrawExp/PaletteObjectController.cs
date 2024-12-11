@@ -37,6 +37,10 @@ public class PaletteObjectController : MonoBehaviour
     {
         thisRenderer.material.color = defaultColor;
     }
+    public void SetColor(Color color)
+    {
+        thisRenderer.material.color = color;
+    }
     public int GetIndex()
     {
         return index;

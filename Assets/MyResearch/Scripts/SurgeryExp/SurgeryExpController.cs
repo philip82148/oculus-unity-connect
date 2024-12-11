@@ -20,6 +20,7 @@ public class SurgeryExpController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI targetDisplayText;
     [Header("Setting")]
     [SerializeField] private DenseDataLoggerController dataLoggerController;
+    [SerializeField] private float requiredLength;
 
     private int targetIndex = 0;
 
@@ -89,9 +90,30 @@ public class SurgeryExpController : MonoBehaviour
             dataLoggerController.ReflectPlaceChange(targetIndex);
         }
         targetDisplayText.text = "target:" + targetIndex.ToString();
+        SetTargetColor();
+    }
+
+    private void SetTargetColor()
+    {
+        for (int i = 0; i < targetObjects.Count; i++)
+        {
+            if (i != targetIndex)
+            {
+                targetObjects[i].GetComponent<PaletteObjectController>().SetColor(Color.white);
+            }
+            else if (i == targetIndex)
+            {
+                targetObjects[i].GetComponent<PaletteObjectController>().SetColor(Color.green);
+            }
+        }
     }
     private Vector3 GetRightIndexFingerPosition()
     {
         return targetHand.transform.position;
+    }
+
+    public float GetRequiredLength()
+    {
+        return this.requiredLength;
     }
 }
