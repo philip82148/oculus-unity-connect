@@ -91,9 +91,12 @@ public class SurgeryExpController : MonoBehaviour
 
     private void SetNextTarget()
     {
-        int nextIndex = Random.Range(0, targetObjects.Count);
+        int nextIndex;
+        do
+        {
+            nextIndex = Random.Range(0, targetObjects.Count);
+        } while (nextIndex == targetIndex); // 前回と同じ値であれば再生成
         targetIndex = nextIndex;
-
         if (isGame)
         {
             dataLoggerController.ReflectPlaceChange(targetIndex);
@@ -101,6 +104,8 @@ public class SurgeryExpController : MonoBehaviour
         targetDisplayText.text = "target:" + targetIndex.ToString();
         SetTargetColor();
     }
+
+
 
     private void SetTargetColor()
     {
