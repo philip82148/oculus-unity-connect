@@ -21,22 +21,35 @@ public class NumberKeyboard : MonoBehaviour
 
 
 
-    private string[] textStrings = {
-         "Type the word: HELLO",
-        "Type the word: WORLD",
-          "Type the word: DCC",
-        "Type the word: UIST",
-         "Type the word:A",
-         "Type the word:H",
-    };
-    private string[] correctAnswers ={
-        "HELLO",
-        "WORLD",
-        "DCC",
-        "UIST",
-        "A",
-        "H"
-    };
+    // private string[] textStrings = {
+    //      "Type the word: HELLO",
+    //     "Type the word: WORLD",
+    //       "Type the word: DCC",
+    //     "Type the word: UIST",
+    //      "Type the word:A",
+    //      "Type the word:H",
+    // };
+    private string[] correctAnswers = {
+    "A",
+    "H",
+
+    "HI",
+    "BY",
+    "DO",
+
+    "CAT",
+    "DOG",
+    "SUN",
+
+    "LIFE",
+    "LOVE",
+    "UIST",
+
+    "HELLO",
+    "WORLD",
+    "DCC"
+};
+
     private string[] convertToAnswers = {
         "1+",
         "2+",
@@ -72,7 +85,7 @@ public class NumberKeyboard : MonoBehaviour
     void Start()
     {
         objectCount = vRKeyboardExpController.GetObjectCount();
-        problemText.text = textStrings[tmpTargetIndex];
+        problemText.text = "Type the word:" + correctAnswers[tmpTargetIndex];
     }
 
 
@@ -83,7 +96,7 @@ public class NumberKeyboard : MonoBehaviour
     {
         scoreText.text = "Score:" + score.ToString();
         tmpText.text = userInput;
-        problemText.text = textStrings[tmpTargetIndex];
+        problemText.text = "Type the word:" + correctAnswers[tmpTargetIndex];
         if (correctAnswers[tmpTargetIndex].Length <= userInput.Length)
         {
             CheckCorrectTextAnswer();
@@ -119,7 +132,7 @@ public class NumberKeyboard : MonoBehaviour
     public void SetNextTargetText(int tmpIndex)
     {
         tmpTargetIndex = tmpIndex;
-        problemText.text = textStrings[tmpTargetIndex];
+        problemText.text = "Type the word:" + correctAnswers[tmpTargetIndex];
     }
 
 
@@ -128,7 +141,7 @@ public class NumberKeyboard : MonoBehaviour
 
         string ans = convertToAnswers[ansFirstIndex] + convertToAnswers[ansSecondIndex];
         string correctAnswer = correctAnswers[tmpTargetIndex];
-        Debug.Log(ans + "correct:" + correctAnswer + "text:" + textStrings[tmpTargetIndex]);
+        Debug.Log(ans + "correct:" + correctAnswer + "text:" + "Type the word:" + correctAnswers[tmpTargetIndex]);
         // Debug.Log);
         if (ans.Equals(correctAnswer))
         {
@@ -150,14 +163,21 @@ public class NumberKeyboard : MonoBehaviour
     {
         score = 0;
     }
+    // private void SetNextTarget()
+    // {
+    //     tmpTargetIndex = Random.Range(0, textStrings.Length);
+    // }
     private void SetNextTarget()
     {
-        tmpTargetIndex = Random.Range(0, textStrings.Length);
+        // インデックスを1増やし、全問題を出題し終えたら先頭に戻る
+        tmpTargetIndex = (tmpTargetIndex + 1) % correctAnswers.Length;
+        problemText.text = "Type the word:" + correctAnswers[tmpTargetIndex];
     }
+
 
     public int GetProblemCount()
     {
-        return this.textStrings.Length;
+        return this.correctAnswers.Length;
     }
 
 
