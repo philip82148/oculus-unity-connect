@@ -13,9 +13,11 @@ public class VRKeyboardExpController : MonoBehaviour
     [SerializeField] private float centralRequiredLength = 0.06f;
     [Header("Setting")]
     [SerializeField] private CalculateDistance calculateDistance;
+    [SerializeField] private GameObject targetHand;
 
     [SerializeField] private KeyboardHandController handController;
     [SerializeField] private NumberKeyboard numberKeyboard;
+    [SerializeField] private DenseDataLoggerController dataLoggerController;
 
     [Header("UI")]
 
@@ -57,6 +59,7 @@ public class VRKeyboardExpController : MonoBehaviour
         problemCount = numberKeyboard.GetProblemCount();
         previousInterval = centralRequiredLength;
         // CreateTargetObjectsIn3D();
+        dataLoggerController.InitializeAsVRKeyboard(centralRequiredLength);
     }
 
     // Update is called once per frame
@@ -64,7 +67,7 @@ public class VRKeyboardExpController : MonoBehaviour
     {
         if (centralRequiredLength != previousInterval)
         {
-            UpdateObjectPositionsIn3D();
+            // UpdateObjectPositionsIn3D();
             previousInterval = centralRequiredLength;
         }
         // if (restCount <= 0)
@@ -82,6 +85,12 @@ public class VRKeyboardExpController : MonoBehaviour
         }
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
+            if (isGame)
+            {
+                string tmpAlphabet = handController.GetAlphabet();
+                dataLoggerController.ReflectAlphabetChange(tmpAlphabet);
+                dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
+            }
             // if (ansFirstIndex == FIXED_NON_ANSWER_INDEX)
             // {
             //     ansFirstIndex = handController.GetIndex();
@@ -134,76 +143,16 @@ public class VRKeyboardExpController : MonoBehaviour
     }
     public void SetNextTarget()
     {
+        // if (isGame)
+        // {
+        //     dataLoggerController.ReflectAlphabetChange(targetCorrectIndex);
+        // }
         targetCorrectIndex = Random.Range(0, problemCount);
         GetXYZIndexesForTargetCorrectIndex();
         numberKeyboard.SetNextTargetText(targetCorrectIndex);
         // ChangeDisplayText();
     }
 
-    public void CreateTargetObjectsIn3D()
-    {
-        int midIndex = gridSize / 2;
-
-        for (int z = 0; z < gridSize; z++) // Zループを外側に
-        {
-            for (int y = gridSize - 1; y >= 0; y--) // yループを逆順に
-            {
-                for (int x = 0; x < gridSize; x++) // xループを逆順に
-                {
-                    float positionOffsetX = (x - midIndex) * centralRequiredLength;
-                    float positionOffsetY = (y - midIndex) * centralRequiredLength;
-                    float positionOffsetZ = (z - midIndex) * centralRequiredLength;
-                    Vector3 newPosition = new Vector3(
-                                        startCoordinate.x + positionOffsetX,
-                                        startCoordinate.y + positionOffsetY,
-                                        startCoordinate.z + positionOffsetZ);
-                    GameObject gameObject = Instantiate(baseObject, newPosition, Quaternion.identity);
-                    targetObjects.Add(gameObject);
-                    targetCoordinates.Add(newPosition);
-
-
-                    int index = targetObjects.Count - 1;
-                    KeyboardKey keyboardKey = gameObject.GetComponent<KeyboardKey>();
-                    keyboardKey.SetIndexes(x, y, z);
-                    keyboardKey.SetIndex(index);
-
-                    calculateDistance.SetTargetObject(gameObject);
-                    if (x == midIndex && y == midIndex && z == midIndex)
-                    {
-                        calculateDistance.SetCentralObject(gameObject);
-                    }
-                }
-            }
-        }
-    }
-
-    private void UpdateObjectPositionsIn3D()
-    {
-        int midIndex = gridSize / 2;
-        int index = 0;
-
-        for (int z = 0; z < gridSize; z++)
-        {
-            for (int y = gridSize - 1; y >= 0; y--)
-            {
-                for (int x = gridSize - 1; x >= 0; x--)
-                {
-                    float positionOffsetX = (x - midIndex) * centralRequiredLength;
-                    float positionOffsetY = (y - midIndex) * centralRequiredLength;
-                    float positionOffsetZ = (z - midIndex) * centralRequiredLength;
-
-                    Vector3 newPosition = new Vector3(
-                        startCoordinate.x + positionOffsetX,
-                        startCoordinate.y + positionOffsetY,
-                        startCoordinate.z + positionOffsetZ);
-
-                    targetObjects[index].transform.position = newPosition;
-                    targetCoordinates[index] = newPosition;
-                    index++;
-                }
-            }
-        }
-    }
 
 
     public bool GetIsGame()
@@ -280,6 +229,10 @@ public class VRKeyboardExpController : MonoBehaviour
     public int GetGridSize()
     {
         return gridSize;
+    }
+    private Vector3 GetRightIndexFingerPosition()
+    {
+        return targetHand.transform.position;
     }
 
     public void DestoryKeyboard()

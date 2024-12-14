@@ -13,7 +13,7 @@ public class VRKeyboardControllerEditor : Editor
         VRKeyboardExpController vRKeyboardExpController = (VRKeyboardExpController)target;
         if (GUILayout.Button("Keyboardを生成"))
         {
-            vRKeyboardExpController.CreateTargetObjectsIn3D();
+            // vRKeyboardExpController.CreateTargetObjectsIn3D();
             Debug.Log("Keyboardを生成しました");
         }
         if (GUILayout.Button("Prefabとして保存"))

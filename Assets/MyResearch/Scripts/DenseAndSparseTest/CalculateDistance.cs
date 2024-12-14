@@ -10,6 +10,7 @@ public class CalculateDistance : MonoBehaviour
     [Header("Controller Setting")]
     [SerializeField] private DenseSparseExpController experimentController;
     [SerializeField] private VRKeyboardExpController vRKeyboardExpController;
+    [SerializeField] private SurgeryExpController surgeryExpController;
 
 
 
@@ -153,6 +154,10 @@ public class CalculateDistance : MonoBehaviour
         {
             centralRequiredLength = vRKeyboardExpController.GetCentralRequiredLength();
 
+        }
+        else if (expScene == ExpScene.Surgery)
+        {
+            centralRequiredLength = surgeryExpController.GetRequiredLength();
         }
     }
     public void SetTargetObject(GameObject gameObject)

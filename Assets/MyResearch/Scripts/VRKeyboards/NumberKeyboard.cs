@@ -26,14 +26,16 @@ public class NumberKeyboard : MonoBehaviour
         "Type the word: WORLD",
           "Type the word: DCC",
         "Type the word: UIST",
-         "Type the word:AUGMENTEDHUMANS",
+         "Type the word:A",
+         "Type the word:H",
     };
     private string[] correctAnswers ={
         "HELLO",
         "WORLD",
         "DCC",
         "UIST",
-        "AUGMENTEDHUMANS"
+        "A",
+        "H"
     };
     private string[] convertToAnswers = {
         "1+",

@@ -58,7 +58,10 @@ public class DenseSparseExpController : MonoBehaviour
         {
             CreateTargetObjectsIn3D();
         }
-        dataLoggerController.Initialize(interval, denseOrSparse, expScene);
+        if (expScene == ExpScene.DenseOrSparse)
+        {
+            dataLoggerController.Initialize(interval, denseOrSparse, expScene);
+        }
     }
 
     // Update is called once per frame
@@ -87,7 +90,7 @@ public class DenseSparseExpController : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             int tmpIndex = handController.GetIndex();
-            if (isGame)
+            if (isGame && expScene == ExpScene.DenseOrSparse)
             {
                 dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
             }
@@ -268,7 +271,7 @@ public class DenseSparseExpController : MonoBehaviour
     private void DecideTargetIndex()
     {
         targetCorrectIndex = Random.Range(0, objectCount);
-        if (isGame)
+        if (isGame && expScene == ExpScene.DenseOrSparse)
         {
             dataLoggerController.ReflectPlaceChange(targetCorrectIndex);
         }
