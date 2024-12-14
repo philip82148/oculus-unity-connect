@@ -105,6 +105,12 @@ public class NumberKeyboard : MonoBehaviour
         }
     }
 
+    public void OnDeleteKeyPressed()
+    {
+        userInput = userInput.Remove(userInput.Length - 1);
+
+    }
+
     // public void SetNumberKeyboard(KeyboardKey keyboardKey)
     // {
     //     keyboardKeys.Add(keyboardKey);

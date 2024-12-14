@@ -19,12 +19,14 @@ public class SurgeryExpController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI targetDisplayText;
     [Header("Setting")]
+    [SerializeField] private bool isSound = true;
     [SerializeField] private DenseDataLoggerController dataLoggerController;
+    [SerializeField] private TimeController timeController;
     [SerializeField] private float requiredLength;
 
     private int targetIndex = 0;
 
-    private bool isGame = true;
+    private bool isGame = false;
 
     private int score = 0;
 
@@ -32,6 +34,10 @@ public class SurgeryExpController : MonoBehaviour
 
     void Start()
     {
+        if (!isSound)
+        {
+            calculateDistance.SetNoSound();
+        }
         for (int i = 0; i < targetObjects.Count; i++)
         {
             calculateDistance.SetTargetObject(targetObjects[i]);
@@ -45,10 +51,10 @@ public class SurgeryExpController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Three))
+        if (OVRInput.GetDown(OVRInput.Button.Three) && !isGame)
         {
-            isGame = true;
-
+            // isGame = true;
+            timeController.StartGameCountDown();
             SetNextTarget();
         }
 
@@ -78,7 +84,10 @@ public class SurgeryExpController : MonoBehaviour
 
         scoreText.text = "score:" + score.ToString();
     }
-
+    public void CallGameStart()
+    {
+        isGame = true;
+    }
 
     private void SetNextTarget()
     {

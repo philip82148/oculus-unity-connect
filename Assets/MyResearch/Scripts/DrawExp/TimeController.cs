@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Oculus.Platform;
 using TMPro;
 using UnityEngine;
 
@@ -8,8 +9,10 @@ public class TimeController : MonoBehaviour
 {
     [Header("Controller Setting")]
     [SerializeField] private DrawExperienceController drawExperienceController;
+    [SerializeField] private VRKeyboardExpController vRKeyboardExpController;
+    [SerializeField] private SurgeryExpController surgeryExpController;
 
-    [SerializeField] private const float GAME_TIME = 90.0f;
+    [SerializeField] private float GAME_TIME = 90.0f;
     private const float countTime = 5.0f;
 
     [Header("UI Setting")]
@@ -69,8 +72,11 @@ public class TimeController : MonoBehaviour
             consumedTime += Time.deltaTime;
 
         }
-        timerText.text = "Time:" + remainingTime.ToString("f1");
-        // timerText.text = "Time:" + consumedTime.ToString("f1");
+        if (timerText != null)
+        {
+            timerText.text = "Time:" + remainingTime.ToString("f1");
+            // timerText.text = "Time:" + consumedTime.ToString("f1");
+        }
     }
 
     public void StartGameCountDown()
@@ -84,15 +90,25 @@ public class TimeController : MonoBehaviour
     {
         isGame = true;
         Initialize();
-        drawExperienceController.CallGameStart();
-
+        if (drawExperienceController != null)
+        {
+            drawExperienceController.CallGameStart();
+        }
+        if (vRKeyboardExpController != null)
+        {
+            vRKeyboardExpController.CallGameStart();
+        }
+        if (surgeryExpController != null)
+        {
+            surgeryExpController.CallGameStart();
+        }
     }
 
     public void EndGame()
     {
         isGame = false;
         gameFinishDiplayCanvas.SetActive(true);
-        descriptionText.text = "";
+        // descriptionText.text = "";
         drawExperienceController.EndGame();
     }
     // public void EndGame1()

@@ -168,6 +168,10 @@ public class CalculateDistance : MonoBehaviour
     {
         centralObject = gameObject;
     }
+    public void SetNoSound()
+    {
+        denseOrSparse = DenseOrSparse.NoSound;
+    }
     // public double GetXRequiredLength()
     // {
     //     return xRequiredLength;

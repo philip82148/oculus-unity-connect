@@ -18,6 +18,7 @@ public class VRKeyboardExpController : MonoBehaviour
     [SerializeField] private KeyboardHandController handController;
     [SerializeField] private NumberKeyboard numberKeyboard;
     [SerializeField] private DenseDataLoggerController dataLoggerController;
+    [SerializeField] private TimeController timeController;
 
     [Header("UI")]
 
@@ -29,6 +30,7 @@ public class VRKeyboardExpController : MonoBehaviour
 
     [Header("Visualizer")]
     [SerializeField] private FrequencyRangeVisualizer frequencyRangeVisualizer;
+    [SerializeField] private bool isSound = true;
 
     private List<Vector3> targetCoordinates = new List<Vector3>();
     private List<GameObject> targetObjects = new List<GameObject>();
@@ -55,6 +57,10 @@ public class VRKeyboardExpController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!isSound)
+        {
+            calculateDistance.SetNoSound();
+        }
         objectCount = gridSize * gridSize * gridSize;
         problemCount = numberKeyboard.GetProblemCount();
         previousInterval = centralRequiredLength;
@@ -76,12 +82,17 @@ public class VRKeyboardExpController : MonoBehaviour
         //     // restCountText.text = "game finished";
         // }
 
-        if (OVRInput.GetDown(OVRInput.Button.Three))
+        if (OVRInput.GetDown(OVRInput.Button.Three) && !isGame)
         {
-            isGame = true;
+            timeController.StartGameCountDown();
+            // isGame = true;
             numberKeyboard.ResetScore(); // スコアのリセット
             ResetIndex();
             SetNextTarget();
+        }
+        if (OVRInput.GetDown(OVRInput.Button.Four))
+        {
+            numberKeyboard.OnDeleteKeyPressed();
         }
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
@@ -133,6 +144,10 @@ public class VRKeyboardExpController : MonoBehaviour
             EndGame();
         }
     }
+    public void CallGameStart()
+    {
+        isGame = true;
+    }
     private void EndGame()
     {
         isGame = false;
@@ -140,6 +155,7 @@ public class VRKeyboardExpController : MonoBehaviour
         timerText.text = "Time: 0.00";
         // Debug.Log("Game Over! Final Score: " + numberKeyboard.GetScore());
         // 必要に応じて他のUIを更新
+        dataLoggerController.Close();
     }
     public void SetNextTarget()
     {
@@ -234,8 +250,11 @@ public class VRKeyboardExpController : MonoBehaviour
     {
         return targetHand.transform.position;
     }
-
-    public void DestoryKeyboard()
+    private void OnDestroy()
+    {
+        DestroyKeyboard();
+    }
+    public void DestroyKeyboard()
     {
         for (int i = 0; i < targetObjects.Count; i++)
             Destroy(targetObjects[i]);
