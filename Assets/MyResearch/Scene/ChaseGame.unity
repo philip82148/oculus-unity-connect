@@ -8715,7 +8715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1489010112}
-  escapePoint: {fileID: 0}
+  escapePoint: {fileID: 4924225677197108819}
   fleeDistance: 5
   enemyController: {fileID: 1756171632}
   agent: {fileID: 1756171634}
@@ -10858,6 +10858,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fd818ca81fa4684a9ac52991b296f85, type: 3}
+--- !u!4 &4924225677197108819 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1886294085712665290, guid: 8f9ed1b6ea7b1884fb9b661c220dcc1f, type: 3}
+  m_PrefabInstance: {fileID: 422599771907517840}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4929789499168942335 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1022096038663912621, guid: 8f9ed1b6ea7b1884fb9b661c220dcc1f, type: 3}
