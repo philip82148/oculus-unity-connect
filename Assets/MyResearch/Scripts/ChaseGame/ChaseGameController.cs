@@ -27,7 +27,7 @@ public class ChaseGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        if (OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
             int tmpIndex = handController.GetIndex();
             if (tmpIndex == -1) return;
