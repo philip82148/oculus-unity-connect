@@ -57,6 +57,7 @@ public class VRKeyboardExpController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        timeController.SetRemainingTime(gameTime);
         if (!isSound)
         {
             calculateDistance.SetNoSound();

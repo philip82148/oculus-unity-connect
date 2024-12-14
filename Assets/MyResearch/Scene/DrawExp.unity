@@ -203,6 +203,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 8761919}
   index: 7
   isMove: 0
+  isSetColor: 0
 --- !u!65 &8761918
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -486,6 +487,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawExperienceController: {fileID: 1684449951}
+  vRKeyboardExpController: {fileID: 0}
+  surgeryExpController: {fileID: 0}
+  GAME_TIME: 90
   timerText: {fileID: 1327687165}
   descriptionText: {fileID: 1474913360}
   countDownPanel: {fileID: 86620623}
@@ -781,6 +785,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 199706767}
   index: 1
   isMove: 0
+  isSetColor: 0
 --- !u!54 &199706770
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2495,6 +2500,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 647845620}
   index: 2
   isMove: 1
+  isSetColor: 0
 --- !u!65 &647845619
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3726,6 +3732,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1027524907}
   index: 6
   isMove: 1
+  isSetColor: 0
 --- !u!65 &1027524906
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3956,6 +3963,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1083751396}
   index: 4
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1083751395
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4537,6 +4545,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1180140580}
   index: 5
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1180140579
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6075,6 +6084,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1552959844}
   index: 0
   isMove: 1
+  isSetColor: 0
 --- !u!65 &1552959843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7350,6 +7360,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1830933913}
   index: 3
   isMove: 0
+  isSetColor: 0
 --- !u!65 &1830933912
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7479,16 +7490,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28216ea005b445468e6531352bdf88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlaceDisplays:
-  - {fileID: 1702969933}
-  - {fileID: 22255040}
-  - {fileID: 1097557184}
-  - {fileID: 393454307}
-  - {fileID: 1010504111}
-  - {fileID: 1811247551}
-  - {fileID: 685756972}
-  - {fileID: 1985718031}
-  - {fileID: 977122445}
   targetNumDisplayText: {fileID: 1507022675}
 --- !u!114 &1877973179
 MonoBehaviour:
@@ -7585,6 +7586,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 1891553001}
   index: 8
   isMove: 1
+  isSetColor: 0
 --- !u!65 &1891553000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8155,8 +8157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequencyCoefficient: 1
-  increment: 0
-  phase: 0
+  frequency: 0
+  gain: 1
+  useOverlappedMethod: 0
 --- !u!4 &1944484596
 Transform:
   m_ObjectHideFlags: 0

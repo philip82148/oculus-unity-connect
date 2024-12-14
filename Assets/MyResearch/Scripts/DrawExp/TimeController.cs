@@ -12,7 +12,7 @@ public class TimeController : MonoBehaviour
     [SerializeField] private VRKeyboardExpController vRKeyboardExpController;
     [SerializeField] private SurgeryExpController surgeryExpController;
 
-    [SerializeField] private float GAME_TIME = 90.0f;
+    // [SerializeField] private float GAME_TIME = 90.0f;
     private const float countTime = 5.0f;
 
     [Header("UI Setting")]
@@ -35,12 +35,13 @@ public class TimeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         Initialize();
 
     }
     void Initialize()
     {
-        remainingTime = GAME_TIME;
+        // remainingTime = GAME_TIME;
         countDownTime = countTime;
     }
 
@@ -110,6 +111,11 @@ public class TimeController : MonoBehaviour
         gameFinishDiplayCanvas.SetActive(true);
         // descriptionText.text = "";
         drawExperienceController.EndGame();
+    }
+
+    public void SetRemainingTime(float remainingTime)
+    {
+        this.remainingTime = remainingTime;
     }
     // public void EndGame1()
     // {
