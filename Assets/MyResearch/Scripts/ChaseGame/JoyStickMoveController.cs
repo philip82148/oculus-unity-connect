@@ -51,6 +51,14 @@ public class JoyStickMoveController : MonoBehaviour
         {
             StartCoroutine(SmoothRotate(angle));
         }
+        if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickLeft))
+        {
+            StartCoroutine(SmoothRotate(-angle));
+        }
+        else if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickRight))
+        {
+            StartCoroutine(SmoothRotate(angle));
+        }
     }
 
     private bool IsAtCorner()

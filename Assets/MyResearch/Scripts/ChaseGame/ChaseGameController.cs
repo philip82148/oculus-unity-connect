@@ -30,8 +30,6 @@ public class ChaseGameController : MonoBehaviour
     private int weaponIndex = 0;
     private bool isGame = false;
 
-
-
     // Start is called before the first frame update
     void Start()
     {

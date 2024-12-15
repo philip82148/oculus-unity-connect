@@ -23,8 +23,8 @@ public class WeaponController : MonoBehaviour
 
     [Header("OVR Setting")]
     [SerializeField] private GameObject trackingSpace;
-    private float bombCooldown = 1f;
-    private float lastBombTime = -1f;
+    private float bombCooldown = 0.2f;
+    private float lastBombTime = -0.2f;
 
     private Vector3 lastPosition;
     private Vector3 playerVelocity;

@@ -46,6 +46,8 @@ public class DamageTextAnimation : MonoBehaviour
         if (isColor && textMesh != null)
         {
             textMesh.color = Color.red;
+            textMesh.fontSize = 6;
+            textMesh.fontStyle = FontStyles.Bold;
             SetAlpha(1f);
         }
 
@@ -74,6 +76,8 @@ public class DamageTextAnimation : MonoBehaviour
         if (textMesh != null)
         {
             textMesh.color = Color.white;
+            textMesh.fontSize = 2;
+            textMesh.fontStyle = FontStyles.Normal;
         }
     }
 

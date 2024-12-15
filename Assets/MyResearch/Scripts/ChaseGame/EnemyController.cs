@@ -15,10 +15,19 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Renderer thisRenderer;
     [SerializeField] private List<Color> colorList;
     [SerializeField] private List<GameObject> targetList;
-    private float switchInterval = 2f; // 状態を切り替える間隔（秒）
+    private float switchInterval = 15f; // 状態を切り替える間隔（秒）
     private int targetColorIndex = 0;
 
     private Vector3 defaultPosition;
+
+    [Header("Attack Setting")]
+    [SerializeField] private GameObject bombPrefab; // 敵が投擲するBombプレハブ
+    [SerializeField] private Transform playerTransform;
+
+    [SerializeField] private float attackInterval = 15f;  // 攻撃間隔（秒）
+    [SerializeField] private float bombInitialSpeed = 1.0f; // 爆弾の初速
+    private float nextAttackTime = 0f; // 次の攻撃時間
+    private bool canAttack = true;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +51,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        HandleAttack();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -136,6 +145,39 @@ public class EnemyController : MonoBehaviour
             // 指定された間隔待つ
             yield return new WaitForSeconds(switchInterval);
         }
+    }
+    private void HandleAttack()
+    {
+        if (!canAttack) return;
+
+        if (Time.time > nextAttackTime && playerTransform != null)
+        {
+            // プレイヤーへ攻撃
+            AttackPlayer();
+            nextAttackTime = Time.time + attackInterval;
+        }
+    }
+    private void AttackPlayer()
+    {
+        if (bombPrefab == null) return;
+
+        // 敵→プレイヤーへ向かう方向を計算
+        Vector3 direction = (playerTransform.position - transform.position).normalized;
+        // 初速をかける
+        Vector3 bombVelocity = direction * bombInitialSpeed;
+
+        // 爆弾生成
+        GameObject bombObj = Instantiate(bombPrefab, transform.position + Vector3.up * 1.0f, Quaternion.identity);
+        Bomb bomb = bombObj.GetComponent<Bomb>();
+        if (bomb != null)
+        {
+            bomb.Initialize(bombVelocity);
+        }
+    }
+
+    public void EnableAttack(bool enable)
+    {
+        canAttack = enable;
     }
 
     public float GetSpeed()
