@@ -18,6 +18,9 @@ public class ChaseGameController : MonoBehaviour
     [SerializeField] private TimeController timeController;
     [Header("Hand Setting")]
     [SerializeField] private GameObject targetHand;
+    [SerializeField] private EnemyController enemyController;
+    [SerializeField] private GameObject player;
+    // private Vector3 defaultPosition;
 
     [Header("Subject Name")]
     [SerializeField] private string subjectName;
@@ -34,6 +37,13 @@ public class ChaseGameController : MonoBehaviour
     {
         dataLoggerController.InitializeAsChaseGame();
         weaponDisplayText.text = "weapon:" + weaponIndex.ToString();
+        defaultPosition = player.transform.position;
+    }
+
+    private void Initialize()
+    {
+        enemyController.Initialize();
+        player.transform.position = defaultPosition;
     }
 
     // Update is called once per frame
@@ -54,6 +64,7 @@ public class ChaseGameController : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.Three) && !isGame)
         {
             timeController.StartGameCountDown();
+            Initialize();
 
         }
     }

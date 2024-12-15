@@ -6,6 +6,7 @@ public class Rope : MonoBehaviour
 {
     private Vector3 moveDirection;
     private float speed;
+    private Vector3 velocity;
     [SerializeField] private GameObject explosionEffectPrefab; // 爆発エフェクトのプレハブ
     private GameObject explosionEffectInstance; // 実際に生成されたエフェクトのインスタンス
 
@@ -20,12 +21,21 @@ public class Rope : MonoBehaviour
         // 一定時間後にインスタンスを破壊
         Destroy(explosionEffectInstance, 1.5f);
     }
+    public void Initialize(Vector3 velocity)
+    {
+        this.velocity = velocity;
+        // プレハブからエフェクトを生成し、インスタンスを保持する
+        explosionEffectInstance = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+
+        // 一定時間後にインスタンスを破壊
+        Destroy(explosionEffectInstance, 1.5f);
+    }
 
     void Update()
     {
         // 毎フレーム移動する
-        transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
-
+        // transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
+        transform.Translate(velocity * Time.deltaTime, Space.World);
         // 爆発エフェクトが存在する場合は位置を更新
         if (explosionEffectInstance != null)
         {

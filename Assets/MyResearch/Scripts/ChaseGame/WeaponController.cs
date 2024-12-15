@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class WeaponController : MonoBehaviour
 {
@@ -16,34 +17,39 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private GameObject ropeObject;
 
     [SerializeField] private Transform weaponSpawnPoint;
-    // [SerializeField] private float weaponSpeed;
     [SerializeField] private float bombSpeed;
     [SerializeField] private float bulletSpeed;
     private int selectedIndex = 0;
 
     [Header("OVR Setting")]
     [SerializeField] private GameObject trackingSpace;
-    private float bombCooldown = 1f; // クールダウン時間（秒）
-    private float lastBombTime = -1f; // 最後に手りゅう弾を発射した時間
+    private float bombCooldown = 1f;
+    private float lastBombTime = -1f;
 
-    // Start is called before the first frame update
+    private Vector3 lastPosition;
+    private Vector3 playerVelocity;
+
     void Start()
     {
         for (int i = 1; i < weaponObjects.Count; i++)
         {
             weaponObjects[i].SetActive(false);
         }
-        lastBombTime = -bombCooldown; // ゲーム開始時にすぐ発射できるように初期化
+        lastBombTime = -bombCooldown;
+        lastPosition = transform.position;  // 初期位置記録
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // プレイヤー速度計算
+        Vector3 currentPosition = trackingSpace.transform.position;
+        playerVelocity = (currentPosition - lastPosition) / Time.deltaTime;
+        lastPosition = currentPosition;
+
         if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
             InstantiateWeapon();
         }
-
     }
 
     private void InstantiateWeapon()
@@ -51,33 +57,23 @@ public class WeaponController : MonoBehaviour
         Vector3 rightHandPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
         Quaternion rightHandRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
 
-        // Vector3 spawnPosition = trackingSpace.transform.TransformPoint(rightHandPosition);
         Vector3 spawnPosition = spawnPositions[selectedIndex].transform.position;
         Quaternion spawnRotation = trackingSpace.transform.rotation * rightHandRotation;
-        // 前方にオフセットする距離
-        float offsetDistance = 0.05f;
-
-        // 弾を生成する位置を計算
-        // Vector3 spawnPosition = weaponSpawnPoint.position + weaponSpawnPoint.forward * offsetDistance;
 
         GameObject targetObject;
         if (selectedIndex == 0)
         {
             targetObject = bulletObject;
-            // weaponObjects[se]
         }
         else if (selectedIndex == 1)
         {
-            // 手りゅう弾のクールダウンをチェック
             if (Time.time - lastBombTime < bombCooldown)
             {
-                // クールダウン中は発射できない
                 Debug.Log("手りゅう弾はクールダウン中です！");
                 return;
             }
             else
             {
-                // 発射可能なので、最後に発射した時間を更新
                 lastBombTime = Time.time;
                 targetObject = bombObject;
             }
@@ -91,33 +87,25 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
-        // 弾を生成
         GameObject weaponObject = Instantiate(targetObject, spawnPosition, Quaternion.identity);
 
-        // ターゲット方向を計算
         Vector3 direction = (targetEnemy.transform.position - spawnPosition).normalized;
-
         direction = spawnRotation * Vector3.forward;
-        FireWeapon(weaponObject, direction);
 
-        // Rigidbody に速度を設定
-        // Rigidbody rb = weaponObject.GetComponent<Rigidbody>();
-        // if (rb != null)
-        // {
-        //     rb.velocity = direction * weaponSpeed;
-        // }
+        // ユーザ速度を足す
+        Vector3 finalVelocity = direction * bulletSpeed + playerVelocity;
 
+        FireWeapon(weaponObject, finalVelocity);
     }
 
-
-    private void FireWeapon(GameObject weaponObject, Vector3 direction)
+    private void FireWeapon(GameObject weaponObject, Vector3 velocity)
     {
         if (selectedIndex == 0)
         {
             Bullet bullet = weaponObject.GetComponent<Bullet>();
             if (bullet != null)
             {
-                bullet.Initialize(direction, bulletSpeed);
+                bullet.Initialize(velocity);
             }
         }
         else if (selectedIndex == 1)
@@ -125,7 +113,7 @@ public class WeaponController : MonoBehaviour
             Bomb bomb = weaponObject.GetComponent<Bomb>();
             if (bomb != null)
             {
-                bomb.Initialize(direction, bombSpeed);
+                bomb.Initialize(velocity);
             }
         }
         else if (selectedIndex == 2)
@@ -133,13 +121,10 @@ public class WeaponController : MonoBehaviour
             Rope rope = weaponObject.GetComponent<Rope>();
             if (rope != null)
             {
-                rope.Initialize(direction, bombSpeed);
+                rope.Initialize(velocity);
             }
         }
-
-
     }
-
 
     public void SetWeapon(int index)
     {
@@ -147,5 +132,4 @@ public class WeaponController : MonoBehaviour
         selectedIndex = index;
         weaponObjects[selectedIndex].SetActive(true);
     }
-
 }

@@ -4,43 +4,37 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    private Vector3 moveDirection;
-    private float speed;
-    private float gravity = -0.981f / 3; // 重力加速度
-    private float verticalSpeed = 0f; // 垂直方向の速度
+    private Vector3 velocity;
+    private float gravity = -0.981f / 3; // 重力加速度（適宜調整）
     [SerializeField] private GameObject explosionEffect; // 爆発エフェクトのプレハブ
 
-    // Start is called before the first frame update
     void Start()
     {
     }
 
-    public void Initialize(Vector3 direction, float speed)
+    public void Initialize(Vector3 velocity)
     {
-        this.moveDirection = direction;
-        this.speed = speed;
+        this.velocity = velocity;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // 垂直方向の速度に重力を適用
-        verticalSpeed += gravity * Time.deltaTime;
-
-        // 現在の移動方向に垂直速度を加算
-        Vector3 currentDirection = moveDirection + new Vector3(0, verticalSpeed, 0);
+        // 重力を適用
+        velocity.y += gravity * Time.deltaTime;
 
         // 毎フレーム移動する
-        transform.Translate(currentDirection * speed * Time.deltaTime, Space.World);
+        transform.Translate(velocity * Time.deltaTime, Space.World);
     }
+
     void OnCollisionEnter(Collision collision)
     {
-
+        // 衝突時に自身を破壊
         Destroy(this.gameObject);
         if (explosionEffect != null)
         {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
-            Destroy(explosionEffect, 0.5f);
+            // 爆発エフェクトを生成
+            GameObject expl = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(expl, 0.5f);
         }
         Debug.Log("当たった!");
     }

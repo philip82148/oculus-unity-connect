@@ -6,18 +6,24 @@ public class Bullet : MonoBehaviour
 {
     private Vector3 moveDirection;
     private float speed;
+    private Vector3 velocity;
     [SerializeField] private GameObject explosionEffect; // 爆発エフェクトのプレハブ
     [SerializeField] private Renderer thisRenderer;
+
     public void Initialize(Vector3 direction, float speed)
     {
         this.moveDirection = direction;
         this.speed = speed;
     }
-
+    public void Initialize(Vector3 velocity)
+    {
+        this.velocity = velocity;
+    }
     void Update()
     {
         // 毎フレーム移動する
-        transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
+        // transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
+        transform.Translate(velocity * Time.deltaTime, Space.World);
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -25,8 +31,8 @@ public class Bullet : MonoBehaviour
         Destroy(this.gameObject);
         if (explosionEffect != null)
         {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
-            Destroy(explosionEffect, 1f);
+            GameObject expl = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(expl, 1f);
         }
         Debug.Log("当たった!");
     }
