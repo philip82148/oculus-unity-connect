@@ -14,6 +14,9 @@ public class NumberKeyboard : MonoBehaviour
 
     [SerializeField] private VRKeyboardExpController vRKeyboardExpController;
 
+    [Header("Alphabet")]
+    [SerializeField] private List<TextMeshProUGUI> keyboardDisplays = new List<TextMeshProUGUI>();
+
     private int score = 0;
     private int tmpTargetIndex = 0;
     private string userInput = "";
@@ -86,6 +89,9 @@ public class NumberKeyboard : MonoBehaviour
     {
         objectCount = vRKeyboardExpController.GetObjectCount();
         problemText.text = "Type the word:" + correctAnswers[tmpTargetIndex];
+        int index = correctAnswers[tmpTargetIndex][0] - 'A';
+        SetTextColor();
+        Debug.Log("indexindex" + index);
     }
 
 
@@ -100,7 +106,7 @@ public class NumberKeyboard : MonoBehaviour
         if (correctAnswers[tmpTargetIndex].Length <= userInput.Length)
         {
             CheckCorrectTextAnswer();
-            userInput = "";
+
         }
 
     }
@@ -111,6 +117,11 @@ public class NumberKeyboard : MonoBehaviour
         {
             userInput += key;
 
+            // int nextIndex = correctAnswers[tmpTargetIndex][userInput.Length - 1];
+            if (userInput.Length > 0 && key.Length > 0 && key[0] == correctAnswers[tmpTargetIndex][userInput.Length - 1])
+            {
+                SetTextColor();
+            }
         }
         else
         {
@@ -133,6 +144,34 @@ public class NumberKeyboard : MonoBehaviour
     {
         tmpTargetIndex = tmpIndex;
         problemText.text = "Type the word:" + correctAnswers[tmpTargetIndex];
+        SetTextColor();
+        // int index = correctAnswers[tmpTargetIndex][0] - 'A';
+        // keyboardDisplays[index].color = Color.red;
+    }
+
+    private void SetTextColor()
+    {
+        if (userInput.Length == 0)
+        {
+            int index = correctAnswers[tmpTargetIndex][0] - 'A';
+            keyboardDisplays[index].color = Color.red;
+        }
+        else if (0 < userInput.Length && userInput.Length < correctAnswers[tmpTargetIndex].Length)
+        {
+            int tmpIndex = correctAnswers[tmpTargetIndex][userInput.Length - 1] - 'A';
+            keyboardDisplays[tmpIndex].color = Color.black;
+            int index = correctAnswers[tmpTargetIndex][userInput.Length] - 'A';
+            keyboardDisplays[index].color = Color.red;
+        }
+        else
+        {
+            // 全て入力済みの場合、ハイライトを解除（全てblackに戻すなど）
+            // もしくは必要な処理なしでもよい。
+            // ここで最終文字をblackに戻したいなら:
+            int prevIndex = correctAnswers[tmpTargetIndex][correctAnswers[tmpTargetIndex].Length - 1] - 'A';
+            keyboardDisplays[prevIndex].color = Color.black;
+        }
+
     }
 
 
@@ -156,8 +195,17 @@ public class NumberKeyboard : MonoBehaviour
         if (userInput.Equals(correctAnswers[tmpTargetIndex]))
         {
             score += 1;
+
+
         }
-        SetNextTarget();
+        if (userInput.Length > 0)
+        {
+            int tmpIndex = correctAnswers[tmpTargetIndex][userInput.Length - 1] - 'A';
+            keyboardDisplays[tmpIndex].color = Color.black;
+        }
+
+        SetNextTarget(); // 次のターゲットへ
+        userInput = "";
     }
     public void ResetScore()
     {
@@ -172,6 +220,8 @@ public class NumberKeyboard : MonoBehaviour
         // インデックスを1増やし、全問題を出題し終えたら先頭に戻る
         tmpTargetIndex = (tmpTargetIndex + 1) % correctAnswers.Length;
         problemText.text = "Type the word:" + correctAnswers[tmpTargetIndex];
+        userInput = "";
+        SetTextColor();
     }
 
 

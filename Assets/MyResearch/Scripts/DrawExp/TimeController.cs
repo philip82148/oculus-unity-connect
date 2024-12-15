@@ -53,7 +53,7 @@ public class TimeController : MonoBehaviour
         {
             countDownTime -= Time.deltaTime;
             countDownText.text = "count " + countDownTime.ToString("f0");
-            if (countDownTime <= 0)
+            if (countDownTime <= 0.5f)
             {
                 StartGame();
                 countDownPanel.SetActive(false);
@@ -113,9 +113,9 @@ public class TimeController : MonoBehaviour
     public void EndGame()
     {
         isGame = false;
-        gameFinishDiplayCanvas.SetActive(true);
+        if (gameFinishDiplayCanvas != null) gameFinishDiplayCanvas.SetActive(true);
         // descriptionText.text = "";
-        drawExperienceController.EndGame();
+        if (drawExperienceController != null) drawExperienceController.EndGame();
     }
 
     public void SetRemainingTime(float remainingTime)

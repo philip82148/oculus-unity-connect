@@ -8,7 +8,7 @@ using UnityEngine.PlayerLoop;
 
 public class VRKeyboardExpController : MonoBehaviour
 {
-    [SerializeField] private GameObject baseObject;
+
     [SerializeField] private Vector3 startCoordinate;
     [SerializeField] private float centralRequiredLength = 0.06f;
     [Header("Setting")]
@@ -51,7 +51,7 @@ public class VRKeyboardExpController : MonoBehaviour
     // private int ansSecondIndex = -1;
 
     private const int FIXED_NON_ANSWER_INDEX = -2;
-    private float gameTime = 60f;
+    private float gameTime = 120f;
 
 
     // Start is called before the first frame update
@@ -124,6 +124,7 @@ public class VRKeyboardExpController : MonoBehaviour
         if (isGame)
         {
             UpdateTimer();
+            Debug.Log("game start");
             // restCountText.text = "rest:" + restCount.ToString();
         }
 
@@ -136,7 +137,7 @@ public class VRKeyboardExpController : MonoBehaviour
         gameTime -= Time.deltaTime;
 
         // タイマー表示の更新
-        timerText.text = "Time: " + Mathf.Clamp(gameTime, 0, 999).ToString("F2");
+        timerText.text = "Time: " + gameTime.ToString("F2");
 
         if (gameTime <= 0)
         {
@@ -153,7 +154,7 @@ public class VRKeyboardExpController : MonoBehaviour
     {
         isGame = false;
         // ゲームオーバーの表示やスコアの表示など
-        timerText.text = "Time: 0.00";
+        timerText.text = "Game finished!";
         // Debug.Log("Game Over! Final Score: " + numberKeyboard.GetScore());
         // 必要に応じて他のUIを更新
         dataLoggerController.Close();

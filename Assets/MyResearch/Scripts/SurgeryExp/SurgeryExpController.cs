@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 
@@ -25,10 +26,12 @@ public class SurgeryExpController : MonoBehaviour
     [SerializeField] private float requiredLength;
 
     private int targetIndex = 0;
+    private int gameTime = 120;
 
     private bool isGame = false;
 
     private int score = 0;
+    private int mistake = 0;
 
     // private 
 
@@ -55,6 +58,7 @@ public class SurgeryExpController : MonoBehaviour
         {
             // isGame = true;
             timeController.StartGameCountDown();
+            timeController.SetRemainingTime(gameTime);
             SetNextTarget();
         }
 
@@ -65,7 +69,7 @@ public class SurgeryExpController : MonoBehaviour
             {
                 dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
             }
-            if (tmpIndex == -1) return;
+            // if (tmpIndex == -1) return;
             // targetIndex = tmpIndex;
             CheckCorrectAnswer(tmpIndex);
             SetNextTarget();
@@ -81,8 +85,12 @@ public class SurgeryExpController : MonoBehaviour
         {
             score += 1;
         }
+        else
+        {
+            mistake += 1;
+        }
 
-        scoreText.text = "score:" + score.ToString();
+        scoreText.text = "score:" + score.ToString() + "\n" + "mistake:" + mistake.ToString();
     }
     public void CallGameStart()
     {
