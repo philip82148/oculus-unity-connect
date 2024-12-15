@@ -1890,6 +1890,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &108731291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 108731292}
+  m_Layer: 0
+  m_Name: TargetOrange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &108731292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108731291}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 292283665}
+  - {fileID: 271218222}
+  m_Father: {fileID: 1516516717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &109969056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4489,6 +4522,7 @@ MonoBehaviour:
   speed: 0
   thisRenderer: {fileID: 0}
   colorList: []
+  targetList: []
 --- !u!1 &546280166
 GameObject:
   m_ObjectHideFlags: 0
@@ -10993,7 +11027,7 @@ GameObject:
   - component: {fileID: 1516516717}
   - component: {fileID: 1516516718}
   m_Layer: 0
-  m_Name: Traget
+  m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11014,8 +11048,7 @@ Transform:
   m_Children:
   - {fileID: 4027911746812377}
   - {fileID: 2098528849}
-  - {fileID: 292283665}
-  - {fileID: 271218222}
+  - {fileID: 108731292}
   m_Father: {fileID: 1756171637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1516516718
@@ -11025,7 +11058,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516516716}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 329b890167f50bc40b88c62bdeede4b1, type: 3}
   m_Name: 
@@ -12058,6 +12091,10 @@ MonoBehaviour:
   - {r: 0.003144443, g: 0.06076584, b: 1, a: 0}
   - {r: 0.9811321, g: 0.423777, b: 0.021597084, a: 0}
   - {r: 0.023529401, g: 0.98039216, b: 0.1527289, a: 0}
+  targetList:
+  - {fileID: 2098528848}
+  - {fileID: 108731291}
+  - {fileID: 1104354806097269}
 --- !u!114 &1756171633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12458,7 +12495,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ed0c0c828c2c4ba478d82c99bc97b04c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.211
+  m_Volume: 0.08
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -14093,7 +14130,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1516516717}
+    m_TransformParent: {fileID: 108731292}
     m_Modifications:
     - target: {fileID: 1697469729186176, guid: 7be53cd1ba31c4e9ca27a4d658c30097, type: 3}
       propertyPath: m_Name
@@ -14548,11 +14585,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1516516717}
+    m_TransformParent: {fileID: 108731292}
     m_Modifications:
     - target: {fileID: 1966495085624900, guid: a625938e19d514810b1da7927d4e64e8, type: 3}
       propertyPath: m_Name
-      value: Target4white
+      value: TargetRed
       objectReference: {fileID: 0}
     - target: {fileID: 4498168330396960, guid: a625938e19d514810b1da7927d4e64e8, type: 3}
       propertyPath: m_LocalScale.x

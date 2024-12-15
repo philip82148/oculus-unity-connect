@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Renderer thisRenderer;
     [SerializeField] private List<Color> colorList;
+    [SerializeField] private List<GameObject> targetList;
     private float switchInterval = 2f; // 状態を切り替える間隔（秒）
     private int targetColorIndex = 0;
 
@@ -96,12 +97,33 @@ public class EnemyController : MonoBehaviour
     {
         thisRenderer.material.color = color;
     }
+
+    public void SetTargetActivation(int randomIndex)
+    {
+        for (int i = 0; i < targetList.Count; i++)
+        {
+            if (i == randomIndex)
+            {
+                targetList[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                targetList[i].gameObject.SetActive(false);
+            }
+        }
+
+    }
     private IEnumerator SetRandomColor()
     {
         while (true)
         {
+            int randomIndex;
             // ランダムに1つのオブジェクトをアクティブにし、他を非アクティブにする
-            int randomIndex = Random.Range(0, colorList.Count);
+            do
+            {
+                randomIndex = Random.Range(0, colorList.Count);
+            } while (randomIndex == targetColorIndex);
+
 
             // for (int i = 0; i < colorList.Count; i++)
             // {
@@ -109,6 +131,8 @@ public class EnemyController : MonoBehaviour
             // }
             targetColorIndex = randomIndex;
             SetColor(colorList[randomIndex]);
+            SetTargetActivation(randomIndex);
+            targetColorIndex = randomIndex;
             // 指定された間隔待つ
             yield return new WaitForSeconds(switchInterval);
         }
