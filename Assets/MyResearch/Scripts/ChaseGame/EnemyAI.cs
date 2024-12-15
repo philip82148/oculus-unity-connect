@@ -55,8 +55,11 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                // 迷路内をランダムに逃げ回る場合
-                RandomFlee();
+                // // 迷路内をランダムに逃げ回る場合
+                // RandomFlee();
+                // 経路が見つからない場合、その場に留まる
+                agent.SetDestination(transform.position);
+                flag = 5;
             }
         }
         else
@@ -69,7 +72,7 @@ public class EnemyAI : MonoBehaviour
         // escape pointに近づいたら次のポイントへ移動指示を出す処理も可能
         if (useEscapePoint && escapePoints.Count > 0)
         {
-            if (!agent.pathPending && agent.remainingDistance < 0.2f)
+            if (!agent.pathPending && agent.remainingDistance < 4f)
             {
                 // 現在のescape pointに到達したら次へ
                 SetNextEscapePoint();
