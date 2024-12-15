@@ -9,6 +9,7 @@ using UnityEngine;
 public class DenseDataLoggerController : MonoBehaviour
 {
     [SerializeField] private DenseSparseExpController denseSparseExpController;
+    [SerializeField] private ChaseGameController chaseGameController;
     private StreamWriter writer;
     private string folder;
 
@@ -29,6 +30,21 @@ public class DenseDataLoggerController : MonoBehaviour
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
 
         string fileName = $"{subjectName}_{denseOrSparse}_{interval}_{dateTime}.txt";
+        string filePath = System.IO.Path.Combine(folder, fileName);
+        FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+        writer = new StreamWriter(fileStream, Encoding.UTF8);
+
+    }
+    public void InitializeAsChaseGame()
+    {
+        subjectName = chaseGameController.GetSubjectName();
+
+        folder = $"C:\\Users\\takaharayota\\Research\\ChaseGame\\{subjectName}";
+        Directory.CreateDirectory(folder);
+
+        string dateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+        string fileName = $"{dateTime}.txt";
         string filePath = System.IO.Path.Combine(folder, fileName);
         FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
         writer = new StreamWriter(fileStream, Encoding.UTF8);

@@ -14,13 +14,25 @@ public class ChaseGameController : MonoBehaviour
     [Header("Controller Setting")]
     [SerializeField] private HandController handController;
     [SerializeField] private WeaponController weaponController;
+    [SerializeField] private DenseDataLoggerController dataLoggerController;
+    [SerializeField] private TimeController timeController;
+    [Header("Hand Setting")]
+    [SerializeField] private GameObject targetHand;
+
+    [Header("Subject Name")]
+    [SerializeField] private string subjectName;
+
+    private Vector3 defaultPosition = new Vector3(2f, -1.85f, 2f);
+
     private int weaponIndex = 0;
+    private bool isGame = false;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        dataLoggerController.InitializeAsChaseGame();
         weaponDisplayText.text = "weapon:" + weaponIndex.ToString();
     }
 
@@ -34,7 +46,20 @@ public class ChaseGameController : MonoBehaviour
             weaponIndex = tmpIndex;
             SetWeapon();
             weaponDisplayText.text = "weapon:" + weaponIndex.ToString();
+            if (isGame)
+            {
+                dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
+            }
         }
+        if (OVRInput.GetDown(OVRInput.Button.Three) && !isGame)
+        {
+            timeController.StartGameCountDown();
+
+        }
+    }
+    public void CallGameStart()
+    {
+        isGame = true;
     }
 
     public void AddScore()
@@ -50,5 +75,18 @@ public class ChaseGameController : MonoBehaviour
     private void SetWeapon()
     {
         weaponController.SetWeapon(weaponIndex);
+    }
+
+    public string GetSubjectName()
+    {
+        return subjectName;
+    }
+    private void OnDestroy()
+    {
+        dataLoggerController.Close();
+    }
+    private Vector3 GetRightIndexFingerPosition()
+    {
+        return targetHand.transform.position;
     }
 }

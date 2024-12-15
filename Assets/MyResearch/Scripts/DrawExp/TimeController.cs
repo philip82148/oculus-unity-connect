@@ -11,6 +11,7 @@ public class TimeController : MonoBehaviour
     [SerializeField] private DrawExperienceController drawExperienceController;
     [SerializeField] private VRKeyboardExpController vRKeyboardExpController;
     [SerializeField] private SurgeryExpController surgeryExpController;
+    [SerializeField] private ChaseGameController chaseGameController;
 
     // [SerializeField] private float GAME_TIME = 90.0f;
     private const float countTime = 5.0f;
@@ -102,6 +103,10 @@ public class TimeController : MonoBehaviour
         if (surgeryExpController != null)
         {
             surgeryExpController.CallGameStart();
+        }
+        if (chaseGameController != null)
+        {
+            chaseGameController.CallGameStart();
         }
     }
 
