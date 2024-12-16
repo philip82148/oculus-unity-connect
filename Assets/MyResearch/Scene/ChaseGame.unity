@@ -1999,7 +1999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &135732870
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3676,7 +3676,6 @@ RectTransform:
   - {fileID: 686930050}
   - {fileID: 451589978}
   - {fileID: 1993660479}
-  - {fileID: 990442804}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4505,7 +4504,9 @@ MonoBehaviour:
   escapePoints: []
   fleeDistance: 5
   enemyController: {fileID: 0}
+  chaseGameController: {fileID: 0}
   agent: {fileID: 517734448}
+  goalDistance: 0
   flag: 0
   useEscapePoint: 1
   wanderRadius: 2
@@ -9378,18 +9379,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990442803}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -592.8649}
+  m_LocalScale: {x: 3, y: 3, z: 1.3029999}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 24687314}
   - {fileID: 1697433494}
   - {fileID: 1843193458}
-  m_Father: {fileID: 438570436}
+  m_Father: {fileID: 1918245500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 14}
+  m_AnchoredPosition: {x: 0, y: -10.358849}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &990442805
@@ -9447,7 +9448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &992565667
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9709,7 +9710,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1e5415e1926114d924d45505447491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 587481380}
+  scoreText: {fileID: 1697433495}
+  clearText: {fileID: 24687315}
+  clickedCountText: {fileID: 1843193459}
+  gameFinishedCanvas: {fileID: 990442803}
   hitPointAboveText: {fileID: 1715894078}
   weaponDisplayText: {fileID: 729886359}
   handController: {fileID: 300016074}
@@ -11638,7 +11642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22.5, y: -2.71}
+  m_AnchoredPosition: {x: 0, y: -2.71}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1697433495
@@ -12290,7 +12294,9 @@ MonoBehaviour:
   - {fileID: 1180525466}
   fleeDistance: 8
   enemyController: {fileID: 1756171632}
+  chaseGameController: {fileID: 1063607447}
   agent: {fileID: 1756171634}
+  goalDistance: 0
   flag: 0
   useEscapePoint: 1
   wanderRadius: 2
@@ -12496,8 +12502,8 @@ MonoBehaviour:
   bombObject: {fileID: 1898322744536314443, guid: 0fd818ca81fa4684a9ac52991b296f85, type: 3}
   ropeObject: {fileID: 3625235177993269370, guid: d4bf2409b77a38c49811ad144bba753a, type: 3}
   weaponSpawnPoint: {fileID: 300016078}
-  bombSpeed: 6
-  bulletSpeed: 8
+  bombSpeed: 8
+  bulletSpeed: 10
   trackingSpace: {fileID: 1489010115}
 --- !u!4 &1831650544
 Transform:
@@ -12526,7 +12532,7 @@ GameObject:
   - component: {fileID: 1843193460}
   - component: {fileID: 1843193459}
   m_Layer: 5
-  m_Name: AccuracyScoreText
+  m_Name: AccuracyClickedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12548,7 +12554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.68, y: -3.02}
+  m_AnchoredPosition: {x: 0, y: -13.01}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1843193459
@@ -13171,7 +13177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1918245497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13249,6 +13255,7 @@ RectTransform:
   m_Children:
   - {fileID: 992565667}
   - {fileID: 135732870}
+  - {fileID: 990442804}
   m_Father: {fileID: 1489010112}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

@@ -9,7 +9,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private List<Transform> escapePoints; // 複数の逃げ地点を保持
     [SerializeField] private float fleeDistance = 0.5f; // 逃げ始める距離
     [SerializeField] private EnemyController enemyController;
+    [SerializeField] private ChaseGameController chaseGameController;
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private float goalDistance;
     private float speed = 4.0f;
     [SerializeField] private int flag = 0;
 
@@ -23,6 +25,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float wanderInterval = 3f;   // 次のランダムポイントを探すまでの間隔
     private float nextWanderTime = 0f;
     private Vector3 currentWanderTarget;
+    private bool isGame = true;
 
     void Start()
     {
@@ -72,12 +75,27 @@ public class EnemyAI : MonoBehaviour
         // escape pointに近づいたら次のポイントへ移動指示を出す処理も可能
         if (useEscapePoint && escapePoints.Count > 0)
         {
-            if (!agent.pathPending && agent.remainingDistance < 4f)
+            if (!agent.pathPending && agent.remainingDistance < 2f)
             {
                 // 現在のescape pointに到達したら次へ
                 SetNextEscapePoint();
             }
         }
+
+        Vector3 lastPosition = escapePoints[escapePoints.Count - 1].position;
+        goalDistance = Mathf.Sqrt((this.transform.position.x - lastPosition.x) * (this.transform.position.x - lastPosition.x)
+                                   + (this.transform.position.z - lastPosition.z) * (this.transform.position.z - lastPosition.z));
+        if (goalDistance < 2f && isGame)
+        {
+            isGame = false;
+            EndGame();
+        }
+    }
+
+
+    private void EndGame()
+    {
+        chaseGameController.EndGame();
     }
 
     void FleeBetweenEscapePoints()

@@ -45,6 +45,7 @@ public class EnemyController : MonoBehaviour
         this.transform.position = defaultPosition;
         hitPoint = DEFAULT_HIT_POINT;
         speed = DEFAULT_SPEED;
+        chaseGameController.SetHP(hitPoint);
 
     }
 
@@ -52,6 +53,16 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         HandleAttack();
+        if (hitPoint <= 0)
+        {
+            GameClear();
+            hitPoint = 0;
+        }
+    }
+
+    private void GameClear()
+    {
+        chaseGameController.GameClear();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -59,45 +70,68 @@ public class EnemyController : MonoBehaviour
         Bullet bullet = collision.gameObject.GetComponent<Bullet>();
         if (bullet != null)
         {
-            // chaseGameController.AddScore();
-            hitPoint -= 1;
-            chaseGameController.SetHP(hitPoint);
+
+
             if (targetColorIndex == 0)
             {
+                hitPoint -= 2;
                 damageTextAnimation.StartAnimation(true);
             }
             else
             {
+                hitPoint -= 1;
                 damageTextAnimation.StartAnimation(false);
             }
+            if (hitPoint <= 0)
+            {
+
+                hitPoint = 0;
+            }
+            chaseGameController.SetHP(hitPoint);
         }
         else if (collision.gameObject.GetComponent<Bomb>() != null)
         {
-            hitPoint -= 1;
-            chaseGameController.SetHP(hitPoint);
+
+
             if (targetColorIndex == 1)
             {
+                hitPoint -= 2;
                 damageTextAnimation.StartAnimation(true);
             }
             else
             {
+                hitPoint -= 1;
                 damageTextAnimation.StartAnimation(false);
             }
+            if (hitPoint <= 0)
+            {
+
+                hitPoint = 0;
+            }
+            chaseGameController.SetHP(hitPoint);
         }
         else if (collision.gameObject.GetComponent<Rope>() != null)
         {
             // this.speed = this.speed / 2;
-            hitPoint -= 1;
+
             Debug.Log("hit water" + speed);
             // enemyAI.SetSpeed(this.speed);
             if (targetColorIndex == 2)
             {
+                hitPoint -= 2;
                 damageTextAnimation.StartAnimation(true);
             }
             else
             {
+                hitPoint -= 1;
                 damageTextAnimation.StartAnimation(false);
             }
+            if (hitPoint <= 0)
+            {
+
+                hitPoint = 0;
+            }
+            chaseGameController.SetHP(hitPoint);
         }
 
     }
