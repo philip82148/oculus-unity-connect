@@ -34,8 +34,8 @@ public class ChaseGameController : MonoBehaviour
     private int weaponIndex = 0;
     private bool isGame = false;
 
-    private int clickedCount = 0;
-    private int correctlyClickedCount = 0;
+    [SerializeField] private int clickedCount = 0;
+    [SerializeField] private int correctlyClickedCount = 0;
     private bool isGameClear = false;
 
     // Start is called before the first frame update
@@ -57,20 +57,21 @@ public class ChaseGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        if (OVRInput.GetDown(OVRInput.Button.One))
         {
             int tmpIndex = handController.GetIndex();
             clickedCount += 1;
+            if (isGame)
+            {
+                dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
+            }
 
             if (tmpIndex == -1) return;
             weaponIndex = tmpIndex;
             correctlyClickedCount += 1;
             SetWeapon();
             weaponDisplayText.text = "weapon:" + weaponIndex.ToString();
-            if (isGame)
-            {
-                dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
-            }
+
         }
         if (OVRInput.GetDown(OVRInput.Button.Three) && !isGame)
         {
@@ -97,7 +98,7 @@ public class ChaseGameController : MonoBehaviour
         }
 
         gameFinishedCanvas.SetActive(true);
-        isGame = false;
+        isGame = false; dataLoggerController.Close();
     }
 
     public void AddScore()

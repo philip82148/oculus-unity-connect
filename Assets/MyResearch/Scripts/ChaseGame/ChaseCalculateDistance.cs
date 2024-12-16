@@ -12,7 +12,8 @@ public class ChaseCalculateDistance : MonoBehaviour
     [SerializeField] private ChaseGameController chaseGameController;
 
     [Header("Calculate Sound")]
-    [SerializeField] private ChaseCalculateSound calculateSound;
+    // [SerializeField] private ChaseCalculateSound calculateSound;
+    [SerializeField] private CalculateSound calculateSound;
 
     [SerializeField] private List<GameObject> targetSoundObjects = new List<GameObject>();
 
@@ -28,9 +29,10 @@ public class ChaseCalculateDistance : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        xRequiredLength = centralObject.transform.localScale.x / 2;
+        xRequiredLength = centralObject.transform.localScale.x / 2 * 2;
         yRequiredLength = centralObject.transform.localScale.y / 2 * 3;
-        zRequiredLength = centralObject.transform.localScale.z / 2;
+        zRequiredLength = centralObject.transform.localScale.z / 2 * 2;
+        calculateSound.SetObjectLength(xRequiredLength / 2);
     }
 
     // Update is called once per frame

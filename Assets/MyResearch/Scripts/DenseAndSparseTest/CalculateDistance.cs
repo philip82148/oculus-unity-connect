@@ -57,8 +57,8 @@ public class CalculateDistance : MonoBehaviour
 
 
                         Vector3 diff = CalculateControllerPositionAndObjectDiffIn3D(targetSoundObjects[i]);
-                        diffs.Add(diff);
-                        // calculateSound.SetCoordinateDiff(diff);
+                        // diffs.Add(diff);
+                        calculateSound.SetCoordinateDiff(diff);
                         isInTerritory = true;
                     }
                 }

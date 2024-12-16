@@ -46,7 +46,7 @@ public class WeaponController : MonoBehaviour
         playerVelocity = (currentPosition - lastPosition) / Time.deltaTime;
         lastPosition = currentPosition;
 
-        if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
             InstantiateWeapon();
         }

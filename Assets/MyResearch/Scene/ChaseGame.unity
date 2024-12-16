@@ -3378,8 +3378,8 @@ Transform:
   m_GameObject: {fileID: 401923982}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0.2, z: 0.05}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0.3, y: 0.175, z: 0.05}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 546280167}
@@ -3950,7 +3950,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 90
+  field of view: 100
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -8322,7 +8322,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3, y: 0.1, z: 0.05}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 546280167}
@@ -9105,8 +9105,8 @@ Transform:
   m_GameObject: {fileID: 935183085}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0.05}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0.3, y: 0.025, z: 0.05}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 546280167}
@@ -9724,6 +9724,8 @@ MonoBehaviour:
   enemyController: {fileID: 1756171632}
   player: {fileID: 1094866173}
   subjectName: dekinai
+  clickedCount: 0
+  correctlyClickedCount: 0
 --- !u!4 &1063607448
 Transform:
   m_ObjectHideFlags: 0
@@ -11262,7 +11264,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529158273}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74b9e2db836e1884f93ef7cc06fa4015, type: 3}
   m_Name: 
@@ -13150,7 +13152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indexFinger: {fileID: 300016071}
   chaseGameController: {fileID: 1063607447}
-  calculateSound: {fileID: 1977287629}
+  calculateSound: {fileID: 1977287627}
   targetSoundObjects:
   - {fileID: 401923982}
   - {fileID: 855496737}
@@ -13957,7 +13959,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977287626}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 007e2d9f5ba0d49459a53a7a16d9dffe, type: 3}
   m_Name: 
@@ -13966,7 +13968,8 @@ MonoBehaviour:
   denseSparseExpController: {fileID: 641086590}
   calculateDistance: {fileID: 1902990669}
   soundLength: 1
-  debugText: {fileID: 0}
+  debugText: {fileID: 1705168609}
+  objectLength: 0.01
 --- !u!4 &1977287628
 Transform:
   m_ObjectHideFlags: 0
@@ -13989,7 +13992,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977287626}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdb690ef55b685b4c84dc1ecc9a57ae0, type: 3}
   m_Name: 

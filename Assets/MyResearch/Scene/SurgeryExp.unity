@@ -7504,10 +7504,10 @@ MonoBehaviour:
   targetHand: {fileID: 37048717}
   scoreText: {fileID: 2146495198}
   targetDisplayText: {fileID: 1467670680}
-  isSound: 1
+  isSound: 0
   dataLoggerController: {fileID: 582857021}
   timeController: {fileID: 1087067929}
-  requiredLength: 0.03
+  requiredLength: 0.02
 --- !u!4 &1342265702
 Transform:
   m_ObjectHideFlags: 0
@@ -9037,7 +9037,7 @@ MonoBehaviour:
   frequencyCoefficient: 1
   frequency: 0
   gain: 1
-  useOverlappedMethod: 1
+  useOverlappedMethod: 0
 --- !u!82 &1533011103
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10080,6 +10080,7 @@ MonoBehaviour:
   calculateDistance: {fileID: 1141064417}
   soundLength: 1
   debugText: {fileID: 897306598}
+  objectLength: 0.01
 --- !u!4 &1716480237
 Transform:
   m_ObjectHideFlags: 0
@@ -11012,7 +11013,7 @@ MonoBehaviour:
   baseObject: {fileID: 0}
   startCoordinate: {x: 0.35, y: 0, z: 0.075}
   interval: 0.04
-  subjectName: "\u5E73\u5CA1"
+  subjectName: "\u7AF9\u6751"
   calculateDistance: {fileID: 1141064417}
   displayTargetPlaceColorController: {fileID: 1785791449}
   targetDisplayTextController: {fileID: 573396050}

@@ -11,8 +11,8 @@ public class CalculateSound : MonoBehaviour
 
 
 
-    private float minFrequency = 200f;
-    private float maxFrequency = 900f;
+    private float minFrequency = 150f;
+    private float maxFrequency = 700f;
     private float amplitudeRange = 16.0f;
 
     private float minAmplitude = 1 / 16f;
@@ -20,6 +20,8 @@ public class CalculateSound : MonoBehaviour
     private double calculatedAmplitude;
     float fixedAmplitude;
     private double calculatedFrequency;
+    // float fixedFrequency;
+    double fixedFrequency;
     private double calculatedPan;
 
 
@@ -35,7 +37,7 @@ public class CalculateSound : MonoBehaviour
     // private float yDiff = 0;
     // private float zDiff = 0;
     private double tZ = 0;
-    private float objectLength = 0.01f;
+    [SerializeField] private float objectLength = 0.01f;
     double frequencyExponent;
 
 
@@ -49,12 +51,14 @@ public class CalculateSound : MonoBehaviour
         // CalculateExponentialFrequency();
         // CalculateExponentialAmplitude();
         // Debug.Log("sound length:" + soundLength);
+
     }
 
     void Update()
     {
         CalculateSoundLength();
-        // debugText.text = "fre:" + calculatedFrequency.ToString() + "\n" + "amp:" + fixedAmplitude.ToString("f2");
+        debugText.text = "fre:" + fixedFrequency.ToString() + "\n" + "amp:" + fixedAmplitude.ToString("f2")
+          + "\n" + "pan:" + calculatedPan.ToString("f2");
 
     }
     public void SetCoordinateDiff(Vector3 diff)
@@ -62,6 +66,7 @@ public class CalculateSound : MonoBehaviour
         // this.yDiff = diff.y;
         // this.zDiff = diff.z;
         // this.xDiff = diff.x;
+
         calculatedFrequency = CalculateExponentialFrequency(diff.y);
         calculatedAmplitude = CalculateExponentialAmplitude(diff.z);
         calculatedPan = CalculateExponentialPan(diff.x);
@@ -107,11 +112,15 @@ public class CalculateSound : MonoBehaviour
         }
         SetAudios();
     }
+    public void SetObjectLength(float length)
+    {
+        objectLength = length;
+    }
 
 
     private double CalculateFrequency(float yDiff)
     {
-        double calculatedFrequency;
+        // double calculatedFrequency;
 
         // calculatedFrequency = centralFrequency - yDiff / soundLength * (maxFrequency - minFrequency) / 2;
         calculatedFrequency = minFrequency + (maxFrequency - minFrequency) / (2 * soundLength) * (yDiff + soundLength);
@@ -119,7 +128,7 @@ public class CalculateSound : MonoBehaviour
     }
     private double CalculateExponentialFrequency(float yDiff)
     {
-        double fixedFrequency;
+
 
         double t = (yDiff + soundLength) / (2 * soundLength);
         frequencyExponent = ConvertToDiscrete(t);
