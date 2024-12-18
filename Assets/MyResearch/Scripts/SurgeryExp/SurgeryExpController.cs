@@ -60,6 +60,7 @@ public class SurgeryExpController : MonoBehaviour
             timeController.StartGameCountDown();
             timeController.SetRemainingTime(gameTime);
             SetNextTarget();
+            Reset();
         }
 
         if (OVRInput.GetDown(OVRInput.Button.One))
@@ -67,6 +68,7 @@ public class SurgeryExpController : MonoBehaviour
             int tmpIndex = handController.GetIndex();
             if (isGame)
             {
+                dataLoggerController.ReflectPlaceChange(targetIndex);
                 dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
             }
             // if (tmpIndex == -1) return;
@@ -76,6 +78,14 @@ public class SurgeryExpController : MonoBehaviour
         }
 
 
+    }
+
+
+    private void Reset()
+    {
+        score = 0;
+        mistake = 0;
+        scoreText.text = "score:" + score.ToString() + "\n" + "mistake:" + mistake.ToString();
     }
 
 
@@ -105,10 +115,10 @@ public class SurgeryExpController : MonoBehaviour
             nextIndex = Random.Range(0, targetObjects.Count);
         } while (nextIndex == targetIndex); // 前回と同じ値であれば再生成
         targetIndex = nextIndex;
-        if (isGame)
-        {
-            dataLoggerController.ReflectPlaceChange(targetIndex);
-        }
+        // if (isGame)
+        // {
+
+        // }
         targetDisplayText.text = "target:" + targetIndex.ToString();
         SetTargetColor();
     }

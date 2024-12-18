@@ -24,6 +24,7 @@ public class ChaseGameController : MonoBehaviour
     [SerializeField] private GameObject targetHand;
     [SerializeField] private EnemyController enemyController;
     [SerializeField] private GameObject player;
+    [SerializeField] private EnemyAI enemyAI;
     // private Vector3 defaultPosition;
 
     [Header("Subject Name")]
@@ -49,6 +50,8 @@ public class ChaseGameController : MonoBehaviour
     private void Initialize()
     {
         enemyController.Initialize();
+        enemyAI.Initialize();
+
         player.transform.position = defaultPosition;
         clickedCount = 0;
         correctlyClickedCount = 0;

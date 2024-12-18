@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -110,11 +111,19 @@ public class NumberKeyboard : MonoBehaviour
         }
 
     }
+    public char TmpTargetKey()
+    {
+        return correctAnswers[tmpTargetIndex][userInput.Length];
+    }
 
     public void OnKeyPressed(string key)
     {
         if (!key.Equals("ERASE"))
         {
+            if (correctAnswers[tmpTargetIndex][userInput.Length] == key[0])
+            {
+                score += 1;
+            }
             userInput += key;
 
             // int nextIndex = correctAnswers[tmpTargetIndex][userInput.Length - 1];
@@ -175,26 +184,26 @@ public class NumberKeyboard : MonoBehaviour
     }
 
 
-    public bool CheckCorrectAnswer(int ansFirstIndex, int ansSecondIndex)
-    {
+    // public bool CheckCorrectAnswer(int ansFirstIndex, int ansSecondIndex)
+    // {
 
-        string ans = convertToAnswers[ansFirstIndex] + convertToAnswers[ansSecondIndex];
-        string correctAnswer = correctAnswers[tmpTargetIndex];
-        Debug.Log(ans + "correct:" + correctAnswer + "text:" + "Type the word:" + correctAnswers[tmpTargetIndex]);
-        // Debug.Log);
-        if (ans.Equals(correctAnswer))
-        {
-            score += 1;
-            return true;
-        }
-        else return false;
-    }
+    //     string ans = convertToAnswers[ansFirstIndex] + convertToAnswers[ansSecondIndex];
+    //     string correctAnswer = correctAnswers[tmpTargetIndex];
+    //     Debug.Log(ans + "correct:" + correctAnswer + "text:" + "Type the word:" + correctAnswers[tmpTargetIndex]);
+    //     // Debug.Log);
+    //     if (ans.Equals(correctAnswer))
+    //     {
+    //         score += 1;
+    //         return true;
+    //     }
+    //     else return false;
+    // }
 
     private void CheckCorrectTextAnswer()
     {
         if (userInput.Equals(correctAnswers[tmpTargetIndex]))
         {
-            score += 1;
+            // score += 1;
 
 
         }
@@ -210,6 +219,7 @@ public class NumberKeyboard : MonoBehaviour
     public void ResetScore()
     {
         score = 0;
+        tmpTargetIndex = 0;
     }
     // private void SetNextTarget()
     // {

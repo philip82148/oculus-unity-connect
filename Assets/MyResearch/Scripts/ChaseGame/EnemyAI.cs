@@ -26,9 +26,11 @@ public class EnemyAI : MonoBehaviour
     private float nextWanderTime = 0f;
     private Vector3 currentWanderTarget;
     private bool isGame = true;
+    private Vector3 defaultPosition;
 
     void Start()
     {
+        defaultPosition = transform.position;
         speed = enemyController.GetSpeed();
         agent.speed = speed;
         agent.updateRotation = false;
@@ -39,6 +41,11 @@ public class EnemyAI : MonoBehaviour
         {
             SetNextEscapePoint();
         }
+    }
+
+    public void Initialize()
+    {
+        transform.position = defaultPosition;
     }
 
     void Update()

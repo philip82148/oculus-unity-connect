@@ -89,7 +89,7 @@ public class VRKeyboardExpController : MonoBehaviour
             // isGame = true;
             numberKeyboard.ResetScore(); // スコアのリセット
             ResetIndex();
-            SetNextTarget();
+            // SetNextTarget();
         }
         if (OVRInput.GetDown(OVRInput.Button.Four))
         {
@@ -99,8 +99,9 @@ public class VRKeyboardExpController : MonoBehaviour
         {
             if (isGame)
             {
-                string tmpAlphabet = handController.GetAlphabet();
-                dataLoggerController.ReflectAlphabetChange(tmpAlphabet);
+                // string tmpAlphabet = handController.GetAlphabet();
+                char tmpAlphabet = numberKeyboard.TmpTargetKey();
+                dataLoggerController.ReflectAlphabetChange(tmpAlphabet.ToString());
                 dataLoggerController.WriteInformation(GetRightIndexFingerPosition());
             }
             // if (ansFirstIndex == FIXED_NON_ANSWER_INDEX)
@@ -186,12 +187,12 @@ public class VRKeyboardExpController : MonoBehaviour
 
 
 
-    public void SetRejoinedIndex()
-    {
-        CheckCorrectAnswer();
-        ResetIndex();
-        SetNextTarget();
-    }
+    // public void SetRejoinedIndex()
+    // {
+    //     CheckCorrectAnswer();
+    //     ResetIndex();
+    //     // SetNextTarget();
+    // }
     private void ResetIndex()
     {
         // ansFirstIndex = FIXED_NON_ANSWER_INDEX;
