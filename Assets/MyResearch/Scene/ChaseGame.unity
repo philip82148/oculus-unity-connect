@@ -9724,7 +9724,7 @@ MonoBehaviour:
   enemyController: {fileID: 1756171632}
   player: {fileID: 1094866173}
   enemyAI: {fileID: 1756171633}
-  subjectName: "\u5E73\u5CA1"
+  subjectName: "\u91CE\u4E2D"
   clickedCount: 0
   correctlyClickedCount: 0
 --- !u!4 &1063607448

@@ -11013,7 +11013,7 @@ MonoBehaviour:
   baseObject: {fileID: 0}
   startCoordinate: {x: 0.35, y: 0, z: 0.075}
   interval: 0.04
-  subjectName: "\u5E73\u5CA1"
+  subjectName: "\u91CE\u4E2D"
   calculateDistance: {fileID: 1141064417}
   displayTargetPlaceColorController: {fileID: 1785791449}
   targetDisplayTextController: {fileID: 573396050}
