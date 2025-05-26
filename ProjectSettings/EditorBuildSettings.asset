@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/MyResearch/Scene/ResearchCustomHands.unity
     guid: 45bc421a4ed4cb546854a406e40a5491
-  - enabled: 1
+  - enabled: 0
     path: Assets/MyResearch/Scene/DenseAndSparse.unity
     guid: 80e751fce3b4640458b4405765bf07e4
+  - enabled: 1
+    path: Assets/MyResearch/Scene/DrawExp.unity
+    guid: 0b5bb67c11681304fb436018c1f499ac
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bd85c47f9c2dae242b681bd67e6d031a, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1ec7ec3bb151dcb4797060c5437add35, type: 2}

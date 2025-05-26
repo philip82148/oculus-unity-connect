@@ -13,7 +13,7 @@ public class TimeController : MonoBehaviour
     [SerializeField] private SurgeryExpController surgeryExpController;
     [SerializeField] private ChaseGameController chaseGameController;
 
-    // [SerializeField] private float GAME_TIME = 90.0f;
+    [SerializeField] private float GAME_TIME = 90.0f;
     private const float countTime = 5.0f;
 
     [Header("UI Setting")]
@@ -42,7 +42,7 @@ public class TimeController : MonoBehaviour
     }
     void Initialize()
     {
-        // remainingTime = GAME_TIME;
+        remainingTime = GAME_TIME;
         countDownTime = countTime;
     }
 
